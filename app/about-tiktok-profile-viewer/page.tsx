@@ -153,50 +153,50 @@ export default function AboutPage() {
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 my-6">
           <Link
             href="/tiktok-video-downloader"
-            className="p-4 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)] hover:border-[var(--accent-primary)] flex items-center justify-between group transition-all"
+            className="p-4 rounded-xl bg-[var(--surface-elevated)] hover:bg-[var(--pastel-blue)]/30 border border-[var(--border-subtle)] hover:border-[var(--accent-cyan)]/75 shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-card-hover)] hover:-translate-y-0.5 flex items-center justify-between group transition-all duration-200"
           >
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 rounded-lg bg-[var(--accent-soft)] text-[var(--accent-primary-text)] border border-[var(--accent-primary)]/40 flex items-center justify-center">
                 <Film className="w-4 h-4" />
               </div>
               <div>
-                <div className="font-bold text-xs text-[var(--ink-primary)] group-hover:text-[var(--accent-primary-text)] transition-colors">HD Video Downloader</div>
+                <div className="font-bold text-xs text-[var(--ink-primary)] group-hover:text-[var(--accent-cyan-text)] transition-colors">HD Video Downloader</div>
                 <div className="text-[11px] text-[var(--ink-muted)]">Save MP4 with no watermark</div>
               </div>
             </div>
-            <ArrowRight className="w-4 h-4 text-[var(--ink-muted)] group-hover:text-[var(--accent-primary-text)] group-hover:translate-x-0.5 transition-all rtl:rotate-180" />
+            <ArrowRight className="w-4 h-4 text-[var(--ink-muted)] group-hover:text-[var(--accent-cyan-text)] group-hover:translate-x-0.5 transition-all rtl:rotate-180" />
           </Link>
 
           <Link
             href="/tiktok-mp3-downloader"
-            className="p-4 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)] hover:border-[var(--accent-primary)] flex items-center justify-between group transition-all"
+            className="p-4 rounded-xl bg-[var(--surface-elevated)] hover:bg-[var(--pastel-blue)]/30 border border-[var(--border-subtle)] hover:border-[var(--accent-cyan)]/75 shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-card-hover)] hover:-translate-y-0.5 flex items-center justify-between group transition-all duration-200"
           >
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 rounded-lg bg-[var(--accent-cyan-soft)] text-[var(--accent-cyan-text)] border border-[var(--accent-cyan)] flex items-center justify-center">
                 <Music className="w-4 h-4" />
               </div>
               <div>
-                <div className="font-bold text-xs text-[var(--ink-primary)] group-hover:text-[var(--accent-primary-text)] transition-colors">Audio Downloader</div>
+                <div className="font-bold text-xs text-[var(--ink-primary)] group-hover:text-[var(--accent-cyan-text)] transition-colors">Audio Downloader</div>
                 <div className="text-[11px] text-[var(--ink-muted)]">Save original MP3 tracks</div>
               </div>
             </div>
-            <ArrowRight className="w-4 h-4 text-[var(--ink-muted)] group-hover:text-[var(--accent-primary-text)] group-hover:translate-x-0.5 transition-all rtl:rotate-180" />
+            <ArrowRight className="w-4 h-4 text-[var(--ink-muted)] group-hover:text-[var(--accent-cyan-text)] group-hover:translate-x-0.5 transition-all rtl:rotate-180" />
           </Link>
 
           <Link
             href="/creators"
-            className="p-4 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)] hover:border-[var(--accent-primary)] flex items-center justify-between group transition-all"
+            className="p-4 rounded-xl bg-[var(--surface-elevated)] hover:bg-[var(--pastel-blue)]/30 border border-[var(--border-subtle)] hover:border-[var(--accent-cyan)]/75 shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-card-hover)] hover:-translate-y-0.5 flex items-center justify-between group transition-all duration-200"
           >
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 rounded-lg bg-[var(--surface-canvas)] text-[var(--ink-primary)] border border-[var(--border-strong)] flex items-center justify-center">
                 <Users className="w-4 h-4" />
               </div>
               <div>
-                <div className="font-bold text-xs text-[var(--ink-primary)] group-hover:text-[var(--accent-primary-text)] transition-colors">Browse Creators</div>
+                <div className="font-bold text-xs text-[var(--ink-primary)] group-hover:text-[var(--accent-cyan-text)] transition-colors">Browse Creators</div>
                 <div className="text-[11px] text-[var(--ink-muted)]">Explore top TikTok stars</div>
               </div>
             </div>
-            <ArrowRight className="w-4 h-4 text-[var(--ink-muted)] group-hover:text-[var(--accent-primary-text)] group-hover:translate-x-0.5 transition-all rtl:rotate-180" />
+            <ArrowRight className="w-4 h-4 text-[var(--ink-muted)] group-hover:text-[var(--accent-cyan-text)] group-hover:translate-x-0.5 transition-all rtl:rotate-180" />
           </Link>
         </div>
 
@@ -210,7 +210,7 @@ export default function AboutPage() {
           </p>
           <Link
             href="/"
-            className="h-9 px-5 rounded-lg bg-[var(--accent-primary)] hover:bg-[var(--accent-primary-hover)] text-[var(--accent-contrast)] font-bold text-xs inline-flex items-center justify-center transition-all"
+            className="h-9 px-5 rounded-lg bg-[var(--accent-primary)] hover:bg-[#F43F5E] hover:-translate-y-0.5 hover:shadow-md text-[var(--accent-contrast)] font-bold text-xs inline-flex items-center justify-center transition-all duration-200"
           >
             Open Profile Viewer
           </Link>

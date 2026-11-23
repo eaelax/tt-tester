@@ -93,7 +93,7 @@ export default function CaptionGeneratorPage() {
                 value={topic}
                 onChange={(e) => setTopic(e.target.value)}
                 placeholder="e.g. 3 morning habits that save time"
-                className="w-full h-10 px-3.5 rounded-lg border border-[var(--border-strong)] bg-[var(--surface-canvas)] text-xs text-[var(--ink-primary)] placeholder:text-[var(--ink-muted)] focus:bg-[var(--surface-elevated)] focus:outline-none focus:border-[var(--accent-primary)] focus:ring-2 focus:ring-[var(--accent-primary)]/15 transition-all"
+                className="w-full h-10 px-3.5 rounded-lg border border-[var(--border-strong)] bg-[var(--surface-canvas)] text-xs text-[var(--ink-primary)] placeholder:text-[var(--ink-muted)] focus:bg-[var(--surface-elevated)] focus:outline-none focus:border-[var(--focus-ring)] focus:ring-4 focus:ring-[var(--focus-ring)]/10 transition-all"
               />
             </div>
 
@@ -107,10 +107,10 @@ export default function CaptionGeneratorPage() {
                     key={cat}
                     type="button"
                     onClick={() => setNiche(cat)}
-                    className={`h-9 px-3 rounded-lg text-xs font-bold transition-all cursor-pointer border ${
+                    className={`h-9 px-3 rounded-lg text-xs font-bold transition-all duration-150 cursor-pointer border ${
                       niche === cat
-                        ? 'bg-[var(--accent-dark)] border-[var(--accent-dark)] text-[var(--accent-contrast)]'
-                        : 'bg-[var(--surface-canvas)] text-[var(--ink-primary)] border-[var(--border-subtle)] hover:bg-[var(--accent-cyan-soft)] hover:border-[var(--accent-cyan)]'
+                        ? 'bg-[var(--pastel-blue)] border-[var(--accent-cyan)] text-[var(--accent-cyan-text)] shadow-xs'
+                        : 'bg-[var(--surface-canvas)] text-[var(--ink-primary)] border-[var(--border-subtle)] hover:bg-[var(--pastel-blue)]/70 hover:border-[var(--accent-cyan)] hover:text-[var(--accent-cyan-text)]'
                     }`}
                   >
                     {cat}
@@ -122,7 +122,7 @@ export default function CaptionGeneratorPage() {
             <button
               type="button"
               onClick={generateNewHook}
-              className="w-full h-10 rounded-lg border border-[var(--border-strong)] bg-[var(--surface-canvas)] hover:bg-[var(--surface-sunken)] text-[var(--ink-primary)] font-bold text-xs flex items-center justify-center gap-2 cursor-pointer transition-colors"
+              className="w-full h-10 rounded-lg border border-[var(--border-strong)] bg-[var(--surface-canvas)] hover:bg-[var(--pastel-blue)]/75 hover:border-[var(--accent-cyan)] text-[var(--ink-primary)] hover:text-[var(--accent-cyan-text)] hover:-translate-y-0.5 hover:shadow-xs font-bold text-xs flex items-center justify-center gap-2 cursor-pointer transition-all duration-200"
             >
               <RefreshCw className="w-3.5 h-3.5" />
               <span>Generate Another Hook</span>
@@ -139,10 +139,10 @@ export default function CaptionGeneratorPage() {
                 <button
                   type="button"
                   onClick={() => void copyToClipboard()}
-                  className="h-9 px-3.5 rounded-lg bg-[var(--accent-dark)] hover:bg-[var(--accent-dark-hover)] text-[var(--accent-contrast)] text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer"
+                  className="h-9 px-3.5 rounded-lg bg-[var(--accent-primary)] hover:bg-[#F43F5E] hover:-translate-y-0.5 hover:shadow-sm text-[var(--accent-contrast)] text-xs font-bold flex items-center gap-1.5 transition-all duration-200 cursor-pointer"
                 >
                   {copied ? (
-                    <Check className="w-3.5 h-3.5 text-[var(--accent-cyan)]" />
+                    <Check className="w-3.5 h-3.5 text-white" />
                   ) : (
                     <Copy className="w-3.5 h-3.5" />
                   )}

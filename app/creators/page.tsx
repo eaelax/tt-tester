@@ -49,7 +49,7 @@ export default function CreatorsDirectoryPage() {
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search creator name or @username..."
               aria-label="Search creators"
-              className="w-full h-9 ps-8 pe-3 rounded-lg bg-[var(--surface-canvas)] border border-[var(--border-strong)] text-xs text-[var(--ink-primary)] placeholder:text-[var(--ink-muted)] focus:bg-[var(--surface-elevated)] focus:outline-none focus:border-[var(--accent-primary)] focus:ring-2 focus:ring-[var(--accent-primary)]/15"
+              className="w-full h-9 ps-8 pe-3 rounded-lg bg-[var(--surface-canvas)] border border-[var(--border-strong)] text-xs text-[var(--ink-primary)] placeholder:text-[var(--ink-muted)] focus:bg-[var(--surface-elevated)] focus:outline-none focus:border-[var(--focus-ring)] focus:ring-2 focus:ring-[var(--focus-ring)]/10"
             />
           </div>
 
@@ -57,10 +57,10 @@ export default function CreatorsDirectoryPage() {
             <button
               type="button"
               onClick={() => setSelectedCategory('all')}
-              className={`h-8 px-3 rounded-full text-xs font-bold shrink-0 transition-colors cursor-pointer border ${
+              className={`h-8 px-3 rounded-full text-xs font-bold shrink-0 transition-all duration-150 cursor-pointer border ${
                 selectedCategory === 'all'
-                  ? 'bg-[var(--accent-primary-hover)] border-[var(--accent-primary-hover)] text-[var(--accent-contrast)]'
-                  : 'bg-[var(--surface-canvas)] border-[var(--border-subtle)] text-[var(--ink-primary)] hover:bg-[var(--accent-cyan-soft)] hover:border-[var(--accent-cyan)]'
+                  ? 'bg-[var(--accent-primary)] border-[var(--accent-primary)] text-[var(--accent-contrast)] hover:bg-[#F43F5E]'
+                  : 'bg-[var(--surface-canvas)] border-[var(--border-subtle)] text-[var(--ink-primary)] hover:bg-[var(--pastel-blue)]/75 hover:border-[var(--accent-cyan)] hover:text-[var(--accent-cyan-text)]'
               }`}
             >
               All Categories
@@ -70,10 +70,10 @@ export default function CreatorsDirectoryPage() {
                 key={cat.slug}
                 type="button"
                 onClick={() => setSelectedCategory(cat.slug)}
-                className={`h-8 px-3 rounded-full text-xs font-bold shrink-0 transition-colors cursor-pointer border ${
+                className={`h-8 px-3 rounded-full text-xs font-bold shrink-0 transition-all duration-150 cursor-pointer border ${
                   selectedCategory === cat.slug
-                    ? 'bg-[var(--accent-primary-hover)] border-[var(--accent-primary-hover)] text-[var(--accent-contrast)]'
-                    : 'bg-[var(--surface-canvas)] border-[var(--border-subtle)] text-[var(--ink-primary)] hover:bg-[var(--accent-cyan-soft)] hover:border-[var(--accent-cyan)]'
+                    ? 'bg-[var(--accent-primary)] border-[var(--accent-primary)] text-[var(--accent-contrast)] hover:bg-[#F43F5E]'
+                    : 'bg-[var(--surface-canvas)] border-[var(--border-subtle)] text-[var(--ink-primary)] hover:bg-[var(--pastel-blue)]/75 hover:border-[var(--accent-cyan)] hover:text-[var(--accent-cyan-text)]'
                 }`}
               >
                 {cat.name.split(' ')[0]}
@@ -88,11 +88,11 @@ export default function CreatorsDirectoryPage() {
             <Link
               key={creator.username}
               href={`/profile/${creator.username}`}
-              className="group p-4 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)] hover:border-[var(--accent-primary)] transition-all flex flex-col justify-between"
+              className="group p-4 rounded-xl bg-[var(--surface-elevated)] hover:bg-[var(--pastel-blue)]/30 border border-[var(--border-subtle)] hover:border-[var(--accent-cyan)]/75 shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-card-hover)] hover:-translate-y-0.5 transition-all duration-200 flex flex-col justify-between"
             >
               <div>
                 <div className="flex items-start gap-3">
-                  <div className="relative w-12 h-12 rounded-full overflow-hidden bg-[var(--surface-sunken)] shrink-0 border border-[var(--border-strong)]">
+                  <div className="relative w-12 h-12 rounded-full overflow-hidden bg-[var(--surface-sunken)] shrink-0 border border-[var(--border-strong)] group-hover:border-[var(--accent-cyan)] transition-colors">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={creator.avatar || `/api/avatar?username=${encodeURIComponent(creator.username)}`}
@@ -109,14 +109,14 @@ export default function CreatorsDirectoryPage() {
 
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-1.5">
-                      <span className="text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-[var(--accent-dark)] text-[var(--accent-contrast)] tabular-nums">
+                      <span className="text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-[var(--pastel-blue)] border border-[var(--pastel-blue-border)] text-[var(--accent-cyan-text)] tabular-nums">
                         #{index + 1}
                       </span>
                       <span className="text-[11px] text-[var(--ink-muted)] font-semibold truncate">
                         {creator.country}
                       </span>
                     </div>
-                    <h2 className="text-sm font-bold text-[var(--ink-primary)] group-hover:text-[var(--accent-primary-text)] transition-colors truncate mt-1">
+                    <h2 className="text-sm font-bold text-[var(--ink-primary)] group-hover:text-[var(--accent-cyan-text)] transition-colors truncate mt-1">
                       {creator.displayName}
                     </h2>
                     <p className="text-[11px] font-mono font-semibold text-[var(--ink-muted)] truncate">
@@ -141,7 +141,7 @@ export default function CreatorsDirectoryPage() {
                     <strong className="text-[var(--ink-primary)] font-mono tabular-nums">{creator.likes}</strong>
                   </div>
                 </div>
-                <div className="flex items-center gap-1 text-[var(--ink-primary)] group-hover:text-[var(--accent-primary-text)] font-bold group-hover:translate-x-0.5 transition-all">
+                <div className="flex items-center gap-1 text-[var(--ink-primary)] group-hover:text-[var(--accent-cyan-text)] font-bold group-hover:translate-x-0.5 transition-all">
                   <span>View</span>
                   <ChevronRight className="w-3.5 h-3.5 rtl:rotate-180" />
                 </div>

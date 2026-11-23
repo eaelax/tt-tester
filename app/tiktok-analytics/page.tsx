@@ -194,12 +194,12 @@ export default function AnalyticsPage() {
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               disabled={loading}
-              className="w-full h-11 ps-10 pe-28 rounded-xl border border-[var(--border-strong)] bg-[var(--surface-elevated)] text-[var(--ink-primary)] text-xs sm:text-sm font-medium focus:outline-none focus:border-[var(--accent-primary)] focus:ring-2 focus:ring-[var(--accent-primary)]/15 transition-all disabled:opacity-60"
+              className="w-full h-11 ps-10 pe-28 rounded-xl border border-[var(--border-strong)] bg-[var(--surface-elevated)] text-[var(--ink-primary)] text-xs sm:text-sm font-medium focus:outline-none focus:border-[var(--focus-ring)] focus:ring-4 focus:ring-[var(--focus-ring)]/10 transition-all disabled:opacity-60"
             />
             <button
               type="submit"
               disabled={loading || !username.trim()}
-              className="absolute end-1.5 h-8 px-4 rounded-lg bg-[var(--accent-dark)] hover:bg-[var(--accent-dark-hover)] disabled:bg-[var(--state-disabled-bg)] disabled:text-[var(--state-disabled-ink)] disabled:cursor-not-allowed text-[var(--accent-contrast)] font-bold text-xs transition-all cursor-pointer"
+              className="absolute end-1.5 h-8 px-4 rounded-lg bg-[var(--accent-primary)] hover:bg-[#F43F5E] hover:-translate-y-0.5 hover:shadow-sm disabled:bg-[var(--state-disabled-bg)] disabled:text-[var(--state-disabled-ink)] disabled:translate-y-0 disabled:shadow-none disabled:cursor-not-allowed text-[var(--accent-contrast)] font-bold text-xs transition-all duration-200 cursor-pointer"
             >
               {loading ? 'Analyzing...' : 'Analyze'}
             </button>
@@ -352,7 +352,7 @@ export default function AnalyticsPage() {
                     {videos.slice(0, 6).map((v) => (
                       <div
                         key={v.id}
-                        className="flex flex-col sm:flex-row sm:items-center gap-3 p-3 rounded-lg bg-[var(--surface-canvas)] border border-[var(--border-subtle)] hover:border-[var(--border-strong)] transition-colors"
+                        className="flex flex-col sm:flex-row sm:items-center gap-3 p-3 rounded-lg bg-[var(--surface-canvas)] hover:bg-[var(--pastel-blue)]/30 border border-[var(--border-subtle)] hover:border-[var(--accent-cyan)]/70 transition-all duration-200"
                       >
                         <div className="relative w-12 h-14 rounded-md overflow-hidden shrink-0 bg-[var(--surface-sunken)]">
                           {v.cover ? (
