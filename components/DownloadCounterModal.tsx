@@ -119,7 +119,7 @@ function ModalContent({
         <button
           type="button"
           onClick={onClose}
-          className="w-8 h-8 rounded-lg bg-[var(--surface-canvas)] border border-[var(--border-subtle)] hover:bg-[var(--surface-sunken)] text-[var(--ink-secondary)] hover:text-[var(--ink-primary)] flex items-center justify-center transition-colors cursor-pointer shrink-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--focus-ring)]"
+          className="w-8 h-8 rounded-lg bg-[var(--surface-canvas)] border border-[var(--border-subtle)] hover:bg-[var(--pastel-pink)]/75 hover:border-[var(--pastel-pink-border)] text-[var(--ink-secondary)] hover:text-[var(--accent-primary-text)] flex items-center justify-center transition-colors cursor-pointer shrink-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--focus-ring)]"
           aria-label={t('modal.close')}
           title={t('modal.close')}
         >
@@ -201,7 +201,7 @@ function ModalContent({
                 type="button"
                 disabled={isDownloading || !downloadUrl}
                 onClick={handleManualDownloadClick}
-                className="w-full h-10 px-4 rounded-lg bg-[var(--accent-primary)] hover:bg-[var(--accent-primary-hover)] disabled:bg-[var(--state-disabled-bg)] disabled:text-[var(--state-disabled-ink)] disabled:cursor-not-allowed text-[var(--accent-contrast)] font-bold text-xs flex items-center justify-center gap-2 transition-colors cursor-pointer"
+                className="w-full h-10 px-4 rounded-lg bg-[var(--accent-primary)] hover:bg-[#F43F5E] hover:-translate-y-0.5 hover:shadow-md active:translate-y-0 disabled:bg-[var(--state-disabled-bg)] disabled:text-[var(--state-disabled-ink)] disabled:translate-y-0 disabled:cursor-not-allowed text-[var(--accent-contrast)] font-bold text-xs flex items-center justify-center gap-2 transition-all duration-200 cursor-pointer"
               >
                 {isDownloading ? (
                   <>
@@ -227,7 +227,7 @@ function ModalContent({
               <button
                 type="button"
                 onClick={onClose}
-                className="w-full h-10 px-4 rounded-lg bg-[var(--surface-elevated)] hover:bg-[var(--surface-sunken)] border border-[var(--border-strong)] text-[var(--ink-primary)] font-semibold text-xs transition-colors cursor-pointer"
+                className="w-full h-10 px-4 rounded-lg bg-[var(--surface-elevated)] hover:bg-[var(--pastel-blue)]/75 border border-[var(--border-strong)] hover:border-[var(--accent-cyan)] text-[var(--ink-primary)] hover:text-[var(--accent-cyan-text)] hover:-translate-y-0.5 active:translate-y-0 font-semibold text-xs transition-all duration-200 cursor-pointer"
               >
                 {t('dl.backToVideos')}
               </button>

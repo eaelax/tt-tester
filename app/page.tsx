@@ -128,10 +128,10 @@ export default function HomePage() {
                   </div>
                   <Link
                     href="/how-to-use-tiktok-profile-viewer"
-                    className="h-9 px-4 rounded-lg bg-[var(--surface-elevated)] border border-[var(--border-strong)] hover:bg-[var(--surface-sunken)] text-xs font-semibold text-[var(--ink-primary)] inline-flex items-center gap-1.5 transition-colors shrink-0 w-fit"
+                    className="h-9 px-4 rounded-lg bg-[var(--surface-elevated)] border border-[var(--border-strong)] hover:bg-[var(--pastel-blue)]/75 hover:border-[var(--accent-cyan)] hover:text-[var(--accent-cyan-text)] hover:-translate-y-0.5 hover:shadow-xs text-xs font-semibold text-[var(--ink-primary)] inline-flex items-center gap-1.5 transition-all duration-200 shrink-0 w-fit"
                   >
                     <span>Read full guide</span>
-                    <ChevronRight className="w-3.5 h-3.5 text-[var(--ink-secondary)] rtl:rotate-180" />
+                    <ChevronRight className="w-3.5 h-3.5 text-current rtl:rotate-180" />
                   </Link>
                 </div>
 
@@ -163,10 +163,10 @@ export default function HomePage() {
                   </div>
                   <Link
                     href="/creators"
-                    className="h-9 px-4 rounded-lg bg-[var(--surface-elevated)] border border-[var(--border-strong)] hover:bg-[var(--surface-sunken)] text-xs font-semibold text-[var(--ink-primary)] inline-flex items-center gap-1.5 transition-colors shrink-0 w-fit"
+                    className="h-9 px-4 rounded-lg bg-[var(--surface-elevated)] border border-[var(--border-strong)] hover:bg-[var(--pastel-blue)]/75 hover:border-[var(--accent-cyan)] hover:text-[var(--accent-cyan-text)] hover:-translate-y-0.5 hover:shadow-xs text-xs font-semibold text-[var(--ink-primary)] inline-flex items-center gap-1.5 transition-all duration-200 shrink-0 w-fit"
                   >
                     <span>View all creators</span>
-                    <ChevronRight className="w-3.5 h-3.5 text-[var(--ink-secondary)] rtl:rotate-180" />
+                    <ChevronRight className="w-3.5 h-3.5 text-current rtl:rotate-180" />
                   </Link>
                 </div>
 
@@ -175,7 +175,7 @@ export default function HomePage() {
                     <Link
                       key={creator.username}
                       href={`/profile/${creator.username}`}
-                      className="group p-4 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)] hover:border-[var(--border-strong)] shadow-[var(--shadow-card)] transition-colors flex items-center gap-3.5"
+                      className="group p-4 rounded-xl bg-[var(--surface-elevated)] hover:bg-[var(--pastel-blue)]/25 border border-[var(--border-subtle)] hover:border-[var(--accent-cyan)]/75 shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-card-hover)] hover:-translate-y-0.5 transition-all duration-200 flex items-center gap-3.5"
                     >
                       <div className="relative w-12 h-12 rounded-xl overflow-hidden bg-[var(--surface-sunken)] shrink-0 border border-[var(--border-subtle)]">
                         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -194,7 +194,7 @@ export default function HomePage() {
                       <div className="flex-1 min-w-0">
                         <h3
                           data-no-translate="true"
-                          className="text-sm font-bold text-[var(--ink-primary)] group-hover:text-[var(--accent-primary-text)] transition-colors truncate"
+                          className="text-sm font-bold text-[var(--ink-primary)] group-hover:text-[var(--accent-cyan-text)] transition-colors truncate"
                         >
                           {creator.displayName}
                         </h3>
@@ -216,14 +216,14 @@ export default function HomePage() {
                         </div>
                       </div>
 
-                      <ChevronRight className="w-4 h-4 text-[var(--ink-muted)] group-hover:text-[var(--accent-primary-text)] transition-colors shrink-0 rtl:rotate-180" />
+                      <ChevronRight className="w-4 h-4 text-[var(--ink-muted)] group-hover:text-[var(--accent-cyan-text)] group-hover:translate-x-0.5 transition-all shrink-0 rtl:rotate-180" />
                     </Link>
                   ))}
                 </div>
               </MotionFadeIn>
             </section>
 
-            {/* Band 4: About Tik Profiles Viewer (clean typographic cards, no decorative icons) */}
+            {/* Band 4: About Tik Profiles Viewer */}
             <section
               id="about"
               data-auto-translate="true"
@@ -241,15 +241,15 @@ export default function HomePage() {
                   </div>
                   <Link
                     href="/about-tiktok-profile-viewer"
-                    className="h-9 px-4 rounded-lg bg-[var(--surface-canvas)] border border-[var(--border-strong)] hover:bg-[var(--surface-sunken)] text-xs font-semibold text-[var(--ink-primary)] inline-flex items-center gap-1.5 transition-colors shrink-0 w-fit"
+                    className="h-9 px-4 rounded-lg bg-[var(--surface-canvas)] border border-[var(--border-strong)] hover:bg-[var(--pastel-blue)]/75 hover:border-[var(--accent-cyan)] hover:text-[var(--accent-cyan-text)] hover:-translate-y-0.5 hover:shadow-xs text-xs font-semibold text-[var(--ink-primary)] inline-flex items-center gap-1.5 transition-all duration-200 shrink-0 w-fit"
                   >
                     <span>Read more</span>
-                    <ChevronRight className="w-3.5 h-3.5 text-[var(--ink-secondary)] rtl:rotate-180" />
+                    <ChevronRight className="w-3.5 h-3.5 text-current rtl:rotate-180" />
                   </Link>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div className="p-5 rounded-xl bg-[var(--pastel-blue)]/55 border border-[var(--pastel-blue-border)] flex flex-col gap-2">
+                  <div className="p-5 rounded-xl bg-[var(--pastel-blue)]/55 border border-[var(--pastel-blue-border)] hover:border-[var(--accent-cyan)]/60 hover:-translate-y-0.5 transition-all duration-200 flex flex-col gap-2">
                     <h3 className="text-base font-bold text-[var(--ink-primary)]">
                       Fast Video Player
                     </h3>
@@ -258,7 +258,7 @@ export default function HomePage() {
                     </p>
                   </div>
 
-                  <div className="p-5 rounded-xl bg-[var(--pastel-pink)]/55 border border-[var(--pastel-pink-border)] flex flex-col gap-2">
+                  <div className="p-5 rounded-xl bg-[var(--pastel-pink)]/55 border border-[var(--pastel-pink-border)] hover:border-[var(--accent-primary)]/40 hover:-translate-y-0.5 transition-all duration-200 flex flex-col gap-2">
                     <h3 className="text-base font-bold text-[var(--ink-primary)]">
                       100% Free Forever
                     </h3>
@@ -267,7 +267,7 @@ export default function HomePage() {
                     </p>
                   </div>
 
-                  <div className="p-5 rounded-xl bg-[var(--pastel-lavender)]/55 border border-[var(--pastel-lavender-border)] flex flex-col gap-2">
+                  <div className="p-5 rounded-xl bg-[var(--pastel-lavender)]/55 border border-[var(--pastel-lavender-border)] hover:border-[var(--accent-cyan)]/60 hover:-translate-y-0.5 transition-all duration-200 flex flex-col gap-2">
                     <h3 className="text-base font-bold text-[var(--ink-primary)]">
                       Private &amp; Anonymous
                     </h3>
