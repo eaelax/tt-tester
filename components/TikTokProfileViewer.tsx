@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect, useRef, useCallback } from 'react';
-import Link from 'next/link';
 import { AnimatePresence } from 'motion/react';
 import {
   Search,
@@ -167,6 +166,7 @@ export default function TikTokProfileViewer({
 
   const modalVideoRef = useRef<HTMLVideoElement | null>(null);
   const resultsRef = useRef<HTMLDivElement | null>(null);
+  const pendingScrollRef = useRef<boolean>(false);
   const playbackFallbackStepRef = useRef<number>(0);
   const activeModalIdRef = useRef<string>('');
   const activeCardKeyRef = useRef<string>('');
@@ -186,15 +186,24 @@ export default function TikTokProfileViewer({
     requestAnimationFrame(() => {
       setTimeout(() => {
         if (!resultsRef.current) return;
+        const navEl = document.querySelector('header');
+        const navHeight = navEl ? navEl.getBoundingClientRect().height : 64;
         const rect = resultsRef.current.getBoundingClientRect();
-        const targetTop = window.scrollY + rect.top - 76;
+        const targetTop = window.scrollY + rect.top - navHeight;
         window.scrollTo({
           top: Math.max(0, targetTop),
           behavior: 'smooth',
         });
-      }, 80);
+      }, 60);
     });
   }, []);
+
+  useEffect(() => {
+    if (!loading && pendingScrollRef.current && (authorProfile || videos.length > 0) && resultsRef.current) {
+      pendingScrollRef.current = false;
+      scrollToResults();
+    }
+  }, [loading, authorProfile, videos.length, scrollToResults]);
 
   const handleCopyProfileLink = () => {
     if (typeof window !== 'undefined' && authorProfile) {
@@ -246,6 +255,7 @@ export default function TikTokProfileViewer({
     setNextCursor(null);
     setHasMore(false);
     setHighlightedVideoKey(null);
+    pendingScrollRef.current = false;
     lastDownloadedKeyRef.current = '';
     if (typeof window !== 'undefined') {
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -328,9 +338,11 @@ export default function TikTokProfileViewer({
       );
       if (!targetUser) {
         setErrorMsg(t('search.errorEmpty'));
+        pendingScrollRef.current = false;
         return;
       }
 
+      pendingScrollRef.current = shouldScroll;
       setLoading(true);
       setErrorMsg(null);
       setNextCursor(null);
@@ -342,6 +354,7 @@ export default function TikTokProfileViewer({
         if (!result || result.code !== 0 || !result.data) {
           const errorText =
             result?.msg || t('search.errorNotFound', { username: targetUser });
+          pendingScrollRef.current = false;
           setErrorMsg(errorText);
           setAuthorProfile(null);
           setProfileStats(null);
@@ -388,13 +401,10 @@ export default function TikTokProfileViewer({
         } else if (postVideos.length === 0) {
           setErrorMsg(t('search.errorNoVideos', { username: targetUser }));
         }
-
-        if (shouldScroll) {
-          scrollToResults();
-        }
       } catch (err: unknown) {
         const msg =
           err instanceof Error ? err.message : t('search.errorFailed');
+        pendingScrollRef.current = false;
         setErrorMsg(msg);
         setAuthorProfile(null);
         setProfileStats(null);
@@ -403,7 +413,7 @@ export default function TikTokProfileViewer({
         setLoading(false);
       }
     },
-    [usernameInput, scrollToResults, t]
+    [usernameInput, t]
   );
 
   useEffect(() => {
@@ -667,19 +677,19 @@ export default function TikTokProfileViewer({
         e.preventDefault();
         void handleSearch(undefined, true);
       }}
-      className="relative flex flex-col sm:flex-row items-stretch sm:items-center gap-2 rounded-xl p-1.5 bg-[var(--surface-elevated)]/95 backdrop-blur-sm border border-[var(--border-strong)] focus-within:bg-[var(--surface-elevated)] focus-within:border-[var(--accent-primary)] focus-within:ring-3 focus-within:ring-[var(--accent-primary)]/15 transition-all"
+      className="group relative flex flex-col sm:flex-row items-stretch sm:items-center gap-2 rounded-2xl p-1.5 bg-[var(--surface-elevated)] border border-[var(--border-subtle)] shadow-[var(--shadow-card)] hover:border-[var(--border-strong)] focus-within:border-[var(--focus-ring)] focus-within:shadow-[0_0_0_4px_rgba(15,23,42,0.09)] transition-all duration-200"
     >
       <label htmlFor="tiktok-username-search" className="sr-only">
         {t('search.label')}
       </label>
 
-      <div className="flex items-center flex-1 min-w-0 gap-1.5">
-        <div
+      <div className="flex items-center flex-1 min-w-0 gap-1">
+        <span
           aria-hidden="true"
-          className="flex items-center justify-center w-10 h-10 rounded-lg bg-[var(--surface-canvas)] border border-[var(--border-subtle)] text-[var(--ink-primary)] font-mono font-bold text-sm select-none shrink-0"
+          className="ps-3.5 pe-1 text-xl sm:text-2xl font-black text-[var(--ink-muted)] group-focus-within:text-[var(--accent-primary)] transition-colors select-none shrink-0 leading-none"
         >
           @
-        </div>
+        </span>
 
         <input
           id="tiktok-username-search"
@@ -689,7 +699,7 @@ export default function TikTokProfileViewer({
           onChange={(e) => setUsernameInput(e.target.value)}
           placeholder={t('search.placeholder')}
           disabled={loading}
-          className="w-full bg-transparent h-11 px-2 text-sm sm:text-[15px] text-[var(--ink-primary)] font-medium placeholder:text-[var(--ink-muted)] placeholder:font-normal focus:outline-none disabled:opacity-60"
+          className="w-full bg-transparent h-11 px-1.5 text-sm sm:text-[15px] text-[var(--ink-primary)] font-medium placeholder:text-[var(--ink-muted)] placeholder:font-normal outline-none focus:outline-none focus-visible:outline-none ring-0 focus:ring-0 disabled:opacity-60"
         />
 
         {usernameInput && !loading && (
@@ -707,7 +717,7 @@ export default function TikTokProfileViewer({
       <button
         type="submit"
         disabled={loading}
-        className="shrink-0 h-11 flex items-center justify-center gap-2 px-6 rounded-lg bg-[var(--accent-primary)] hover:bg-[var(--accent-primary-hover)] text-[var(--accent-contrast)] font-bold text-sm transition-colors disabled:bg-[var(--state-disabled-bg)] disabled:text-[var(--state-disabled-ink)] disabled:cursor-not-allowed cursor-pointer"
+        className="shrink-0 h-11 flex items-center justify-center gap-2 px-6 rounded-xl bg-[var(--accent-primary)] hover:bg-[var(--accent-primary-hover)] text-[var(--accent-contrast)] font-bold text-sm transition-colors disabled:bg-[var(--state-disabled-bg)] disabled:text-[var(--state-disabled-ink)] disabled:cursor-not-allowed cursor-pointer"
       >
         {loading ? (
           <>
@@ -725,8 +735,8 @@ export default function TikTokProfileViewer({
   );
 
   const renderPopularRow = () => (
-    <div className="mt-3.5 flex flex-wrap items-center justify-center gap-2">
-      <span className="text-xs font-semibold text-[var(--ink-secondary)] whitespace-nowrap">
+    <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
+      <span className="text-xs font-semibold text-[var(--ink-secondary)] whitespace-nowrap me-0.5">
         {t('search.popular')}
       </span>
       {FEATURED_SUGGESTIONS.map((item) => (
@@ -738,9 +748,12 @@ export default function TikTokProfileViewer({
             setUsernameInput(item.username);
             void handleSearch(item.username, true);
           }}
-          className="h-7 text-xs font-semibold px-3 rounded-full bg-[var(--surface-elevated)]/85 hover:bg-[var(--surface-elevated)] border border-[var(--border-subtle)] hover:border-[var(--accent-primary)] text-[var(--ink-primary)] transition-colors whitespace-nowrap shrink-0 cursor-pointer"
+          className="group h-8 px-3.5 rounded-xl bg-[var(--surface-elevated)]/80 hover:bg-[var(--accent-dark)] border border-[var(--border-subtle)] hover:border-[var(--accent-dark)] text-xs font-semibold text-[var(--ink-primary)] hover:text-[var(--accent-contrast)] shadow-[var(--shadow-card)] transition-all duration-150 whitespace-nowrap shrink-0 cursor-pointer inline-flex items-center gap-0.5 backdrop-blur-xs"
         >
-          @{item.username}
+          <span className="text-[var(--accent-primary)] group-hover:text-[var(--accent-cyan)] font-bold">
+            @
+          </span>
+          <span>{item.username}</span>
         </button>
       ))}
     </div>
@@ -767,10 +780,10 @@ export default function TikTokProfileViewer({
   return (
     <div className="w-full flex flex-col items-center">
       {isWorkbench ? (
-        <section className="w-full hero-studio-backdrop border-b border-[var(--border-subtle)] -mt-16 pt-22 pb-12 sm:pt-26 sm:pb-14">
-          <MotionFadeIn className="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col items-center text-center">
+        <section className="w-full hero-studio-backdrop border-b border-[var(--border-subtle)] -mt-16 pt-28 pb-16 sm:pt-32 sm:pb-24 min-h-[500px] sm:min-h-[580px] flex flex-col justify-center">
+          <MotionFadeIn className="max-w-6xl mx-auto w-full px-4 sm:px-6 flex flex-col items-center text-center">
             {breadcrumbs && (
-              <div className="w-full text-start mb-3">{breadcrumbs}</div>
+              <div className="w-full text-start mb-4">{breadcrumbs}</div>
             )}
 
             {resolvedTitle && (
@@ -779,39 +792,13 @@ export default function TikTokProfileViewer({
               </h1>
             )}
             {resolvedSubtitle && (
-              <p className="text-sm sm:text-base text-[var(--ink-secondary)] mt-3.5 leading-relaxed max-w-2xl">
+              <p className="text-sm sm:text-base text-[var(--ink-secondary)] mt-4 leading-relaxed max-w-2xl">
                 {resolvedSubtitle}
               </p>
             )}
 
-            {/* Header CTAs directly inside hero text block */}
-            <div className="mt-5 flex flex-wrap items-center justify-center gap-2.5">
-              <button
-                type="button"
-                onClick={() => {
-                  setUsernameInput('khaby.lame');
-                  void handleSearch('khaby.lame', true);
-                }}
-                className="h-9 px-4 rounded-lg bg-[var(--accent-dark)] hover:bg-[var(--accent-dark-hover)] text-[var(--accent-contrast)] text-xs font-bold transition-colors cursor-pointer"
-              >
-                {t('hero.ctaTrySample')}
-              </button>
-              <Link
-                href="/creators"
-                className="h-9 px-4 rounded-lg bg-[var(--surface-elevated)]/90 hover:bg-[var(--surface-elevated)] border border-[var(--border-strong)] text-[var(--ink-primary)] text-xs font-semibold inline-flex items-center transition-colors"
-              >
-                {t('hero.ctaCreators')}
-              </Link>
-              <Link
-                href="/tiktok-video-downloader"
-                className="h-9 px-4 rounded-lg bg-[var(--surface-elevated)]/90 hover:bg-[var(--surface-elevated)] border border-[var(--border-strong)] text-[var(--ink-primary)] text-xs font-semibold inline-flex items-center transition-colors"
-              >
-                {t('nav.tool.video.label')}
-              </Link>
-            </div>
-
-            {/* Search field integrated directly into header backdrop (no white outer box) */}
-            <div className="w-full max-w-2xl mt-7 text-start">
+            {/* Search field integrated directly into header backdrop */}
+            <div className="w-full max-w-2xl mt-8 text-start">
               <div className="flex items-center justify-between gap-2 mb-2 px-1">
                 <span className="text-xs font-bold text-[var(--ink-primary)]">
                   {t('search.label')}
@@ -826,8 +813,8 @@ export default function TikTokProfileViewer({
               {renderErrorNotice()}
             </div>
 
-            {/* Clean Typographic Capability Row (no decorative icons) */}
-            <div className="mt-6 flex flex-wrap items-center justify-center gap-x-4 gap-y-1.5 text-xs font-semibold text-[var(--ink-secondary)]">
+            {/* Clean Typographic Capability Row */}
+            <div className="mt-7 flex flex-wrap items-center justify-center gap-x-4 gap-y-1.5 text-xs font-semibold text-[var(--ink-secondary)]">
               <span>{t('cap.hdVideo')}</span>
               <span aria-hidden="true" className="text-[var(--border-strong)]">
                 •
@@ -873,7 +860,7 @@ export default function TikTokProfileViewer({
       {(authorProfile || (videos.length > 0 && !loading)) && (
         <div
           ref={resultsRef}
-          className="w-full max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-10 scroll-mt-20"
+          className="w-full max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-10 min-h-[calc(100vh-4rem)] scroll-mt-16"
         >
           {authorProfile && (
             <MotionFadeIn>

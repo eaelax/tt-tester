@@ -86,7 +86,7 @@ export default function Navbar() {
       }`}
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
-        {/* Brand Mark directly on header background (no white box) */}
+        {/* Brand Mark */}
         <Link
           href="/"
           onClick={handleGoHome}
@@ -111,17 +111,10 @@ export default function Navbar() {
           </div>
         </Link>
 
-        {/* Desktop Nav Links */}
+        {/* Desktop Nav Links: Home, About us, How to use, Tools, Languages */}
         <nav aria-label="Main Navigation" className="hidden lg:flex items-center gap-1.5 shrink-0">
           <Link href="/" onClick={handleGoHome} className={navLinkClass(pathname === '/')}>
             {t('nav.home')}
-          </Link>
-
-          <Link
-            href="/creators"
-            className={navLinkClass(pathname === '/creators')}
-          >
-            {t('nav.creators')}
           </Link>
 
           <Link
@@ -317,13 +310,6 @@ export default function Navbar() {
             className="px-3.5 py-2.5 rounded-lg text-sm font-semibold text-[var(--ink-primary)] hover:bg-[var(--surface-canvas)]"
           >
             {t('nav.home')}
-          </Link>
-          <Link
-            href="/creators"
-            onClick={() => setMobileMenuOpen(false)}
-            className="px-3.5 py-2.5 rounded-lg text-sm font-semibold text-[var(--ink-primary)] hover:bg-[var(--surface-canvas)]"
-          >
-            {t('nav.creators')}
           </Link>
           <Link
             href="/about-tiktok-profile-viewer"
