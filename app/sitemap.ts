@@ -5,7 +5,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = process.env.APP_URL || 'https://tikprofilesviewer.com';
   const currentDate = new Date();
 
-  // Core static & tool pages
+  // Core static & downloader tool pages
   const staticPages: MetadataRoute.Sitemap = [
     {
       url: `${baseUrl}`,
@@ -32,12 +32,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
-      url: `${baseUrl}/tiktok-analytics`,
-      lastModified: currentDate,
-      changeFrequency: 'weekly',
-      priority: 0.85,
-    },
-    {
       url: `${baseUrl}/creators`,
       lastModified: currentDate,
       changeFrequency: 'daily',
@@ -60,24 +54,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: currentDate,
       changeFrequency: 'daily',
       priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/tiktok-money-calculator`,
-      lastModified: currentDate,
-      changeFrequency: 'weekly',
-      priority: 0.85,
-    },
-    {
-      url: `${baseUrl}/tiktok-engagement-calculator`,
-      lastModified: currentDate,
-      changeFrequency: 'weekly',
-      priority: 0.85,
-    },
-    {
-      url: `${baseUrl}/tiktok-caption-generator`,
-      lastModified: currentDate,
-      changeFrequency: 'weekly',
-      priority: 0.85,
     },
     {
       url: `${baseUrl}/tiktok-watermark-remover`,

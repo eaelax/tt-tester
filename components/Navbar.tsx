@@ -11,12 +11,8 @@ const TOOL_ITEMS = [
   { href: '/tiktok-video-downloader', key: 'video' },
   { href: '/tiktok-mp3-downloader', key: 'mp3' },
   { href: '/tiktok-profile-viewer', key: 'viewer' },
-  { href: '/tiktok-analytics', key: 'analytics' },
   { href: '/tiktok-story-downloader', key: 'story' },
   { href: '/tiktok-photo-downloader', key: 'photo' },
-  { href: '/tiktok-money-calculator', key: 'money' },
-  { href: '/tiktok-engagement-calculator', key: 'engagement' },
-  { href: '/tiktok-caption-generator', key: 'caption' },
   { href: '/tiktok-watermark-remover', key: 'watermark' },
 ] as const;
 

@@ -803,10 +803,10 @@ export default function TikTokProfileViewer({
                 {t('hero.ctaCreators')}
               </Link>
               <Link
-                href="/tiktok-analytics"
+                href="/tiktok-video-downloader"
                 className="h-9 px-4 rounded-lg bg-[var(--surface-elevated)]/90 hover:bg-[var(--surface-elevated)] border border-[var(--border-strong)] text-[var(--ink-primary)] text-xs font-semibold inline-flex items-center transition-colors"
               >
-                {t('hero.ctaAnalytics')}
+                {t('nav.tool.video.label')}
               </Link>
             </div>
 

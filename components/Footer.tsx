@@ -57,7 +57,7 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Col 2: Free Tools */}
+        {/* Col 2: Free Downloader Tools */}
         <div className="lg:col-span-3 flex flex-col gap-3">
           <h4 className="text-[11px] font-bold uppercase tracking-wider text-[var(--ink-primary)]">
             {t('footer.freeTools')}
@@ -96,35 +96,30 @@ export default function Footer() {
           </ul>
         </div>
 
-        {/* Col 3: Creator Calculators & Growth */}
+        {/* Col 3: Explore & Guides */}
         <div className="lg:col-span-2 flex flex-col gap-3">
           <h4 className="text-[11px] font-bold uppercase tracking-wider text-[var(--ink-primary)]">
-            {t('footer.creatorGrowth')}
+            {t('footer.exploreHeading')}
           </h4>
           <ul className="flex flex-col gap-2 text-xs text-[var(--ink-secondary)]">
             <li>
-              <Link href="/tiktok-analytics" className="hover:text-[var(--accent-primary-text)] transition-colors">
-                {t('nav.tool.analytics.label')}
-              </Link>
-            </li>
-            <li>
-              <Link href="/tiktok-money-calculator" className="hover:text-[var(--accent-primary-text)] transition-colors">
-                {t('nav.tool.money.label')}
-              </Link>
-            </li>
-            <li>
-              <Link href="/tiktok-engagement-calculator" className="hover:text-[var(--accent-primary-text)] transition-colors">
-                {t('nav.tool.engagement.label')}
-              </Link>
-            </li>
-            <li>
-              <Link href="/tiktok-caption-generator" className="hover:text-[var(--accent-primary-text)] transition-colors">
-                {t('nav.tool.caption.label')}
+              <Link href="/creators" className="hover:text-[var(--accent-primary-text)] transition-colors">
+                {t('nav.creators')}
               </Link>
             </li>
             <li>
               <Link href="/categories" className="hover:text-[var(--accent-primary-text)] transition-colors">
                 {t('nav.categories')}
+              </Link>
+            </li>
+            <li>
+              <Link href="/about-tiktok-profile-viewer" className="hover:text-[var(--accent-primary-text)] transition-colors">
+                {t('nav.about')}
+              </Link>
+            </li>
+            <li>
+              <Link href="/how-to-use-tiktok-profile-viewer" className="hover:text-[var(--accent-primary-text)] transition-colors">
+                {t('nav.howToUse')}
               </Link>
             </li>
           </ul>
