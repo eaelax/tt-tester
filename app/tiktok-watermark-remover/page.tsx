@@ -83,7 +83,7 @@ export default function WatermarkRemoverPage() {
             <section className="w-full bg-[var(--surface-sunken)] border-b border-[var(--border-subtle)] py-10 sm:py-12">
               <div className="max-w-[1120px] mx-auto px-4 sm:px-6">
                 <div className="text-center max-w-xl mx-auto mb-7">
-                  <h2 className="text-2xl sm:text-3xl font-black text-[var(--ink-primary)] tracking-tight">
+                  <h2 className="text-2xl sm:text-3xl font-bold text-[var(--ink-primary)] tracking-tight">
                     Clean Videos With Zero Logo Overlay
                   </h2>
                   <p className="text-sm text-[var(--ink-secondary)] mt-1.5">
@@ -96,7 +96,7 @@ export default function WatermarkRemoverPage() {
                     <div className="w-9 h-9 rounded-lg bg-[var(--accent-soft)] text-[var(--accent-primary-text)] border border-[var(--accent-primary)]/40 flex items-center justify-center">
                       <Eraser className="w-4 h-4" />
                     </div>
-                    <h3 className="text-base font-extrabold text-[var(--ink-primary)]">No Blurring or Cropping</h3>
+                    <h3 className="text-base font-bold text-[var(--ink-primary)]">No Blurring or Cropping</h3>
                     <p className="text-xs sm:text-[13px] text-[var(--ink-secondary)] leading-relaxed">
                       Keep the full video screen clean and sharp without ugly blurred corners or cropped edges.
                     </p>
@@ -106,7 +106,7 @@ export default function WatermarkRemoverPage() {
                     <div className="w-9 h-9 rounded-lg bg-[var(--accent-cyan-soft)] text-[var(--accent-cyan-text)] border border-[var(--accent-cyan)] flex items-center justify-center">
                       <Film className="w-4 h-4" />
                     </div>
-                    <h3 className="text-base font-extrabold text-[var(--ink-primary)]">Direct Clean HD MP4</h3>
+                    <h3 className="text-base font-bold text-[var(--ink-primary)]">Direct Clean HD MP4</h3>
                     <p className="text-xs sm:text-[13px] text-[var(--ink-secondary)] leading-relaxed">
                       Stream and download pure MP4 files ready for editing or reposting on Instagram Reels and YouTube Shorts.
                     </p>
@@ -116,7 +116,7 @@ export default function WatermarkRemoverPage() {
                     <div className="w-9 h-9 rounded-lg bg-[var(--accent-dark)] text-[var(--accent-contrast)] flex items-center justify-center">
                       <Zap className="w-4 h-4 text-[var(--accent-cyan)]" />
                     </div>
-                    <h3 className="text-base font-extrabold text-[var(--ink-primary)]">Fast &amp; 100% Free</h3>
+                    <h3 className="text-base font-bold text-[var(--ink-primary)]">Fast &amp; 100% Free</h3>
                     <p className="text-xs sm:text-[13px] text-[var(--ink-secondary)] leading-relaxed">
                       Unlimited clean watermark removals every day without paying fees or making an account.
                     </p>
@@ -131,7 +131,7 @@ export default function WatermarkRemoverPage() {
                 <AdSlot placement="header" />
 
                 <div>
-                  <h2 className="text-2xl sm:text-3xl font-black text-[var(--ink-primary)] tracking-tight text-center mb-6">
+                  <h2 className="text-2xl sm:text-3xl font-bold text-[var(--ink-primary)] tracking-tight text-center mb-6">
                     Watermark Remover FAQs
                   </h2>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -140,7 +140,7 @@ export default function WatermarkRemoverPage() {
                         key={i}
                         className="p-5 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)] shadow-[var(--shadow-card)] flex flex-col gap-1.5"
                       >
-                        <h3 className="text-sm font-extrabold text-[var(--ink-primary)]">{faq.name}</h3>
+                        <h3 className="text-sm font-bold text-[var(--ink-primary)]">{faq.name}</h3>
                         <p className="text-xs sm:text-[13px] text-[var(--ink-secondary)] leading-relaxed">
                           {faq.acceptedAnswer.text}
                         </p>

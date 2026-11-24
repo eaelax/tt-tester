@@ -64,7 +64,7 @@ export default function CaptionGeneratorPage() {
         <AdSlot placement="header" />
 
         <div className="text-center max-w-2xl mx-auto my-5">
-          <h1 className="text-[length:var(--h1-size)] font-black text-[var(--ink-primary)] tracking-tight leading-tight">
+          <h1 className="text-[length:var(--h1-size)] font-bold text-[var(--ink-primary)] tracking-tight leading-tight">
             TikTok Caption &amp; Hashtag Generator
           </h1>
           <p className="text-xs sm:text-sm text-[var(--ink-secondary)] mt-2 leading-relaxed">

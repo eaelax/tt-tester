@@ -42,7 +42,7 @@ export default function CategoriesPage() {
 
         {/* Compact Hero Section */}
         <div className="text-center max-w-2xl mx-auto mb-7">
-          <h1 className="text-[length:var(--h1-size)] font-black text-[var(--ink-primary)] tracking-tight leading-tight">
+          <h1 className="text-[length:var(--h1-size)] font-bold text-[var(--ink-primary)] tracking-tight leading-tight">
             Explore TikTok by Category
           </h1>
           <p className="text-xs sm:text-sm text-[var(--ink-secondary)] mt-1.5 leading-relaxed">

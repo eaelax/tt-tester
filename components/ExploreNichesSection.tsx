@@ -52,7 +52,7 @@ export default function ExploreNichesSection() {
     <div className="w-full flex flex-col">
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-7">
         <div className="max-w-2xl">
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-[var(--ink-primary)] tracking-tight leading-tight">
+          <h2 className="text-2xl sm:text-3xl font-bold text-[var(--ink-primary)] tracking-tight leading-tight">
             {t('niches.title')}
           </h2>
           <p className="text-sm text-[var(--ink-secondary)] mt-2 leading-relaxed">

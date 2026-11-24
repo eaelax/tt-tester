@@ -96,7 +96,7 @@ export default async function CategoryDetailPage({ params }: Props) {
               <div className="max-w-[1120px] mx-auto px-4 sm:px-6">
                 <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 mb-5">
                   <div>
-                    <h2 className="text-2xl sm:text-3xl font-black text-[var(--ink-primary)] tracking-tight">
+                    <h2 className="text-2xl sm:text-3xl font-bold text-[var(--ink-primary)] tracking-tight">
                       Top {category.name} Creators
                     </h2>
                     <p className="text-sm text-[var(--ink-secondary)] mt-1">
@@ -133,7 +133,7 @@ export default async function CategoryDetailPage({ params }: Props) {
                       </div>
 
                       <div className="flex-1 min-w-0">
-                        <h3 className="text-sm font-extrabold text-[var(--ink-primary)] group-hover:text-[var(--accent-cyan-text)] transition-colors truncate">
+                        <h3 className="text-sm font-bold text-[var(--ink-primary)] group-hover:text-[var(--accent-cyan-text)] transition-colors truncate">
                           {creator.displayName}
                         </h3>
                         <p className="text-xs font-mono font-semibold text-[var(--ink-muted)] truncate">
@@ -158,7 +158,7 @@ export default async function CategoryDetailPage({ params }: Props) {
               <section className="w-full bg-[var(--surface-elevated)] border-b border-[var(--border-subtle)] py-10 sm:py-12">
                 <div className="max-w-[1120px] mx-auto px-4 sm:px-6">
                   <div className="text-center max-w-xl mx-auto mb-6">
-                    <h2 className="text-2xl sm:text-3xl font-black text-[var(--ink-primary)] tracking-tight">
+                    <h2 className="text-2xl sm:text-3xl font-bold text-[var(--ink-primary)] tracking-tight">
                       Frequently Asked Questions about {category.name}
                     </h2>
                   </div>
@@ -169,7 +169,7 @@ export default async function CategoryDetailPage({ params }: Props) {
                         key={index}
                         className="p-5 rounded-xl bg-[var(--surface-sunken)] border border-[var(--border-subtle)] shadow-[var(--shadow-card)] flex flex-col gap-1.5"
                       >
-                        <h3 className="text-sm font-extrabold text-[var(--ink-primary)]">
+                        <h3 className="text-sm font-bold text-[var(--ink-primary)]">
                           {faq.question}
                         </h3>
                         <p className="text-xs sm:text-[13px] text-[var(--ink-secondary)] leading-relaxed">
@@ -186,7 +186,7 @@ export default async function CategoryDetailPage({ params }: Props) {
             <section className="w-full bg-[var(--surface-canvas)] py-10 sm:py-12">
               <div className="max-w-[1120px] mx-auto px-4 sm:px-6">
                 <div className="flex items-center justify-between mb-4">
-                  <h2 className="text-lg sm:text-xl font-black text-[var(--ink-primary)] tracking-tight">
+                  <h2 className="text-lg sm:text-xl font-bold text-[var(--ink-primary)] tracking-tight">
                     Explore Other Categories
                   </h2>
                   <Link

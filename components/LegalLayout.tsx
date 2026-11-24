@@ -81,7 +81,7 @@ export default function LegalLayout({
           />
 
           <header className="mt-2">
-            <h1 className="text-[length:var(--h1-size)] font-extrabold text-[var(--ink-primary)] tracking-tight leading-tight">
+            <h1 className="text-[length:var(--h1-size)] font-bold text-[var(--ink-primary)] tracking-tight leading-tight">
               {translateText(title)}
             </h1>
 

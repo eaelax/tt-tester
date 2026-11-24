@@ -20,7 +20,7 @@ export default function FaqSection() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
         {/* Left Column */}
         <div className="lg:col-span-5 flex flex-col items-start text-start p-6 rounded-xl bg-[var(--surface-canvas)] border border-[var(--border-subtle)] shadow-[var(--shadow-card)]">
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-[var(--ink-primary)] tracking-tight leading-tight">
+          <h2 className="text-2xl sm:text-3xl font-bold text-[var(--ink-primary)] tracking-tight leading-tight">
             {t('faq.title')}
           </h2>
 

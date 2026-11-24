@@ -175,7 +175,7 @@ export default function AnalyticsPage() {
 
         {/* Compact Header */}
         <div className="text-center max-w-xl mx-auto mb-5">
-          <h1 className="text-[length:var(--h1-size)] font-black text-[var(--ink-primary)] tracking-tight leading-tight">
+          <h1 className="text-[length:var(--h1-size)] font-bold text-[var(--ink-primary)] tracking-tight leading-tight">
             TikTok Profile Analytics
           </h1>
           <p className="text-xs sm:text-sm text-[var(--ink-secondary)] mt-1.5 leading-relaxed">
@@ -235,7 +235,7 @@ export default function AnalyticsPage() {
               />
               <div className="flex-1 text-center sm:text-start min-w-0">
                 <div className="flex items-center justify-center sm:justify-start gap-2 flex-wrap">
-                  <h2 className="text-base sm:text-lg font-extrabold text-[var(--ink-primary)] truncate">
+                  <h2 className="text-base sm:text-lg font-bold text-[var(--ink-primary)] truncate">
                     {profile.nickname}
                   </h2>
                   {profile.verified && (
@@ -253,19 +253,19 @@ export default function AnalyticsPage() {
               </div>
               <div className="flex items-center gap-5 border-t sm:border-t-0 sm:border-s border-[var(--border-subtle)] pt-3 sm:pt-0 sm:ps-5 tabular-nums">
                 <div className="text-center">
-                  <div className="text-base font-black text-[var(--ink-primary)]">
+                  <div className="text-base font-bold text-[var(--ink-primary)]">
                     {formatNum(profile.followers)}
                   </div>
                   <div className="text-[11px] font-semibold text-[var(--ink-muted)]">Followers</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-base font-black text-[var(--ink-primary)]">
+                  <div className="text-base font-bold text-[var(--ink-primary)]">
                     {formatNum(profile.likes)}
                   </div>
                   <div className="text-[11px] font-semibold text-[var(--ink-muted)]">Total Likes</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-base font-black text-[var(--ink-primary)]">
+                  <div className="text-base font-bold text-[var(--ink-primary)]">
                     {formatNum(profile.videosCount)}
                   </div>
                   <div className="text-[11px] font-semibold text-[var(--ink-muted)]">Videos</div>
@@ -282,7 +282,7 @@ export default function AnalyticsPage() {
                       <TrendingUp className="w-4 h-4 text-[var(--accent-primary-text)]" />
                       <span>Engagement Rate</span>
                     </div>
-                    <div className="text-xl sm:text-2xl font-black text-[var(--ink-primary)]">
+                    <div className="text-xl sm:text-2xl font-bold text-[var(--ink-primary)]">
                       {engagementRate}%
                     </div>
                     <p className="text-[11px] text-[var(--ink-muted)] mt-1">
@@ -299,7 +299,7 @@ export default function AnalyticsPage() {
                       <Eye className="w-4 h-4 text-[var(--accent-cyan-text)]" />
                       <span>Avg. Video Views</span>
                     </div>
-                    <div className="text-xl sm:text-2xl font-black text-[var(--ink-primary)]">
+                    <div className="text-xl sm:text-2xl font-bold text-[var(--ink-primary)]">
                       {formatNum(avgViews)}
                     </div>
                     <p className="text-[11px] text-[var(--ink-muted)] mt-1">
@@ -312,7 +312,7 @@ export default function AnalyticsPage() {
                       <Heart className="w-4 h-4 text-[var(--accent-primary-text)]" />
                       <span>Avg. Video Likes</span>
                     </div>
-                    <div className="text-xl sm:text-2xl font-black text-[var(--ink-primary)]">
+                    <div className="text-xl sm:text-2xl font-bold text-[var(--ink-primary)]">
                       {formatNum(avgLikes)}
                     </div>
                     <p className="text-[11px] text-[var(--ink-muted)] mt-1">
@@ -325,7 +325,7 @@ export default function AnalyticsPage() {
                       <Sparkles className="w-4 h-4 text-[var(--accent-cyan-text)]" />
                       <span>Est. Sponsorship Value</span>
                     </div>
-                    <div className="text-xl sm:text-2xl font-black text-[var(--ink-primary)]">
+                    <div className="text-xl sm:text-2xl font-bold text-[var(--ink-primary)]">
                       {followerCountSafe > 0
                         ? `$${estEarningsLow.toLocaleString()} - $${estEarningsHigh.toLocaleString()}`
                         : 'N/A'}

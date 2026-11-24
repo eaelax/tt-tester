@@ -145,7 +145,7 @@ export default async function CreatorProfilePage({ params }: Props) {
         <section className="w-full bg-[var(--surface-sunken)] border-t border-[var(--border-subtle)] py-10 sm:py-12 mt-auto">
           <div className="max-w-[1120px] mx-auto px-4 sm:px-6">
             <div className="text-center max-w-xl mx-auto mb-6">
-              <h2 className="text-2xl sm:text-3xl font-black text-[var(--ink-primary)] tracking-tight">
+              <h2 className="text-2xl sm:text-3xl font-bold text-[var(--ink-primary)] tracking-tight">
                 Frequently Asked Questions
               </h2>
             </div>
@@ -156,7 +156,7 @@ export default async function CreatorProfilePage({ params }: Props) {
                   key={idx}
                   className="p-5 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)] shadow-[var(--shadow-card)] flex flex-col gap-1.5"
                 >
-                  <h3 className="text-sm font-extrabold text-[var(--ink-primary)]">{faq.name}</h3>
+                  <h3 className="text-sm font-bold text-[var(--ink-primary)]">{faq.name}</h3>
                   <p className="text-xs sm:text-[13px] text-[var(--ink-secondary)] leading-relaxed">
                     {faq.acceptedAnswer.text}
                   </p>

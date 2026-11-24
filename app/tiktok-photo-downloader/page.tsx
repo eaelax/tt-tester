@@ -70,7 +70,7 @@ export default function PhotoDownloaderPage() {
             <section className="w-full bg-[var(--surface-canvas)] border-b border-[var(--border-subtle)] py-10 sm:py-12">
               <div className="max-w-6xl mx-auto px-4 sm:px-6">
                 <div className="text-center max-w-xl mx-auto mb-7">
-                  <h2 className="text-2xl sm:text-3xl font-extrabold text-[var(--ink-primary)] tracking-tight">
+                  <h2 className="text-2xl sm:text-3xl font-bold text-[var(--ink-primary)] tracking-tight">
                     Download Slideshow Photos in HD
                   </h2>
                   <p className="text-sm text-[var(--ink-secondary)] mt-1.5">
@@ -118,7 +118,7 @@ export default function PhotoDownloaderPage() {
                 <AdSlot placement="header" />
 
                 <div>
-                  <h2 className="text-2xl sm:text-3xl font-extrabold text-[var(--ink-primary)] tracking-tight text-center mb-6">
+                  <h2 className="text-2xl sm:text-3xl font-bold text-[var(--ink-primary)] tracking-tight text-center mb-6">
                     Photo Downloader FAQs
                   </h2>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

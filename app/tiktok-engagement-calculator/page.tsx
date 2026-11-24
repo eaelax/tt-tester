@@ -60,7 +60,7 @@ export default function EngagementCalculatorPage() {
 
         {/* Compact Hero Header */}
         <div className="text-center max-w-xl mx-auto mb-5">
-          <h1 className="text-[length:var(--h1-size)] font-black text-[var(--ink-primary)] tracking-tight leading-tight">
+          <h1 className="text-[length:var(--h1-size)] font-bold text-[var(--ink-primary)] tracking-tight leading-tight">
             TikTok Engagement Rate Calculator
           </h1>
           <p className="text-xs sm:text-sm text-[var(--ink-secondary)] mt-1.5 leading-relaxed">
@@ -182,7 +182,7 @@ export default function EngagementCalculatorPage() {
               <div className="text-[11px] font-bold uppercase tracking-wider text-[var(--ink-muted)] mb-1">
                 Calculated Engagement Rate
               </div>
-              <div className="text-3xl sm:text-4xl font-black text-[var(--ink-primary)] tracking-tight tabular-nums">
+              <div className="text-3xl sm:text-4xl font-bold text-[var(--ink-primary)] tracking-tight tabular-nums">
                 {engagementRate}%
               </div>
 

@@ -19,7 +19,7 @@ export default function CreatorToolsSection() {
   return (
     <div id="tools" className="w-full scroll-mt-20">
       <div className="text-center max-w-2xl mx-auto mb-8">
-        <h2 className="text-2xl sm:text-3xl font-extrabold text-[var(--ink-primary)] tracking-tight">
+        <h2 className="text-2xl sm:text-3xl font-bold text-[var(--ink-primary)] tracking-tight">
           {t('tools.title')}
         </h2>
         <p className="text-sm text-[var(--ink-secondary)] mt-2 leading-relaxed">

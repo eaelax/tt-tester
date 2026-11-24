@@ -119,7 +119,7 @@ export default function HomePage() {
               <MotionFadeIn inView className="max-w-6xl mx-auto px-4 sm:px-6">
                 <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-7">
                   <div>
-                    <h2 className="text-2xl sm:text-3xl font-extrabold text-[var(--ink-primary)] tracking-tight">
+                    <h2 className="text-2xl sm:text-3xl font-bold text-[var(--ink-primary)] tracking-tight">
                       How to Use Tik Profiles Viewer
                     </h2>
                     <p className="text-sm text-[var(--ink-secondary)] mt-1.5">
@@ -154,7 +154,7 @@ export default function HomePage() {
               <MotionFadeIn inView className="max-w-6xl mx-auto px-4 sm:px-6">
                 <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-7">
                   <div>
-                    <h2 className="text-2xl sm:text-3xl font-extrabold text-[var(--ink-primary)] tracking-tight">
+                    <h2 className="text-2xl sm:text-3xl font-bold text-[var(--ink-primary)] tracking-tight">
                       Trending TikTok Creators
                     </h2>
                     <p className="text-sm text-[var(--ink-secondary)] mt-1.5">
@@ -232,7 +232,7 @@ export default function HomePage() {
               <MotionFadeIn inView className="max-w-6xl mx-auto px-4 sm:px-6">
                 <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-7">
                   <div>
-                    <h2 className="text-2xl sm:text-3xl font-extrabold text-[var(--ink-primary)] tracking-tight">
+                    <h2 className="text-2xl sm:text-3xl font-bold text-[var(--ink-primary)] tracking-tight">
                       About Tik Profiles Viewer
                     </h2>
                     <p className="text-sm text-[var(--ink-secondary)] mt-1.5">

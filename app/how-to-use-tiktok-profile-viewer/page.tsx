@@ -86,7 +86,7 @@ export default function HowToUsePage() {
 
         {/* Hero Section */}
         <div className="text-center max-w-2xl mx-auto my-5">
-          <h1 className="text-[length:var(--h1-size)] font-black text-[var(--ink-primary)] tracking-tight leading-tight">
+          <h1 className="text-[length:var(--h1-size)] font-bold text-[var(--ink-primary)] tracking-tight leading-tight">
             How to Use Tik Profiles Viewer
           </h1>
           <p className="text-xs sm:text-sm text-[var(--ink-secondary)] mt-2.5 leading-relaxed">
@@ -106,7 +106,7 @@ export default function HowToUsePage() {
             id="step-1"
             className="p-4 sm:p-5 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)] flex flex-col sm:flex-row gap-4 items-start"
           >
-            <div className="w-10 h-10 rounded-lg bg-[var(--accent-dark)] text-[var(--accent-contrast)] font-black text-sm flex items-center justify-center shrink-0">
+            <div className="w-10 h-10 rounded-lg bg-[var(--accent-dark)] text-[var(--accent-contrast)] font-bold text-sm flex items-center justify-center shrink-0">
               1
             </div>
             <div className="flex-1 space-y-1.5">
@@ -127,7 +127,7 @@ export default function HowToUsePage() {
             id="step-2"
             className="p-4 sm:p-5 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)] flex flex-col sm:flex-row gap-4 items-start"
           >
-            <div className="w-10 h-10 rounded-lg bg-[var(--accent-dark)] text-[var(--accent-contrast)] font-black text-sm flex items-center justify-center shrink-0">
+            <div className="w-10 h-10 rounded-lg bg-[var(--accent-dark)] text-[var(--accent-contrast)] font-bold text-sm flex items-center justify-center shrink-0">
               2
             </div>
             <div className="flex-1 space-y-1.5">
@@ -148,7 +148,7 @@ export default function HowToUsePage() {
             id="step-3"
             className="p-4 sm:p-5 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)] flex flex-col sm:flex-row gap-4 items-start"
           >
-            <div className="w-10 h-10 rounded-lg bg-[var(--accent-dark)] text-[var(--accent-contrast)] font-black text-sm flex items-center justify-center shrink-0">
+            <div className="w-10 h-10 rounded-lg bg-[var(--accent-dark)] text-[var(--accent-contrast)] font-bold text-sm flex items-center justify-center shrink-0">
               3
             </div>
             <div className="flex-1 space-y-1.5">
@@ -169,7 +169,7 @@ export default function HowToUsePage() {
             id="step-4"
             className="p-4 sm:p-5 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)] flex flex-col sm:flex-row gap-4 items-start"
           >
-            <div className="w-10 h-10 rounded-lg bg-[var(--accent-dark)] text-[var(--accent-contrast)] font-black text-sm flex items-center justify-center shrink-0">
+            <div className="w-10 h-10 rounded-lg bg-[var(--accent-dark)] text-[var(--accent-contrast)] font-bold text-sm flex items-center justify-center shrink-0">
               4
             </div>
             <div className="flex-1 space-y-1.5">
@@ -190,7 +190,7 @@ export default function HowToUsePage() {
             id="step-5"
             className="p-4 sm:p-5 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)] flex flex-col sm:flex-row gap-4 items-start"
           >
-            <div className="w-10 h-10 rounded-lg bg-[var(--accent-dark)] text-[var(--accent-contrast)] font-black text-sm flex items-center justify-center shrink-0">
+            <div className="w-10 h-10 rounded-lg bg-[var(--accent-dark)] text-[var(--accent-contrast)] font-bold text-sm flex items-center justify-center shrink-0">
               5
             </div>
             <div className="flex-1 space-y-1.5">
