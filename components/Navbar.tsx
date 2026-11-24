@@ -180,7 +180,7 @@ export default function Navbar() {
 
           <div className="w-px h-5 bg-[var(--border-strong)]/40 mx-1" />
 
-          {/* Languages Button - Dark Container */}
+          {/* Languages Button - White Background with Short Code */}
           <div className="relative" ref={langRef}>
             <button
               type="button"
@@ -190,19 +190,21 @@ export default function Navbar() {
                 setLangDropdownOpen(!langDropdownOpen);
                 setToolsDropdownOpen(false);
               }}
-              className={`h-9 text-xs font-semibold px-3.5 rounded-full border transition-all cursor-pointer flex items-center gap-2 shadow-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--focus-ring)] ${
+              className={`h-9 text-xs font-semibold px-3 rounded-full border transition-all cursor-pointer flex items-center gap-2 shadow-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--focus-ring)] ${
                 langDropdownOpen
-                  ? 'bg-[var(--accent-dark-hover)] border-slate-700 text-[var(--accent-contrast)] ring-2 ring-slate-900/15'
-                  : 'bg-[var(--accent-dark)] hover:bg-[var(--accent-dark-hover)] border-slate-800 text-[var(--accent-contrast)]'
+                  ? 'bg-white border-[var(--accent-cyan)] text-[var(--ink-primary)] ring-2 ring-[var(--accent-cyan)]/20'
+                  : 'bg-white hover:bg-slate-50 border-[var(--border-subtle)] hover:border-[var(--border-strong)] text-[var(--ink-primary)]'
               }`}
             >
-              <span className="w-5 h-5 rounded-full bg-white/15 text-sky-300 flex items-center justify-center shrink-0">
+              <span className="w-5 h-5 rounded-full bg-[var(--pastel-blue)] text-[var(--accent-cyan-text)] flex items-center justify-center shrink-0">
                 <Globe className="w-3 h-3" />
               </span>
-              <span className="font-semibold tracking-tight">{languageInfo.native}</span>
+              <span data-no-translate="true" className="font-bold tracking-wide">
+                {languageInfo.shortCode}
+              </span>
               <ChevronDown
-                className={`w-3 h-3 text-white/75 transition-transform duration-150 ${
-                  langDropdownOpen ? 'rotate-180 text-white' : ''
+                className={`w-3 h-3 text-[var(--ink-muted)] transition-transform duration-150 ${
+                  langDropdownOpen ? 'rotate-180 text-[var(--ink-primary)]' : ''
                 }`}
               />
             </button>
@@ -250,11 +252,17 @@ export default function Navbar() {
               setLangDropdownOpen(!langDropdownOpen);
               setMobileMenuOpen(false);
             }}
-            className="h-9 px-3 rounded-full bg-[var(--accent-dark)] hover:bg-[var(--accent-dark-hover)] border border-slate-800 text-xs font-semibold text-[var(--accent-contrast)] flex items-center gap-1.5 cursor-pointer transition-all shadow-xs"
+            className="h-9 px-3 rounded-full bg-white hover:bg-slate-50 border border-[var(--border-subtle)] text-xs font-semibold text-[var(--ink-primary)] flex items-center gap-1.5 cursor-pointer transition-all shadow-xs"
           >
-            <Globe className="w-3.5 h-3.5 text-sky-300" />
-            <span>{languageInfo.native}</span>
-            <ChevronDown className="w-3 h-3 text-white/75" />
+            <Globe className="w-3.5 h-3.5 text-[var(--accent-cyan-text)]" />
+            <span data-no-translate="true" className="font-bold tracking-wide">
+              {languageInfo.shortCode}
+            </span>
+            <ChevronDown
+              className={`w-3 h-3 text-[var(--ink-muted)] transition-transform duration-150 ${
+                langDropdownOpen ? 'rotate-180 text-[var(--ink-primary)]' : ''
+              }`}
+            />
           </button>
 
           <button
@@ -296,7 +304,7 @@ export default function Navbar() {
                     : 'bg-[var(--surface-canvas)] border-[var(--border-subtle)] text-[var(--ink-primary)] hover:bg-[var(--pastel-blue)]/30'
                 }`}
               >
-                <span className="truncate">{item.native}</span>
+                <span className="truncate">{item.name}</span>
                 {lang === item.code && (
                   <Check className="w-3.5 h-3.5 text-[var(--accent-cyan-text)] shrink-0" />
                 )}

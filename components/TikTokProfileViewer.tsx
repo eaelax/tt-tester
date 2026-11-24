@@ -167,6 +167,7 @@ export default function TikTokProfileViewer({
 
   const modalVideoRef = useRef<HTMLVideoElement | null>(null);
   const resultsRef = useRef<HTMLDivElement | null>(null);
+  const pendingScrollRef = useRef<boolean>(false);
   const playbackFallbackStepRef = useRef<number>(0);
   const activeModalIdRef = useRef<string>('');
   const activeCardKeyRef = useRef<string>('');
@@ -186,15 +187,24 @@ export default function TikTokProfileViewer({
     requestAnimationFrame(() => {
       setTimeout(() => {
         if (!resultsRef.current) return;
+        const headerEl = document.querySelector('header');
+        const navHeight = headerEl ? headerEl.getBoundingClientRect().height : 64;
         const rect = resultsRef.current.getBoundingClientRect();
-        const targetTop = window.scrollY + rect.top - 68;
+        const targetTop = window.scrollY + rect.top - navHeight;
         window.scrollTo({
           top: Math.max(0, targetTop),
           behavior: 'smooth',
         });
-      }, 70);
+      }, 60);
     });
   }, []);
+
+  useEffect(() => {
+    if (!loading && pendingScrollRef.current && resultsRef.current) {
+      pendingScrollRef.current = false;
+      scrollToResults();
+    }
+  }, [loading, authorProfile, videos.length, scrollToResults]);
 
   const handleCopyProfileLink = () => {
     if (typeof window !== 'undefined' && authorProfile) {
@@ -246,6 +256,7 @@ export default function TikTokProfileViewer({
     setNextCursor(null);
     setHasMore(false);
     setHighlightedVideoKey(null);
+    pendingScrollRef.current = false;
     lastDownloadedKeyRef.current = '';
     if (typeof window !== 'undefined') {
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -331,6 +342,7 @@ export default function TikTokProfileViewer({
         return;
       }
 
+      pendingScrollRef.current = shouldScroll;
       setLoading(true);
       setErrorMsg(null);
       setNextCursor(null);
@@ -346,6 +358,7 @@ export default function TikTokProfileViewer({
           setAuthorProfile(null);
           setProfileStats(null);
           setVideos([]);
+          pendingScrollRef.current = false;
           return;
         }
 
@@ -388,10 +401,6 @@ export default function TikTokProfileViewer({
         } else if (postVideos.length === 0) {
           setErrorMsg(t('search.errorNoVideos', { username: targetUser }));
         }
-
-        if (shouldScroll) {
-          scrollToResults();
-        }
       } catch (err: unknown) {
         const msg =
           err instanceof Error ? err.message : t('search.errorFailed');
@@ -399,11 +408,12 @@ export default function TikTokProfileViewer({
         setAuthorProfile(null);
         setProfileStats(null);
         setVideos([]);
+        pendingScrollRef.current = false;
       } finally {
         setLoading(false);
       }
     },
-    [usernameInput, scrollToResults, t]
+    [usernameInput, t]
   );
 
   useEffect(() => {
@@ -676,7 +686,7 @@ export default function TikTokProfileViewer({
       <div className="flex items-center flex-1 min-w-0">
         <span
           aria-hidden="true"
-          className="flex items-center justify-center leading-none text-xl sm:text-2xl font-bold text-[var(--accent-primary)] select-none shrink-0 ps-3 pe-1 self-center"
+          className="flex items-center justify-center leading-none text-xl sm:text-2xl font-bold text-[var(--accent-primary)] select-none shrink-0 ps-3 pe-1 self-center -mt-2"
         >
           @
         </span>
@@ -738,7 +748,7 @@ export default function TikTokProfileViewer({
             setUsernameInput(item.username);
             void handleSearch(item.username, true);
           }}
-          className="h-7 text-xs font-semibold px-2.5 rounded-lg bg-slate-900/[0.06] hover:bg-[var(--accent-primary)] text-[var(--ink-primary)] hover:text-white border border-slate-900/[0.08] hover:border-[var(--accent-primary)] transition-all duration-150 whitespace-nowrap shrink-0 cursor-pointer hover:-translate-y-0.5 hover:shadow-xs"
+          className="h-7 text-xs font-semibold px-2.5 rounded-lg bg-slate-900/[0.06] hover:bg-[var(--accent-primary)] text-[var(--ink-primary)] hover:text-white border border-slate-900/[0.08] hover:border-[var(--accent-primary)] transition-colors duration-150 whitespace-nowrap shrink-0 cursor-pointer"
         >
           @{item.username}
         </button>
@@ -767,14 +777,14 @@ export default function TikTokProfileViewer({
   return (
     <div className="w-full flex flex-col items-center">
       {isWorkbench ? (
-        <section className="w-full hero-studio-backdrop border-b border-[var(--border-subtle)] -mt-16 pt-22 pb-12 sm:pt-26 sm:pb-14">
+        <section className="w-full hero-studio-backdrop border-b border-[var(--border-subtle)] -mt-16 pt-28 pb-16 sm:pt-36 sm:pb-24 min-h-[440px] sm:min-h-[540px] flex flex-col justify-center">
           <MotionFadeIn className="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col items-center text-center">
             {breadcrumbs && (
               <div className="w-full text-start mb-3">{breadcrumbs}</div>
             )}
 
             {resolvedTitle && (
-              <h1 className="text-[length:var(--h1-size)] font-extrabold tracking-tight text-[var(--ink-primary)] leading-[1.2] max-w-3xl">
+              <h1 className="text-[length:var(--h1-size)] font-black tracking-tight text-[var(--ink-primary)] leading-[1.15] max-w-3xl">
                 {resolvedTitle}
               </h1>
             )}
@@ -828,7 +838,7 @@ export default function TikTokProfileViewer({
           {(resolvedTitle || resolvedSubtitle) && (
             <div className="text-center max-w-2xl mx-auto mb-6">
               {resolvedTitle && (
-                <h1 className="text-[length:var(--h1-size)] font-extrabold text-[var(--ink-primary)] tracking-tight leading-[1.2]">
+                <h1 className="text-[length:var(--h1-size)] font-black text-[var(--ink-primary)] tracking-tight leading-[1.15]">
                   {resolvedTitle}
                 </h1>
               )}
@@ -852,7 +862,7 @@ export default function TikTokProfileViewer({
       {(authorProfile || (videos.length > 0 && !loading)) && (
         <div
           ref={resultsRef}
-          className="w-full max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-10 scroll-mt-20"
+          className="w-full max-w-6xl mx-auto px-4 sm:px-6 pt-6 pb-10 sm:pt-8 sm:pb-12 scroll-mt-16"
         >
           {authorProfile && (
             <MotionFadeIn>
@@ -952,78 +962,69 @@ export default function TikTokProfileViewer({
 
                 <div className="border-t border-[var(--border-subtle)] my-5" />
 
-                {/* 6 Metric Cards with Distinct Soft Flat Colors */}
+                {/* 6 Compact Metric Cards with Uniform Typography Size */}
                 <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5 items-stretch w-full">
                   {/* Status - Soft Mint */}
-                  <div className="h-20 rounded-xl px-3 py-2.5 bg-emerald-50/80 border border-emerald-200/80 hover:border-emerald-300 flex flex-col justify-between items-center text-center shadow-xs transition-colors">
+                  <div className="h-14 rounded-xl px-3 py-2 bg-emerald-50/80 border border-emerald-200/80 hover:border-emerald-300 flex flex-col justify-between items-center text-center shadow-xs transition-colors">
                     <span className="text-[11px] font-semibold text-emerald-900/75 uppercase tracking-wider leading-none truncate w-full">
                       {t('profile.status')}
                     </span>
-                    <span className="text-xs font-bold text-[var(--ink-primary)] leading-none flex items-center justify-center gap-1.5 w-full">
-                      <span
-                        className={`w-2 h-2 rounded-full shrink-0 ${
-                          authorProfile.status === 'private'
-                            ? 'bg-[var(--status-warning)]'
-                            : 'bg-emerald-600'
-                        }`}
-                      />
-                      <span className="truncate">
-                        {authorProfile.status === 'private'
-                          ? t('profile.private')
-                          : t('profile.active')}
-                      </span>
+                    <span className="text-sm font-bold text-[var(--ink-primary)] tracking-tight leading-none truncate w-full">
+                      {authorProfile.status === 'private'
+                        ? t('profile.private')
+                        : t('profile.active')}
                     </span>
                   </div>
 
                   {/* Followers - Soft Sky */}
-                  <div className="h-20 rounded-xl px-3 py-2.5 bg-sky-50/80 border border-sky-200/80 hover:border-sky-300 flex flex-col justify-between items-center text-center shadow-xs transition-colors">
+                  <div className="h-14 rounded-xl px-3 py-2 bg-sky-50/80 border border-sky-200/80 hover:border-sky-300 flex flex-col justify-between items-center text-center shadow-xs transition-colors">
                     <span className="text-[11px] font-semibold text-sky-900/75 uppercase tracking-wider leading-none truncate w-full">
                       {t('profile.followers')}
                     </span>
-                    <span className="text-sm sm:text-base font-bold text-[var(--ink-primary)] font-mono tabular-nums tracking-tight leading-none truncate w-full">
+                    <span className="text-sm font-bold text-[var(--ink-primary)] font-mono tabular-nums tracking-tight leading-none truncate w-full">
                       {formatNumber(profileStats?.followerCount)}
                     </span>
                   </div>
 
                   {/* Total Likes - Soft Rose */}
-                  <div className="h-20 rounded-xl px-3 py-2.5 bg-rose-50/80 border border-rose-200/80 hover:border-rose-300 flex flex-col justify-between items-center text-center shadow-xs transition-colors">
+                  <div className="h-14 rounded-xl px-3 py-2 bg-rose-50/80 border border-rose-200/80 hover:border-rose-300 flex flex-col justify-between items-center text-center shadow-xs transition-colors">
                     <span className="text-[11px] font-semibold text-rose-900/75 uppercase tracking-wider leading-none truncate w-full">
                       {t('profile.totalLikes')}
                     </span>
-                    <span className="text-sm sm:text-base font-bold text-[var(--accent-primary-text)] font-mono tabular-nums tracking-tight leading-none truncate w-full">
+                    <span className="text-sm font-bold text-[var(--accent-primary-text)] font-mono tabular-nums tracking-tight leading-none truncate w-full">
                       {formatNumber(profileStats?.heartCount)}
                     </span>
                   </div>
 
                   {/* Following - Soft Violet */}
-                  <div className="h-20 rounded-xl px-3 py-2.5 bg-violet-50/80 border border-violet-200/80 hover:border-violet-300 flex flex-col justify-between items-center text-center shadow-xs transition-colors">
+                  <div className="h-14 rounded-xl px-3 py-2 bg-violet-50/80 border border-violet-200/80 hover:border-violet-300 flex flex-col justify-between items-center text-center shadow-xs transition-colors">
                     <span className="text-[11px] font-semibold text-violet-900/75 uppercase tracking-wider leading-none truncate w-full">
                       {t('profile.following')}
                     </span>
-                    <span className="text-sm sm:text-base font-bold text-[var(--ink-primary)] font-mono tabular-nums tracking-tight leading-none truncate w-full">
+                    <span className="text-sm font-bold text-[var(--ink-primary)] font-mono tabular-nums tracking-tight leading-none truncate w-full">
                       {formatNumber(profileStats?.followingCount)}
                     </span>
                   </div>
 
                   {/* Videos - Soft Amber */}
-                  <div className="h-20 rounded-xl px-3 py-2.5 bg-amber-50/80 border border-amber-200/80 hover:border-amber-300 flex flex-col justify-between items-center text-center shadow-xs transition-colors">
+                  <div className="h-14 rounded-xl px-3 py-2 bg-amber-50/80 border border-amber-200/80 hover:border-amber-300 flex flex-col justify-between items-center text-center shadow-xs transition-colors">
                     <span className="text-[11px] font-semibold text-amber-900/75 uppercase tracking-wider leading-none truncate w-full">
                       {t('profile.videos')}
                     </span>
-                    <span className="text-sm sm:text-base font-bold text-[var(--ink-primary)] font-mono tabular-nums tracking-tight leading-none truncate w-full">
+                    <span className="text-sm font-bold text-[var(--ink-primary)] font-mono tabular-nums tracking-tight leading-none truncate w-full">
                       {formatNumber(profileStats?.videoCount ?? videos.length)}
                     </span>
                   </div>
 
                   {/* Account Type - Soft Indigo */}
-                  <div className="h-20 rounded-xl px-3 py-2.5 bg-indigo-50/80 border border-indigo-200/80 hover:border-indigo-300 flex flex-col justify-between items-center text-center shadow-xs transition-colors">
+                  <div className="h-14 rounded-xl px-3 py-2 bg-indigo-50/80 border border-indigo-200/80 hover:border-indigo-300 flex flex-col justify-between items-center text-center shadow-xs transition-colors">
                     <span className="text-[11px] font-semibold text-indigo-900/75 uppercase tracking-wider leading-none truncate w-full">
                       {t('profile.accountType')}
                     </span>
-                    <span className="text-xs font-bold text-[var(--ink-primary)] leading-none truncate w-full">
+                    <span className="text-sm font-bold text-[var(--ink-primary)] tracking-tight leading-none truncate w-full">
                       {authorProfile.verified
-                        ? t('profile.verifiedCreator')
-                        : t('profile.publicAccount')}
+                        ? t('profile.verified')
+                        : t('profile.notVerified')}
                     </span>
                   </div>
                 </div>
@@ -1189,17 +1190,17 @@ export default function TikTokProfileViewer({
                       type="button"
                       onClick={() => void handleShowMoreVideos()}
                       disabled={loadingMore}
-                      className="h-11 px-6 rounded-xl bg-[var(--surface-elevated)] hover:bg-[var(--pastel-blue)]/50 border border-[var(--border-strong)]/80 hover:border-[var(--accent-cyan)] text-[var(--ink-primary)] font-semibold text-xs tracking-wide uppercase flex items-center gap-2 transition-all disabled:bg-[var(--state-disabled-bg)] disabled:text-[var(--state-disabled-ink)] cursor-pointer shadow-xs"
+                      className="h-11 px-6 rounded-xl bg-[var(--accent-dark)] hover:bg-[var(--accent-dark-hover)] border border-[var(--accent-dark)] text-[var(--accent-contrast)] font-semibold text-xs tracking-wide uppercase flex items-center gap-2 transition-colors disabled:bg-[var(--state-disabled-bg)] disabled:border-[var(--state-disabled-bg)] disabled:text-[var(--state-disabled-ink)] cursor-pointer shadow-xs"
                     >
                       {loadingMore ? (
                         <>
-                          <Loader2 className="w-3.5 h-3.5 animate-spin text-[var(--accent-primary)]" />
+                          <Loader2 className="w-3.5 h-3.5 animate-spin text-current" />
                           <span>{t('profile.loadingMore')}</span>
                         </>
                       ) : (
                         <>
                           <span>{t('profile.showMore')}</span>
-                          <ChevronDown className="w-3.5 h-3.5 text-[var(--accent-cyan-text)]" />
+                          <ChevronDown className="w-3.5 h-3.5 text-sky-300" />
                         </>
                       )}
                     </button>
@@ -1362,7 +1363,7 @@ export default function TikTokProfileViewer({
                     type="button"
                     disabled={downloadingVideo || downloadingAudio}
                     onClick={() => void handleDownloadAudio()}
-                    className="w-full h-10 px-4 rounded-xl bg-[var(--surface-canvas)] hover:bg-[var(--pastel-blue)]/50 border border-[var(--border-strong)]/80 hover:border-[var(--accent-cyan)] text-[var(--ink-primary)] font-bold text-xs flex items-center justify-center gap-1.5 transition-colors disabled:bg-[var(--state-disabled-bg)] disabled:text-[var(--state-disabled-ink)] cursor-pointer shadow-xs"
+                    className="w-full h-10 px-4 rounded-xl bg-[var(--accent-dark)] hover:bg-[var(--accent-dark-hover)] border border-[var(--accent-dark)] text-[var(--accent-contrast)] font-bold text-xs flex items-center justify-center gap-1.5 transition-colors disabled:bg-[var(--state-disabled-bg)] disabled:border-[var(--state-disabled-bg)] disabled:text-[var(--state-disabled-ink)] cursor-pointer shadow-xs"
                   >
                     {downloadingAudio ? (
                       <>
@@ -1371,7 +1372,7 @@ export default function TikTokProfileViewer({
                       </>
                     ) : (
                       <>
-                        <Music className="w-3.5 h-3.5 text-[var(--accent-cyan-text)]" />
+                        <Music className="w-3.5 h-3.5 text-sky-300" />
                         <span>{t('modal.downloadAudio')}</span>
                       </>
                     )}

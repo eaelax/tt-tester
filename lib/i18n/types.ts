@@ -12,6 +12,7 @@ export type LanguageCode =
 
 export interface LanguageInfo {
   code: LanguageCode;
+  shortCode: string;
   name: string;
   native: string;
   dir: 'ltr' | 'rtl';
@@ -19,16 +20,16 @@ export interface LanguageInfo {
 }
 
 export const SUPPORTED_LANGUAGES: LanguageInfo[] = [
-  { code: 'en', name: 'English', native: 'English', dir: 'ltr', isDefault: true },
-  { code: 'ar', name: 'Arabic', native: 'العربية', dir: 'rtl' },
-  { code: 'fr', name: 'French', native: 'Français', dir: 'ltr' },
-  { code: 'es', name: 'Spanish', native: 'Español', dir: 'ltr' },
-  { code: 'de', name: 'German', native: 'Deutsch', dir: 'ltr' },
-  { code: 'ru', name: 'Russian', native: 'Русский', dir: 'ltr' },
-  { code: 'zh', name: 'Chinese', native: '中文', dir: 'ltr' },
-  { code: 'pt', name: 'Portuguese', native: 'Português', dir: 'ltr' },
-  { code: 'he', name: 'Hebrew', native: 'עברית', dir: 'rtl' },
-  { code: 'hi', name: 'Hindi', native: 'हिन्दी', dir: 'ltr' },
+  { code: 'en', shortCode: 'EN', name: 'English', native: 'English', dir: 'ltr', isDefault: true },
+  { code: 'ar', shortCode: 'AR', name: 'Arabic', native: 'العربية', dir: 'rtl' },
+  { code: 'fr', shortCode: 'FR', name: 'French', native: 'Français', dir: 'ltr' },
+  { code: 'es', shortCode: 'SP', name: 'Spanish', native: 'Español', dir: 'ltr' },
+  { code: 'de', shortCode: 'DE', name: 'German', native: 'Deutsch', dir: 'ltr' },
+  { code: 'ru', shortCode: 'RU', name: 'Russian', native: 'Русский', dir: 'ltr' },
+  { code: 'zh', shortCode: 'CH', name: 'Chinese', native: '中文', dir: 'ltr' },
+  { code: 'pt', shortCode: 'PT', name: 'Portuguese', native: 'Português', dir: 'ltr' },
+  { code: 'he', shortCode: 'HE', name: 'Hebrew', native: 'עברית', dir: 'rtl' },
+  { code: 'hi', shortCode: 'HI', name: 'Hindi', native: 'हिन्दी', dir: 'ltr' },
 ];
 
 export const DEFAULT_LANGUAGE: LanguageCode = 'en';

@@ -71,6 +71,7 @@ const EN_UI: TranslationMap = {
   'cap.mp3Audio': 'Direct MP3 Audio Save',
 
   'profile.verified': 'Verified',
+  'profile.notVerified': 'Not Verified',
   'profile.avatar': 'Save Avatar',
   'profile.copyLink': 'Copy Link',
   'profile.copied': 'Copied',
