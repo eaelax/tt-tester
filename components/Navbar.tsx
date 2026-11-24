@@ -71,18 +71,18 @@ export default function Navbar() {
   }, []);
 
   const navLinkClass = (active: boolean) =>
-    `h-9 px-3.5 rounded-lg inline-flex items-center text-[13px] font-semibold transition-colors border cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--focus-ring)] ${
+    `relative h-9 px-3 inline-flex items-center text-[13px] font-semibold transition-colors duration-150 cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--focus-ring)] rounded-md after:content-[''] after:absolute after:inset-x-3 after:bottom-1 after:h-0.5 after:rounded-full after:bg-[var(--accent-primary)] after:transition-transform after:duration-200 after:origin-center ${
       active
-        ? 'bg-[var(--ink-primary)] text-[var(--accent-contrast)] border-[var(--ink-primary)]'
-        : 'bg-[var(--surface-elevated)] text-[var(--ink-primary)] border-[var(--border-subtle)] hover:bg-[var(--surface-sunken)] hover:border-[var(--border-strong)]'
+        ? 'text-[var(--accent-primary-text)] after:scale-x-100'
+        : 'text-[var(--ink-primary)]/85 hover:text-[var(--accent-primary-text)] after:scale-x-0 hover:after:scale-x-100'
     }`;
 
   return (
     <header
-      className={`sticky top-0 z-40 w-full transition-colors duration-150 ${
+      className={`sticky top-0 z-40 w-full transition-all duration-200 ${
         isScrolled
-          ? 'bg-[var(--surface-elevated)] border-b border-[var(--border-subtle)] shadow-xs'
-          : 'bg-transparent border-b border-transparent'
+          ? 'bg-[var(--surface-elevated)]/95 backdrop-blur-md border-b border-[var(--border-subtle)] shadow-[0_8px_24px_-8px_rgba(15,23,42,0.12)]'
+          : 'bg-gradient-to-b from-white/75 via-white/50 to-white/20 backdrop-blur-md border-b border-slate-900/[0.05] shadow-[0_8px_24px_-8px_rgba(15,23,42,0.09)]'
       }`}
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
@@ -90,7 +90,7 @@ export default function Navbar() {
         <Link
           href="/"
           onClick={handleGoHome}
-          className="flex items-center gap-2.5 text-[var(--ink-primary)] select-none shrink-0 rounded-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--focus-ring)]"
+          className="flex items-center gap-2.5 text-[var(--ink-primary)] select-none shrink-0 rounded-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--focus-ring)] group"
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
@@ -140,16 +140,18 @@ export default function Navbar() {
                 setToolsDropdownOpen(!toolsDropdownOpen);
                 setLangDropdownOpen(false);
               }}
-              className={`h-9 px-3.5 rounded-lg inline-flex items-center gap-1.5 text-[13px] font-semibold transition-colors border cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--focus-ring)] ${
+              className={`relative h-9 text-[13px] font-semibold px-3 rounded-md flex items-center gap-1.5 transition-colors duration-150 cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--focus-ring)] after:content-[''] after:absolute after:inset-x-3 after:bottom-1 after:h-0.5 after:rounded-full after:bg-[var(--accent-primary)] after:transition-transform after:duration-200 after:origin-center ${
                 toolsDropdownOpen
-                  ? 'bg-[var(--ink-primary)] text-[var(--accent-contrast)] border-[var(--ink-primary)]'
-                  : 'bg-[var(--surface-elevated)] text-[var(--ink-primary)] border-[var(--border-subtle)] hover:bg-[var(--surface-sunken)] hover:border-[var(--border-strong)]'
+                  ? 'text-[var(--accent-primary-text)] after:scale-x-100'
+                  : 'text-[var(--ink-primary)]/85 hover:text-[var(--accent-primary-text)] after:scale-x-0 hover:after:scale-x-100'
               }`}
             >
               <span>{t('nav.tools')}</span>
               <ChevronDown
                 className={`w-3.5 h-3.5 transition-transform duration-150 ${
-                  toolsDropdownOpen ? 'rotate-180 text-[var(--accent-contrast)]' : 'text-[var(--ink-muted)]'
+                  toolsDropdownOpen
+                    ? 'rotate-180 text-[var(--accent-primary-text)]'
+                    : 'text-[var(--ink-muted)]'
                 }`}
               />
             </button>
@@ -163,9 +165,9 @@ export default function Navbar() {
                   key={tool.href}
                   href={tool.href}
                   onClick={() => setToolsDropdownOpen(false)}
-                  className="px-3 py-2 rounded-lg hover:bg-[var(--surface-canvas)] text-[var(--ink-primary)] transition-colors"
+                  className="px-3 py-2 rounded-lg hover:bg-[var(--pastel-blue)]/40 text-[var(--ink-primary)] transition-colors group"
                 >
-                  <div className="font-semibold text-xs text-[var(--ink-primary)]">
+                  <div className="font-semibold text-xs group-hover:text-[var(--accent-primary-text)] transition-colors">
                     {t(`nav.tool.${tool.key}.label`)}
                   </div>
                   <div className="text-[11px] text-[var(--ink-muted)] mt-0.5">
@@ -176,9 +178,9 @@ export default function Navbar() {
             </MotionDropdownPanel>
           </div>
 
-          <div className="w-px h-5 bg-[var(--border-subtle)] mx-1" />
+          <div className="w-px h-5 bg-[var(--border-strong)]/40 mx-1" />
 
-          {/* Languages Button */}
+          {/* Languages Button - Dark Container */}
           <div className="relative" ref={langRef}>
             <button
               type="button"
@@ -188,21 +190,19 @@ export default function Navbar() {
                 setLangDropdownOpen(!langDropdownOpen);
                 setToolsDropdownOpen(false);
               }}
-              className={`h-9 px-3.5 rounded-lg border text-[13px] font-semibold transition-colors cursor-pointer inline-flex items-center gap-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--focus-ring)] ${
+              className={`h-9 text-xs font-semibold px-3.5 rounded-full border transition-all cursor-pointer flex items-center gap-2 shadow-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--focus-ring)] ${
                 langDropdownOpen
-                  ? 'bg-[var(--ink-primary)] border-[var(--ink-primary)] text-[var(--accent-contrast)]'
-                  : 'bg-[var(--surface-elevated)] border-[var(--border-subtle)] text-[var(--ink-primary)] hover:bg-[var(--surface-sunken)] hover:border-[var(--border-strong)]'
+                  ? 'bg-[var(--accent-dark-hover)] border-slate-700 text-[var(--accent-contrast)] ring-2 ring-slate-900/15'
+                  : 'bg-[var(--accent-dark)] hover:bg-[var(--accent-dark-hover)] border-slate-800 text-[var(--accent-contrast)]'
               }`}
             >
-              <Globe
-                className={`w-3.5 h-3.5 shrink-0 ${
-                  langDropdownOpen ? 'text-[var(--accent-contrast)]' : 'text-[var(--accent-cyan-text)]'
-                }`}
-              />
-              <span className="tracking-tight">{languageInfo.native}</span>
+              <span className="w-5 h-5 rounded-full bg-white/15 text-sky-300 flex items-center justify-center shrink-0">
+                <Globe className="w-3 h-3" />
+              </span>
+              <span className="font-semibold tracking-tight">{languageInfo.native}</span>
               <ChevronDown
-                className={`w-3.5 h-3.5 transition-transform duration-150 ${
-                  langDropdownOpen ? 'rotate-180 text-[var(--accent-contrast)]' : 'text-[var(--ink-muted)]'
+                className={`w-3 h-3 text-white/75 transition-transform duration-150 ${
+                  langDropdownOpen ? 'rotate-180 text-white' : ''
                 }`}
               />
             </button>
@@ -224,7 +224,7 @@ export default function Navbar() {
                     className={`w-full px-3 py-2 rounded-lg text-xs flex items-center justify-between text-start transition-colors cursor-pointer ${
                       isSelected
                         ? 'bg-[var(--pastel-blue)] text-[var(--accent-cyan-text)] font-semibold'
-                        : 'text-[var(--ink-secondary)] hover:bg-[var(--surface-canvas)] hover:text-[var(--ink-primary)]'
+                        : 'text-[var(--ink-secondary)] hover:bg-[var(--pastel-blue)]/35 hover:text-[var(--ink-primary)]'
                     }`}
                   >
                     <span>
@@ -250,11 +250,11 @@ export default function Navbar() {
               setLangDropdownOpen(!langDropdownOpen);
               setMobileMenuOpen(false);
             }}
-            className="h-9 px-3 rounded-lg bg-[var(--surface-elevated)] border border-[var(--border-subtle)] hover:bg-[var(--surface-sunken)] hover:border-[var(--border-strong)] text-xs font-semibold text-[var(--ink-primary)] flex items-center gap-1.5 cursor-pointer transition-colors"
+            className="h-9 px-3 rounded-full bg-[var(--accent-dark)] hover:bg-[var(--accent-dark-hover)] border border-slate-800 text-xs font-semibold text-[var(--accent-contrast)] flex items-center gap-1.5 cursor-pointer transition-all shadow-xs"
           >
-            <Globe className="w-3.5 h-3.5 text-[var(--accent-cyan-text)]" />
+            <Globe className="w-3.5 h-3.5 text-sky-300" />
             <span>{languageInfo.native}</span>
-            <ChevronDown className="w-3 h-3 text-[var(--ink-muted)]" />
+            <ChevronDown className="w-3 h-3 text-white/75" />
           </button>
 
           <button
@@ -263,11 +263,11 @@ export default function Navbar() {
               setMobileMenuOpen(!mobileMenuOpen);
               setLangDropdownOpen(false);
             }}
-            className="w-9 h-9 rounded-lg bg-[var(--surface-elevated)] border border-[var(--border-subtle)] text-[var(--ink-primary)] hover:bg-[var(--surface-sunken)] hover:border-[var(--border-strong)] transition-colors cursor-pointer flex items-center justify-center"
+            className="w-9 h-9 rounded-lg bg-transparent text-[var(--ink-primary)] hover:text-[var(--accent-primary-text)] transition-colors cursor-pointer flex items-center justify-center"
             aria-label={t('nav.toggleMenu')}
             aria-expanded={mobileMenuOpen}
           >
-            {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
+            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
         </div>
       </div>
@@ -293,7 +293,7 @@ export default function Navbar() {
                 className={`h-9 px-3 rounded-lg text-xs text-start flex items-center justify-between border cursor-pointer transition-colors ${
                   lang === item.code
                     ? 'bg-[var(--pastel-blue)] border-[var(--pastel-blue-border)] text-[var(--accent-cyan-text)] font-semibold'
-                    : 'bg-[var(--surface-canvas)] border-[var(--border-subtle)] text-[var(--ink-primary)] hover:bg-[var(--surface-sunken)]'
+                    : 'bg-[var(--surface-canvas)] border-[var(--border-subtle)] text-[var(--ink-primary)] hover:bg-[var(--pastel-blue)]/30'
                 }`}
               >
                 <span className="truncate">{item.native}</span>
@@ -315,21 +315,21 @@ export default function Navbar() {
           <Link
             href="/"
             onClick={handleGoHome}
-            className="px-3.5 py-2.5 rounded-lg text-sm font-semibold text-[var(--ink-primary)] hover:bg-[var(--surface-canvas)] transition-colors"
+            className="px-3.5 py-2.5 rounded-lg text-sm font-semibold text-[var(--ink-primary)] hover:bg-[var(--pastel-blue)]/40 transition-colors"
           >
             {t('nav.home')}
           </Link>
           <Link
             href="/about-tiktok-profile-viewer"
             onClick={() => setMobileMenuOpen(false)}
-            className="px-3.5 py-2.5 rounded-lg text-sm font-semibold text-[var(--ink-primary)] hover:bg-[var(--surface-canvas)] transition-colors"
+            className="px-3.5 py-2.5 rounded-lg text-sm font-semibold text-[var(--ink-primary)] hover:bg-[var(--pastel-blue)]/40 transition-colors"
           >
             {t('nav.about')}
           </Link>
           <Link
             href="/how-to-use-tiktok-profile-viewer"
             onClick={() => setMobileMenuOpen(false)}
-            className="px-3.5 py-2.5 rounded-lg text-sm font-semibold text-[var(--ink-primary)] hover:bg-[var(--surface-canvas)] transition-colors"
+            className="px-3.5 py-2.5 rounded-lg text-sm font-semibold text-[var(--ink-primary)] hover:bg-[var(--pastel-blue)]/40 transition-colors"
           >
             {t('nav.howToUse')}
           </Link>
@@ -344,7 +344,7 @@ export default function Navbar() {
                   key={tool.href}
                   href={tool.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="px-3.5 py-2 rounded-lg text-xs font-medium text-[var(--ink-primary)] hover:bg-[var(--surface-canvas)] transition-colors flex items-center justify-between gap-2"
+                  className="px-3.5 py-2 rounded-lg text-xs font-medium text-[var(--ink-primary)] hover:bg-[var(--pastel-blue)]/40 transition-colors flex items-center justify-between gap-2"
                 >
                   <span>{t(`nav.tool.${tool.key}.label`)}</span>
                   <span className="text-[11px] font-normal text-[var(--ink-muted)] truncate">
