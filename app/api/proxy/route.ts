@@ -11,6 +11,20 @@ const BLOCKED_HOSTNAMES = new Set([
   'metadata.google.internal',
 ]);
 
+function isTikTokMediaHost(hostname: string): boolean {
+  const lower = hostname.toLowerCase();
+  return (
+    lower === 'tiktok.com' ||
+    lower.endsWith('.tiktok.com') ||
+    lower.endsWith('.tiktokv.com') ||
+    lower.endsWith('.tiktokcdn.com') ||
+    lower.endsWith('.tiktokcdn-us.com') ||
+    lower.endsWith('.byteoversea.com') ||
+    lower.endsWith('.ibytedtos.com') ||
+    lower.endsWith('.musical.ly')
+  );
+}
+
 function isPrivateOrReservedIpv4(ip: string): boolean {
   const parts = ip.split('.').map((p) => Number(p));
   if (parts.length !== 4 || parts.some((n) => !Number.isInteger(n) || n < 0 || n > 255)) {
@@ -18,16 +32,16 @@ function isPrivateOrReservedIpv4(ip: string): boolean {
   }
   const [a, b, c] = parts;
 
-  if (a === 0) return true; // 0.0.0.0/8
-  if (a === 10) return true; // 10.0.0.0/8
-  if (a === 100 && b >= 64 && b <= 127) return true; // 100.64.0.0/10 CGNAT
-  if (a === 127) return true; // 127.0.0.0/8 loopback
-  if (a === 169 && b === 254) return true; // 169.254.0.0/16 link-local / cloud metadata
-  if (a === 172 && b >= 16 && b <= 31) return true; // 172.16.0.0/12 private
-  if (a === 192 && b === 0 && (c === 0 || c === 2)) return true; // IETF / TEST-NET
-  if (a === 192 && b === 168) return true; // 192.168.0.0/16 private
-  if (a === 198 && (b === 18 || b === 19)) return true; // 198.18.0.0/15 benchmark
-  if (a >= 224) return true; // multicast & reserved
+  if (a === 0) return true;
+  if (a === 10) return true;
+  if (a === 100 && b >= 64 && b <= 127) return true;
+  if (a === 127) return true;
+  if (a === 169 && b === 254) return true;
+  if (a === 172 && b >= 16 && b <= 31) return true;
+  if (a === 192 && b === 0 && (c === 0 || c === 2)) return true;
+  if (a === 192 && b === 168) return true;
+  if (a === 198 && (b === 18 || b === 19)) return true;
+  if (a >= 224) return true;
 
   return false;
 }
@@ -46,9 +60,9 @@ function isPrivateOrReservedIp(ip: string): boolean {
         return isPrivateOrReservedIpv4(mapped);
       }
     }
-    if (normalized.startsWith('fc') || normalized.startsWith('fd')) return true; // fc00::/7 unique local
-    if (/^fe[89ab][0-9a-f]:/i.test(normalized) || normalized.startsWith('fe80')) return true; // fe80::/10 link-local
-    if (normalized.startsWith('ff')) return true; // ff00::/8 multicast
+    if (normalized.startsWith('fc') || normalized.startsWith('fd')) return true;
+    if (/^fe[89ab][0-9a-f]:/i.test(normalized) || normalized.startsWith('fe80')) return true;
+    if (normalized.startsWith('ff')) return true;
     return false;
   }
   return true;
@@ -109,7 +123,8 @@ async function validatePublicHttpsUrl(rawUrl: string): Promise<URL | null> {
 
 async function fetchWithValidatedRedirects(
   initialUrl: string,
-  headers: Record<string, string>,
+  baseHeaders: Record<string, string>,
+  sessionCookie: string,
   maxRedirects = 3
 ): Promise<Response | null> {
   let currentUrl = initialUrl;
@@ -120,8 +135,13 @@ async function fetchWithValidatedRedirects(
       return null;
     }
 
+    const reqHeaders: Record<string, string> = { ...baseHeaders };
+    if (sessionCookie && isTikTokMediaHost(validUrl.hostname)) {
+      reqHeaders['Cookie'] = sessionCookie;
+    }
+
     const res = await fetch(validUrl.toString(), {
-      headers,
+      headers: reqHeaders,
       redirect: 'manual',
       signal: AbortSignal.timeout(15000),
     });
@@ -161,22 +181,21 @@ export async function GET(req: NextRequest) {
     const rangeHeader = req.headers.get('range');
     const upstreamHeaders: Record<string, string> = {
       'User-Agent':
-        'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36',
+        'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
       Referer: 'https://www.tiktok.com/',
     };
 
-    if (username) {
-      const sessionCookie = getUserSessionCookies(username);
-      if (sessionCookie) {
-        upstreamHeaders['Cookie'] = sessionCookie;
-      }
-    }
+    const sessionCookie = username ? getUserSessionCookies(username) : '';
 
     if (rangeHeader && /^bytes=\d*-\d*$/i.test(rangeHeader.trim())) {
       upstreamHeaders['Range'] = rangeHeader.trim();
     }
 
-    const upstreamRes = await fetchWithValidatedRedirects(targetUrl, upstreamHeaders);
+    const upstreamRes = await fetchWithValidatedRedirects(
+      targetUrl,
+      upstreamHeaders,
+      sessionCookie
+    );
     if (!upstreamRes) {
       return NextResponse.json({ error: 'Invalid or blocked target URL.' }, { status: 400 });
     }

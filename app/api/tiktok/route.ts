@@ -1,5 +1,10 @@
 import crypto from 'node:crypto';
 import { NextRequest, NextResponse } from 'next/server';
+import {
+  getUserSessionCookies,
+  mergeCookieStrings,
+  setUserSessionCookies,
+} from '@/lib/tiktok-session';
 
 interface TikTokUser {
   id: string;
@@ -123,6 +128,9 @@ function extractUrlField(val: unknown): string {
     if (Array.isArray(obj.urlList) && typeof obj.urlList[0] === 'string') {
       return obj.urlList[0];
     }
+    if (Array.isArray(obj.url_list) && typeof obj.url_list[0] === 'string') {
+      return obj.url_list[0];
+    }
     if (typeof obj.src === 'string') {
       return obj.src;
     }
@@ -166,9 +174,11 @@ function randomVerifyFp(): string {
  */
 function solveWafChallenge(html: string): string[] {
   try {
-    const csMatch = html.match(/id=["']cs["'][^>]*class=["']([^"']+)["']/i) ||
+    const csMatch =
+      html.match(/id=["']cs["'][^>]*class=["']([^"']+)["']/i) ||
       html.match(/class=["']([^"']+)["'][^>]*id=["']cs["']/i);
-    const wciMatch = html.match(/id=["']wci["'][^>]*class=["']([^"']+)["']/i) ||
+    const wciMatch =
+      html.match(/id=["']wci["'][^>]*class=["']([^"']+)["']/i) ||
       html.match(/class=["']([^"']+)["'][^>]*id=["']wci["']/i);
 
     if (!csMatch?.[1] || !wciMatch?.[1]) return [];
@@ -245,21 +255,21 @@ function parseItem(rawItem: unknown, user: TikTokUser): VideoOutput {
   const zoomCover = asObj(v.zoomCover);
   const coversArr = Array.isArray(item.covers) ? item.covers : [];
   const coverUrl = normalizeDirectCdnUrl(
-    asStr(item.cover) ||
-      asStr(item.origin_cover) ||
-      asStr(v.cover) ||
-      asStr(v.originCover) ||
-      asStr(v.dynamicCover) ||
+    extractUrlField(item.cover) ||
+      extractUrlField(item.origin_cover) ||
+      extractUrlField(v.cover) ||
+      extractUrlField(v.originCover) ||
+      extractUrlField(v.dynamicCover) ||
       asStr(coversArr[0]) ||
       asStr(zoomCover['480']) ||
       asStr(zoomCover['720'])
   );
 
   const originCoverUrl = normalizeDirectCdnUrl(
-    asStr(item.origin_cover) ||
-      asStr(item.cover) ||
-      asStr(v.originCover) ||
-      asStr(v.cover) ||
+    extractUrlField(item.origin_cover) ||
+      extractUrlField(item.cover) ||
+      extractUrlField(v.originCover) ||
+      extractUrlField(v.cover) ||
       asStr(coversArr[1]) ||
       coverUrl
   );
@@ -327,14 +337,17 @@ async function scrapeProfileHtml(username: string): Promise<{
       return null;
     }
 
-    let cookieList = extractSetCookies(res.headers);
+    let mergedCookies = mergeCookieStrings(
+      getUserSessionCookies(username),
+      extractSetCookies(res.headers)
+    );
     let html = await res.text();
 
     // Solve TikTok JS WAF challenge if present instead of universal data
     if (!html.includes('__UNIVERSAL_DATA_FOR_REHYDRATION__') && html.includes('id="cs"')) {
       const challengeCookies = solveWafChallenge(html);
       if (challengeCookies.length > 0) {
-        const mergedCookies = [...cookieList, ...challengeCookies].join('; ');
+        mergedCookies = mergeCookieStrings(mergedCookies, challengeCookies);
         const retryController = new AbortController();
         const retryTimer = setTimeout(() => retryController.abort(), 7500);
         res = await fetch(profileUrl, {
@@ -347,13 +360,15 @@ async function scrapeProfileHtml(username: string): Promise<{
         });
         clearTimeout(retryTimer);
         if (res.ok) {
-          cookieList = [...cookieList, ...extractSetCookies(res.headers)];
+          mergedCookies = mergeCookieStrings(mergedCookies, extractSetCookies(res.headers));
           html = await res.text();
         }
       }
     }
 
-    const cookieHeader = cookieList.join('; ');
+    if (mergedCookies) {
+      setUserSessionCookies(username, mergedCookies);
+    }
 
     // Pattern 1: __UNIVERSAL_DATA_FOR_REHYDRATION__
     const rehydrationMatch = html.match(
@@ -402,7 +417,7 @@ async function scrapeProfileHtml(username: string): Promise<{
             user: parsedUser,
             stats: parsedStats,
             itemList: Array.isArray(items) ? items : [],
-            cookies: cookieHeader,
+            cookies: mergedCookies,
           };
         }
       } catch {
@@ -460,7 +475,7 @@ async function scrapeProfileHtml(username: string): Promise<{
             user: parsedUser,
             stats: parsedStats,
             itemList: items,
-            cookies: cookieHeader,
+            cookies: mergedCookies,
           };
         }
       } catch {
@@ -491,6 +506,7 @@ async function fetchCreatorItemList(
 
   const numericCursor = cursorMs && cursorMs !== '0' ? Number(cursorMs) : Date.now();
   const effectiveCursor = Number.isFinite(numericCursor) && numericCursor > 0 ? numericCursor : Date.now();
+  const activeCookies = cookies || getUserSessionCookies(username);
 
   for (let attempt = 0; attempt < 2; attempt++) {
     try {
@@ -537,8 +553,8 @@ async function fetchCreatorItemList(
         'Accept-Language': 'en-US,en;q=0.9',
         Referer: `https://www.tiktok.com/@${encodeURIComponent(username)}`,
       };
-      if (cookies) {
-        headers.Cookie = cookies;
+      if (activeCookies) {
+        headers.Cookie = activeCookies;
       }
 
       const res = await fetch(
@@ -551,6 +567,12 @@ async function fetchCreatorItemList(
       );
 
       clearTimeout(timeout);
+
+      const newCookies = extractSetCookies(res.headers);
+      if (newCookies.length > 0) {
+        const updated = mergeCookieStrings(activeCookies, newCookies);
+        setUserSessionCookies(username, updated);
+      }
 
       if (!res.ok) {
         continue;
@@ -610,6 +632,14 @@ async function fetchEmbedVideos(username: string): Promise<{
 
     if (!res.ok) return { videos: [], userInfo: null };
 
+    const embedCookies = extractSetCookies(res.headers);
+    if (embedCookies.length > 0) {
+      setUserSessionCookies(
+        username,
+        mergeCookieStrings(getUserSessionCookies(username), embedCookies)
+      );
+    }
+
     const html = await res.text();
     const match = html.match(
       /<script[^>]+id=["']__FRONTITY_CONNECT_STATE__["'][^>]*>([\s\S]*?)<\/script>/
@@ -650,7 +680,7 @@ async function fetchTikwmPostsQuick(
 ): Promise<{ videos: unknown[]; cursor: string | null; hasMore: boolean }> {
   try {
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 5000);
+    const timeout = setTimeout(() => controller.abort(), 4500);
 
     const res = await fetch('https://www.tikwm.com/api/user/posts', {
       method: 'POST',
@@ -750,12 +780,12 @@ export async function GET(req: NextRequest) {
     // Pagination (Show More Videos)
     if (cursorParam && cursorParam !== '0') {
       let secUid = secUidParam;
-      let cookies = '';
+      let cookies = getUserSessionCookies(cleanUser);
 
       if (!secUid) {
         const scraped = await scrapeProfileHtml(cleanUser);
         secUid = scraped?.user?.secUid || '';
-        cookies = scraped?.cookies || '';
+        cookies = scraped?.cookies || cookies;
       }
 
       const dummyUser: TikTokUser = {

@@ -1,4 +1,10 @@
+import crypto from 'node:crypto';
 import { NextRequest, NextResponse } from 'next/server';
+import {
+  getUserSessionCookies,
+  mergeCookieStrings,
+  setUserSessionCookies,
+} from '@/lib/tiktok-session';
 
 interface CacheEntry {
   play: string;
@@ -13,6 +19,9 @@ type JsonRecord = Record<string, unknown>;
 
 // In-memory cache to prevent duplicate requests and eliminate latency (2-hour TTL)
 const resolveCache = new Map<string, CacheEntry>();
+
+const BROWSER_UA =
+  'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36';
 
 function asObj(val: unknown): JsonRecord {
   return val && typeof val === 'object' ? (val as JsonRecord) : {};
@@ -44,20 +53,103 @@ function extractUrlField(val: unknown): string {
     if (Array.isArray(obj.urlList) && typeof obj.urlList[0] === 'string') {
       return obj.urlList[0];
     }
+    if (typeof obj.src === 'string') {
+      return obj.src;
+    }
   }
   return '';
 }
 
+function extractSetCookies(headers: Headers): string[] {
+  const anyHeaders = headers as Headers & { getSetCookie?: () => string[] };
+  if (typeof anyHeaders.getSetCookie === 'function') {
+    return anyHeaders.getSetCookie().map((c) => c.split(';')[0]).filter(Boolean);
+  }
+  const raw = headers.get('set-cookie');
+  if (!raw) return [];
+  return raw
+    .split(/,(?=\s*[A-Za-z0-9_.-]+=)/)
+    .map((c) => c.split(';')[0].trim())
+    .filter(Boolean);
+}
+
+function solveWafChallenge(html: string): string[] {
+  try {
+    const csMatch =
+      html.match(/id=["']cs["'][^>]*class=["']([^"']+)["']/i) ||
+      html.match(/class=["']([^"']+)["'][^>]*id=["']cs["']/i);
+    const wciMatch =
+      html.match(/id=["']wci["'][^>]*class=["']([^"']+)["']/i) ||
+      html.match(/class=["']([^"']+)["'][^>]*id=["']wci["']/i);
+
+    if (!csMatch?.[1] || !wciMatch?.[1]) return [];
+
+    const challengeJson = JSON.parse(
+      Buffer.from(`${csMatch[1]}===`, 'base64').toString('utf8')
+    ) as JsonRecord;
+    const vObj = asObj(challengeJson.v);
+    const expectedB64 = asStr(vObj.c);
+    const baseB64 = asStr(vObj.a);
+    if (!expectedB64 || !baseB64) return [];
+
+    const expectedDigest = Buffer.from(expectedB64, 'base64');
+    const baseBytes = Buffer.from(baseB64, 'base64');
+
+    let solvedD = '';
+    for (let i = 0; i <= 1_000_000; i++) {
+      const hash = crypto.createHash('sha256');
+      hash.update(baseBytes);
+      hash.update(String(i));
+      if (hash.digest().equals(expectedDigest)) {
+        solvedD = Buffer.from(String(i)).toString('base64');
+        break;
+      }
+    }
+
+    if (!solvedD) return [];
+    challengeJson.d = solvedD;
+    const cookieVal = Buffer.from(JSON.stringify(challengeJson)).toString('base64');
+    const cookies = [`${wciMatch[1]}=${cookieVal}`];
+
+    const rciMatch = html.match(/id=["']rci["'][^>]*class=["']([^"']+)["']/i);
+    const rsMatch = html.match(/id=["']rs["'][^>]*class=["']([^"']+)["']/i);
+    if (rciMatch?.[1] && rsMatch?.[1]) {
+      cookies.push(`${rciMatch[1]}=${rsMatch[1]}`);
+    }
+    return cookies;
+  } catch {
+    return [];
+  }
+}
+
+function parseTikwmPayload(text: string): Omit<CacheEntry, 'expiresAt'> | null {
+  if (!text || !text.trim().startsWith('{')) return null;
+  const json = JSON.parse(text) as JsonRecord;
+  if (json && json.code === 0 && json.data) {
+    const d = asObj(json.data);
+    const musicInfo = asObj(d.music_info);
+    const play = normalizeUrl(asStr(d.hdplay) || asStr(d.play) || asStr(d.wmplay));
+    const wmplay = normalizeUrl(asStr(d.wmplay) || play);
+    const music = normalizeUrl(asStr(musicInfo.play) || asStr(d.music));
+    const title = asStr(d.title);
+
+    if (play) {
+      return { play, wmplay, music, title, needsProxy: false };
+    }
+  }
+  return null;
+}
+
 async function resolveFromTikwm(tiktokUrl: string): Promise<Omit<CacheEntry, 'expiresAt'> | null> {
+  // Attempt 1: POST with HD parameter
   try {
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 7000);
+    const timeoutId = setTimeout(() => controller.abort(), 3500);
 
     const res = await fetch('https://www.tikwm.com/api/', {
       method: 'POST',
       headers: {
-        'User-Agent':
-          'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
+        'User-Agent': BROWSER_UA,
         Accept: 'application/json, text/javascript, */*; q=0.01',
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
         Origin: 'https://www.tikwm.com',
@@ -70,44 +162,69 @@ async function resolveFromTikwm(tiktokUrl: string): Promise<Omit<CacheEntry, 'ex
     });
 
     clearTimeout(timeoutId);
-
     if (res.ok) {
-      const text = await res.text();
-      if (text.trim().startsWith('{')) {
-        const json = JSON.parse(text) as JsonRecord;
-        if (json && json.code === 0 && json.data) {
-          const d = asObj(json.data);
-          const musicInfo = asObj(d.music_info);
-          const play = normalizeUrl(asStr(d.hdplay) || asStr(d.play) || asStr(d.wmplay));
-          const wmplay = normalizeUrl(asStr(d.wmplay) || play);
-          const music = normalizeUrl(asStr(musicInfo.play) || asStr(d.music));
-          const title = asStr(d.title);
-
-          if (play) {
-            return { play, wmplay, music, title, needsProxy: false };
-          }
-        }
-      }
+      const parsed = parseTikwmPayload(await res.text());
+      if (parsed) return parsed;
     }
   } catch {
-    // Fall through to GET / TikTok SSR fallback
+    // Fall through to GET attempt
+  }
+
+  // Attempt 2: GET without hd=1 (often succeeds when HD POST hits 502)
+  try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 3500);
+
+    const res = await fetch(
+      `https://www.tikwm.com/api/?url=${encodeURIComponent(tiktokUrl)}`,
+      {
+        method: 'GET',
+        headers: {
+          'User-Agent': BROWSER_UA,
+          Accept: 'application/json, text/javascript, */*; q=0.01',
+          Referer: 'https://www.tikwm.com/',
+          Cookie: 'current_language=en',
+        },
+        cache: 'no-store',
+        signal: controller.signal,
+      }
+    );
+
+    clearTimeout(timeoutId);
+    if (res.ok) {
+      const parsed = parseTikwmPayload(await res.text());
+      if (parsed) return parsed;
+    }
+  } catch {
+    // Fall through to TikTok SSR fallback
   }
 
   return null;
 }
 
-async function resolveFromTikTokPage(tiktokUrl: string): Promise<Omit<CacheEntry, 'expiresAt'> | null> {
+async function resolveFromTikTokPage(
+  tiktokUrl: string,
+  username: string
+): Promise<Omit<CacheEntry, 'expiresAt'> | null> {
   try {
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 7000);
+    const existingCookies = getUserSessionCookies(username);
+    const baseHeaders: Record<string, string> = {
+      'User-Agent': BROWSER_UA,
+      Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+      'Accept-Language': 'en-US,en;q=0.9',
+      'Sec-Ch-Ua': '"Chromium";v="131", "Not_A Brand";v="24", "Google Chrome";v="131"',
+      'Sec-Ch-Ua-Mobile': '?0',
+      'Sec-Ch-Ua-Platform': '"Windows"',
+    };
+    if (existingCookies) {
+      baseHeaders.Cookie = existingCookies;
+    }
 
-    const res = await fetch(tiktokUrl, {
-      headers: {
-        'User-Agent':
-          'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
-        Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-        'Accept-Language': 'en-US,en;q=0.9',
-      },
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 6000);
+
+    let res = await fetch(tiktokUrl, {
+      headers: baseHeaders,
       cache: 'no-store',
       signal: controller.signal,
     });
@@ -115,7 +232,35 @@ async function resolveFromTikTokPage(tiktokUrl: string): Promise<Omit<CacheEntry
     clearTimeout(timeoutId);
     if (!res.ok) return null;
 
-    const html = await res.text();
+    let mergedCookies = mergeCookieStrings(existingCookies, extractSetCookies(res.headers));
+    let html = await res.text();
+
+    if (!html.includes('__UNIVERSAL_DATA_FOR_REHYDRATION__') && html.includes('id="cs"')) {
+      const challengeCookies = solveWafChallenge(html);
+      if (challengeCookies.length > 0) {
+        mergedCookies = mergeCookieStrings(mergedCookies, challengeCookies);
+        const retryController = new AbortController();
+        const retryTimer = setTimeout(() => retryController.abort(), 6000);
+        res = await fetch(tiktokUrl, {
+          headers: {
+            ...baseHeaders,
+            Cookie: mergedCookies,
+          },
+          cache: 'no-store',
+          signal: retryController.signal,
+        });
+        clearTimeout(retryTimer);
+        if (res.ok) {
+          mergedCookies = mergeCookieStrings(mergedCookies, extractSetCookies(res.headers));
+          html = await res.text();
+        }
+      }
+    }
+
+    if (mergedCookies) {
+      setUserSessionCookies(username, mergedCookies);
+    }
+
     const match = html.match(
       /<script id="__UNIVERSAL_DATA_FOR_REHYDRATION__"[^>]*>([\s\S]*?)<\/script>/
     );
@@ -134,7 +279,9 @@ async function resolveFromTikTokPage(tiktokUrl: string): Promise<Omit<CacheEntry
     const firstBitrate = asObj(bitrateArr[0]);
     const bitrateUrl = extractUrlField(firstBitrate.PlayAddr);
 
-    const play = normalizeUrl(extractUrlField(v.playAddr) || bitrateUrl || extractUrlField(v.downloadAddr));
+    const play = normalizeUrl(
+      extractUrlField(v.playAddr) || bitrateUrl || extractUrlField(v.downloadAddr)
+    );
     const wmplay = normalizeUrl(extractUrlField(v.downloadAddr) || play);
     const music = normalizeUrl(asStr(m.playUrl) || asStr(m.play));
     const title = asStr(itemStruct.desc);
@@ -172,7 +319,7 @@ export async function GET(req: NextRequest) {
 
   const resolved =
     (await resolveFromTikwm(tiktokUrl)) ||
-    (await resolveFromTikTokPage(tiktokUrl));
+    (await resolveFromTikTokPage(tiktokUrl, username));
 
   if (resolved) {
     resolveCache.set(videoId, {

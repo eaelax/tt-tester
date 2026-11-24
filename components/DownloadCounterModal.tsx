@@ -16,6 +16,8 @@ interface DownloadCounterModalProps {
   fileName: string;
   mediaType: 'video' | 'audio' | 'avatar';
   title?: string;
+  username?: string;
+  needsProxy?: boolean;
 }
 
 function ModalContent({
@@ -24,6 +26,8 @@ function ModalContent({
   fileName,
   mediaType,
   title,
+  username,
+  needsProxy,
   onClose,
   settings,
 }: {
@@ -32,6 +36,8 @@ function ModalContent({
   fileName: string;
   mediaType: 'video' | 'audio' | 'avatar';
   title?: string;
+  username?: string;
+  needsProxy?: boolean;
   onClose: () => void;
   settings: SiteSettings;
 }) {
@@ -47,7 +53,7 @@ function ModalContent({
     setIsDownloading(true);
     setDownloadError(null);
     try {
-      await executeDirectCdnDownload(downloadUrl, fileName);
+      await executeDirectCdnDownload(downloadUrl, fileName, username, Boolean(needsProxy));
       setHasTriggeredDownload(true);
     } catch (err: unknown) {
       setDownloadError(
@@ -56,7 +62,7 @@ function ModalContent({
     } finally {
       setIsDownloading(false);
     }
-  }, [downloadUrl, fileName, t]);
+  }, [downloadUrl, fileName, username, needsProxy, t]);
 
   const handleManualDownloadClick = async () => {
     await runDownload();
@@ -108,7 +114,7 @@ function ModalContent({
     <MotionModalPanel
       ariaLabel={headerTitle}
       onClick={(e) => e.stopPropagation()}
-      className="relative w-full max-w-[440px] h-[580px] sm:h-[620px] max-h-[90vh] bg-[var(--surface-elevated)] rounded-2xl border border-[var(--border-subtle)] shadow-[var(--shadow-workbench)] flex flex-col justify-between overflow-hidden select-none"
+      className="relative w-full max-w-[420px] min-h-[460px] max-h-[90vh] bg-[var(--surface-elevated)] rounded-2xl border border-[var(--border-subtle)] shadow-[var(--shadow-workbench)] flex flex-col justify-between overflow-hidden select-none"
     >
       {/* Modal Header */}
       <div className="w-full bg-[var(--surface-elevated)] px-5 py-3.5 border-b border-[var(--border-subtle)] flex items-center justify-between gap-3 shrink-0">
@@ -261,6 +267,8 @@ export default function DownloadCounterModal({
   fileName,
   mediaType,
   title,
+  username,
+  needsProxy,
 }: DownloadCounterModalProps) {
   const [settings] = useSiteSettings();
   const initialSeconds = Math.max(1, settings.downloadCounterSeconds || 5);
@@ -278,6 +286,8 @@ export default function DownloadCounterModal({
             fileName={fileName}
             mediaType={mediaType}
             title={title}
+            username={username}
+            needsProxy={needsProxy}
             onClose={onClose}
             settings={settings}
           />
