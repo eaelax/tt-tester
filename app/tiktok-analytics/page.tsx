@@ -194,12 +194,12 @@ export default function AnalyticsPage() {
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               disabled={loading}
-              className="w-full h-11 ps-10 pe-28 rounded-xl border border-[var(--border-strong)] bg-[var(--surface-elevated)] text-[var(--ink-primary)] text-xs sm:text-sm font-medium focus:outline-none focus:border-[var(--focus-ring)] focus:ring-4 focus:ring-[var(--focus-ring)]/10 transition-all disabled:opacity-60"
+              className="w-full h-11 ps-10 pe-28 rounded-xl border border-[var(--border-strong)] bg-[var(--surface-elevated)] text-[var(--ink-primary)] text-xs sm:text-sm font-medium focus:outline-none focus:border-[var(--accent-cyan)] focus:ring-2 focus:ring-[var(--accent-cyan)]/20 transition-colors disabled:opacity-60"
             />
             <button
               type="submit"
               disabled={loading || !username.trim()}
-              className="absolute end-1.5 h-8 px-4 rounded-lg bg-[var(--accent-primary)] hover:bg-[#F43F5E] hover:-translate-y-0.5 hover:shadow-sm disabled:bg-[var(--state-disabled-bg)] disabled:text-[var(--state-disabled-ink)] disabled:translate-y-0 disabled:shadow-none disabled:cursor-not-allowed text-[var(--accent-contrast)] font-bold text-xs transition-all duration-200 cursor-pointer"
+              className="absolute end-1.5 h-8 px-4 rounded-lg bg-[var(--accent-cyan)] hover:bg-[var(--accent-cyan-hover)] disabled:bg-[var(--state-disabled-bg)] disabled:text-[var(--state-disabled-ink)] disabled:cursor-not-allowed text-[var(--accent-contrast)] font-bold text-xs transition-colors cursor-pointer shadow-xs"
             >
               {loading ? 'Analyzing...' : 'Analyze'}
             </button>
@@ -219,7 +219,7 @@ export default function AnalyticsPage() {
         {profile && (
           <div className="space-y-5 animate-in fade-in duration-300">
             {/* Creator Summary Card */}
-            <div className="p-4 sm:p-5 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)] flex flex-col sm:flex-row items-center gap-4">
+            <div className="p-4 sm:p-5 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)] shadow-[var(--shadow-card)] flex flex-col sm:flex-row items-center gap-4">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={profile.avatar}
@@ -277,7 +277,7 @@ export default function AnalyticsPage() {
             {videos.length > 0 && (
               <>
                 <div className="grid grid-cols-2 lg:grid-cols-4 gap-3.5 tabular-nums">
-                  <div className="p-4 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)]">
+                  <div className="p-4 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)] shadow-[var(--shadow-card)]">
                     <div className="flex items-center gap-2 text-xs font-bold text-[var(--ink-secondary)] mb-1.5">
                       <TrendingUp className="w-4 h-4 text-[var(--accent-primary-text)]" />
                       <span>Engagement Rate</span>
@@ -294,7 +294,7 @@ export default function AnalyticsPage() {
                     </p>
                   </div>
 
-                  <div className="p-4 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)]">
+                  <div className="p-4 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)] shadow-[var(--shadow-card)]">
                     <div className="flex items-center gap-2 text-xs font-bold text-[var(--ink-secondary)] mb-1.5">
                       <Eye className="w-4 h-4 text-[var(--accent-cyan-text)]" />
                       <span>Avg. Video Views</span>
@@ -307,7 +307,7 @@ export default function AnalyticsPage() {
                     </p>
                   </div>
 
-                  <div className="p-4 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)]">
+                  <div className="p-4 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)] shadow-[var(--shadow-card)]">
                     <div className="flex items-center gap-2 text-xs font-bold text-[var(--ink-secondary)] mb-1.5">
                       <Heart className="w-4 h-4 text-[var(--accent-primary-text)]" />
                       <span>Avg. Video Likes</span>
@@ -320,7 +320,7 @@ export default function AnalyticsPage() {
                     </p>
                   </div>
 
-                  <div className="p-4 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)]">
+                  <div className="p-4 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)] shadow-[var(--shadow-card)]">
                     <div className="flex items-center gap-2 text-xs font-bold text-[var(--ink-secondary)] mb-1.5">
                       <Sparkles className="w-4 h-4 text-[var(--accent-cyan-text)]" />
                       <span>Est. Sponsorship Value</span>
@@ -337,7 +337,7 @@ export default function AnalyticsPage() {
                 </div>
 
                 {/* Video Performance Breakdown */}
-                <div className="p-4 sm:p-5 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)]">
+                <div className="p-4 sm:p-5 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)] shadow-[var(--shadow-card)]">
                   <div className="flex items-center justify-between mb-3.5">
                     <h3 className="text-sm font-bold text-[var(--ink-primary)] flex items-center gap-2">
                       <BarChart3 className="w-4 h-4 text-[var(--accent-primary-text)]" />
@@ -352,7 +352,7 @@ export default function AnalyticsPage() {
                     {videos.slice(0, 6).map((v) => (
                       <div
                         key={v.id}
-                        className="flex flex-col sm:flex-row sm:items-center gap-3 p-3 rounded-lg bg-[var(--surface-canvas)] hover:bg-[var(--pastel-blue)]/30 border border-[var(--border-subtle)] hover:border-[var(--accent-cyan)]/70 transition-all duration-200"
+                        className="flex flex-col sm:flex-row sm:items-center gap-3 p-3 rounded-lg bg-[var(--surface-canvas)] border border-[var(--border-subtle)] hover:bg-[var(--pastel-blue)]/20 hover:border-[var(--accent-cyan)] transition-colors duration-200"
                       >
                         <div className="relative w-12 h-14 rounded-md overflow-hidden shrink-0 bg-[var(--surface-sunken)]">
                           {v.cover ? (
@@ -407,21 +407,21 @@ export default function AnalyticsPage() {
 
         {/* Educational Content */}
         <section className="mt-10 pt-7 border-t border-[var(--border-subtle)] grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-          <div className="p-4 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)]">
+          <div className="p-4 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)] shadow-[var(--shadow-card)]">
             <Users className="w-4 h-4 text-[var(--accent-cyan-text)] mb-1.5" />
             <h2 className="text-sm font-bold text-[var(--ink-primary)] mb-1">Audience Quality Check</h2>
             <p className="text-xs text-[var(--ink-secondary)] leading-relaxed">
               Spot inactive accounts by comparing follower count against real average views and comments per video.
             </p>
           </div>
-          <div className="p-4 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)]">
+          <div className="p-4 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)] shadow-[var(--shadow-card)]">
             <TrendingUp className="w-4 h-4 text-[var(--accent-primary-text)] mb-1.5" />
             <h2 className="text-sm font-bold text-[var(--ink-primary)] mb-1">Engagement Benchmarks</h2>
             <p className="text-xs text-[var(--ink-secondary)] leading-relaxed">
               Strong TikTok accounts often keep an engagement rate above 5 percent across recent short-form uploads.
             </p>
           </div>
-          <div className="p-4 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)]">
+          <div className="p-4 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)] shadow-[var(--shadow-card)]">
             <Sparkles className="w-4 h-4 text-[var(--accent-cyan-text)] mb-1.5" />
             <h2 className="text-sm font-bold text-[var(--ink-primary)] mb-1">Creator Monetization</h2>
             <p className="text-xs text-[var(--ink-secondary)] leading-relaxed">

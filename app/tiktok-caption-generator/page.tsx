@@ -74,7 +74,7 @@ export default function CaptionGeneratorPage() {
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 my-7">
           {/* Controls Column */}
-          <div className="lg:col-span-6 bg-[var(--surface-elevated)] rounded-xl border border-[var(--border-subtle)] p-5 sm:p-6 space-y-4">
+          <div className="lg:col-span-6 bg-[var(--surface-elevated)] rounded-xl border border-[var(--border-subtle)] p-5 sm:p-6 space-y-4 shadow-[var(--shadow-card)]">
             <h2 className="text-sm sm:text-base font-bold text-[var(--ink-primary)] border-b border-[var(--border-subtle)] pb-3 flex items-center gap-2">
               <Sparkles className="w-4 h-4 text-[var(--accent-cyan-text)]" />
               <span>Choose Your Topic &amp; Niche</span>
@@ -93,7 +93,7 @@ export default function CaptionGeneratorPage() {
                 value={topic}
                 onChange={(e) => setTopic(e.target.value)}
                 placeholder="e.g. 3 morning habits that save time"
-                className="w-full h-10 px-3.5 rounded-lg border border-[var(--border-strong)] bg-[var(--surface-canvas)] text-xs text-[var(--ink-primary)] placeholder:text-[var(--ink-muted)] focus:bg-[var(--surface-elevated)] focus:outline-none focus:border-[var(--focus-ring)] focus:ring-4 focus:ring-[var(--focus-ring)]/10 transition-all"
+                className="w-full h-10 px-3.5 rounded-lg border border-[var(--border-strong)] bg-[var(--surface-canvas)] text-xs text-[var(--ink-primary)] placeholder:text-[var(--ink-muted)] focus:bg-[var(--surface-elevated)] focus:outline-none focus:border-[var(--accent-cyan)] focus:ring-2 focus:ring-[var(--accent-cyan)]/20 transition-colors"
               />
             </div>
 
@@ -107,10 +107,10 @@ export default function CaptionGeneratorPage() {
                     key={cat}
                     type="button"
                     onClick={() => setNiche(cat)}
-                    className={`h-9 px-3 rounded-lg text-xs font-bold transition-all duration-150 cursor-pointer border ${
+                    className={`h-9 px-3 rounded-lg text-xs font-bold transition-colors cursor-pointer border ${
                       niche === cat
-                        ? 'bg-[var(--pastel-blue)] border-[var(--accent-cyan)] text-[var(--accent-cyan-text)] shadow-xs'
-                        : 'bg-[var(--surface-canvas)] text-[var(--ink-primary)] border-[var(--border-subtle)] hover:bg-[var(--pastel-blue)]/70 hover:border-[var(--accent-cyan)] hover:text-[var(--accent-cyan-text)]'
+                        ? 'bg-[var(--accent-cyan)] border-[var(--accent-cyan)] text-[var(--accent-contrast)] shadow-xs'
+                        : 'bg-[var(--surface-canvas)] text-[var(--ink-primary)] border-[var(--border-subtle)] hover:bg-[var(--accent-cyan-soft)] hover:border-[var(--accent-cyan)]'
                     }`}
                   >
                     {cat}
@@ -122,7 +122,7 @@ export default function CaptionGeneratorPage() {
             <button
               type="button"
               onClick={generateNewHook}
-              className="w-full h-10 rounded-lg border border-[var(--border-strong)] bg-[var(--surface-canvas)] hover:bg-[var(--pastel-blue)]/75 hover:border-[var(--accent-cyan)] text-[var(--ink-primary)] hover:text-[var(--accent-cyan-text)] hover:-translate-y-0.5 hover:shadow-xs font-bold text-xs flex items-center justify-center gap-2 cursor-pointer transition-all duration-200"
+              className="w-full h-10 rounded-lg border border-[var(--border-strong)] bg-[var(--surface-canvas)] hover:bg-[var(--pastel-blue)]/50 hover:border-[var(--accent-cyan)] text-[var(--ink-primary)] font-bold text-xs flex items-center justify-center gap-2 cursor-pointer transition-colors"
             >
               <RefreshCw className="w-3.5 h-3.5" />
               <span>Generate Another Hook</span>
@@ -130,7 +130,7 @@ export default function CaptionGeneratorPage() {
           </div>
 
           {/* Output Preview Column */}
-          <div className="lg:col-span-6 bg-[var(--surface-elevated)] rounded-xl border border-[var(--border-subtle)] p-5 sm:p-6 flex flex-col justify-between gap-4">
+          <div className="lg:col-span-6 bg-[var(--surface-elevated)] rounded-xl border border-[var(--border-subtle)] p-5 sm:p-6 flex flex-col justify-between gap-4 shadow-[var(--shadow-card)]">
             <div>
               <div className="flex items-center justify-between pb-3 border-b border-[var(--border-subtle)] mb-4">
                 <span className="text-xs font-bold uppercase tracking-wider text-[var(--ink-muted)]">
@@ -139,10 +139,10 @@ export default function CaptionGeneratorPage() {
                 <button
                   type="button"
                   onClick={() => void copyToClipboard()}
-                  className="h-9 px-3.5 rounded-lg bg-[var(--accent-primary)] hover:bg-[#F43F5E] hover:-translate-y-0.5 hover:shadow-sm text-[var(--accent-contrast)] text-xs font-bold flex items-center gap-1.5 transition-all duration-200 cursor-pointer"
+                  className="h-9 px-3.5 rounded-lg bg-[var(--accent-primary)] hover:bg-[var(--accent-primary-hover)] text-[var(--accent-contrast)] text-xs font-bold flex items-center gap-1.5 transition-colors cursor-pointer shadow-xs"
                 >
                   {copied ? (
-                    <Check className="w-3.5 h-3.5 text-white" />
+                    <Check className="w-3.5 h-3.5 text-current" />
                   ) : (
                     <Copy className="w-3.5 h-3.5" />
                   )}
