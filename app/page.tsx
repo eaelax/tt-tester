@@ -106,7 +106,7 @@ export default function HomePage() {
           heroVariant="workbench"
           titleKey="hero.homeTitle"
           subtitleKey="hero.homeSubtitle"
-          title="View Any TikTok Profile & Download Videos in HD"
+          title="TikTok Profile Viewer, HD Video Downloader & MP3 Audio Saver"
           subtitle="Inspect public TikTok profiles anonymously, watch videos smoothly without lag, and save watermark-free HD MP4 videos and MP3 audio for free."
         >
           <div className="w-full flex flex-col">
@@ -128,10 +128,10 @@ export default function HomePage() {
                   </div>
                   <Link
                     href="/how-to-use-tiktok-profile-viewer"
-                    className="h-9 px-4 rounded-lg bg-[var(--surface-elevated)] border border-[var(--border-strong)] hover:bg-[var(--pastel-blue)] hover:border-[var(--accent-cyan)] text-xs font-semibold text-[var(--ink-primary)] hover:text-[var(--accent-cyan-text)] inline-flex items-center gap-1.5 transition-colors duration-150 shrink-0 w-fit"
+                    className="h-9 px-4 rounded-lg bg-[var(--surface-elevated)] border border-[var(--border-strong)]/80 hover:bg-[var(--pastel-blue)]/50 hover:border-[var(--accent-cyan)] text-xs font-semibold text-[var(--ink-primary)] inline-flex items-center gap-1.5 transition-all shrink-0 w-fit shadow-xs"
                   >
                     <span>Read full guide</span>
-                    <ChevronRight className="w-3.5 h-3.5 text-current rtl:rotate-180" />
+                    <ChevronRight className="w-3.5 h-3.5 text-[var(--accent-cyan-text)] rtl:rotate-180" />
                   </Link>
                 </div>
 
@@ -163,10 +163,10 @@ export default function HomePage() {
                   </div>
                   <Link
                     href="/creators"
-                    className="h-9 px-4 rounded-lg bg-[var(--surface-elevated)] border border-[var(--border-strong)] hover:bg-[var(--pastel-blue)] hover:border-[var(--accent-cyan)] text-xs font-semibold text-[var(--ink-primary)] hover:text-[var(--accent-cyan-text)] inline-flex items-center gap-1.5 transition-colors duration-150 shrink-0 w-fit"
+                    className="h-9 px-4 rounded-lg bg-[var(--surface-elevated)] border border-[var(--border-strong)]/80 hover:bg-[var(--pastel-blue)]/50 hover:border-[var(--accent-cyan)] text-xs font-semibold text-[var(--ink-primary)] inline-flex items-center gap-1.5 transition-all shrink-0 w-fit shadow-xs"
                   >
                     <span>View all creators</span>
-                    <ChevronRight className="w-3.5 h-3.5 text-current rtl:rotate-180" />
+                    <ChevronRight className="w-3.5 h-3.5 text-[var(--accent-cyan-text)] rtl:rotate-180" />
                   </Link>
                 </div>
 
@@ -175,9 +175,9 @@ export default function HomePage() {
                     <Link
                       key={creator.username}
                       href={`/profile/${creator.username}`}
-                      className="group p-4 rounded-xl bg-[var(--surface-elevated)] hover:bg-[var(--pastel-blue)]/30 border border-[var(--border-subtle)] hover:border-[var(--accent-cyan)]/75 shadow-[var(--shadow-card)] transition-colors duration-150 flex items-center gap-3.5"
+                      className="group p-4 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)] hover:border-[var(--accent-cyan)] shadow-[var(--shadow-card)] transition-colors flex items-center gap-3.5"
                     >
-                      <div className="relative w-12 h-12 rounded-xl overflow-hidden bg-[var(--surface-sunken)] shrink-0 border border-[var(--border-subtle)] group-hover:border-[var(--accent-cyan)] transition-colors duration-150">
+                      <div className="relative w-12 h-12 rounded-xl overflow-hidden bg-[var(--surface-sunken)] shrink-0 border border-[var(--border-subtle)]">
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
                           src={
@@ -194,7 +194,7 @@ export default function HomePage() {
                       <div className="flex-1 min-w-0">
                         <h3
                           data-no-translate="true"
-                          className="text-sm font-bold text-[var(--ink-primary)] group-hover:text-[var(--accent-cyan-text)] transition-colors duration-150 truncate"
+                          className="text-sm font-bold text-[var(--ink-primary)] group-hover:text-[var(--accent-primary-text)] transition-colors truncate"
                         >
                           {creator.displayName}
                         </h3>
@@ -216,7 +216,7 @@ export default function HomePage() {
                         </div>
                       </div>
 
-                      <ChevronRight className="w-4 h-4 text-[var(--ink-muted)] group-hover:text-[var(--accent-cyan-text)] transition-colors duration-150 shrink-0 rtl:rotate-180" />
+                      <ChevronRight className="w-4 h-4 text-[var(--ink-muted)] group-hover:text-[var(--accent-primary-text)] transition-colors shrink-0 rtl:rotate-180" />
                     </Link>
                   ))}
                 </div>
@@ -241,10 +241,10 @@ export default function HomePage() {
                   </div>
                   <Link
                     href="/about-tiktok-profile-viewer"
-                    className="h-9 px-4 rounded-lg bg-[var(--surface-canvas)] border border-[var(--border-strong)] hover:bg-[var(--pastel-blue)] hover:border-[var(--accent-cyan)] text-xs font-semibold text-[var(--ink-primary)] hover:text-[var(--accent-cyan-text)] inline-flex items-center gap-1.5 transition-colors duration-150 shrink-0 w-fit"
+                    className="h-9 px-4 rounded-lg bg-[var(--surface-canvas)] border border-[var(--border-strong)]/80 hover:bg-[var(--pastel-blue)]/50 hover:border-[var(--accent-cyan)] text-xs font-semibold text-[var(--ink-primary)] inline-flex items-center gap-1.5 transition-all shrink-0 w-fit shadow-xs"
                   >
                     <span>Read more</span>
-                    <ChevronRight className="w-3.5 h-3.5 text-current rtl:rotate-180" />
+                    <ChevronRight className="w-3.5 h-3.5 text-[var(--accent-cyan-text)] rtl:rotate-180" />
                   </Link>
                 </div>
 
