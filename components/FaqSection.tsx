@@ -30,7 +30,7 @@ export default function FaqSection() {
 
           <a
             href="mailto:support@tikprofilesviewer.com"
-            className="mt-5 h-10 inline-flex items-center px-5 rounded-lg bg-[var(--accent-primary)] hover:bg-[#F43F5E] hover:-translate-y-0.5 hover:shadow-[0_8px_20px_-6px_rgba(225,29,72,0.4)] active:translate-y-0 text-[var(--accent-contrast)] text-xs font-bold transition-all duration-200 cursor-pointer"
+            className="mt-5 h-10 inline-flex items-center px-5 rounded-lg bg-[var(--accent-primary)] hover:bg-[#F43F5E] text-[var(--accent-contrast)] text-xs font-bold transition-colors duration-150 cursor-pointer"
           >
             {t('faq.contactSupport')}
           </a>
@@ -44,27 +44,27 @@ export default function FaqSection() {
             return (
               <div
                 key={num}
-                className={`rounded-xl bg-[var(--surface-elevated)] border transition-all duration-200 overflow-hidden shadow-[var(--shadow-card)] ${
+                className={`rounded-xl bg-[var(--surface-elevated)] border transition-colors duration-150 overflow-hidden shadow-[var(--shadow-card)] ${
                   isOpen
-                    ? 'border-[var(--accent-cyan)]/75 shadow-[var(--shadow-card-hover)]'
-                    : 'border-[var(--border-subtle)] hover:border-[var(--accent-cyan)]/70'
+                    ? 'border-[var(--accent-cyan)]/75'
+                    : 'border-[var(--border-subtle)] hover:border-[var(--accent-cyan)]/75 hover:bg-[var(--pastel-blue)]/20'
                 }`}
               >
                 <button
                   type="button"
                   onClick={() => toggleIndex(index)}
-                  className="w-full px-5 py-4 text-start flex items-center justify-between gap-4 cursor-pointer hover:bg-[var(--pastel-blue)]/25 transition-colors focus-visible:outline-2 focus-visible:outline-inset focus-visible:outline-[var(--focus-ring)] group"
+                  className="w-full px-5 py-4 text-start flex items-center justify-between gap-4 cursor-pointer focus-visible:outline-2 focus-visible:outline-inset focus-visible:outline-[var(--focus-ring)] group"
                   aria-expanded={isOpen}
                 >
-                  <span className="text-xs sm:text-sm font-bold text-[var(--ink-primary)] group-hover:text-[var(--accent-cyan-text)] transition-colors tracking-tight">
+                  <span className="text-xs sm:text-sm font-bold text-[var(--ink-primary)] group-hover:text-[var(--accent-cyan-text)] transition-colors duration-150 tracking-tight">
                     {t(`faq.q${num}`)}
                   </span>
 
                   <div
-                    className={`w-7 h-7 rounded-lg border flex items-center justify-center shrink-0 transition-colors ${
+                    className={`w-7 h-7 rounded-lg border flex items-center justify-center shrink-0 transition-colors duration-150 ${
                       isOpen
-                        ? 'bg-[var(--pastel-blue)] border-[var(--accent-cyan)]/50 text-[var(--accent-cyan-text)]'
-                        : 'bg-[var(--surface-canvas)] border-[var(--border-subtle)] text-[var(--ink-secondary)] group-hover:bg-[var(--pastel-blue)]/70 group-hover:border-[var(--accent-cyan)]/50 group-hover:text-[var(--accent-cyan-text)]'
+                        ? 'bg-[var(--pastel-blue)] border-[var(--accent-cyan)] text-[var(--accent-cyan-text)]'
+                        : 'bg-[var(--surface-canvas)] border-[var(--border-subtle)] text-[var(--ink-secondary)] group-hover:bg-[var(--pastel-blue)] group-hover:border-[var(--accent-cyan)] group-hover:text-[var(--accent-cyan-text)]'
                     }`}
                   >
                     {isOpen ? (

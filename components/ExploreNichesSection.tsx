@@ -62,7 +62,7 @@ export default function ExploreNichesSection() {
 
         <Link
           href="/categories"
-          className="h-9 px-4 rounded-lg bg-[var(--surface-canvas)] border border-[var(--border-strong)] hover:bg-[var(--pastel-blue)]/75 hover:border-[var(--accent-cyan)] hover:text-[var(--accent-cyan-text)] hover:-translate-y-0.5 hover:shadow-xs text-xs font-semibold text-[var(--ink-primary)] inline-flex items-center gap-1.5 transition-all duration-200 shrink-0 w-fit"
+          className="h-9 px-4 rounded-lg bg-[var(--surface-canvas)] border border-[var(--border-strong)] hover:bg-[var(--pastel-blue)] hover:border-[var(--accent-cyan)] text-xs font-semibold text-[var(--ink-primary)] hover:text-[var(--accent-cyan-text)] inline-flex items-center gap-1.5 transition-colors duration-150 shrink-0 w-fit"
         >
           <span>{t('niches.allCategories')}</span>
           <ChevronRight className="w-3.5 h-3.5 text-current rtl:rotate-180" />
@@ -75,13 +75,13 @@ export default function ExploreNichesSection() {
           <Link
             key={niche.href}
             href={niche.href}
-            className="group p-4 sm:p-5 rounded-xl bg-[var(--surface-canvas)] hover:bg-[var(--pastel-blue)]/35 border border-[var(--border-subtle)] hover:border-[var(--accent-cyan)]/75 hover:-translate-y-0.5 hover:shadow-[var(--shadow-card-hover)] transition-all duration-200 flex flex-col justify-between gap-2"
+            className="group p-4 sm:p-5 rounded-xl bg-[var(--surface-canvas)] hover:bg-[var(--pastel-blue)]/35 border border-[var(--border-subtle)] hover:border-[var(--accent-cyan)]/75 transition-colors duration-150 flex flex-col justify-between gap-2"
           >
             <div className="flex items-center justify-between gap-2">
-              <h3 className="text-sm font-bold text-[var(--ink-primary)] group-hover:text-[var(--accent-cyan-text)] transition-colors truncate">
+              <h3 className="text-sm font-bold text-[var(--ink-primary)] group-hover:text-[var(--accent-cyan-text)] transition-colors duration-150 truncate">
                 {t(`niches.${niche.key}`)}
               </h3>
-              <span className="text-[11px] font-semibold px-2 py-0.5 rounded-md bg-[var(--surface-elevated)] border border-[var(--border-subtle)] group-hover:border-[var(--pastel-blue-border)] text-[var(--ink-secondary)] shrink-0 tabular-nums transition-colors">
+              <span className="text-[11px] font-semibold px-2 py-0.5 rounded-md bg-[var(--surface-elevated)] border border-[var(--border-subtle)] text-[var(--ink-secondary)] shrink-0 tabular-nums">
                 {t('niches.creatorsCount', { count: niche.count })}
               </span>
             </div>
@@ -127,7 +127,7 @@ export default function ExploreNichesSection() {
         <button
           type="button"
           onClick={scrollToSearch}
-          className="h-10 inline-flex items-center gap-2 px-6 rounded-lg bg-[var(--accent-primary)] hover:bg-[#F43F5E] hover:-translate-y-0.5 hover:shadow-[0_8px_20px_-6px_rgba(225,29,72,0.4)] active:translate-y-0 text-[var(--accent-contrast)] text-xs sm:text-sm font-bold transition-all duration-200 cursor-pointer"
+          className="h-10 inline-flex items-center gap-2 px-6 rounded-lg bg-[var(--accent-primary)] hover:bg-[#F43F5E] text-[var(--accent-contrast)] text-xs sm:text-sm font-bold transition-colors duration-150 cursor-pointer"
         >
           <span>{t('niches.cta')}</span>
           <ArrowRight className="w-4 h-4 rtl:rotate-180" />

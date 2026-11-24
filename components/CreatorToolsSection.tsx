@@ -33,13 +33,13 @@ export default function CreatorToolsSection() {
           <Link
             key={tool.href}
             href={tool.href}
-            className="group p-4 sm:p-5 rounded-xl bg-[var(--surface-elevated)] hover:bg-[var(--pastel-blue)]/30 border border-[var(--border-subtle)] hover:border-[var(--accent-cyan)]/75 shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-card-hover)] hover:-translate-y-0.5 transition-all duration-200 flex flex-col justify-between min-h-[144px]"
+            className="group p-4 sm:p-5 rounded-xl bg-[var(--surface-elevated)] hover:bg-[var(--pastel-blue)]/30 border border-[var(--border-subtle)] hover:border-[var(--accent-cyan)]/75 shadow-[var(--shadow-card)] transition-colors duration-150 flex flex-col justify-between min-h-[144px]"
           >
             <div>
-              <span className="inline-block text-[11px] font-mono font-bold text-[var(--ink-muted)] group-hover:text-[var(--accent-cyan-text)] tabular-nums mb-2 transition-colors">
+              <span className="inline-block text-[11px] font-mono font-bold text-[var(--ink-muted)] group-hover:text-[var(--accent-cyan-text)] tabular-nums mb-2 transition-colors duration-150">
                 {tool.index}
               </span>
-              <h3 className="text-sm font-bold text-[var(--ink-primary)] group-hover:text-[var(--accent-cyan-text)] transition-colors line-clamp-1">
+              <h3 className="text-sm font-bold text-[var(--ink-primary)] group-hover:text-[var(--accent-cyan-text)] transition-colors duration-150 line-clamp-1">
                 {t(`tools.${tool.key}Title`)}
               </h3>
               <p className="text-xs text-[var(--ink-secondary)] leading-snug line-clamp-2 mt-1.5">
@@ -47,9 +47,9 @@ export default function CreatorToolsSection() {
               </p>
             </div>
 
-            <div className="flex items-center justify-between pt-3 mt-3 border-t border-[var(--border-subtle)] text-xs font-semibold text-[var(--ink-primary)] group-hover:text-[var(--accent-cyan-text)] transition-colors">
+            <div className="flex items-center justify-between pt-3 mt-3 border-t border-[var(--border-subtle)] text-xs font-semibold text-[var(--ink-primary)] group-hover:text-[var(--accent-cyan-text)] transition-colors duration-150">
               <span>{t('tools.openTool')}</span>
-              <ChevronRight className="w-3.5 h-3.5 text-[var(--ink-muted)] group-hover:text-[var(--accent-cyan-text)] group-hover:translate-x-0.5 transition-all rtl:rotate-180" />
+              <ChevronRight className="w-3.5 h-3.5 text-[var(--ink-muted)] group-hover:text-[var(--accent-cyan-text)] transition-colors duration-150 rtl:rotate-180" />
             </div>
           </Link>
         ))}

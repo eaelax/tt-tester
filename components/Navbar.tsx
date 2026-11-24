@@ -71,10 +71,10 @@ export default function Navbar() {
   }, []);
 
   const navLinkClass = (active: boolean) =>
-    `h-9 px-3.5 rounded-lg inline-flex items-center text-[13px] font-semibold transition-all duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--focus-ring)] border ${
+    `h-9 px-3.5 rounded-lg inline-flex items-center text-[13px] font-semibold transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--focus-ring)] border ${
       active
-        ? 'bg-[var(--surface-elevated)] text-[var(--ink-primary)] border-[var(--border-subtle)] shadow-xs'
-        : 'text-[var(--ink-primary)]/85 hover:text-[var(--accent-cyan-text)] hover:bg-[var(--surface-elevated)] hover:border-[var(--border-subtle)] hover:shadow-xs border-transparent'
+        ? 'bg-[var(--surface-elevated)] text-[var(--ink-primary)] border-[var(--border-subtle)]'
+        : 'text-[var(--ink-primary)]/85 hover:text-[var(--accent-cyan-text)] hover:bg-[var(--surface-elevated)]/85 hover:border-[var(--border-subtle)] border-transparent'
     }`;
 
   return (
@@ -90,16 +90,16 @@ export default function Navbar() {
         <Link
           href="/"
           onClick={handleGoHome}
-          className="flex items-center gap-2.5 text-[var(--ink-primary)] select-none shrink-0 rounded-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--focus-ring)] group"
+          className="flex items-center gap-2.5 text-[var(--ink-primary)] hover:opacity-85 transition-opacity duration-150 select-none shrink-0 rounded-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--focus-ring)]"
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/assets/aistudio/tik-profiles-viewer-logo_c4487561.png"
             alt={t('brand.name')}
-            className="w-8 h-8 object-contain shrink-0 transition-transform duration-200 group-hover:scale-105"
+            className="w-8 h-8 object-contain shrink-0"
           />
           <div className="flex flex-col">
-            <span className="font-bold text-sm tracking-tight text-[var(--ink-primary)] group-hover:text-[var(--accent-cyan-text)] transition-colors leading-none">
+            <span className="font-bold text-sm tracking-tight text-[var(--ink-primary)] leading-none">
               {t('brand.name')}
             </span>
             <span
@@ -140,10 +140,10 @@ export default function Navbar() {
                 setToolsDropdownOpen(!toolsDropdownOpen);
                 setLangDropdownOpen(false);
               }}
-              className={`h-9 text-[13px] font-semibold px-3.5 rounded-lg flex items-center gap-1 transition-all duration-150 cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--focus-ring)] border ${
+              className={`h-9 text-[13px] font-semibold px-3.5 rounded-lg flex items-center gap-1 transition-colors duration-150 cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--focus-ring)] border ${
                 toolsDropdownOpen
-                  ? 'bg-[var(--surface-elevated)] text-[var(--ink-primary)] border-[var(--border-subtle)] shadow-xs'
-                  : 'text-[var(--ink-primary)]/85 hover:text-[var(--accent-cyan-text)] hover:bg-[var(--surface-elevated)] hover:border-[var(--border-subtle)] hover:shadow-xs border-transparent'
+                  ? 'bg-[var(--surface-elevated)] text-[var(--ink-primary)] border-[var(--border-subtle)]'
+                  : 'text-[var(--ink-primary)]/85 hover:text-[var(--accent-cyan-text)] hover:bg-[var(--surface-elevated)]/85 hover:border-[var(--border-subtle)] border-transparent'
               }`}
             >
               <span>{t('nav.tools')}</span>
@@ -163,9 +163,9 @@ export default function Navbar() {
                   key={tool.href}
                   href={tool.href}
                   onClick={() => setToolsDropdownOpen(false)}
-                  className="px-3 py-2 rounded-lg hover:bg-[var(--pastel-blue)]/55 text-[var(--ink-primary)] transition-colors group"
+                  className="px-3 py-2 rounded-lg hover:bg-[var(--pastel-blue)]/55 text-[var(--ink-primary)] transition-colors duration-150 group"
                 >
-                  <div className="font-semibold text-xs group-hover:text-[var(--accent-cyan-text)] transition-colors">
+                  <div className="font-semibold text-xs group-hover:text-[var(--accent-cyan-text)] transition-colors duration-150">
                     {t(`nav.tool.${tool.key}.label`)}
                   </div>
                   <div className="text-[11px] text-[var(--ink-muted)] mt-0.5">
@@ -188,7 +188,7 @@ export default function Navbar() {
                 setLangDropdownOpen(!langDropdownOpen);
                 setToolsDropdownOpen(false);
               }}
-              className="h-9 text-xs font-semibold px-3.5 rounded-lg bg-[var(--surface-elevated)] hover:bg-[var(--pastel-blue)] border border-[var(--border-subtle)] hover:border-[var(--accent-cyan)] text-[var(--ink-primary)] hover:text-[var(--accent-cyan-text)] shadow-xs flex items-center gap-1.5 transition-all duration-150 cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--focus-ring)]"
+              className="h-9 text-xs font-semibold px-3.5 rounded-lg bg-[var(--surface-elevated)]/90 hover:bg-[var(--pastel-blue)] border border-[var(--border-subtle)] hover:border-[var(--accent-cyan)] text-[var(--ink-primary)] hover:text-[var(--accent-cyan-text)] flex items-center gap-1.5 transition-colors duration-150 cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--focus-ring)]"
             >
               <Globe className="w-3.5 h-3.5 text-[var(--accent-cyan-text)] shrink-0" />
               <span>{languageInfo.native}</span>
@@ -213,7 +213,7 @@ export default function Navbar() {
                       setLanguage(item.code);
                       setLangDropdownOpen(false);
                     }}
-                    className={`w-full px-3 py-2 rounded-lg text-xs flex items-center justify-between text-start transition-colors cursor-pointer ${
+                    className={`w-full px-3 py-2 rounded-lg text-xs flex items-center justify-between text-start transition-colors duration-150 cursor-pointer ${
                       isSelected
                         ? 'bg-[var(--pastel-blue)] text-[var(--ink-primary)] font-semibold'
                         : 'text-[var(--ink-secondary)] hover:bg-[var(--pastel-blue)]/55 hover:text-[var(--ink-primary)]'
@@ -242,7 +242,7 @@ export default function Navbar() {
               setLangDropdownOpen(!langDropdownOpen);
               setMobileMenuOpen(false);
             }}
-            className="h-9 px-3 rounded-lg bg-[var(--surface-elevated)] hover:bg-[var(--pastel-blue)] border border-[var(--border-subtle)] hover:border-[var(--accent-cyan)] text-xs font-semibold text-[var(--ink-primary)] hover:text-[var(--accent-cyan-text)] shadow-xs flex items-center gap-1.5 cursor-pointer transition-all"
+            className="h-9 px-3 rounded-lg bg-[var(--surface-elevated)]/90 hover:bg-[var(--pastel-blue)] border border-[var(--border-subtle)] hover:border-[var(--accent-cyan)] text-xs font-semibold text-[var(--ink-primary)] hover:text-[var(--accent-cyan-text)] flex items-center gap-1.5 cursor-pointer transition-colors duration-150"
           >
             <Globe className="w-3.5 h-3.5 text-[var(--accent-cyan-text)]" />
             <span className="hidden sm:inline">{languageInfo.native}</span>
@@ -255,7 +255,7 @@ export default function Navbar() {
               setMobileMenuOpen(!mobileMenuOpen);
               setLangDropdownOpen(false);
             }}
-            className="w-9 h-9 rounded-lg bg-[var(--surface-elevated)] border border-[var(--border-subtle)] text-[var(--ink-primary)] hover:bg-[var(--pastel-blue)]/70 hover:border-[var(--accent-cyan)] hover:text-[var(--accent-cyan-text)] transition-colors cursor-pointer flex items-center justify-center"
+            className="w-9 h-9 rounded-lg bg-[var(--surface-elevated)] border border-[var(--border-subtle)] text-[var(--ink-primary)] hover:bg-[var(--pastel-blue)]/70 hover:border-[var(--accent-cyan)] hover:text-[var(--accent-cyan-text)] transition-colors duration-150 cursor-pointer flex items-center justify-center"
             aria-label={t('nav.toggleMenu')}
             aria-expanded={mobileMenuOpen}
           >
@@ -282,10 +282,10 @@ export default function Navbar() {
                   setLanguage(item.code);
                   setLangDropdownOpen(false);
                 }}
-                className={`h-9 px-3 rounded-lg text-xs text-start flex items-center justify-between border cursor-pointer transition-colors ${
+                className={`h-9 px-3 rounded-lg text-xs text-start flex items-center justify-between border cursor-pointer transition-colors duration-150 ${
                   lang === item.code
                     ? 'bg-[var(--pastel-blue)] border-[var(--pastel-blue-border)] text-[var(--ink-primary)] font-semibold'
-                    : 'bg-[var(--surface-canvas)] border-[var(--border-subtle)] text-[var(--ink-primary)] hover:bg-[var(--pastel-blue)]/50 hover:border-[var(--accent-cyan)]'
+                    : 'bg-[var(--surface-canvas)] border-[var(--border-subtle)] hover:bg-[var(--pastel-blue)]/55 hover:border-[var(--accent-cyan)] text-[var(--ink-primary)]'
                 }`}
               >
                 <span className="truncate">{item.native}</span>
@@ -307,21 +307,21 @@ export default function Navbar() {
           <Link
             href="/"
             onClick={handleGoHome}
-            className="px-3.5 py-2.5 rounded-lg text-sm font-semibold text-[var(--ink-primary)] hover:bg-[var(--pastel-blue)]/55 hover:text-[var(--accent-cyan-text)] transition-colors"
+            className="px-3.5 py-2.5 rounded-lg text-sm font-semibold text-[var(--ink-primary)] hover:bg-[var(--pastel-blue)]/55 hover:text-[var(--accent-cyan-text)] transition-colors duration-150"
           >
             {t('nav.home')}
           </Link>
           <Link
             href="/about-tiktok-profile-viewer"
             onClick={() => setMobileMenuOpen(false)}
-            className="px-3.5 py-2.5 rounded-lg text-sm font-semibold text-[var(--ink-primary)] hover:bg-[var(--pastel-blue)]/55 hover:text-[var(--accent-cyan-text)] transition-colors"
+            className="px-3.5 py-2.5 rounded-lg text-sm font-semibold text-[var(--ink-primary)] hover:bg-[var(--pastel-blue)]/55 hover:text-[var(--accent-cyan-text)] transition-colors duration-150"
           >
             {t('nav.about')}
           </Link>
           <Link
             href="/how-to-use-tiktok-profile-viewer"
             onClick={() => setMobileMenuOpen(false)}
-            className="px-3.5 py-2.5 rounded-lg text-sm font-semibold text-[var(--ink-primary)] hover:bg-[var(--pastel-blue)]/55 hover:text-[var(--accent-cyan-text)] transition-colors"
+            className="px-3.5 py-2.5 rounded-lg text-sm font-semibold text-[var(--ink-primary)] hover:bg-[var(--pastel-blue)]/55 hover:text-[var(--accent-cyan-text)] transition-colors duration-150"
           >
             {t('nav.howToUse')}
           </Link>
@@ -336,7 +336,7 @@ export default function Navbar() {
                   key={tool.href}
                   href={tool.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="px-3.5 py-2 rounded-lg text-xs font-medium text-[var(--ink-primary)] hover:bg-[var(--pastel-blue)]/55 hover:text-[var(--accent-cyan-text)] flex items-center justify-between gap-2 transition-colors"
+                  className="px-3.5 py-2 rounded-lg text-xs font-medium text-[var(--ink-primary)] hover:bg-[var(--pastel-blue)]/55 hover:text-[var(--accent-cyan-text)] transition-colors duration-150 flex items-center justify-between gap-2"
                 >
                   <span>{t(`nav.tool.${tool.key}.label`)}</span>
                   <span className="text-[11px] font-normal text-[var(--ink-muted)] truncate">
