@@ -56,12 +56,12 @@ export default function CategoriesPage() {
             <Link
               key={cat.slug}
               href={`/category/${cat.slug}`}
-              className="group p-4 sm:p-5 rounded-xl bg-[var(--surface-elevated)] hover:bg-[var(--pastel-blue)]/30 border border-[var(--border-subtle)] hover:border-[var(--accent-cyan)]/75 shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-card-hover)] hover:-translate-y-0.5 transition-all duration-200 flex flex-col justify-between"
+              className="group p-4 sm:p-5 rounded-xl bg-[var(--surface-elevated)] hover:bg-[var(--pastel-blue)] border border-[var(--border-subtle)] hover:border-[var(--accent-cyan)] shadow-[var(--shadow-card)] transition-colors duration-150 flex flex-col justify-between"
             >
               <div>
                 <div className="flex items-center justify-between mb-3">
                   <div className="w-10 h-10 rounded-lg bg-[var(--pastel-blue)] text-[var(--accent-cyan-text)] border border-[var(--pastel-blue-border)] flex items-center justify-center group-hover:bg-[var(--surface-elevated)] group-hover:border-[var(--accent-cyan)] transition-colors">
-                    <Play className="w-4 h-4 fill-current translate-x-0.5" />
+                    <Play className="w-4 h-4 fill-current" />
                   </div>
                   <span className="text-[11px] font-mono font-bold px-2 py-0.5 rounded-full bg-[var(--accent-cyan-soft)] border border-[var(--accent-cyan)] text-[var(--accent-cyan-text)] tabular-nums">
                     {cat.creatorUsernames.length} Creators
@@ -78,7 +78,7 @@ export default function CategoriesPage() {
 
               <div className="mt-4 pt-3 border-t border-[var(--border-subtle)] flex items-center justify-between text-xs text-[var(--ink-primary)] group-hover:text-[var(--accent-cyan-text)] font-bold transition-colors">
                 <span>Browse {cat.name}</span>
-                <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform rtl:rotate-180" />
+                <ChevronRight className="w-3.5 h-3.5 rtl:rotate-180" />
               </div>
             </Link>
           ))}

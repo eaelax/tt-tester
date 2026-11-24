@@ -76,7 +76,7 @@ export default function AboutPage() {
           </div>
 
           <div className="p-4 sm:p-5 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)] shadow-[var(--shadow-card)] flex flex-col gap-2.5">
-            <div className="w-9 h-9 rounded-lg bg-[var(--accent-soft)] text-[var(--accent-primary-text)] border border-[var(--accent-primary)]/40 flex items-center justify-center">
+            <div className="w-9 h-9 rounded-lg bg-[var(--accent-soft)] text-[var(--accent-primary-text)] border border-[var(--pastel-pink-border)] flex items-center justify-center">
               <Download className="w-4 h-4" />
             </div>
             <h2 className="text-sm sm:text-base font-bold text-[var(--ink-primary)]">Clean HD Downloads</h2>
@@ -153,10 +153,10 @@ export default function AboutPage() {
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 my-6">
           <Link
             href="/tiktok-video-downloader"
-            className="p-4 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)] hover:bg-[var(--pastel-blue)]/25 hover:border-[var(--accent-cyan)] hover:shadow-[var(--shadow-card-hover)] flex items-center justify-between group transition-all duration-200"
+            className="p-4 rounded-xl bg-[var(--surface-elevated)] hover:bg-[var(--pastel-blue)] border border-[var(--border-subtle)] hover:border-[var(--accent-cyan)] shadow-[var(--shadow-card)] flex items-center justify-between group transition-colors duration-150"
           >
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-lg bg-[var(--accent-soft)] text-[var(--accent-primary-text)] border border-[var(--accent-primary)]/40 flex items-center justify-center">
+              <div className="w-8 h-8 rounded-lg bg-[var(--accent-soft)] text-[var(--accent-primary-text)] border border-[var(--pastel-pink-border)] flex items-center justify-center">
                 <Film className="w-4 h-4" />
               </div>
               <div>
@@ -169,7 +169,7 @@ export default function AboutPage() {
 
           <Link
             href="/tiktok-mp3-downloader"
-            className="p-4 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)] hover:bg-[var(--pastel-blue)]/25 hover:border-[var(--accent-cyan)] hover:shadow-[var(--shadow-card-hover)] flex items-center justify-between group transition-all duration-200"
+            className="p-4 rounded-xl bg-[var(--surface-elevated)] hover:bg-[var(--pastel-blue)] border border-[var(--border-subtle)] hover:border-[var(--accent-cyan)] shadow-[var(--shadow-card)] flex items-center justify-between group transition-colors duration-150"
           >
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 rounded-lg bg-[var(--accent-cyan-soft)] text-[var(--accent-cyan-text)] border border-[var(--accent-cyan)] flex items-center justify-center">
@@ -185,7 +185,7 @@ export default function AboutPage() {
 
           <Link
             href="/creators"
-            className="p-4 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)] hover:bg-[var(--pastel-blue)]/25 hover:border-[var(--accent-cyan)] hover:shadow-[var(--shadow-card-hover)] flex items-center justify-between group transition-all duration-200"
+            className="p-4 rounded-xl bg-[var(--surface-elevated)] hover:bg-[var(--pastel-blue)] border border-[var(--border-subtle)] hover:border-[var(--accent-cyan)] shadow-[var(--shadow-card)] flex items-center justify-between group transition-colors duration-150"
           >
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 rounded-lg bg-[var(--surface-canvas)] text-[var(--ink-primary)] border border-[var(--border-strong)] flex items-center justify-center">
@@ -201,7 +201,7 @@ export default function AboutPage() {
         </div>
 
         {/* Compact CTA Section */}
-        <div className="p-6 sm:p-7 rounded-xl bg-gradient-to-br from-[var(--pastel-blue)]/60 via-[var(--surface-elevated)] to-[var(--pastel-pink)]/50 text-[var(--ink-primary)] text-center flex flex-col items-center gap-3 my-6 border border-[var(--border-subtle)] shadow-[var(--shadow-card)]">
+        <div className="p-6 sm:p-7 rounded-xl bg-[var(--surface-elevated)] text-[var(--ink-primary)] text-center flex flex-col items-center gap-3 my-6 border border-[var(--border-subtle)] shadow-[var(--shadow-card)]">
           <h2 className="text-lg sm:text-xl font-bold tracking-tight">
             Ready to view any TikTok profile?
           </h2>

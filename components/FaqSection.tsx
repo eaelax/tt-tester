@@ -30,7 +30,7 @@ export default function FaqSection() {
 
           <a
             href="mailto:support@tikprofilesviewer.com"
-            className="mt-5 h-10 inline-flex items-center px-5 rounded-lg bg-[var(--accent-primary)] hover:bg-[#F43F5E] text-[var(--accent-contrast)] text-xs font-bold transition-colors duration-150 cursor-pointer"
+            className="mt-5 h-10 inline-flex items-center px-5 rounded-lg bg-[var(--accent-primary)] hover:bg-[var(--accent-primary-hover)] text-[var(--accent-contrast)] text-xs font-bold transition-colors duration-150 cursor-pointer"
           >
             {t('faq.contactSupport')}
           </a>
@@ -46,8 +46,8 @@ export default function FaqSection() {
                 key={num}
                 className={`rounded-xl bg-[var(--surface-elevated)] border transition-colors duration-150 overflow-hidden shadow-[var(--shadow-card)] ${
                   isOpen
-                    ? 'border-[var(--accent-cyan)]/75'
-                    : 'border-[var(--border-subtle)] hover:border-[var(--accent-cyan)]/75 hover:bg-[var(--pastel-blue)]/20'
+                    ? 'border-[var(--accent-cyan)]'
+                    : 'border-[var(--border-subtle)] hover:border-[var(--accent-cyan)] hover:bg-[var(--surface-canvas)]'
                 }`}
               >
                 <button

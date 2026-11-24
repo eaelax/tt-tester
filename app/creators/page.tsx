@@ -88,7 +88,7 @@ export default function CreatorsDirectoryPage() {
             <Link
               key={creator.username}
               href={`/profile/${creator.username}`}
-              className="group p-4 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)] hover:bg-[var(--pastel-blue)]/25 hover:border-[var(--accent-cyan)] hover:shadow-[var(--shadow-card-hover)] transition-all duration-200 flex flex-col justify-between"
+              className="group p-4 rounded-xl bg-[var(--surface-elevated)] hover:bg-[var(--pastel-blue)] border border-[var(--border-subtle)] hover:border-[var(--accent-cyan)] shadow-[var(--shadow-card)] transition-colors duration-150 flex flex-col justify-between"
             >
               <div>
                 <div className="flex items-start gap-3">

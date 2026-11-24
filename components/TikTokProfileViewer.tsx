@@ -13,6 +13,8 @@ import {
   AlertCircle,
   Music,
   ChevronDown,
+  Film,
+  ShieldCheck,
 } from 'lucide-react';
 import DownloadCounterModal from './DownloadCounterModal';
 import AdSlot from './AdSlot';
@@ -185,13 +187,17 @@ export default function TikTokProfileViewer({
     requestAnimationFrame(() => {
       setTimeout(() => {
         if (!resultsRef.current) return;
+        const headerEl = document.querySelector('header');
+        const navHeight = headerEl
+          ? Math.ceil(headerEl.getBoundingClientRect().height)
+          : 64;
         const rect = resultsRef.current.getBoundingClientRect();
-        const targetTop = window.scrollY + rect.top - 68;
+        const targetTop = window.scrollY + rect.top - navHeight + 1;
         window.scrollTo({
           top: Math.max(0, targetTop),
           behavior: 'smooth',
         });
-      }, 70);
+      }, 90);
     });
   }, []);
 
@@ -666,7 +672,7 @@ export default function TikTokProfileViewer({
         e.preventDefault();
         void handleSearch(undefined, true);
       }}
-      className="relative flex flex-col sm:flex-row items-stretch sm:items-center gap-2 rounded-2xl p-1.5 bg-[var(--surface-elevated)] border border-[var(--border-strong)]/70 focus-within:border-[var(--accent-primary)] focus-within:ring-4 focus-within:ring-[var(--accent-primary)]/15 shadow-sm transition-all"
+      className="relative flex flex-col sm:flex-row items-stretch sm:items-center gap-2 rounded-2xl p-1.5 bg-[var(--surface-elevated)] border border-[var(--border-strong)] focus-within:border-[var(--accent-primary)] focus-within:ring-4 focus-within:ring-[var(--accent-primary)]/15 shadow-sm transition-colors"
     >
       <label htmlFor="tiktok-username-search" className="sr-only">
         {t('search.label')}
@@ -675,7 +681,7 @@ export default function TikTokProfileViewer({
       <div className="flex items-center flex-1 min-w-0">
         <span
           aria-hidden="true"
-          className="flex items-center justify-center leading-none text-xl sm:text-2xl font-bold text-[var(--accent-primary)] select-none shrink-0 ps-3 pe-1 self-center"
+          className="h-11 inline-flex items-center justify-center text-base sm:text-[17px] font-bold text-[var(--accent-primary)] select-none shrink-0 ps-3.5 pe-1 leading-none pb-[1px]"
         >
           @
         </span>
@@ -688,7 +694,7 @@ export default function TikTokProfileViewer({
           onChange={(e) => setUsernameInput(e.target.value)}
           placeholder={t('search.placeholder')}
           disabled={loading}
-          className="w-full bg-transparent h-11 px-2 text-sm sm:text-[15px] text-[var(--ink-primary)] font-medium placeholder:text-[var(--ink-muted)] placeholder:font-normal focus:outline-none disabled:opacity-60"
+          className="w-full bg-transparent h-11 px-1.5 text-sm sm:text-[15px] leading-normal text-[var(--ink-primary)] font-medium placeholder:text-[var(--ink-muted)] placeholder:font-normal focus:outline-none disabled:opacity-60"
         />
 
         {usernameInput && !loading && (
@@ -696,7 +702,7 @@ export default function TikTokProfileViewer({
             type="button"
             onClick={() => setUsernameInput('')}
             aria-label={t('search.clear')}
-            className="w-8 h-8 rounded-lg hover:bg-[var(--pastel-blue)]/50 text-[var(--ink-muted)] hover:text-[var(--ink-primary)] flex items-center justify-center shrink-0 cursor-pointer transition-colors me-1"
+            className="w-8 h-8 rounded-lg hover:bg-[var(--surface-sunken)] text-[var(--ink-muted)] hover:text-[var(--ink-primary)] flex items-center justify-center shrink-0 cursor-pointer transition-colors me-1"
           >
             <X className="w-4 h-4" />
           </button>
@@ -706,7 +712,7 @@ export default function TikTokProfileViewer({
       <button
         type="submit"
         disabled={loading}
-        className="shrink-0 h-11 flex items-center justify-center gap-2 px-6 rounded-xl bg-[var(--accent-primary)] hover:bg-[var(--accent-primary-hover)] text-[var(--accent-contrast)] font-semibold text-sm transition-colors disabled:bg-[var(--state-disabled-bg)] disabled:text-[var(--state-disabled-ink)] disabled:cursor-not-allowed cursor-pointer shadow-xs"
+        className="shrink-0 h-11 flex items-center justify-center gap-2 px-6 rounded-xl bg-[var(--accent-primary)] hover:bg-[var(--accent-primary-hover)] text-[var(--accent-contrast)] font-semibold text-sm transition-colors disabled:bg-[var(--state-disabled-bg)] disabled:text-[var(--state-disabled-ink)] disabled:cursor-not-allowed cursor-pointer"
       >
         {loading ? (
           <>
@@ -724,7 +730,7 @@ export default function TikTokProfileViewer({
   );
 
   const renderPopularRow = () => (
-    <div className="mt-3.5 flex flex-wrap items-center justify-center gap-2">
+    <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
       <span className="text-xs font-semibold text-[var(--ink-secondary)] whitespace-nowrap">
         {t('search.popular')}
       </span>
@@ -737,7 +743,7 @@ export default function TikTokProfileViewer({
             setUsernameInput(item.username);
             void handleSearch(item.username, true);
           }}
-          className="h-7 text-xs font-medium px-3 rounded-full bg-[var(--surface-elevated)] hover:bg-[var(--pastel-blue)]/60 border border-[var(--border-subtle)] hover:border-[var(--accent-cyan)] text-[var(--ink-primary)] transition-all whitespace-nowrap shrink-0 cursor-pointer shadow-xs"
+          className="h-8 text-xs font-semibold px-3 rounded-lg bg-[var(--surface-elevated)] hover:bg-[var(--surface-sunken)] border border-[var(--border-subtle)] hover:border-[var(--border-strong)] text-[var(--ink-primary)] transition-colors whitespace-nowrap shrink-0 cursor-pointer"
         >
           @{item.username}
         </button>
@@ -773,7 +779,7 @@ export default function TikTokProfileViewer({
             )}
 
             {resolvedTitle && (
-              <h1 className="text-[length:var(--h1-size)] font-semibold tracking-tight text-[var(--ink-primary)] leading-[1.2] max-w-3xl">
+              <h1 className="text-[length:var(--h1-size)] font-bold tracking-tight text-[var(--ink-primary)] leading-[1.2] max-w-3xl">
                 {resolvedTitle}
               </h1>
             )}
@@ -799,20 +805,20 @@ export default function TikTokProfileViewer({
               {renderErrorNotice()}
             </div>
 
-            {/* Redesigned Capability Badges */}
-            <div className="mt-7 flex flex-wrap items-center justify-center gap-2.5 text-xs font-medium">
-              <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[var(--surface-elevated)]/90 backdrop-blur-xs border border-[var(--pastel-blue-border)] text-[var(--ink-primary)] shadow-xs">
-                <span className="w-2 h-2 rounded-full bg-[var(--accent-cyan)] shrink-0" />
+            {/* Feature Capability Strip */}
+            <div className="mt-7 grid grid-cols-1 sm:grid-cols-3 gap-2.5 w-full max-w-2xl text-xs font-semibold">
+              <div className="h-10 px-3.5 rounded-lg bg-[var(--surface-elevated)] border border-[var(--border-subtle)] text-[var(--ink-primary)] flex items-center justify-center gap-2">
+                <Film className="w-3.5 h-3.5 text-[var(--accent-cyan-text)] shrink-0" />
                 <span>{t('cap.hdVideo')}</span>
-              </span>
-              <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[var(--surface-elevated)]/90 backdrop-blur-xs border border-[var(--pastel-pink-border)] text-[var(--ink-primary)] shadow-xs">
-                <span className="w-2 h-2 rounded-full bg-[var(--accent-primary)] shrink-0" />
+              </div>
+              <div className="h-10 px-3.5 rounded-lg bg-[var(--surface-elevated)] border border-[var(--border-subtle)] text-[var(--ink-primary)] flex items-center justify-center gap-2">
+                <ShieldCheck className="w-3.5 h-3.5 text-[var(--accent-primary-text)] shrink-0" />
                 <span>{t('cap.anonymous')}</span>
-              </span>
-              <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[var(--surface-elevated)]/90 backdrop-blur-xs border border-[var(--pastel-lavender-border)] text-[var(--ink-primary)] shadow-xs">
-                <span className="w-2 h-2 rounded-full bg-violet-500 shrink-0" />
+              </div>
+              <div className="h-10 px-3.5 rounded-lg bg-[var(--surface-elevated)] border border-[var(--border-subtle)] text-[var(--ink-primary)] flex items-center justify-center gap-2">
+                <Music className="w-3.5 h-3.5 text-[var(--ink-secondary)] shrink-0" />
                 <span>{t('cap.mp3Audio')}</span>
-              </span>
+              </div>
             </div>
           </MotionFadeIn>
         </section>
@@ -825,7 +831,7 @@ export default function TikTokProfileViewer({
           {(resolvedTitle || resolvedSubtitle) && (
             <div className="text-center max-w-2xl mx-auto mb-6">
               {resolvedTitle && (
-                <h1 className="text-[length:var(--h1-size)] font-semibold text-[var(--ink-primary)] tracking-tight leading-[1.2]">
+                <h1 className="text-[length:var(--h1-size)] font-bold text-[var(--ink-primary)] tracking-tight leading-[1.2]">
                   {resolvedTitle}
                 </h1>
               )}
@@ -849,7 +855,7 @@ export default function TikTokProfileViewer({
       {(authorProfile || (videos.length > 0 && !loading)) && (
         <div
           ref={resultsRef}
-          className="w-full max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-10 scroll-mt-20"
+          className="w-full max-w-6xl mx-auto px-4 sm:px-6 pt-6 pb-10 sm:pt-8 sm:pb-12 scroll-mt-16"
         >
           {authorProfile && (
             <MotionFadeIn>
@@ -888,7 +894,7 @@ export default function TikTokProfileViewer({
                         </h2>
 
                         {authorProfile.verified && (
-                          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full bg-[var(--pastel-blue)] border border-[var(--pastel-blue-border)] text-[var(--accent-cyan-text)] text-xs font-semibold">
+                          <span className="inline-flex items-center px-2.5 py-0.5 rounded-md bg-[var(--pastel-blue)] border border-[var(--pastel-blue-border)] text-[var(--accent-cyan-text)] text-xs font-semibold">
                             {t('profile.verified')}
                           </span>
                         )}
@@ -898,7 +904,7 @@ export default function TikTokProfileViewer({
                         <button
                           type="button"
                           onClick={handleDownloadAvatar}
-                          className="h-9 px-3.5 rounded-lg border border-[var(--border-strong)]/80 bg-[var(--surface-canvas)] hover:bg-[var(--pastel-blue)]/50 hover:border-[var(--accent-cyan)] text-[var(--ink-primary)] text-xs font-semibold inline-flex items-center justify-center transition-all whitespace-nowrap cursor-pointer shadow-xs"
+                          className="h-9 px-3.5 rounded-lg border border-[var(--border-subtle)] bg-[var(--surface-canvas)] hover:bg-[var(--surface-sunken)] hover:border-[var(--border-strong)] text-[var(--ink-primary)] text-xs font-semibold inline-flex items-center justify-center transition-colors whitespace-nowrap cursor-pointer"
                           title={t('profile.avatar')}
                         >
                           {t('profile.avatar')}
@@ -907,7 +913,7 @@ export default function TikTokProfileViewer({
                         <button
                           type="button"
                           onClick={handleCopyProfileLink}
-                          className="h-9 px-3.5 rounded-lg border border-[var(--border-strong)]/80 bg-[var(--surface-canvas)] hover:bg-[var(--pastel-blue)]/50 hover:border-[var(--accent-cyan)] text-[var(--ink-primary)] text-xs font-semibold inline-flex items-center justify-center transition-all whitespace-nowrap cursor-pointer shadow-xs"
+                          className="h-9 px-3.5 rounded-lg border border-[var(--border-subtle)] bg-[var(--surface-canvas)] hover:bg-[var(--surface-sunken)] hover:border-[var(--border-strong)] text-[var(--ink-primary)] text-xs font-semibold inline-flex items-center justify-center transition-colors whitespace-nowrap cursor-pointer"
                           title={t('profile.copyLink')}
                         >
                           {copiedLink ? t('profile.copied') : t('profile.copyLink')}
@@ -918,7 +924,7 @@ export default function TikTokProfileViewer({
                           target="_blank"
                           rel="noreferrer noopener"
                           referrerPolicy="no-referrer"
-                          className="h-9 px-4 rounded-lg bg-[var(--accent-primary)] hover:bg-[var(--accent-primary-hover)] text-[var(--accent-contrast)] text-xs font-semibold inline-flex items-center justify-center transition-colors whitespace-nowrap shadow-xs"
+                          className="h-9 px-4 rounded-lg bg-[var(--accent-primary)] hover:bg-[var(--accent-primary-hover)] text-[var(--accent-contrast)] text-xs font-semibold inline-flex items-center justify-center transition-colors whitespace-nowrap"
                           title={t('profile.openTikTok')}
                         >
                           {t('profile.openTikTok')}
@@ -947,16 +953,15 @@ export default function TikTokProfileViewer({
                   </div>
                 </div>
 
-                <div className="border-t border-[var(--border-subtle)] my-5" />
+                <div className="border-t border-[var(--border-subtle)] my-4" />
 
-                {/* 6 Identical Metric Cards Sharing Exactly Equal Dimension and Length */}
-                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5 items-stretch w-full">
-                  {/* Status */}
-                  <div className="h-20 rounded-xl px-3 py-2.5 bg-[var(--surface-canvas)] border border-[var(--border-subtle)] hover:border-[var(--border-strong)] flex flex-col justify-between items-center text-center shadow-xs transition-colors">
-                    <span className="text-[11px] font-semibold text-[var(--ink-muted)] uppercase tracking-wider leading-none truncate w-full">
+                {/* Compact Profile Data Summary Bar - Equal Number & Letter Sizing */}
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5 w-full">
+                  <div className="px-3 py-2.5 rounded-lg bg-[var(--surface-canvas)] border border-[var(--border-subtle)] flex flex-col items-center justify-center gap-1 text-center">
+                    <span className="text-xs font-medium text-[var(--ink-muted)] leading-tight truncate w-full">
                       {t('profile.status')}
                     </span>
-                    <span className="text-xs font-bold text-[var(--ink-primary)] leading-none flex items-center justify-center gap-1.5 w-full">
+                    <span className="text-sm font-bold text-[var(--ink-primary)] leading-tight inline-flex items-center justify-center gap-1.5 w-full">
                       <span
                         className={`w-2 h-2 rounded-full shrink-0 ${
                           authorProfile.status === 'private'
@@ -972,52 +977,47 @@ export default function TikTokProfileViewer({
                     </span>
                   </div>
 
-                  {/* Followers */}
-                  <div className="h-20 rounded-xl px-3 py-2.5 bg-[var(--surface-canvas)] border border-[var(--border-subtle)] hover:border-[var(--border-strong)] flex flex-col justify-between items-center text-center shadow-xs transition-colors">
-                    <span className="text-[11px] font-semibold text-[var(--ink-muted)] uppercase tracking-wider leading-none truncate w-full">
+                  <div className="px-3 py-2.5 rounded-lg bg-[var(--surface-canvas)] border border-[var(--border-subtle)] flex flex-col items-center justify-center gap-1 text-center">
+                    <span className="text-xs font-medium text-[var(--ink-muted)] leading-tight truncate w-full">
                       {t('profile.followers')}
                     </span>
-                    <span className="text-sm sm:text-base font-bold text-[var(--ink-primary)] font-mono tabular-nums tracking-tight leading-none truncate w-full">
+                    <span className="text-sm font-bold text-[var(--ink-primary)] tabular-nums leading-tight truncate w-full">
                       {formatNumber(profileStats?.followerCount)}
                     </span>
                   </div>
 
-                  {/* Total Likes */}
-                  <div className="h-20 rounded-xl px-3 py-2.5 bg-[var(--surface-canvas)] border border-[var(--border-subtle)] hover:border-[var(--border-strong)] flex flex-col justify-between items-center text-center shadow-xs transition-colors">
-                    <span className="text-[11px] font-semibold text-[var(--ink-muted)] uppercase tracking-wider leading-none truncate w-full">
+                  <div className="px-3 py-2.5 rounded-lg bg-[var(--surface-canvas)] border border-[var(--border-subtle)] flex flex-col items-center justify-center gap-1 text-center">
+                    <span className="text-xs font-medium text-[var(--ink-muted)] leading-tight truncate w-full">
                       {t('profile.totalLikes')}
                     </span>
-                    <span className="text-sm sm:text-base font-bold text-[var(--accent-primary-text)] font-mono tabular-nums tracking-tight leading-none truncate w-full">
+                    <span className="text-sm font-bold text-[var(--accent-primary-text)] tabular-nums leading-tight truncate w-full">
                       {formatNumber(profileStats?.heartCount)}
                     </span>
                   </div>
 
-                  {/* Following */}
-                  <div className="h-20 rounded-xl px-3 py-2.5 bg-[var(--surface-canvas)] border border-[var(--border-subtle)] hover:border-[var(--border-strong)] flex flex-col justify-between items-center text-center shadow-xs transition-colors">
-                    <span className="text-[11px] font-semibold text-[var(--ink-muted)] uppercase tracking-wider leading-none truncate w-full">
+                  <div className="px-3 py-2.5 rounded-lg bg-[var(--surface-canvas)] border border-[var(--border-subtle)] flex flex-col items-center justify-center gap-1 text-center">
+                    <span className="text-xs font-medium text-[var(--ink-muted)] leading-tight truncate w-full">
                       {t('profile.following')}
                     </span>
-                    <span className="text-sm sm:text-base font-bold text-[var(--ink-primary)] font-mono tabular-nums tracking-tight leading-none truncate w-full">
+                    <span className="text-sm font-bold text-[var(--ink-primary)] tabular-nums leading-tight truncate w-full">
                       {formatNumber(profileStats?.followingCount)}
                     </span>
                   </div>
 
-                  {/* Videos */}
-                  <div className="h-20 rounded-xl px-3 py-2.5 bg-[var(--surface-canvas)] border border-[var(--border-subtle)] hover:border-[var(--border-strong)] flex flex-col justify-between items-center text-center shadow-xs transition-colors">
-                    <span className="text-[11px] font-semibold text-[var(--ink-muted)] uppercase tracking-wider leading-none truncate w-full">
+                  <div className="px-3 py-2.5 rounded-lg bg-[var(--surface-canvas)] border border-[var(--border-subtle)] flex flex-col items-center justify-center gap-1 text-center">
+                    <span className="text-xs font-medium text-[var(--ink-muted)] leading-tight truncate w-full">
                       {t('profile.videos')}
                     </span>
-                    <span className="text-sm sm:text-base font-bold text-[var(--ink-primary)] font-mono tabular-nums tracking-tight leading-none truncate w-full">
+                    <span className="text-sm font-bold text-[var(--ink-primary)] tabular-nums leading-tight truncate w-full">
                       {formatNumber(profileStats?.videoCount ?? videos.length)}
                     </span>
                   </div>
 
-                  {/* Account Type */}
-                  <div className="h-20 rounded-xl px-3 py-2.5 bg-[var(--surface-canvas)] border border-[var(--border-subtle)] hover:border-[var(--border-strong)] flex flex-col justify-between items-center text-center shadow-xs transition-colors">
-                    <span className="text-[11px] font-semibold text-[var(--ink-muted)] uppercase tracking-wider leading-none truncate w-full">
+                  <div className="px-3 py-2.5 rounded-lg bg-[var(--surface-canvas)] border border-[var(--border-subtle)] flex flex-col items-center justify-center gap-1 text-center">
+                    <span className="text-xs font-medium text-[var(--ink-muted)] leading-tight truncate w-full">
                       {t('profile.accountType')}
                     </span>
-                    <span className="text-xs font-bold text-[var(--ink-primary)] leading-none truncate w-full">
+                    <span className="text-sm font-bold text-[var(--ink-primary)] leading-tight truncate w-full">
                       {authorProfile.verified
                         ? t('profile.verifiedCreator')
                         : t('profile.publicAccount')}
@@ -1073,10 +1073,10 @@ export default function TikTokProfileViewer({
                             void openModal(video, videoKey);
                           }
                         }}
-                        className={`group relative aspect-[9/16] rounded-xl overflow-hidden bg-zinc-950 border cursor-pointer shadow-[var(--shadow-card)] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--focus-ring)] ${
+                        className={`relative aspect-[9/16] rounded-xl overflow-hidden bg-zinc-950 border cursor-pointer shadow-[var(--shadow-card)] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--focus-ring)] ${
                           isHighlighted
-                            ? 'border-[var(--accent-cyan)] ring-2 ring-[var(--accent-cyan)]/30'
-                            : 'border-[var(--border-subtle)] hover:border-[var(--accent-cyan)]'
+                            ? 'border-[var(--accent-primary)] ring-2 ring-[var(--accent-primary)]/30'
+                            : 'border-[var(--border-subtle)] hover:border-[var(--accent-primary)]'
                         }`}
                       >
                         {coverImg ? (
@@ -1120,10 +1120,10 @@ export default function TikTokProfileViewer({
                           />
                         ) : null}
 
-                        {/* Dark Play Button with Pink Hover Transition */}
-                        <div className="absolute inset-0 flex items-center justify-center bg-zinc-950/10 group-hover:bg-zinc-950/30 transition-colors duration-200 pointer-events-none">
-                          <div className="w-11 h-11 rounded-full bg-zinc-900/90 border border-zinc-700/80 text-white/95 flex items-center justify-center shadow-md transition-all duration-200 group-hover:bg-[var(--accent-primary)] group-hover:border-[var(--accent-primary)] group-hover:text-white group-hover:scale-110">
-                            <Play className="w-4 h-4 fill-current translate-x-0.5" />
+                        {/* Static Play Button */}
+                        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                          <div className="w-10 h-10 rounded-full bg-zinc-900 border border-zinc-700 text-white flex items-center justify-center">
+                            <Play className="w-4 h-4 fill-white translate-x-0.5" />
                           </div>
                         </div>
 
@@ -1186,7 +1186,7 @@ export default function TikTokProfileViewer({
                       type="button"
                       onClick={() => void handleShowMoreVideos()}
                       disabled={loadingMore}
-                      className="h-11 px-6 rounded-xl bg-[var(--surface-elevated)] hover:bg-[var(--pastel-blue)]/50 border border-[var(--border-strong)]/80 hover:border-[var(--accent-cyan)] text-[var(--ink-primary)] font-semibold text-xs tracking-wide uppercase flex items-center gap-2 transition-all disabled:bg-[var(--state-disabled-bg)] disabled:text-[var(--state-disabled-ink)] cursor-pointer shadow-xs"
+                      className="h-11 px-6 rounded-xl bg-[var(--surface-elevated)] hover:bg-[var(--surface-sunken)] border border-[var(--border-strong)] text-[var(--ink-primary)] font-semibold text-xs tracking-wide uppercase flex items-center gap-2 transition-colors disabled:bg-[var(--state-disabled-bg)] disabled:text-[var(--state-disabled-ink)] cursor-pointer"
                     >
                       {loadingMore ? (
                         <>
@@ -1260,7 +1260,7 @@ export default function TikTokProfileViewer({
                 <button
                   type="button"
                   onClick={closeModal}
-                  className="w-8 h-8 rounded-lg bg-[var(--surface-canvas)] border border-[var(--border-subtle)] hover:bg-[var(--pastel-blue)]/50 hover:border-[var(--accent-cyan)] text-[var(--ink-secondary)] hover:text-[var(--ink-primary)] flex items-center justify-center transition-all cursor-pointer shrink-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--focus-ring)]"
+                  className="w-8 h-8 rounded-lg bg-[var(--surface-canvas)] border border-[var(--border-subtle)] hover:bg-[var(--surface-sunken)] hover:border-[var(--border-strong)] text-[var(--ink-secondary)] hover:text-[var(--ink-primary)] flex items-center justify-center transition-colors cursor-pointer shrink-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--focus-ring)]"
                   title={t('modal.close')}
                   aria-label={t('modal.close')}
                 >
@@ -1284,7 +1284,7 @@ export default function TikTokProfileViewer({
                     type="button"
                     onClick={handleCustomPlayClick}
                     aria-label={t('modal.playVideo')}
-                    className="absolute inset-0 m-auto z-20 w-14 h-14 rounded-full bg-[var(--accent-primary)] hover:bg-[var(--accent-primary-hover)] text-white border-2 border-white/90 shadow-[var(--shadow-workbench)] flex items-center justify-center transition-transform duration-150 hover:scale-105 active:scale-95 cursor-pointer"
+                    className="absolute inset-0 m-auto z-20 w-14 h-14 rounded-full bg-[var(--accent-primary)] hover:bg-[var(--accent-primary-hover)] text-white border-2 border-white shadow-[var(--shadow-workbench)] flex items-center justify-center transition-colors cursor-pointer"
                   >
                     <Play className="w-6 h-6 fill-white text-white translate-x-0.5" />
                   </button>
@@ -1340,7 +1340,7 @@ export default function TikTokProfileViewer({
                     type="button"
                     disabled={downloadingVideo || downloadingAudio}
                     onClick={() => void handleDownloadVideo()}
-                    className="w-full h-10 px-4 rounded-xl bg-[var(--accent-primary)] hover:bg-[var(--accent-primary-hover)] text-[var(--accent-contrast)] font-bold text-xs flex items-center justify-center gap-1.5 transition-colors disabled:bg-[var(--state-disabled-bg)] disabled:text-[var(--state-disabled-ink)] cursor-pointer shadow-xs"
+                    className="w-full h-10 px-4 rounded-xl bg-[var(--accent-primary)] hover:bg-[var(--accent-primary-hover)] text-[var(--accent-contrast)] font-bold text-xs flex items-center justify-center gap-1.5 transition-colors disabled:bg-[var(--state-disabled-bg)] disabled:text-[var(--state-disabled-ink)] cursor-pointer"
                   >
                     {downloadingVideo ? (
                       <>
@@ -1359,7 +1359,7 @@ export default function TikTokProfileViewer({
                     type="button"
                     disabled={downloadingVideo || downloadingAudio}
                     onClick={() => void handleDownloadAudio()}
-                    className="w-full h-10 px-4 rounded-xl bg-[var(--surface-canvas)] hover:bg-[var(--pastel-blue)]/50 border border-[var(--border-strong)]/80 hover:border-[var(--accent-cyan)] text-[var(--ink-primary)] font-bold text-xs flex items-center justify-center gap-1.5 transition-colors disabled:bg-[var(--state-disabled-bg)] disabled:text-[var(--state-disabled-ink)] cursor-pointer shadow-xs"
+                    className="w-full h-10 px-4 rounded-xl bg-[var(--surface-canvas)] hover:bg-[var(--surface-sunken)] border border-[var(--border-strong)] text-[var(--ink-primary)] font-bold text-xs flex items-center justify-center gap-1.5 transition-colors disabled:bg-[var(--state-disabled-bg)] disabled:text-[var(--state-disabled-ink)] cursor-pointer"
                   >
                     {downloadingAudio ? (
                       <>

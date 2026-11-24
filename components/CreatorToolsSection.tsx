@@ -33,7 +33,7 @@ export default function CreatorToolsSection() {
           <Link
             key={tool.href}
             href={tool.href}
-            className="group p-4 sm:p-5 rounded-xl bg-[var(--surface-elevated)] hover:bg-[var(--pastel-blue)]/30 border border-[var(--border-subtle)] hover:border-[var(--accent-cyan)]/75 shadow-[var(--shadow-card)] transition-colors duration-150 flex flex-col justify-between min-h-[144px]"
+            className="group p-4 sm:p-5 rounded-xl bg-[var(--surface-elevated)] hover:bg-[var(--pastel-blue)] border border-[var(--border-subtle)] hover:border-[var(--accent-cyan)] shadow-[var(--shadow-card)] transition-colors duration-150 flex flex-col justify-between min-h-[144px]"
           >
             <div>
               <span className="inline-block text-[11px] font-mono font-bold text-[var(--ink-muted)] group-hover:text-[var(--accent-cyan-text)] tabular-nums mb-2 transition-colors duration-150">

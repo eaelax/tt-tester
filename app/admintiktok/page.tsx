@@ -123,7 +123,7 @@ export default function AdminTikTokPage() {
     adName?: string;
   } | null>(null);
 
-  // Authentication state (preserved 100%)
+  // Authentication state
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [passwordInput, setPasswordInput] = useState<string>('');
   const [authError, setAuthError] = useState<string | null>(null);
@@ -274,7 +274,7 @@ export default function AdminTikTokPage() {
 
         <main className="flex-1 max-w-sm w-full mx-auto px-4 py-14 flex flex-col items-center justify-center">
           <div className="w-full bg-[var(--surface-elevated)] rounded-xl border border-[var(--border-subtle)] shadow-[var(--shadow-workbench)] p-6 sm:p-7">
-            <div className="w-10 h-10 rounded-lg bg-[var(--accent-soft)] border border-[var(--accent-primary)]/20 text-[var(--accent-primary-text)] flex items-center justify-center mb-4 mx-auto">
+            <div className="w-10 h-10 rounded-lg bg-[var(--accent-soft)] border border-[var(--pastel-pink-border)] text-[var(--accent-primary-text)] flex items-center justify-center mb-4 mx-auto">
               <Lock className="w-4 h-4" />
             </div>
 
@@ -302,7 +302,7 @@ export default function AdminTikTokPage() {
                   placeholder="Enter admin password..."
                   required
                   autoFocus
-                  className="w-full h-10 px-3 rounded-lg border border-[var(--border-subtle)] bg-[var(--surface-canvas)] text-[var(--ink-primary)] text-xs focus:bg-[var(--surface-elevated)] focus:outline-none focus:border-[var(--accent-primary)] focus:ring-2 focus:ring-[var(--accent-primary)]/15 transition-all"
+                  className="w-full h-10 px-3 rounded-lg border border-[var(--border-subtle)] bg-[var(--surface-canvas)] text-[var(--ink-primary)] text-xs focus:bg-[var(--surface-elevated)] focus:outline-none focus:border-[var(--accent-primary)] focus:ring-2 focus:ring-[var(--accent-primary)]/15 transition-colors"
                 />
               </div>
 
@@ -551,7 +551,7 @@ export default function AdminTikTokPage() {
           {savedToast && (
             <div
               role="status"
-              className="p-3.5 rounded-xl bg-[var(--accent-cyan-soft)] border border-[var(--accent-cyan)]/30 text-[var(--ink-primary)] text-xs font-semibold flex items-center gap-2"
+              className="p-3.5 rounded-xl bg-[var(--accent-cyan-soft)] border border-[var(--accent-cyan)] text-[var(--ink-primary)] text-xs font-semibold flex items-center gap-2"
             >
               <Check className="w-4 h-4 text-[var(--accent-cyan-text)] shrink-0" />
               <span>{savedToast}</span>
@@ -645,14 +645,14 @@ export default function AdminTikTokPage() {
                       <tr className="border-b border-[var(--border-subtle)] bg-[var(--surface-canvas)] text-[var(--ink-muted)]">
                         <th className="py-3 px-5 font-semibold text-start">Slot Name</th>
                         <th className="py-3 px-4 font-semibold text-start">Placement</th>
-                        <th className="py-3 px-4 font-semibold text-start">Dimension</th>
+                        <th className="py-3 px-4 font-semibold text-start">Dimensions</th>
                         <th className="py-3 px-4 font-semibold text-start">Status</th>
                         <th className="py-3 px-5 font-semibold text-end">Action</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-[var(--border-subtle)]">
                       {localSettings.ads.map((ad) => (
-                        <tr key={ad.id} className="hover:bg-[var(--surface-canvas)]/60 transition-colors">
+                        <tr key={ad.id} className="hover:bg-[var(--surface-canvas)] transition-colors">
                           <td className="py-3.5 px-5 font-semibold text-[var(--ink-primary)]">
                             {ad.name}
                           </td>
@@ -666,7 +666,7 @@ export default function AdminTikTokPage() {
                             <span
                               className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[11px] font-semibold border ${
                                 ad.enabled
-                                  ? 'bg-[var(--accent-cyan-soft)] text-[var(--accent-cyan-text)] border-[var(--accent-cyan)]/25'
+                                  ? 'bg-[var(--accent-cyan-soft)] text-[var(--accent-cyan-text)] border-[var(--accent-cyan)]'
                                   : 'bg-[var(--surface-sunken)] text-[var(--ink-muted)] border-[var(--border-subtle)]'
                               }`}
                             >
@@ -897,8 +897,8 @@ export default function AdminTikTokPage() {
                             key={ad.id}
                             className={`transition-colors ${
                               isEditing
-                                ? 'bg-[var(--accent-soft)]/50'
-                                : 'hover:bg-[var(--surface-canvas)]/60'
+                                ? 'bg-[var(--accent-soft)]'
+                                : 'hover:bg-[var(--surface-canvas)]'
                             }`}
                           >
                             <td className="py-3 px-4">
@@ -995,7 +995,7 @@ export default function AdminTikTokPage() {
                     <button
                       type="button"
                       onClick={() => setEditingAdId(null)}
-                      className="w-8 h-8 rounded-lg hover:bg-[var(--surface-sunken)] text-[var(--ink-muted)] flex items-center justify-center cursor-pointer"
+                      className="w-8 h-8 rounded-lg hover:bg-[var(--surface-sunken)] text-[var(--ink-muted)] flex items-center justify-center cursor-pointer transition-colors"
                       aria-label="Close editor"
                     >
                       <X className="w-4 h-4" />

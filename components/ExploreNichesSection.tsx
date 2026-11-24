@@ -75,7 +75,7 @@ export default function ExploreNichesSection() {
           <Link
             key={niche.href}
             href={niche.href}
-            className="group p-4 sm:p-5 rounded-xl bg-[var(--surface-canvas)] hover:bg-[var(--pastel-blue)]/35 border border-[var(--border-subtle)] hover:border-[var(--accent-cyan)]/75 transition-colors duration-150 flex flex-col justify-between gap-2"
+            className="group p-4 sm:p-5 rounded-xl bg-[var(--surface-canvas)] hover:bg-[var(--pastel-blue)] border border-[var(--border-subtle)] hover:border-[var(--accent-cyan)] transition-colors duration-150 flex flex-col justify-between gap-2"
           >
             <div className="flex items-center justify-between gap-2">
               <h3 className="text-sm font-bold text-[var(--ink-primary)] group-hover:text-[var(--accent-cyan-text)] transition-colors duration-150 truncate">
@@ -94,7 +94,7 @@ export default function ExploreNichesSection() {
 
       {/* Three Value Pillars */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full">
-        <div className="p-5 rounded-xl bg-[var(--pastel-blue)]/55 border border-[var(--pastel-blue-border)] text-start flex flex-col gap-1.5">
+        <div className="p-5 rounded-xl bg-[var(--pastel-blue)] border border-[var(--pastel-blue-border)] text-start flex flex-col gap-1.5">
           <span className="text-sm font-bold text-[var(--ink-primary)] block">
             {t('niches.p1Title')}
           </span>
@@ -103,7 +103,7 @@ export default function ExploreNichesSection() {
           </p>
         </div>
 
-        <div className="p-5 rounded-xl bg-[var(--pastel-pink)]/55 border border-[var(--pastel-pink-border)] text-start flex flex-col gap-1.5">
+        <div className="p-5 rounded-xl bg-[var(--pastel-pink)] border border-[var(--pastel-pink-border)] text-start flex flex-col gap-1.5">
           <span className="text-sm font-bold text-[var(--ink-primary)] block">
             {t('niches.p2Title')}
           </span>
@@ -112,7 +112,7 @@ export default function ExploreNichesSection() {
           </p>
         </div>
 
-        <div className="p-5 rounded-xl bg-[var(--pastel-lavender)]/55 border border-[var(--pastel-lavender-border)] text-start flex flex-col gap-1.5">
+        <div className="p-5 rounded-xl bg-[var(--pastel-lavender)] border border-[var(--pastel-lavender-border)] text-start flex flex-col gap-1.5">
           <span className="text-sm font-bold text-[var(--ink-primary)] block">
             {t('niches.p3Title')}
           </span>
@@ -127,7 +127,7 @@ export default function ExploreNichesSection() {
         <button
           type="button"
           onClick={scrollToSearch}
-          className="h-10 inline-flex items-center gap-2 px-6 rounded-lg bg-[var(--accent-primary)] hover:bg-[#F43F5E] text-[var(--accent-contrast)] text-xs sm:text-sm font-bold transition-colors duration-150 cursor-pointer"
+          className="h-10 inline-flex items-center gap-2 px-6 rounded-lg bg-[var(--accent-primary)] hover:bg-[var(--accent-primary-hover)] text-[var(--accent-contrast)] text-xs sm:text-sm font-bold transition-colors duration-150 cursor-pointer"
         >
           <span>{t('niches.cta')}</span>
           <ArrowRight className="w-4 h-4 rtl:rotate-180" />

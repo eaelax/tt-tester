@@ -120,7 +120,7 @@ export default async function CategoryDetailPage({ params }: Props) {
                     <Link
                       key={creator.username}
                       href={`/profile/${creator.username}`}
-                      className="p-4 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)] shadow-[var(--shadow-card)] hover:bg-[var(--pastel-blue)]/25 hover:border-[var(--accent-cyan)] hover:shadow-[var(--shadow-card-hover)] transition-all duration-200 flex items-center gap-3.5 group"
+                      className="p-4 rounded-xl bg-[var(--surface-elevated)] hover:bg-[var(--pastel-blue)] border border-[var(--border-subtle)] hover:border-[var(--accent-cyan)] shadow-[var(--shadow-card)] transition-colors duration-150 flex items-center gap-3.5 group"
                     >
                       <div className="relative w-12 h-12 rounded-xl overflow-hidden bg-[var(--surface-sunken)] shrink-0 border border-[var(--border-subtle)]">
                         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -202,7 +202,7 @@ export default async function CategoryDetailPage({ params }: Props) {
                     <Link
                       key={c.slug}
                       href={`/category/${c.slug}`}
-                      className="p-4 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)] shadow-[var(--shadow-card)] hover:bg-[var(--pastel-blue)]/25 hover:border-[var(--accent-cyan)] text-xs sm:text-sm text-[var(--ink-primary)] hover:text-[var(--accent-cyan-text)] transition-all duration-200 flex items-center justify-between"
+                      className="p-4 rounded-xl bg-[var(--surface-elevated)] hover:bg-[var(--pastel-blue)] border border-[var(--border-subtle)] hover:border-[var(--accent-cyan)] shadow-[var(--shadow-card)] text-xs sm:text-sm text-[var(--ink-primary)] hover:text-[var(--accent-cyan-text)] transition-colors duration-150 flex items-center justify-between"
                     >
                       <span className="truncate font-bold">{c.name}</span>
                       <ChevronRight className="w-4 h-4 text-[var(--ink-muted)] shrink-0 rtl:rotate-180" />

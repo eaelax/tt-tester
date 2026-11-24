@@ -207,7 +207,7 @@ export default function AnalyticsPage() {
           {error && (
             <div
               role="alert"
-              className="mt-2.5 p-2.5 rounded-lg bg-[var(--status-danger-bg)] border border-[var(--status-danger-border)]/50 text-[var(--ink-primary)] text-xs font-semibold flex items-center gap-2"
+              className="mt-2.5 p-2.5 rounded-lg bg-[var(--status-danger-bg)] border border-[var(--status-danger-border)] text-[var(--ink-primary)] text-xs font-semibold flex items-center gap-2"
             >
               <AlertCircle className="w-4 h-4 text-[var(--status-danger)] shrink-0" />
               <span>{error}</span>
@@ -352,7 +352,7 @@ export default function AnalyticsPage() {
                     {videos.slice(0, 6).map((v) => (
                       <div
                         key={v.id}
-                        className="flex flex-col sm:flex-row sm:items-center gap-3 p-3 rounded-lg bg-[var(--surface-canvas)] border border-[var(--border-subtle)] hover:bg-[var(--pastel-blue)]/20 hover:border-[var(--accent-cyan)] transition-colors duration-200"
+                        className="flex flex-col sm:flex-row sm:items-center gap-3 p-3 rounded-lg bg-[var(--surface-canvas)] hover:bg-[var(--pastel-blue)] border border-[var(--border-subtle)] hover:border-[var(--accent-cyan)] transition-colors duration-150"
                       >
                         <div className="relative w-12 h-14 rounded-md overflow-hidden shrink-0 bg-[var(--surface-sunken)]">
                           {v.cover ? (
