@@ -71,18 +71,18 @@ export default function Navbar() {
   }, []);
 
   const navLinkClass = (active: boolean) =>
-    `relative h-9 px-3 inline-flex items-center text-[13px] font-semibold transition-colors duration-150 cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--focus-ring)] rounded-md after:content-[''] after:absolute after:inset-x-3 after:bottom-1 after:h-0.5 after:rounded-full after:bg-[var(--accent-primary)] after:transition-transform after:duration-200 after:origin-center ${
+    `h-9 px-3.5 rounded-full inline-flex items-center text-[13px] font-semibold transition-colors duration-150 cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--focus-ring)] ${
       active
-        ? 'text-[var(--accent-primary-text)] after:scale-x-100'
-        : 'text-[var(--ink-primary)]/85 hover:text-[var(--accent-primary-text)] after:scale-x-0 hover:after:scale-x-100'
+        ? 'bg-slate-900/[0.08] text-[var(--ink-primary)]'
+        : 'text-[var(--ink-primary)]/85 hover:bg-[var(--accent-primary)]/12 hover:text-[var(--accent-primary-text)]'
     }`;
 
   return (
     <header
       className={`sticky top-0 z-40 w-full transition-all duration-200 ${
         isScrolled
-          ? 'bg-[var(--surface-elevated)]/95 backdrop-blur-md border-b border-[var(--border-subtle)] shadow-[0_8px_24px_-8px_rgba(15,23,42,0.12)]'
-          : 'bg-gradient-to-b from-white/75 via-white/50 to-white/20 backdrop-blur-md border-b border-slate-900/[0.05] shadow-[0_8px_24px_-8px_rgba(15,23,42,0.09)]'
+          ? 'bg-[var(--surface-canvas)]/80 backdrop-blur-md border-b border-[var(--border-subtle)]/70 shadow-xs'
+          : 'bg-transparent border-b border-transparent'
       }`}
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
@@ -112,7 +112,7 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop Nav Links */}
-        <nav aria-label="Main Navigation" className="hidden lg:flex items-center gap-2 shrink-0">
+        <nav aria-label="Main Navigation" className="hidden lg:flex items-center gap-1.5 shrink-0">
           <Link href="/" onClick={handleGoHome} className={navLinkClass(pathname === '/')}>
             {t('nav.home')}
           </Link>
@@ -140,10 +140,10 @@ export default function Navbar() {
                 setToolsDropdownOpen(!toolsDropdownOpen);
                 setLangDropdownOpen(false);
               }}
-              className={`relative h-9 text-[13px] font-semibold px-3 rounded-md flex items-center gap-1.5 transition-colors duration-150 cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--focus-ring)] after:content-[''] after:absolute after:inset-x-3 after:bottom-1 after:h-0.5 after:rounded-full after:bg-[var(--accent-primary)] after:transition-transform after:duration-200 after:origin-center ${
+              className={`h-9 text-[13px] font-semibold px-3.5 rounded-full flex items-center gap-1.5 transition-colors duration-150 cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--focus-ring)] ${
                 toolsDropdownOpen
-                  ? 'text-[var(--accent-primary-text)] after:scale-x-100'
-                  : 'text-[var(--ink-primary)]/85 hover:text-[var(--accent-primary-text)] after:scale-x-0 hover:after:scale-x-100'
+                  ? 'bg-[var(--accent-primary)]/12 text-[var(--accent-primary-text)]'
+                  : 'text-[var(--ink-primary)]/85 hover:bg-[var(--accent-primary)]/12 hover:text-[var(--accent-primary-text)]'
               }`}
             >
               <span>{t('nav.tools')}</span>
@@ -271,7 +271,7 @@ export default function Navbar() {
               setMobileMenuOpen(!mobileMenuOpen);
               setLangDropdownOpen(false);
             }}
-            className="w-9 h-9 rounded-lg bg-transparent text-[var(--ink-primary)] hover:text-[var(--accent-primary-text)] transition-colors cursor-pointer flex items-center justify-center"
+            className="w-9 h-9 rounded-full bg-transparent hover:bg-[var(--accent-primary)]/12 text-[var(--ink-primary)] hover:text-[var(--accent-primary-text)] transition-colors cursor-pointer flex items-center justify-center"
             aria-label={t('nav.toggleMenu')}
             aria-expanded={mobileMenuOpen}
           >

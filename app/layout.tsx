@@ -1,12 +1,18 @@
 import type { Metadata } from 'next';
-import { Plus_Jakarta_Sans, JetBrains_Mono } from 'next/font/google';
+import { Rubik, Cairo, JetBrains_Mono } from 'next/font/google';
 import { I18nProvider } from '@/lib/i18n/context';
 import './globals.css';
 
-const plusJakarta = Plus_Jakarta_Sans({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700', '800'],
-  variable: '--font-plus-jakarta',
+const rubik = Rubik({
+  subsets: ['latin', 'cyrillic', 'hebrew'],
+  style: ['normal', 'italic'],
+  variable: '--font-rubik',
+  display: 'swap',
+});
+
+const cairo = Cairo({
+  subsets: ['arabic', 'latin'],
+  variable: '--font-cairo',
   display: 'swap',
 });
 
@@ -53,7 +59,7 @@ export default function RootLayout({
       lang="en"
       dir="ltr"
       suppressHydrationWarning
-      className={`${plusJakarta.variable} ${jetbrainsMono.variable}`}
+      className={`${rubik.variable} ${cairo.variable} ${jetbrainsMono.variable}`}
     >
       <head>
         <meta name="referrer" content="no-referrer" />

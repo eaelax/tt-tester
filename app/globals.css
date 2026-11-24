@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme inline {
-  --font-sans: var(--font-plus-jakarta), ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-sans: var(--font-rubik), var(--font-cairo), ui-sans-serif, system-ui, -apple-system, sans-serif;
   --font-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, monospace;
 }
 
@@ -102,6 +102,11 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+html[lang="ar"],
+html[lang="ar"] body {
+  font-family: var(--font-cairo), var(--font-rubik), ui-sans-serif, system-ui, sans-serif;
 }
 
 /* Vibrant Pure Gradient for Navbar & Header (No Grid Texture Overlay) */
