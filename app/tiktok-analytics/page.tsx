@@ -19,6 +19,7 @@ import Footer from '@/components/Footer';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import AdSlot from '@/components/AdSlot';
 import { fetchProfileDirect, sanitizeUsername } from '@/lib/tiktok-client';
+import { useI18n } from '@/lib/i18n/context';
 
 interface AnalyticsProfile {
   username: string;
@@ -58,6 +59,7 @@ function formatNum(num: number | null | undefined): string {
 }
 
 export default function AnalyticsPage() {
+  const { t } = useI18n();
   const [username, setUsername] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -68,7 +70,7 @@ export default function AnalyticsPage() {
     e.preventDefault();
     const clean = sanitizeUsername(username);
     if (!clean) {
-      setError('Please enter a valid TikTok username.');
+      setError(t('search.errorEmpty'));
       return;
     }
 
@@ -82,7 +84,7 @@ export default function AnalyticsPage() {
       if (reqId !== requestSeqRef.current) return;
 
       if (!result || result.code !== 0 || !result.data || !result.data.user) {
-        setError(result?.msg || 'Could not find that public TikTok profile.');
+        setError(result?.msg || t('search.errorNotFound', { username: clean }));
         return;
       }
 
@@ -125,13 +127,13 @@ export default function AnalyticsPage() {
       });
 
       if (profileData.status === 'private') {
-        setError(`@${profileData.username} is a private account, so video analytics are hidden.`);
+        setError(t('search.errorPrivate', { username: profileData.username }));
       } else if (mappedVideos.length === 0) {
-        setError(`@${profileData.username} has no public videos available to analyze right now.`);
+        setError(t('search.errorNoVideos', { username: profileData.username }));
       }
     } catch (err: unknown) {
       if (reqId !== requestSeqRef.current) return;
-      const msg = err instanceof Error ? err.message : 'Connection failed. Please check the username and try again.';
+      const msg = err instanceof Error ? err.message : t('search.errorFailed');
       setError(msg);
     } finally {
       if (reqId === requestSeqRef.current) {
@@ -170,16 +172,16 @@ export default function AnalyticsPage() {
       <Navbar />
 
       <main className="flex-1 max-w-[980px] w-full mx-auto px-4 sm:px-6 py-5 sm:py-7">
-        <Breadcrumbs items={[{ label: 'TikTok Analytics' }]} />
+        <Breadcrumbs items={[{ label: t('page.analytics.crumb') }]} />
         <AdSlot placement="header" />
 
         {/* Compact Header */}
         <div className="text-center max-w-xl mx-auto mb-5">
           <h1 className="text-[length:var(--h1-size)] font-bold text-[var(--ink-primary)] tracking-tight leading-tight">
-            TikTok Profile Analytics
+            {t('page.analytics.title')}
           </h1>
           <p className="text-xs sm:text-sm text-[var(--ink-secondary)] mt-1.5 leading-relaxed">
-            Check any public creator account. See live engagement rates, average video views, and estimated sponsorship value.
+            {t('page.analytics.subtitle')}
           </p>
         </div>
 
@@ -189,8 +191,8 @@ export default function AnalyticsPage() {
             <Search className="w-4 h-4 text-[var(--ink-muted)] absolute start-3.5 pointer-events-none" />
             <input
               type="text"
-              aria-label="Enter TikTok username"
-              placeholder="Enter TikTok username (e.g., khaby.lame or @mrbeast)"
+              aria-label={t('search.label')}
+              placeholder={t('search.placeholder')}
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               disabled={loading}
@@ -201,7 +203,7 @@ export default function AnalyticsPage() {
               disabled={loading || !username.trim()}
               className="absolute end-1.5 h-8 px-4 rounded-lg bg-[var(--accent-cyan)] hover:bg-[var(--accent-cyan-hover)] disabled:bg-[var(--state-disabled-bg)] disabled:text-[var(--state-disabled-ink)] disabled:cursor-not-allowed text-[var(--accent-contrast)] font-bold text-xs transition-colors cursor-pointer shadow-xs"
             >
-              {loading ? 'Analyzing...' : 'Analyze'}
+              {loading ? t('search.searching') : t('search.btn')}
             </button>
           </div>
           {error && (
@@ -235,16 +237,25 @@ export default function AnalyticsPage() {
               />
               <div className="flex-1 text-center sm:text-start min-w-0">
                 <div className="flex items-center justify-center sm:justify-start gap-2 flex-wrap">
-                  <h2 className="text-base sm:text-lg font-bold text-[var(--ink-primary)] truncate">
+                  <h2
+                    data-no-translate="true"
+                    className="text-base sm:text-lg font-bold text-[var(--ink-primary)] truncate"
+                  >
                     {profile.nickname}
                   </h2>
                   {profile.verified && (
                     <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[var(--accent-cyan-soft)] text-[var(--accent-cyan-text)] border border-[var(--accent-cyan)]">
-                      Verified
+                      {t('profile.verified')}
                     </span>
                   )}
                 </div>
-                <p className="text-xs text-[var(--ink-muted)] font-mono">@{profile.username}</p>
+                <p
+                  dir="ltr"
+                  data-no-translate="true"
+                  className="text-xs text-[var(--ink-muted)] font-mono w-fit"
+                >
+                  @{profile.username}
+                </p>
                 {profile.bio && (
                   <p className="text-xs text-[var(--ink-secondary)] mt-1 line-clamp-2 max-w-xl">
                     {profile.bio}
@@ -256,19 +267,25 @@ export default function AnalyticsPage() {
                   <div className="text-base font-bold text-[var(--ink-primary)]">
                     {formatNum(profile.followers)}
                   </div>
-                  <div className="text-[11px] font-semibold text-[var(--ink-muted)]">Followers</div>
+                  <div className="text-[11px] font-semibold text-[var(--ink-muted)]">
+                    {t('profile.followers')}
+                  </div>
                 </div>
                 <div className="text-center">
                   <div className="text-base font-bold text-[var(--ink-primary)]">
                     {formatNum(profile.likes)}
                   </div>
-                  <div className="text-[11px] font-semibold text-[var(--ink-muted)]">Total Likes</div>
+                  <div className="text-[11px] font-semibold text-[var(--ink-muted)]">
+                    {t('profile.totalLikes')}
+                  </div>
                 </div>
                 <div className="text-center">
                   <div className="text-base font-bold text-[var(--ink-primary)]">
                     {formatNum(profile.videosCount)}
                   </div>
-                  <div className="text-[11px] font-semibold text-[var(--ink-muted)]">Videos</div>
+                  <div className="text-[11px] font-semibold text-[var(--ink-muted)]">
+                    {t('profile.videos')}
+                  </div>
                 </div>
               </div>
             </div>
@@ -377,7 +394,10 @@ export default function AnalyticsPage() {
                           <p className="text-xs font-bold text-[var(--ink-primary)] truncate">
                             {v.title}
                           </p>
-                          <div className="flex flex-wrap items-center gap-3.5 mt-1.5 text-[11px] text-[var(--ink-secondary)] font-medium tabular-nums">
+                          <div
+                            dir="ltr"
+                            className="flex flex-wrap items-center gap-3.5 mt-1.5 text-[11px] text-[var(--ink-secondary)] font-medium tabular-nums"
+                          >
                             <span className="flex items-center gap-1">
                               <Play className="w-3 h-3 text-[var(--accent-cyan-text)]" />
                               {formatNum(v.plays)}

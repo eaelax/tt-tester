@@ -1,14 +1,48 @@
 import type { Metadata } from 'next';
+import { headers } from 'next/headers';
 import LegalLayout from '@/components/LegalLayout';
+import { UI_DICTIONARIES } from '@/lib/i18n/dictionaries-ui';
+import {
+  DEFAULT_LANGUAGE,
+  LanguageCode,
+  SUPPORTED_LANGUAGES,
+  isSupportedLanguage,
+  localizeHref,
+} from '@/lib/i18n/types';
 
-export const metadata: Metadata = {
-  title: 'Legal Notice (Impressum) - Tik Profiles Viewer',
-  description:
-    'Legal Notice and operator disclosures for Tik Profiles Viewer on TikProfilesViewer.com. Provider identification, corporate information, and contact details.',
-  alternates: {
-    canonical: 'https://tikprofilesviewer.com/legal-notice',
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const reqHeaders = await headers();
+  const headerLang = reqHeaders.get('x-tpv-lang') || DEFAULT_LANGUAGE;
+  const lang: LanguageCode = isSupportedLanguage(headerLang)
+    ? headerLang
+    : DEFAULT_LANGUAGE;
+
+  const uiDict = UI_DICTIONARIES[lang] || UI_DICTIONARIES.en;
+
+  const pageTitle = `Legal Notice (Impressum) - ${uiDict['brand.name']}`;
+  const pageDesc = 'Legal Notice and operator disclosures for Tik Profiles Viewer on TikProfilesViewer.com.';
+  const canonicalUrl = `https://tikprofilesviewer.com${localizeHref(
+    '/legal-notice',
+    lang
+  )}`;
+
+  const languages: Record<string, string> = {};
+  for (const item of SUPPORTED_LANGUAGES) {
+    languages[item.code] = `https://tikprofilesviewer.com${localizeHref(
+      '/legal-notice',
+      item.code
+    )}`;
+  }
+
+  return {
+    title: pageTitle,
+    description: pageDesc,
+    alternates: {
+      canonical: canonicalUrl,
+      languages,
+    },
+  };
+}
 
 export default function LegalNoticePage() {
   return (

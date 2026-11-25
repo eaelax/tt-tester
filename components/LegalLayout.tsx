@@ -60,7 +60,7 @@ export default function LegalLayout({
   currentPath,
   children,
 }: LegalLayoutProps) {
-  const { t, translateText } = useI18n();
+  const { t, translateText, localizeHref } = useI18n();
 
   return (
     <div className="min-h-screen flex flex-col bg-[var(--surface-canvas)] text-[var(--ink-primary)]">
@@ -149,7 +149,7 @@ export default function LegalLayout({
                   return (
                     <Link
                       key={page.href}
-                      href={page.href}
+                      href={localizeHref(page.href)}
                       className={`px-3 py-2 rounded-lg text-xs font-semibold flex items-center justify-between transition-colors border ${
                         isActive
                           ? 'bg-[var(--accent-soft)] border-[var(--accent-primary)]/30 text-[var(--accent-primary-text)]'

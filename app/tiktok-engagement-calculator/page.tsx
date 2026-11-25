@@ -2,10 +2,7 @@
 
 import { useState } from 'react';
 import {
-  TrendingUp,
-  Percent,
   CheckCircle2,
-  AlertTriangle,
   HelpCircle,
   BarChart,
   Activity,
@@ -17,8 +14,10 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import AdSlot from '@/components/AdSlot';
+import { useI18n } from '@/lib/i18n/context';
 
 export default function EngagementCalculatorPage() {
+  const { t } = useI18n();
   const [likes, setLikes] = useState<number>(4500);
   const [comments, setComments] = useState<number>(320);
   const [shares, setShares] = useState<number>(180);
@@ -28,8 +27,6 @@ export default function EngagementCalculatorPage() {
 
   const totalInteractions = likes + comments + shares;
 
-  // Calculation by Views: (Interactions / Views) * 100
-  // Calculation by Followers: (Interactions / Followers) * 100
   const engagementRate =
     calcMode === 'views'
       ? views > 0
@@ -55,16 +52,16 @@ export default function EngagementCalculatorPage() {
       <Navbar />
 
       <main className="flex-1 max-w-[980px] w-full mx-auto px-4 sm:px-6 py-5 sm:py-7">
-        <Breadcrumbs items={[{ label: 'TikTok Engagement Calculator' }]} />
+        <Breadcrumbs items={[{ label: t('page.engageCalc.crumb') }]} />
         <AdSlot placement="header" />
 
         {/* Compact Hero Header */}
         <div className="text-center max-w-xl mx-auto mb-5">
           <h1 className="text-[length:var(--h1-size)] font-bold text-[var(--ink-primary)] tracking-tight leading-tight">
-            TikTok Engagement Rate Calculator
+            {t('page.engageCalc.title')}
           </h1>
           <p className="text-xs sm:text-sm text-[var(--ink-secondary)] mt-1.5 leading-relaxed">
-            Calculate your exact TikTok engagement rate by views or followers. Compare your creator metrics against verified industry benchmarks.
+            {t('page.engageCalc.subtitle')}
           </p>
         </div>
 
@@ -182,7 +179,7 @@ export default function EngagementCalculatorPage() {
               <div className="text-[11px] font-bold uppercase tracking-wider text-[var(--ink-muted)] mb-1">
                 Calculated Engagement Rate
               </div>
-              <div className="text-3xl sm:text-4xl font-bold text-[var(--ink-primary)] tracking-tight tabular-nums">
+              <div dir="ltr" className="text-3xl sm:text-4xl font-bold text-[var(--ink-primary)] tracking-tight tabular-nums">
                 {engagementRate}%
               </div>
 
@@ -194,13 +191,13 @@ export default function EngagementCalculatorPage() {
               <div className="mt-4 pt-3.5 border-t border-[var(--border-subtle)] space-y-2 text-xs tabular-nums">
                 <div className="flex justify-between text-[var(--ink-secondary)]">
                   <span>Total Interactions</span>
-                  <span className="font-bold text-[var(--ink-primary)]">
+                  <span dir="ltr" className="font-bold text-[var(--ink-primary)]">
                     {totalInteractions.toLocaleString()}
                   </span>
                 </div>
                 <div className="flex justify-between text-[var(--ink-secondary)]">
                   <span>Calculation Basis</span>
-                  <span className="font-bold text-[var(--ink-primary)]">
+                  <span dir="ltr" className="font-bold text-[var(--ink-primary)]">
                     {(calcMode === 'views' ? views : followers).toLocaleString()} {calcMode}
                   </span>
                 </div>

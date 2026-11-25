@@ -6,6 +6,7 @@ import Footer from '@/components/Footer';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import AdSlot from '@/components/AdSlot';
 import { Copy, Check, Sparkles, RefreshCw } from 'lucide-react';
+import { useI18n } from '@/lib/i18n/context';
 
 const PRESET_HOOKS = [
   'Wait until the end to see what happened...',
@@ -28,6 +29,7 @@ const PRESET_TAGS: Record<string, string[]> = {
 };
 
 export default function CaptionGeneratorPage() {
+  const { t } = useI18n();
   const [topic, setTopic] = useState('');
   const [niche, setNiche] = useState('Viral');
   const [generatedHook, setGeneratedHook] = useState(PRESET_HOOKS[0]);
@@ -60,15 +62,15 @@ export default function CaptionGeneratorPage() {
       <Navbar />
 
       <main className="flex-1 max-w-[980px] w-full mx-auto px-4 sm:px-6 py-5 sm:py-7">
-        <Breadcrumbs items={[{ label: 'TikTok Caption & Hashtag Generator' }]} />
+        <Breadcrumbs items={[{ label: t('page.captionGen.crumb') }]} />
         <AdSlot placement="header" />
 
         <div className="text-center max-w-2xl mx-auto my-5">
           <h1 className="text-[length:var(--h1-size)] font-bold text-[var(--ink-primary)] tracking-tight leading-tight">
-            TikTok Caption &amp; Hashtag Generator
+            {t('page.captionGen.title')}
           </h1>
           <p className="text-xs sm:text-sm text-[var(--ink-secondary)] mt-2 leading-relaxed">
-            Build clear video hooks, short captions, and focused hashtags to help more viewers watch and share your posts.
+            {t('page.captionGen.subtitle')}
           </p>
         </div>
 
@@ -150,12 +152,15 @@ export default function CaptionGeneratorPage() {
                 </button>
               </div>
 
-              <div className="p-4 rounded-xl bg-[var(--surface-canvas)] border border-[var(--border-subtle)] font-mono text-xs text-[var(--ink-primary)] whitespace-pre-wrap leading-relaxed select-all">
+              <div
+                dir="ltr"
+                className="p-4 rounded-xl bg-[var(--surface-canvas)] border border-[var(--border-subtle)] font-mono text-xs text-[var(--ink-primary)] whitespace-pre-wrap leading-relaxed select-all text-left"
+              >
                 {fullCaption}
               </div>
 
               {/* Hashtags list */}
-              <div className="mt-4 flex flex-wrap gap-1.5">
+              <div dir="ltr" className="mt-4 flex flex-wrap gap-1.5">
                 {currentTags.map((t) => (
                   <span
                     key={t}

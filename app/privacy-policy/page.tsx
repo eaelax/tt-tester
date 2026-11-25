@@ -1,15 +1,49 @@
 import type { Metadata } from 'next';
+import { headers } from 'next/headers';
 import Link from 'next/link';
 import LegalLayout from '@/components/LegalLayout';
+import { UI_DICTIONARIES } from '@/lib/i18n/dictionaries-ui';
+import {
+  DEFAULT_LANGUAGE,
+  LanguageCode,
+  SUPPORTED_LANGUAGES,
+  isSupportedLanguage,
+  localizeHref,
+} from '@/lib/i18n/types';
 
-export const metadata: Metadata = {
-  title: 'Privacy Policy - Tik Profiles Viewer',
-  description:
-    'Read the Privacy Policy of Tik Profiles Viewer on TikProfilesViewer.com. Learn how we protect your privacy, handle temporary server logs, and manage Google AdSense cookie choices.',
-  alternates: {
-    canonical: 'https://tikprofilesviewer.com/privacy-policy',
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const reqHeaders = await headers();
+  const headerLang = reqHeaders.get('x-tpv-lang') || DEFAULT_LANGUAGE;
+  const lang: LanguageCode = isSupportedLanguage(headerLang)
+    ? headerLang
+    : DEFAULT_LANGUAGE;
+
+  const uiDict = UI_DICTIONARIES[lang] || UI_DICTIONARIES.en;
+
+  const pageTitle = `Privacy Policy - ${uiDict['brand.name']}`;
+  const pageDesc = 'Read the Privacy Policy of Tik Profiles Viewer.';
+  const canonicalUrl = `https://tikprofilesviewer.com${localizeHref(
+    '/privacy-policy',
+    lang
+  )}`;
+
+  const languages: Record<string, string> = {};
+  for (const item of SUPPORTED_LANGUAGES) {
+    languages[item.code] = `https://tikprofilesviewer.com${localizeHref(
+      '/privacy-policy',
+      item.code
+    )}`;
+  }
+
+  return {
+    title: pageTitle,
+    description: pageDesc,
+    alternates: {
+      canonical: canonicalUrl,
+      languages,
+    },
+  };
+}
 
 export default function PrivacyPolicyPage() {
   return (

@@ -9,20 +9,21 @@ import {
   HelpCircle,
   Award,
   Video,
-  Users,
 } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import AdSlot from '@/components/AdSlot';
+import { useI18n } from '@/lib/i18n/context';
 
 export default function MoneyCalculatorPage() {
+  const { t } = useI18n();
   const [followers, setFollowers] = useState<number>(50000);
   const [avgViews, setAvgViews] = useState<number>(25000);
   const [nicheCpm, setNicheCpm] = useState<number>(2.5);
   const [monthlyPosts, setMonthlyPosts] = useState<number>(12);
 
-  // Creator Rewards Program Estimate (Qualified Views: typically 50-70% of total views, RPM: nicheCpm)
+  // Creator Rewards Program Estimate (Qualified Views: 60%, RPM: nicheCpm)
   const qualifiedViewsPerPost = avgViews * 0.6;
   const rewardsMonthly = Math.round(
     ((qualifiedViewsPerPost * monthlyPosts) / 1000) * (nicheCpm * 0.35)
@@ -44,16 +45,16 @@ export default function MoneyCalculatorPage() {
       <Navbar />
 
       <main className="flex-1 max-w-[980px] w-full mx-auto px-4 sm:px-6 py-5 sm:py-7">
-        <Breadcrumbs items={[{ label: 'TikTok Money Calculator' }]} />
+        <Breadcrumbs items={[{ label: t('page.moneyCalc.crumb') }]} />
         <AdSlot placement="header" />
 
         {/* Compact Hero Header */}
         <div className="text-center max-w-xl mx-auto mb-5">
           <h1 className="text-[length:var(--h1-size)] font-bold text-[var(--ink-primary)] tracking-tight leading-tight">
-            TikTok Money &amp; Creator Earnings Calculator
+            {t('page.moneyCalc.title')}
           </h1>
           <p className="text-xs sm:text-sm text-[var(--ink-secondary)] mt-1.5 leading-relaxed">
-            Estimate your monthly creator earnings from brand sponsorships, the Creator Rewards Program, and TikTok Shop affiliate commissions.
+            {t('page.moneyCalc.subtitle')}
           </p>
         </div>
 
@@ -70,7 +71,7 @@ export default function MoneyCalculatorPage() {
             <div>
               <div className="flex justify-between text-xs font-bold mb-1">
                 <span className="text-[var(--ink-primary)]">Total Followers</span>
-                <span className="font-mono text-[var(--accent-cyan-text)] tabular-nums">
+                <span dir="ltr" className="font-mono text-[var(--accent-cyan-text)] tabular-nums">
                   {followers.toLocaleString()}
                 </span>
               </div>
@@ -96,7 +97,7 @@ export default function MoneyCalculatorPage() {
             <div>
               <div className="flex justify-between text-xs font-bold mb-1">
                 <span className="text-[var(--ink-primary)]">Average Views Per Video</span>
-                <span className="font-mono text-[var(--accent-primary-text)] tabular-nums">
+                <span dir="ltr" className="font-mono text-[var(--accent-primary-text)] tabular-nums">
                   {avgViews.toLocaleString()}
                 </span>
               </div>
@@ -122,7 +123,7 @@ export default function MoneyCalculatorPage() {
             <div>
               <div className="flex justify-between text-xs font-bold mb-1">
                 <span className="text-[var(--ink-primary)]">Monthly Video Uploads</span>
-                <span className="font-mono text-[var(--ink-primary)] tabular-nums">
+                <span dir="ltr" className="font-mono text-[var(--ink-primary)] tabular-nums">
                   {monthlyPosts} videos
                 </span>
               </div>
@@ -164,7 +165,7 @@ export default function MoneyCalculatorPage() {
               <div className="text-[11px] font-bold uppercase tracking-wider text-[var(--ink-muted)] mb-1">
                 Total Projected Monthly Earnings
               </div>
-              <div className="text-2xl sm:text-3xl font-bold text-[var(--ink-primary)] tracking-tight tabular-nums">
+              <div dir="ltr" className="text-2xl sm:text-3xl font-bold text-[var(--ink-primary)] tracking-tight tabular-nums">
                 ${totalMonthlyLow.toLocaleString()} - ${totalMonthlyHigh.toLocaleString()}
               </div>
               <p className="text-xs text-[var(--ink-secondary)] mt-1">
@@ -178,7 +179,7 @@ export default function MoneyCalculatorPage() {
                     <Award className="w-3.5 h-3.5 text-[var(--accent-cyan-text)]" />
                     <span>Sponsored Post (Per Video)</span>
                   </span>
-                  <span className="font-bold text-[var(--ink-primary)]">
+                  <span dir="ltr" className="font-bold text-[var(--ink-primary)]">
                     ${sponsorPerPostLow.toLocaleString()} - ${sponsorPerPostHigh.toLocaleString()}
                   </span>
                 </div>
@@ -188,7 +189,7 @@ export default function MoneyCalculatorPage() {
                     <Video className="w-3.5 h-3.5 text-[var(--accent-primary-text)]" />
                     <span>Creator Rewards Program</span>
                   </span>
-                  <span className="font-bold text-[var(--ink-primary)]">
+                  <span dir="ltr" className="font-bold text-[var(--ink-primary)]">
                     ~${rewardsMonthly.toLocaleString()}/mo
                   </span>
                 </div>
@@ -198,7 +199,7 @@ export default function MoneyCalculatorPage() {
                     <DollarSign className="w-3.5 h-3.5 text-[var(--accent-cyan-text)]" />
                     <span>Live Gifts &amp; Affiliate</span>
                   </span>
-                  <span className="font-bold text-[var(--ink-primary)]">
+                  <span dir="ltr" className="font-bold text-[var(--ink-primary)]">
                     ~${liveAffiliateMonthly.toLocaleString()}/mo
                   </span>
                 </div>

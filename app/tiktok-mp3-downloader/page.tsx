@@ -1,150 +1,98 @@
 import type { Metadata } from 'next';
+import { headers } from 'next/headers';
 import { Music, Volume2, Download } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import Breadcrumbs from '@/components/Breadcrumbs';
-import TikTokProfileViewer from '@/components/TikTokProfileViewer';
+import LocalizedToolView from '@/components/LocalizedToolView';
+import { UI_DICTIONARIES } from '@/lib/i18n/dictionaries-ui';
+import { PAGE_DICTIONARIES } from '@/lib/i18n/dictionaries-pages';
+import {
+  DEFAULT_LANGUAGE,
+  LanguageCode,
+  SUPPORTED_LANGUAGES,
+  isSupportedLanguage,
+  localizeHref,
+} from '@/lib/i18n/types';
 
-export const metadata: Metadata = {
-  title: 'TikTok MP3 Downloader - Extract High Quality Audio Free',
-  description:
-    'Download original TikTok music, sounds, and speech in MP3 format. 100% free with no limits on TikProfilesViewer.com.',
-  openGraph: {
-    title: 'TikTok MP3 Downloader - Extract High Quality Audio Free',
-    description:
-      'Download original TikTok music, sounds, and speech in MP3 format. 100% free on TikProfilesViewer.com.',
-    url: 'https://tikprofilesviewer.com/tiktok-mp3-downloader',
-  },
-  alternates: {
-    canonical: 'https://tikprofilesviewer.com/tiktok-mp3-downloader',
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const reqHeaders = await headers();
+  const headerLang = reqHeaders.get('x-tpv-lang') || DEFAULT_LANGUAGE;
+  const lang: LanguageCode = isSupportedLanguage(headerLang)
+    ? headerLang
+    : DEFAULT_LANGUAGE;
+
+  const uiDict = UI_DICTIONARIES[lang] || UI_DICTIONARIES.en;
+  const pageDict = PAGE_DICTIONARIES[lang] || PAGE_DICTIONARIES.en;
+
+  const pageTitle = `${pageDict['page.mp3Dl.title']} - ${uiDict['brand.name']}`;
+  const pageDesc = pageDict['page.mp3Dl.subtitle'];
+  const canonicalUrl = `https://tikprofilesviewer.com${localizeHref(
+    '/tiktok-mp3-downloader',
+    lang
+  )}`;
+
+  const languages: Record<string, string> = {};
+  for (const item of SUPPORTED_LANGUAGES) {
+    languages[item.code] = `https://tikprofilesviewer.com${localizeHref(
+      '/tiktok-mp3-downloader',
+      item.code
+    )}`;
+  }
+
+  return {
+    title: pageTitle,
+    description: pageDesc,
+    openGraph: {
+      title: pageTitle,
+      description: pageDesc,
+      url: canonicalUrl,
+      siteName: uiDict['brand.name'],
+      type: 'website',
+    },
+    alternates: {
+      canonical: canonicalUrl,
+      languages,
+    },
+  };
+}
 
 export default function AudioDownloaderPage() {
-  const faqSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'FAQPage',
-    mainEntity: [
-      {
-        '@type': 'Question',
-        name: 'What audio format does Tik Profiles Viewer give me?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'The audio is saved directly as a clean MP3 file that plays on any phone, computer, or music player.',
-        },
-      },
-      {
-        '@type': 'Question',
-        name: 'Can I download songs from dance videos?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'Yes. You can extract music, speech, and sound effects from any public video.',
-        },
-      },
-      {
-        '@type': 'Question',
-        name: 'Is the audio download free?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'Yes, 100% free with no limits.',
-        },
-      },
-    ],
-  };
+  const features = [
+    {
+      titleKey: 'page.mp3Dl.f1Title',
+      descKey: 'page.mp3Dl.f1Desc',
+      icon: Volume2,
+      iconBgClass: 'bg-[var(--pastel-blue)]',
+      iconTextClass: 'text-[var(--accent-cyan-text)]',
+      iconBorderClass: 'border-[var(--pastel-blue-border)]',
+    },
+    {
+      titleKey: 'page.mp3Dl.f2Title',
+      descKey: 'page.mp3Dl.f2Desc',
+      icon: Music,
+      iconBgClass: 'bg-[var(--pastel-pink)]',
+      iconTextClass: 'text-[var(--accent-primary-text)]',
+      iconBorderClass: 'border-[var(--pastel-pink-border)]',
+    },
+    {
+      titleKey: 'page.mp3Dl.f3Title',
+      descKey: 'page.mp3Dl.f3Desc',
+      icon: Download,
+      iconBgClass: 'bg-[var(--accent-dark)]',
+      iconTextClass: 'text-[var(--accent-contrast)]',
+    },
+  ] as const;
+
+  const faqs = [
+    { qKey: 'page.mp3Dl.q1', aKey: 'page.mp3Dl.a1' },
+    { qKey: 'page.mp3Dl.q2', aKey: 'page.mp3Dl.a2' },
+    { qKey: 'page.mp3Dl.q3', aKey: 'page.mp3Dl.a3' },
+  ];
 
   return (
     <div className="min-h-screen flex flex-col bg-[var(--surface-canvas)] text-[var(--ink-primary)]">
       <Navbar />
-
-      <main className="flex-1 w-full flex flex-col">
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-        />
-
-        <TikTokProfileViewer
-          initialUsername=""
-          autoSearch={false}
-          heroVariant="workbench"
-          breadcrumbs={<Breadcrumbs items={[{ label: 'TikTok Audio MP3 Downloader' }]} />}
-          title="TikTok MP3 Audio Downloader"
-          subtitle="Extract and download MP3 music tracks and voice audio from any TikTok video for free."
-        >
-          <div className="w-full flex flex-col">
-            {/* Band 1: Audio Features */}
-            <section className="w-full bg-[var(--surface-canvas)] border-b border-[var(--border-subtle)] py-10 sm:py-12">
-              <div className="max-w-6xl mx-auto px-4 sm:px-6">
-                <div className="text-center max-w-xl mx-auto mb-7">
-                  <h2 className="text-2xl sm:text-3xl font-bold text-[var(--ink-primary)] tracking-tight">
-                    Extract Clean TikTok Audio
-                  </h2>
-                  <p className="text-sm text-[var(--ink-secondary)] mt-1.5">
-                    Save music tracks, sound effects, and voice clips in crisp MP3 format.
-                  </p>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div className="p-5 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)] shadow-[var(--shadow-card)] flex flex-col gap-2.5">
-                    <div className="w-9 h-9 rounded-lg bg-[var(--pastel-blue)] text-[var(--accent-cyan-text)] border border-[var(--pastel-blue-border)] flex items-center justify-center">
-                      <Volume2 className="w-4 h-4" />
-                    </div>
-                    <h3 className="text-base font-bold text-[var(--ink-primary)]">Clean Sound Quality</h3>
-                    <p className="text-xs sm:text-[13px] text-[var(--ink-secondary)] leading-relaxed">
-                      Enjoy clear sound reproduction. Music and voice are preserved with original audio clarity.
-                    </p>
-                  </div>
-
-                  <div className="p-5 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)] shadow-[var(--shadow-card)] flex flex-col gap-2.5">
-                    <div className="w-9 h-9 rounded-lg bg-[var(--pastel-pink)] text-[var(--accent-primary-text)] border border-[var(--pastel-pink-border)] flex items-center justify-center">
-                      <Music className="w-4 h-4" />
-                    </div>
-                    <h3 className="text-base font-bold text-[var(--ink-primary)]">Original Voice &amp; Music</h3>
-                    <p className="text-xs sm:text-[13px] text-[var(--ink-secondary)] leading-relaxed">
-                      Works on official TikTok songs, user voiceovers, podcast clips, and comedy sounds.
-                    </p>
-                  </div>
-
-                  <div className="p-5 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)] shadow-[var(--shadow-card)] flex flex-col gap-2.5">
-                    <div className="w-9 h-9 rounded-lg bg-[var(--accent-dark)] text-[var(--accent-contrast)] flex items-center justify-center">
-                      <Download className="w-4 h-4 text-[var(--accent-contrast)]" />
-                    </div>
-                    <h3 className="text-base font-bold text-[var(--ink-primary)]">One-Click Save</h3>
-                    <p className="text-xs sm:text-[13px] text-[var(--ink-secondary)] leading-relaxed">
-                      Save audio directly without downloading the full video. Save space and time on your device.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </section>
-
-            {/* Band 2: Audio FAQs */}
-            <section className="w-full bg-[var(--surface-elevated)] py-10 sm:py-12">
-              <div className="max-w-6xl mx-auto px-4 sm:px-6">
-                <div className="text-center max-w-xl mx-auto mb-6">
-                  <h2 className="text-2xl sm:text-3xl font-bold text-[var(--ink-primary)] tracking-tight">
-                    TikTok Audio FAQs
-                  </h2>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  {faqSchema.mainEntity.map((item, idx) => (
-                    <div
-                      key={idx}
-                      className="p-5 rounded-xl bg-[var(--surface-canvas)] border border-[var(--border-subtle)] shadow-[var(--shadow-card)] flex flex-col gap-1.5"
-                    >
-                      <h3 className="text-sm font-bold text-[var(--ink-primary)]">{item.name}</h3>
-                      <p className="text-xs sm:text-[13px] text-[var(--ink-secondary)] leading-relaxed">
-                        {item.acceptedAnswer.text}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </section>
-          </div>
-        </TikTokProfileViewer>
-      </main>
-
+      <LocalizedToolView toolKey="mp3Dl" features={features} faqs={faqs} />
       <Footer />
     </div>
   );
