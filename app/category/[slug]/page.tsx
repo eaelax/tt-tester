@@ -16,6 +16,7 @@ import {
   isSupportedLanguage,
   localizeHref,
 } from '@/lib/i18n/types';
+import { getBaseUrl } from '@/lib/seo/sitemap';
 
 interface Props {
   params: Promise<{
@@ -39,18 +40,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     ? headerLang
     : DEFAULT_LANGUAGE;
   const uiDict = UI_DICTIONARIES[lang] || UI_DICTIONARIES.en;
+  const baseUrl = getBaseUrl();
 
   const title = `${category.title} - ${uiDict['brand.name']}`;
   const description = category.seoDescription;
-  const canonicalUrl = `https://tikprofilesviewer.com${localizeHref(`/category/${slug}`, lang)}`;
+  const routePath = `/category/${encodeURIComponent(slug)}`;
+  const canonicalUrl = `${baseUrl}${localizeHref(routePath, lang)}`;
 
   const languages: Record<string, string> = {};
   for (const item of SUPPORTED_LANGUAGES) {
-    languages[item.code] = `https://tikprofilesviewer.com${localizeHref(
-      `/category/${slug}`,
-      item.code
-    )}`;
+    languages[item.code] = `${baseUrl}${localizeHref(routePath, item.code)}`;
   }
+  languages['x-default'] = `${baseUrl}${localizeHref(routePath, DEFAULT_LANGUAGE)}`;
 
   return {
     title,
@@ -61,6 +62,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url: canonicalUrl,
       siteName: uiDict['brand.name'],
       type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
     },
     alternates: {
       canonical: canonicalUrl,

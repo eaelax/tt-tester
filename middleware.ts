@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import {
   DEFAULT_LANGUAGE,
   extractLangFromPathname,
+  localizeHref,
   stripLangPrefix,
 } from '@/lib/i18n/types';
 
@@ -9,7 +10,11 @@ const ROUTE_ALIASES: Record<string, string> = {
   '/about-us': '/about-tiktok-profile-viewer',
 };
 
-const BYPASS_PREFIXES = ['/api', '/_next', '/assets', '/admintiktok'];
+const CANONICAL_REDIRECTS: Record<string, string> = {
+  '/about-tiktok-profile-viewer': '/about-us',
+};
+
+const BYPASS_PREFIXES = ['/api', '/_next', '/assets', '/admintiktok', '/sitemaps'];
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -32,6 +37,14 @@ export function middleware(request: NextRequest) {
   const unprefixedPath = detectedLang ? stripLangPrefix(pathname) : pathname;
   const normalizedPath =
     unprefixedPath === '/' ? '/' : unprefixedPath.replace(/\/+$/, '') || '/';
+
+  const canonicalTarget = CANONICAL_REDIRECTS[normalizedPath];
+  if (canonicalTarget) {
+    const redirectUrl = request.nextUrl.clone();
+    redirectUrl.pathname = localizeHref(canonicalTarget, activeLang);
+    return NextResponse.redirect(redirectUrl, 301);
+  }
+
   const internalTarget = ROUTE_ALIASES[normalizedPath] ?? normalizedPath;
 
   const requestHeaders = new Headers(request.headers);
@@ -53,6 +66,6 @@ export function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    '/((?!api|_next/static|_next/image|assets|admintiktok|favicon\\.ico|icon\\.png|robots\\.txt|sitemap\\.xml).*)',
+    '/((?!api|_next/static|_next/image|assets|admintiktok|sitemaps|favicon\\.ico|icon\\.png|robots\\.txt|sitemap\\.xml).*)',
   ],
 };

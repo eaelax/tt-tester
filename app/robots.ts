@@ -1,7 +1,8 @@
 import type { MetadataRoute } from 'next';
+import { getBaseUrl } from '@/lib/seo/sitemap';
 
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl = (process.env.APP_URL || 'https://tikprofilesviewer.com').replace(/\/+$/, '');
+  const baseUrl = getBaseUrl();
 
   return {
     rules: [
@@ -15,7 +16,7 @@ export default function robots(): MetadataRoute.Robots {
       },
       {
         userAgent: '*',
-        allow: '/',
+        allow: ['/', '/sitemaps/'],
         disallow: ['/api/', '/admintiktok/', '/*?*sort=', '/*?*filter=', '/*?*utm_'],
       },
     ],

@@ -4,8 +4,9 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import TikTokProfileViewer from '@/components/TikTokProfileViewer';
+import ProfileSeoSection from '@/components/ProfileSeoSection';
 import ProfileFaqBand from '@/components/ProfileFaqBand';
-import { getCreatorByUsername } from '@/lib/creators-data';
+import { getCreatorByUsername, getRelatedCreators } from '@/lib/creators-data';
 import { UI_DICTIONARIES } from '@/lib/i18n/dictionaries-ui';
 import { PAGE_DICTIONARIES } from '@/lib/i18n/dictionaries-pages';
 import {
@@ -15,6 +16,7 @@ import {
   isSupportedLanguage,
   localizeHref,
 } from '@/lib/i18n/types';
+import { getBaseUrl } from '@/lib/seo/sitemap';
 
 interface Props {
   params: Promise<{
@@ -35,6 +37,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const uiDict = UI_DICTIONARIES[lang] || UI_DICTIONARIES.en;
   const pageDict = PAGE_DICTIONARIES[lang] || PAGE_DICTIONARIES.en;
+  const baseUrl = getBaseUrl();
 
   const title = creator
     ? `${creator.displayName} (@${creator.username}) TikTok Profile - ${uiDict['brand.name']}`
@@ -47,18 +50,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         decodedUsername
       ) || `Watch and download @${decodedUsername} public TikTok videos.`;
 
-  const canonicalUrl = `https://tikprofilesviewer.com${localizeHref(
-    `/profile/${decodedUsername}`,
-    lang
-  )}`;
+  const routePath = `/profile/${encodeURIComponent(decodedUsername)}`;
+  const canonicalUrl = `${baseUrl}${localizeHref(routePath, lang)}`;
 
   const languages: Record<string, string> = {};
   for (const item of SUPPORTED_LANGUAGES) {
-    languages[item.code] = `https://tikprofilesviewer.com${localizeHref(
-      `/profile/${decodedUsername}`,
-      item.code
-    )}`;
+    languages[item.code] = `${baseUrl}${localizeHref(routePath, item.code)}`;
   }
+  languages['x-default'] = `${baseUrl}${localizeHref(routePath, DEFAULT_LANGUAGE)}`;
 
   return {
     title,
@@ -87,6 +86,7 @@ export default async function CreatorProfilePage({ params }: Props) {
   const { username } = await params;
   const decodedUsername = decodeURIComponent(username).replace(/^@/, '');
   const creator = getCreatorByUsername(decodedUsername);
+  const relatedCreators = getRelatedCreators(decodedUsername, creator?.categorySlug, 6);
 
   const personSchema = {
     '@context': 'https://schema.org',
@@ -144,6 +144,12 @@ export default async function CreatorProfilePage({ params }: Props) {
           subtitleKey={heroSubtitle ? undefined : 'page.profile.heroSubtitleFallback'}
           titleVars={{ username: decodedUsername }}
           subtitleVars={{ username: decodedUsername }}
+        />
+
+        <ProfileSeoSection
+          username={decodedUsername}
+          creator={creator}
+          relatedCreators={relatedCreators}
         />
 
         <ProfileFaqBand username={decodedUsername} />
