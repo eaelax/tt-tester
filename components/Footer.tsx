@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useI18n } from '@/lib/i18n/context';
 
 export default function Footer() {
-  const { t } = useI18n();
+  const { t, localizeHref } = useI18n();
 
   const handleGoHome = () => {
     if (typeof window !== 'undefined') {
@@ -18,7 +18,7 @@ export default function Footer() {
         {/* Col 1: Brand & Overview */}
         <div className="lg:col-span-4 flex flex-col gap-3.5">
           <Link
-            href="/"
+            href={localizeHref('/')}
             onClick={handleGoHome}
             className="flex items-center gap-2.5 text-[var(--ink-primary)] hover:text-[var(--accent-cyan-text)] transition-colors duration-150 font-bold text-sm select-none w-fit rounded-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--focus-ring)]"
           >
@@ -37,19 +37,19 @@ export default function Footer() {
 
           <div className="flex flex-wrap items-center gap-2 text-xs pt-1 text-[var(--ink-primary)]">
             <Link
-              href="/about-tiktok-profile-viewer"
+              href={localizeHref('/about-us')}
               className="px-3 py-1 rounded-lg bg-[var(--surface-canvas)] hover:bg-[var(--pastel-blue)] border border-[var(--border-subtle)] hover:border-[var(--accent-cyan)] hover:text-[var(--accent-cyan-text)] font-semibold transition-colors duration-150"
             >
               {t('footer.aboutUs')}
             </Link>
             <Link
-              href="/how-to-use-tiktok-profile-viewer"
+              href={localizeHref('/how-to-use-tiktok-profile-viewer')}
               className="px-3 py-1 rounded-lg bg-[var(--surface-canvas)] hover:bg-[var(--pastel-blue)] border border-[var(--border-subtle)] hover:border-[var(--accent-cyan)] hover:text-[var(--accent-cyan-text)] font-semibold transition-colors duration-150"
             >
               {t('footer.howToUse')}
             </Link>
             <Link
-              href="/creators"
+              href={localizeHref('/creators')}
               className="px-3 py-1 rounded-lg bg-[var(--surface-canvas)] hover:bg-[var(--pastel-blue)] border border-[var(--border-subtle)] hover:border-[var(--accent-cyan)] hover:text-[var(--accent-cyan-text)] font-semibold transition-colors duration-150"
             >
               {t('footer.topCreators')}
@@ -64,32 +64,32 @@ export default function Footer() {
           </h4>
           <ul className="flex flex-col gap-2 text-xs text-[var(--ink-secondary)]">
             <li>
-              <Link href="/tiktok-video-downloader" className="hover:text-[var(--accent-cyan-text)] transition-colors duration-150">
+              <Link href={localizeHref('/tiktok-video-downloader')} className="hover:text-[var(--accent-cyan-text)] transition-colors duration-150">
                 {t('nav.tool.video.label')}
               </Link>
             </li>
             <li>
-              <Link href="/tiktok-mp3-downloader" className="hover:text-[var(--accent-cyan-text)] transition-colors duration-150">
+              <Link href={localizeHref('/tiktok-mp3-downloader')} className="hover:text-[var(--accent-cyan-text)] transition-colors duration-150">
                 {t('nav.tool.mp3.label')}
               </Link>
             </li>
             <li>
-              <Link href="/tiktok-profile-viewer" className="hover:text-[var(--accent-cyan-text)] transition-colors duration-150">
+              <Link href={localizeHref('/tiktok-profile-viewer')} className="hover:text-[var(--accent-cyan-text)] transition-colors duration-150">
                 {t('nav.tool.viewer.label')}
               </Link>
             </li>
             <li>
-              <Link href="/tiktok-story-downloader" className="hover:text-[var(--accent-cyan-text)] transition-colors duration-150">
+              <Link href={localizeHref('/tiktok-story-downloader')} className="hover:text-[var(--accent-cyan-text)] transition-colors duration-150">
                 {t('nav.tool.story.label')}
               </Link>
             </li>
             <li>
-              <Link href="/tiktok-photo-downloader" className="hover:text-[var(--accent-cyan-text)] transition-colors duration-150">
+              <Link href={localizeHref('/tiktok-photo-downloader')} className="hover:text-[var(--accent-cyan-text)] transition-colors duration-150">
                 {t('nav.tool.photo.label')}
               </Link>
             </li>
             <li>
-              <Link href="/tiktok-watermark-remover" className="hover:text-[var(--accent-cyan-text)] transition-colors duration-150">
+              <Link href={localizeHref('/tiktok-watermark-remover')} className="hover:text-[var(--accent-cyan-text)] transition-colors duration-150">
                 {t('nav.tool.watermark.label')}
               </Link>
             </li>
@@ -103,22 +103,22 @@ export default function Footer() {
           </h4>
           <ul className="flex flex-col gap-2 text-xs text-[var(--ink-secondary)]">
             <li>
-              <Link href="/creators" className="hover:text-[var(--accent-cyan-text)] transition-colors duration-150">
+              <Link href={localizeHref('/creators')} className="hover:text-[var(--accent-cyan-text)] transition-colors duration-150">
                 {t('nav.creators')}
               </Link>
             </li>
             <li>
-              <Link href="/categories" className="hover:text-[var(--accent-cyan-text)] transition-colors duration-150">
+              <Link href={localizeHref('/categories')} className="hover:text-[var(--accent-cyan-text)] transition-colors duration-150">
                 {t('nav.categories')}
               </Link>
             </li>
             <li>
-              <Link href="/about-tiktok-profile-viewer" className="hover:text-[var(--accent-cyan-text)] transition-colors duration-150">
+              <Link href={localizeHref('/about-us')} className="hover:text-[var(--accent-cyan-text)] transition-colors duration-150">
                 {t('nav.about')}
               </Link>
             </li>
             <li>
-              <Link href="/how-to-use-tiktok-profile-viewer" className="hover:text-[var(--accent-cyan-text)] transition-colors duration-150">
+              <Link href={localizeHref('/how-to-use-tiktok-profile-viewer')} className="hover:text-[var(--accent-cyan-text)] transition-colors duration-150">
                 {t('nav.howToUse')}
               </Link>
             </li>
@@ -131,40 +131,40 @@ export default function Footer() {
             {t('footer.legalHeading')}
           </h4>
           <div className="grid grid-cols-2 gap-x-4 gap-y-2 text-xs text-[var(--ink-secondary)]">
-            <Link href="/terms-of-service" className="hover:text-[var(--accent-cyan-text)] transition-colors duration-150 truncate">
+            <Link href={localizeHref('/terms-of-service')} className="hover:text-[var(--accent-cyan-text)] transition-colors duration-150 truncate">
               {t('legal.nav.terms')}
             </Link>
-            <Link href="/privacy-policy" className="hover:text-[var(--accent-cyan-text)] transition-colors duration-150 truncate">
+            <Link href={localizeHref('/privacy-policy')} className="hover:text-[var(--accent-cyan-text)] transition-colors duration-150 truncate">
               {t('legal.nav.privacy')}
             </Link>
-            <Link href="/cookie-policy" className="hover:text-[var(--accent-cyan-text)] transition-colors duration-150 truncate">
+            <Link href={localizeHref('/cookie-policy')} className="hover:text-[var(--accent-cyan-text)] transition-colors duration-150 truncate">
               {t('legal.nav.cookies')}
             </Link>
-            <Link href="/disclaimer" className="hover:text-[var(--accent-cyan-text)] transition-colors duration-150 truncate">
+            <Link href={localizeHref('/disclaimer')} className="hover:text-[var(--accent-cyan-text)] transition-colors duration-150 truncate">
               {t('legal.nav.disclaimer')}
             </Link>
-            <Link href="/legal-notice" className="hover:text-[var(--accent-cyan-text)] transition-colors duration-150 truncate">
+            <Link href={localizeHref('/legal-notice')} className="hover:text-[var(--accent-cyan-text)] transition-colors duration-150 truncate">
               {t('legal.nav.notice')}
             </Link>
-            <Link href="/copyright-policy" className="hover:text-[var(--accent-cyan-text)] transition-colors duration-150 truncate">
+            <Link href={localizeHref('/copyright-policy')} className="hover:text-[var(--accent-cyan-text)] transition-colors duration-150 truncate">
               {t('legal.nav.copyright')}
             </Link>
-            <Link href="/tiktok-independence-disclaimer" className="hover:text-[var(--accent-cyan-text)] transition-colors duration-150 truncate">
+            <Link href={localizeHref('/tiktok-independence-disclaimer')} className="hover:text-[var(--accent-cyan-text)] transition-colors duration-150 truncate">
               {t('legal.nav.independence')}
             </Link>
-            <Link href="/public-content-policy" className="hover:text-[var(--accent-cyan-text)] transition-colors duration-150 truncate">
+            <Link href={localizeHref('/public-content-policy')} className="hover:text-[var(--accent-cyan-text)] transition-colors duration-150 truncate">
               {t('legal.nav.publicContent')}
             </Link>
-            <Link href="/content-removal-policy" className="hover:text-[var(--accent-cyan-text)] transition-colors duration-150 truncate">
+            <Link href={localizeHref('/content-removal-policy')} className="hover:text-[var(--accent-cyan-text)] transition-colors duration-150 truncate">
               {t('legal.nav.removal')}
             </Link>
-            <Link href="/acceptable-use-policy" className="hover:text-[var(--accent-cyan-text)] transition-colors duration-150 truncate">
+            <Link href={localizeHref('/acceptable-use-policy')} className="hover:text-[var(--accent-cyan-text)] transition-colors duration-150 truncate">
               {t('legal.nav.acceptableUse')}
             </Link>
-            <Link href="/security-policy" className="hover:text-[var(--accent-cyan-text)] transition-colors duration-150 truncate">
+            <Link href={localizeHref('/security-policy')} className="hover:text-[var(--accent-cyan-text)] transition-colors duration-150 truncate">
               {t('legal.nav.security')}
             </Link>
-            <Link href="/service-availability-policy" className="hover:text-[var(--accent-cyan-text)] transition-colors duration-150 truncate">
+            <Link href={localizeHref('/service-availability-policy')} className="hover:text-[var(--accent-cyan-text)] transition-colors duration-150 truncate">
               {t('legal.nav.availability')}
             </Link>
           </div>

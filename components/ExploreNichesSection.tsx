@@ -38,7 +38,7 @@ const NICHES = [
 ] as const;
 
 export default function ExploreNichesSection() {
-  const { t } = useI18n();
+  const { t, localizeHref } = useI18n();
 
   const scrollToSearch = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -61,7 +61,7 @@ export default function ExploreNichesSection() {
         </div>
 
         <Link
-          href="/categories"
+          href={localizeHref('/categories')}
           className="h-9 px-4 rounded-lg bg-[var(--surface-canvas)] border border-[var(--border-strong)] hover:bg-[var(--pastel-blue)] hover:border-[var(--accent-cyan)] text-xs font-semibold text-[var(--ink-primary)] hover:text-[var(--accent-cyan-text)] inline-flex items-center gap-1.5 transition-colors duration-150 shrink-0 w-fit"
         >
           <span>{t('niches.allCategories')}</span>
@@ -74,7 +74,7 @@ export default function ExploreNichesSection() {
         {NICHES.map((niche) => (
           <Link
             key={niche.href}
-            href={niche.href}
+            href={localizeHref(niche.href)}
             className="group p-4 sm:p-5 rounded-xl bg-[var(--surface-canvas)] hover:bg-[var(--pastel-blue)] border border-[var(--border-subtle)] hover:border-[var(--accent-cyan)] transition-colors duration-150 flex flex-col justify-between gap-2"
           >
             <div className="flex items-center justify-between gap-2">

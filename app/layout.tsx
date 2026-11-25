@@ -1,6 +1,12 @@
 import type { Metadata } from 'next';
+import { headers } from 'next/headers';
 import { Rubik, Cairo, JetBrains_Mono } from 'next/font/google';
 import { I18nProvider } from '@/lib/i18n/context';
+import {
+  DEFAULT_LANGUAGE,
+  getLanguageInfo,
+  isSupportedLanguage,
+} from '@/lib/i18n/types';
 import './globals.css';
 
 const rubik = Rubik({
@@ -49,15 +55,20 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const headerStore = await headers();
+  const headerLang = (headerStore.get('x-tpv-lang') || '').toLowerCase();
+  const lang = isSupportedLanguage(headerLang) ? headerLang : DEFAULT_LANGUAGE;
+  const langInfo = getLanguageInfo(lang);
+
   return (
     <html
-      lang="en"
-      dir="ltr"
+      lang={langInfo.code}
+      dir={langInfo.dir}
       suppressHydrationWarning
       className={`${rubik.variable} ${cairo.variable} ${jetbrainsMono.variable}`}
     >
@@ -74,7 +85,7 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-screen bg-[var(--surface-canvas)] text-[var(--ink-primary)] font-sans antialiased overflow-x-hidden selection:bg-[var(--accent-soft)] selection:text-[var(--accent-primary-text)]">
-        <I18nProvider>{children}</I18nProvider>
+        <I18nProvider initialLang={langInfo.code}>{children}</I18nProvider>
       </body>
     </html>
   );

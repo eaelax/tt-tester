@@ -8,13 +8,16 @@ import React, {
   useState,
   useCallback,
 } from 'react';
+import { usePathname, useRouter } from 'next/navigation';
 import {
   DEFAULT_LANGUAGE,
   LanguageCode,
   LanguageInfo,
   SUPPORTED_LANGUAGES,
+  extractLangFromPathname,
   getLanguageInfo,
   isSupportedLanguage,
+  localizeHref as localizeHrefHelper,
 } from './types';
 import { UI_DICTIONARIES } from './dictionaries-ui';
 import { PAGE_DICTIONARIES, PHRASE_TRANSLATIONS } from './dictionaries-pages';
@@ -30,13 +33,13 @@ interface I18nContextValue {
   dir: 'ltr' | 'rtl';
   languages: LanguageInfo[];
   setLanguage: (code: LanguageCode) => void;
+  localizeHref: (href: string) => string;
   t: (key: string, vars?: InterpolationVars) => string;
   translateText: (text: string) => string;
 }
 
 const I18nContext = createContext<I18nContextValue | null>(null);
 
-// Reverse index from English UI/Page text -> translation key for automatic fallback
 const EN_VALUE_TO_KEY = new Map<string, string>();
 for (const [k, v] of Object.entries(UI_DICTIONARIES.en)) {
   if (!EN_VALUE_TO_KEY.has(v)) {
@@ -84,7 +87,6 @@ function lookupPhrase(lang: LanguageCode, rawText: string): string | undefined {
   return undefined;
 }
 
-// Preserves original English text nodes inside [data-auto-translate] blocks
 const ORIGINAL_NODE_TEXT = new WeakMap<Text, string>();
 
 function shouldSkipElement(el: Element | null): boolean {
@@ -149,41 +151,41 @@ function applyAutoTranslationPass(lang: LanguageCode): void {
   });
 }
 
-export function I18nProvider({ children }: { children: React.ReactNode }) {
-  const [lang, setLang] = useState<LanguageCode>(DEFAULT_LANGUAGE);
+export function I18nProvider({
+  children,
+  initialLang = DEFAULT_LANGUAGE,
+}: {
+  children: React.ReactNode;
+  initialLang?: LanguageCode;
+}) {
+  const pathname = usePathname() || '/';
+  const router = useRouter();
+  const pathLang = extractLangFromPathname(pathname);
 
-  // Sync persisted language from localStorage on client mount
+  const [lang, setLang] = useState<LanguageCode>(pathLang ?? initialLang);
+
+  useEffect(() => {
+    const resolvedFromPath = extractLangFromPathname(pathname);
+    const nextLang = resolvedFromPath ?? DEFAULT_LANGUAGE;
+    setLang((prev) => (prev !== nextLang ? nextLang : prev));
+  }, [pathname]);
+
   useEffect(() => {
     if (typeof window === 'undefined') return;
-    const saved = localStorage.getItem(STORAGE_KEY);
-    if (saved && isSupportedLanguage(saved)) {
-      setLang(saved);
-    }
-
-    const handleStorage = (e: StorageEvent) => {
-      if (e.key === STORAGE_KEY && e.newValue && isSupportedLanguage(e.newValue)) {
-        setLang(e.newValue);
-      }
-    };
-
     const handleCustom = (e: Event) => {
       const custom = e as CustomEvent<{ lang?: string }>;
       if (custom.detail?.lang && isSupportedLanguage(custom.detail.lang)) {
         setLang(custom.detail.lang);
       }
     };
-
-    window.addEventListener('storage', handleStorage);
     window.addEventListener(LANG_CHANGE_EVENT, handleCustom);
     return () => {
-      window.removeEventListener('storage', handleStorage);
       window.removeEventListener(LANG_CHANGE_EVENT, handleCustom);
     };
   }, []);
 
   const languageInfo = useMemo(() => getLanguageInfo(lang), [lang]);
 
-  // Keep <html lang="..." dir="ltr|rtl"> and auto-translated blocks synchronized
   useEffect(() => {
     if (typeof document === 'undefined') return;
     document.documentElement.lang = languageInfo.code;
@@ -204,17 +206,36 @@ export function I18nProvider({ children }: { children: React.ReactNode }) {
     return () => observer.disconnect();
   }, [lang, languageInfo]);
 
-  const setLanguage = useCallback((code: LanguageCode) => {
-    setLang(code);
-    if (typeof window !== 'undefined') {
-      try {
-        localStorage.setItem(STORAGE_KEY, code);
-        window.dispatchEvent(new CustomEvent(LANG_CHANGE_EVENT, { detail: { lang: code } }));
-      } catch {
-        // Ignore storage write errors in restricted browsing modes
+  const setLanguage = useCallback(
+    (code: LanguageCode) => {
+      setLang(code);
+      if (typeof window !== 'undefined') {
+        try {
+          localStorage.setItem(STORAGE_KEY, code);
+          window.dispatchEvent(new CustomEvent(LANG_CHANGE_EVENT, { detail: { lang: code } }));
+        } catch {
+          // Ignore storage write errors
+        }
+
+        const currentPath = window.location.pathname || pathname || '/';
+        const search = window.location.search || '';
+        const targetPath = localizeHrefHelper(currentPath, code);
+        const targetUrl = `${targetPath}${search}`;
+
+        if (targetPath !== currentPath) {
+          router.push(targetUrl);
+        } else {
+          router.refresh();
+        }
       }
-    }
-  }, []);
+    },
+    [pathname, router]
+  );
+
+  const localizeHref = useCallback(
+    (href: string) => localizeHrefHelper(href, lang),
+    [lang]
+  );
 
   const t = useCallback(
     (key: string, vars?: InterpolationVars): string => {
@@ -239,10 +260,11 @@ export function I18nProvider({ children }: { children: React.ReactNode }) {
       dir: languageInfo.dir,
       languages: SUPPORTED_LANGUAGES,
       setLanguage,
+      localizeHref,
       t,
       translateText,
     }),
-    [lang, languageInfo, setLanguage, t, translateText]
+    [lang, languageInfo, setLanguage, localizeHref, t, translateText]
   );
 
   return <I18nContext.Provider value={value}>{children}</I18nContext.Provider>;
@@ -252,13 +274,13 @@ export function useI18n(): I18nContextValue {
   const ctx = useContext(I18nContext);
   if (ctx) return ctx;
 
-  // Safe fallback if rendered outside provider
   return {
     lang: DEFAULT_LANGUAGE,
     languageInfo: SUPPORTED_LANGUAGES[0],
     dir: 'ltr',
     languages: SUPPORTED_LANGUAGES,
     setLanguage: () => {},
+    localizeHref: (href: string) => href,
     t: (key: string, vars?: InterpolationVars) => {
       const resolved = lookupKey(DEFAULT_LANGUAGE, key) ?? key;
       return interpolate(resolved, vars);

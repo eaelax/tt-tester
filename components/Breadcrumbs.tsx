@@ -15,7 +15,7 @@ interface BreadcrumbsProps {
 }
 
 export default function Breadcrumbs({ items }: BreadcrumbsProps) {
-  const { t, translateText } = useI18n();
+  const { t, translateText, localizeHref } = useI18n();
 
   const resolveLabel = (item: BreadcrumbItem): string => {
     if (item.translationKey) {
@@ -24,19 +24,24 @@ export default function Breadcrumbs({ items }: BreadcrumbsProps) {
     return translateText(item.label);
   };
 
+  const homeHref = localizeHref('/');
+
   const schemaItems = [
     {
       '@type': 'ListItem',
       position: 1,
-      name: 'Home',
-      item: 'https://tikprofilesviewer.com/',
+      name: t('breadcrumb.home'),
+      item: `https://tikprofilesviewer.com${homeHref === '/' ? '/' : homeHref}`,
     },
-    ...items.map((item, idx) => ({
-      '@type': 'ListItem',
-      position: idx + 2,
-      name: item.label,
-      ...(item.href ? { item: `https://tikprofilesviewer.com${item.href}` } : {}),
-    })),
+    ...items.map((item, idx) => {
+      const resolvedHref = item.href ? localizeHref(item.href) : undefined;
+      return {
+        '@type': 'ListItem',
+        position: idx + 2,
+        name: resolveLabel(item),
+        ...(resolvedHref ? { item: `https://tikprofilesviewer.com${resolvedHref}` } : {}),
+      };
+    }),
   ];
 
   const breadcrumbSchema = {
@@ -54,7 +59,7 @@ export default function Breadcrumbs({ items }: BreadcrumbsProps) {
       <ol className="flex items-center flex-wrap gap-1.5 text-xs text-[var(--ink-muted)] font-medium">
         <li className="inline-flex items-center">
           <Link
-            href="/"
+            href={homeHref}
             onClick={() => {
               if (typeof window !== 'undefined') {
                 window.dispatchEvent(new CustomEvent('tpv:reset-home'));
@@ -77,7 +82,7 @@ export default function Breadcrumbs({ items }: BreadcrumbsProps) {
                 </span>
               ) : (
                 <Link
-                  href={item.href}
+                  href={localizeHref(item.href)}
                   className="text-[var(--ink-muted)] hover:text-[var(--ink-primary)] transition-colors truncate max-w-[200px] sm:max-w-none rounded px-1 py-0.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--focus-ring)]"
                 >
                   {displayLabel}

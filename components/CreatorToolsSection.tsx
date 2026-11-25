@@ -14,7 +14,7 @@ const ALL_TOOLS = [
 ] as const;
 
 export default function CreatorToolsSection() {
-  const { t } = useI18n();
+  const { t, localizeHref } = useI18n();
 
   return (
     <div id="tools" className="w-full scroll-mt-20">
@@ -32,7 +32,7 @@ export default function CreatorToolsSection() {
         {ALL_TOOLS.map((tool) => (
           <Link
             key={tool.href}
-            href={tool.href}
+            href={localizeHref(tool.href)}
             className="group p-4 sm:p-5 rounded-xl bg-[var(--surface-elevated)] hover:bg-[var(--pastel-blue)] border border-[var(--border-subtle)] hover:border-[var(--accent-cyan)] shadow-[var(--shadow-card)] transition-colors duration-150 flex flex-col justify-between min-h-[144px]"
           >
             <div>

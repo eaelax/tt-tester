@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ChevronDown, Menu, X, Check, Globe } from 'lucide-react';
 import { useI18n } from '@/lib/i18n/context';
+import { stripLangPrefix } from '@/lib/i18n/types';
 import { MotionDropdownPanel, MotionCollapse } from './MotionPrimitives';
 
 const TOOL_ITEMS = [
@@ -30,13 +31,14 @@ const SHORT_CODE_FALLBACK: Record<string, string> = {
 };
 
 export default function Navbar() {
-  const { lang, languageInfo, languages, setLanguage, t } = useI18n();
+  const { lang, languageInfo, languages, setLanguage, localizeHref, t } = useI18n();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [toolsDropdownOpen, setToolsDropdownOpen] = useState(false);
   const [langDropdownOpen, setLangDropdownOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
-  const pathname = usePathname();
+  const rawPathname = usePathname() || '/';
+  const pathname = stripLangPrefix(rawPathname);
 
   const toolsRef = useRef<HTMLDivElement>(null);
   const langRef = useRef<HTMLDivElement>(null);
@@ -96,6 +98,9 @@ export default function Navbar() {
         : 'text-[var(--ink-primary)]/80 hover:bg-[var(--accent-primary)]/12 hover:text-[var(--accent-primary-text)]'
     }`;
 
+  const isAboutActive =
+    pathname === '/about-us' || pathname === '/about-tiktok-profile-viewer';
+
   return (
     <header
       className={`sticky top-0 z-40 w-full transition-all duration-200 ${
@@ -107,7 +112,7 @@ export default function Navbar() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
         {/* Brand Mark */}
         <Link
-          href="/"
+          href={localizeHref('/')}
           onClick={handleGoHome}
           className="flex items-center gap-2.5 text-[var(--ink-primary)] select-none shrink-0 rounded-xl outline-none focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-900/15 group"
         >
@@ -132,19 +137,19 @@ export default function Navbar() {
 
         {/* Desktop Nav Links */}
         <nav aria-label="Main Navigation" className="hidden lg:flex items-center gap-1.5 shrink-0">
-          <Link href="/" onClick={handleGoHome} className={navLinkClass(pathname === '/')}>
+          <Link href={localizeHref('/')} onClick={handleGoHome} className={navLinkClass(pathname === '/')}>
             {t('nav.home')}
           </Link>
 
           <Link
-            href="/about-tiktok-profile-viewer"
-            className={navLinkClass(pathname === '/about-tiktok-profile-viewer')}
+            href={localizeHref('/about-us')}
+            className={navLinkClass(isAboutActive)}
           >
             {t('nav.about')}
           </Link>
 
           <Link
-            href="/how-to-use-tiktok-profile-viewer"
+            href={localizeHref('/how-to-use-tiktok-profile-viewer')}
             className={navLinkClass(pathname === '/how-to-use-tiktok-profile-viewer')}
           >
             {t('nav.howToUse')}
@@ -182,7 +187,7 @@ export default function Navbar() {
               {TOOL_ITEMS.map((tool) => (
                 <Link
                   key={tool.href}
-                  href={tool.href}
+                  href={localizeHref(tool.href)}
                   onClick={() => setToolsDropdownOpen(false)}
                   className="px-3 py-2 rounded-lg hover:bg-[var(--pastel-blue)]/40 text-[var(--ink-primary)] transition-colors group"
                 >
@@ -199,7 +204,7 @@ export default function Navbar() {
 
           <div className="w-px h-5 bg-[var(--border-strong)]/40 mx-1" />
 
-          {/* Languages Button - White Container, View Profile Shape (rounded-xl), Exact Same Height/Size, No Blue Border */}
+          {/* Languages Button */}
           <div className="relative" ref={langRef}>
             <button
               type="button"
@@ -334,21 +339,21 @@ export default function Navbar() {
       >
         <div className="rounded-xl border border-[var(--border-subtle)] bg-[var(--surface-elevated)] shadow-[var(--shadow-workbench)] px-4 py-3.5 flex flex-col gap-1 max-h-[75vh] overflow-y-auto">
           <Link
-            href="/"
+            href={localizeHref('/')}
             onClick={handleGoHome}
             className="px-3.5 py-2.5 rounded-lg text-sm font-semibold text-[var(--ink-primary)] hover:bg-[var(--accent-primary)]/12 hover:text-[var(--accent-primary-text)] transition-colors"
           >
             {t('nav.home')}
           </Link>
           <Link
-            href="/about-tiktok-profile-viewer"
+            href={localizeHref('/about-us')}
             onClick={() => setMobileMenuOpen(false)}
             className="px-3.5 py-2.5 rounded-lg text-sm font-semibold text-[var(--ink-primary)] hover:bg-[var(--accent-primary)]/12 hover:text-[var(--accent-primary-text)] transition-colors"
           >
             {t('nav.about')}
           </Link>
           <Link
-            href="/how-to-use-tiktok-profile-viewer"
+            href={localizeHref('/how-to-use-tiktok-profile-viewer')}
             onClick={() => setMobileMenuOpen(false)}
             className="px-3.5 py-2.5 rounded-lg text-sm font-semibold text-[var(--ink-primary)] hover:bg-[var(--accent-primary)]/12 hover:text-[var(--accent-primary-text)] transition-colors"
           >
@@ -363,7 +368,7 @@ export default function Navbar() {
               {TOOL_ITEMS.map((tool) => (
                 <Link
                   key={tool.href}
-                  href={tool.href}
+                  href={localizeHref(tool.href)}
                   onClick={() => setMobileMenuOpen(false)}
                   className="px-3.5 py-2 rounded-lg text-xs font-medium text-[var(--ink-primary)] hover:bg-[var(--accent-primary)]/12 hover:text-[var(--accent-primary-text)] transition-colors flex items-center justify-between gap-2"
                 >

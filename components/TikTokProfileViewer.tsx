@@ -137,7 +137,7 @@ export default function TikTokProfileViewer({
   breadcrumbs,
   children,
 }: TikTokProfileViewerProps) {
-  const { t, translateText } = useI18n();
+  const { t, translateText, localizeHref } = useI18n();
 
   const [usernameInput, setUsernameInput] = useState(initialUsername);
   const [loading, setLoading] = useState(false);
@@ -210,7 +210,7 @@ export default function TikTokProfileViewer({
   const handleCopyProfileLink = () => {
     if (typeof window !== 'undefined' && authorProfile) {
       navigator.clipboard.writeText(
-        `https://tikprofilesviewer.com/profile/${authorProfile.unique_id}`
+        `https://tikprofilesviewer.com${localizeHref(`/profile/${authorProfile.unique_id}`)}`
       );
       setCopiedLink(true);
       setTimeout(() => setCopiedLink(false), 2000);
@@ -764,6 +764,7 @@ export default function TikTokProfileViewer({
         <button
           key={item.username}
           type="button"
+          dir="ltr"
           data-no-translate="true"
           onClick={() => {
             setUsernameInput(item.username);
@@ -831,7 +832,7 @@ export default function TikTokProfileViewer({
               {renderErrorNotice()}
             </div>
 
-            {/* Clean Simple Capability Highlights */}
+            {/* Capability Highlights */}
             <div className="mt-7 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs font-semibold text-[var(--ink-primary)]/85">
               <span className="inline-flex items-center gap-1.5">
                 <Check className="w-3.5 h-3.5 text-[var(--accent-cyan-text)] shrink-0 stroke-[2.5]" />
@@ -879,7 +880,7 @@ export default function TikTokProfileViewer({
         </div>
       )}
 
-      {/* Results Container (Profile + Videos Grid) */}
+      {/* Results Container */}
       {(authorProfile || (videos.length > 0 && !loading)) && (
         <div
           ref={resultsRef}
@@ -963,6 +964,7 @@ export default function TikTokProfileViewer({
                     <div className="mt-1.5 flex flex-col gap-1 items-center sm:items-start">
                       <div className="flex items-center justify-center sm:justify-start gap-2 text-xs text-[var(--ink-muted)] flex-wrap">
                         <span
+                          dir="ltr"
                           data-no-translate="true"
                           className="font-mono text-[var(--ink-secondary)] font-semibold"
                         >
@@ -983,9 +985,8 @@ export default function TikTokProfileViewer({
 
                 <div className="border-t border-[var(--border-subtle)] my-5" />
 
-                {/* 6 Metric Cards - Thin & Balanced Height with Uniform Font Sizing */}
+                {/* 6 Metric Cards */}
                 <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5 items-stretch w-full">
-                  {/* Status - Soft Mint */}
                   <div className="py-2.5 px-3 rounded-lg bg-emerald-50/80 border border-emerald-200/80 hover:border-emerald-300 flex flex-col justify-center items-center text-center gap-1 shadow-xs transition-colors">
                     <span className="text-[11px] font-semibold text-emerald-900/75 uppercase tracking-wider leading-none truncate w-full">
                       {t('profile.status')}
@@ -997,7 +998,6 @@ export default function TikTokProfileViewer({
                     </span>
                   </div>
 
-                  {/* Followers - Soft Sky */}
                   <div className="py-2.5 px-3 rounded-lg bg-sky-50/80 border border-sky-200/80 hover:border-sky-300 flex flex-col justify-center items-center text-center gap-1 shadow-xs transition-colors">
                     <span className="text-[11px] font-semibold text-sky-900/75 uppercase tracking-wider leading-none truncate w-full">
                       {t('profile.followers')}
@@ -1007,7 +1007,6 @@ export default function TikTokProfileViewer({
                     </span>
                   </div>
 
-                  {/* Total Likes - Soft Rose */}
                   <div className="py-2.5 px-3 rounded-lg bg-rose-50/80 border border-rose-200/80 hover:border-rose-300 flex flex-col justify-center items-center text-center gap-1 shadow-xs transition-colors">
                     <span className="text-[11px] font-semibold text-rose-900/75 uppercase tracking-wider leading-none truncate w-full">
                       {t('profile.totalLikes')}
@@ -1017,7 +1016,6 @@ export default function TikTokProfileViewer({
                     </span>
                   </div>
 
-                  {/* Following - Soft Violet */}
                   <div className="py-2.5 px-3 rounded-lg bg-violet-50/80 border border-violet-200/80 hover:border-violet-300 flex flex-col justify-center items-center text-center gap-1 shadow-xs transition-colors">
                     <span className="text-[11px] font-semibold text-violet-900/75 uppercase tracking-wider leading-none truncate w-full">
                       {t('profile.following')}
@@ -1027,7 +1025,6 @@ export default function TikTokProfileViewer({
                     </span>
                   </div>
 
-                  {/* Videos - Soft Amber */}
                   <div className="py-2.5 px-3 rounded-lg bg-amber-50/80 border border-amber-200/80 hover:border-amber-300 flex flex-col justify-center items-center text-center gap-1 shadow-xs transition-colors">
                     <span className="text-[11px] font-semibold text-amber-900/75 uppercase tracking-wider leading-none truncate w-full">
                       {t('profile.videos')}
@@ -1037,13 +1034,12 @@ export default function TikTokProfileViewer({
                     </span>
                   </div>
 
-                  {/* Account Type - Soft Indigo */}
                   <div className="py-2.5 px-3 rounded-lg bg-indigo-50/80 border border-indigo-200/80 hover:border-indigo-300 flex flex-col justify-center items-center text-center gap-1 shadow-xs transition-colors">
                     <span className="text-[11px] font-semibold text-indigo-900/75 uppercase tracking-wider leading-none truncate w-full">
                       {t('profile.accountType')}
                     </span>
                     <span className="text-sm sm:text-base font-bold text-[var(--ink-primary)] tracking-tight leading-none truncate w-full">
-                      {authorProfile.verified ? 'Verified' : 'Not Verified'}
+                      {authorProfile.verified ? t('profile.verified') : t('profile.notVerified')}
                     </span>
                   </div>
                 </div>
@@ -1145,7 +1141,7 @@ export default function TikTokProfileViewer({
                           />
                         ) : null}
 
-                        {/* Frosted Glass Squircle Play Button with Pink Hover */}
+                        {/* Frosted Glass Squircle Play Button */}
                         <div className="absolute inset-0 flex items-center justify-center bg-zinc-950/15 group-hover:bg-zinc-950/35 transition-colors duration-200 pointer-events-none">
                           <div className="w-12 h-12 rounded-2xl bg-zinc-950/60 backdrop-blur-sm border border-white/35 text-white flex items-center justify-center shadow-lg transition-all duration-200 group-hover:bg-[var(--accent-primary)] group-hover:border-[var(--accent-primary)] group-hover:text-white group-hover:scale-110 group-hover:shadow-[0_6px_20px_rgba(225,29,72,0.45)]">
                             <Play className="w-5 h-5 fill-current translate-x-0.5" />
@@ -1271,6 +1267,7 @@ export default function TikTokProfileViewer({
                   />
                   <div className="min-w-0 flex items-center gap-2">
                     <span
+                      dir="ltr"
                       data-no-translate="true"
                       className="text-xs font-bold text-[var(--ink-primary)] truncate"
                     >

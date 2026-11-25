@@ -48,3 +48,59 @@ export function getLanguageInfo(code: LanguageCode): LanguageInfo {
     SUPPORTED_LANGUAGES[0]
   );
 }
+
+export function extractLangFromPathname(pathname: string): LanguageCode | null {
+  if (!pathname) return null;
+  const firstSegment = pathname.split('/').filter(Boolean)[0]?.toLowerCase() || '';
+  return isSupportedLanguage(firstSegment) ? firstSegment : null;
+}
+
+export function stripLangPrefix(pathname: string): string {
+  const normalized = pathname.startsWith('/') ? pathname : `/${pathname}`;
+  const segments = normalized.split('/').filter(Boolean);
+  if (segments.length === 0) return '/';
+  const first = segments[0].toLowerCase();
+  if (isSupportedLanguage(first)) {
+    const rest = segments.slice(1);
+    return rest.length > 0 ? `/${rest.join('/')}` : '/';
+  }
+  return normalized;
+}
+
+const UNLOCALIZED_PREFIXES = ['/api', '/assets', '/admintiktok', '/_next'];
+
+export function localizeHref(href: string, lang: LanguageCode): string {
+  if (!href) return lang === DEFAULT_LANGUAGE ? '/' : `/${lang}`;
+  if (
+    href.startsWith('http://') ||
+    href.startsWith('https://') ||
+    href.startsWith('mailto:') ||
+    href.startsWith('tel:') ||
+    href.startsWith('#')
+  ) {
+    return href;
+  }
+
+  const hashIndex = href.indexOf('#');
+  const hashPart = hashIndex >= 0 ? href.slice(hashIndex) : '';
+  const withoutHash = hashIndex >= 0 ? href.slice(0, hashIndex) : href;
+
+  const queryIndex = withoutHash.indexOf('?');
+  const searchPart = queryIndex >= 0 ? withoutHash.slice(queryIndex) : '';
+  const pathOnly = queryIndex >= 0 ? withoutHash.slice(0, queryIndex) : withoutHash;
+
+  const basePath = stripLangPrefix(pathOnly || '/');
+
+  if (UNLOCALIZED_PREFIXES.some((prefix) => basePath === prefix || basePath.startsWith(`${prefix}/`))) {
+    return href;
+  }
+
+  const targetPath =
+    lang === DEFAULT_LANGUAGE
+      ? basePath
+      : basePath === '/'
+      ? `/${lang}`
+      : `/${lang}${basePath}`;
+
+  return `${targetPath}${searchPart}${hashPart}`;
+}
