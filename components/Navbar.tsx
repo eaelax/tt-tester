@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation';
 import { ChevronDown, Menu, X, Check, Globe } from 'lucide-react';
 import { useI18n } from '@/lib/i18n/context';
 import { stripLangPrefix } from '@/lib/i18n/types';
-import { MotionDropdownPanel, MotionCollapse } from './MotionPrimitives';
+import { MotionDropdownPanel } from './MotionPrimitives';
 
 const TOOL_ITEMS = [
   { href: '/tiktok-video-downloader', key: 'video' },
@@ -40,6 +40,7 @@ export default function Navbar() {
   const rawPathname = usePathname();
   const cleanPathname = stripLangPrefix(rawPathname || '/');
 
+  const headerRef = useRef<HTMLElement>(null);
   const toolsRef = useRef<HTMLDivElement>(null);
   const langRef = useRef<HTMLDivElement>(null);
 
@@ -49,14 +50,24 @@ export default function Navbar() {
       : SHORT_CODE_FALLBACK[languageInfo.code]) ||
     languageInfo.code.toUpperCase();
 
-  const handleGoHome = () => {
+  const closeAllDrawers = () => {
     setMobileMenuOpen(false);
     setToolsDropdownOpen(false);
     setLangDropdownOpen(false);
+  };
+
+  const handleGoHome = () => {
+    closeAllDrawers();
     if (typeof window !== 'undefined') {
       window.dispatchEvent(new CustomEvent('tpv:reset-home'));
     }
   };
+
+  useEffect(() => {
+    setMobileMenuOpen(false);
+    setToolsDropdownOpen(false);
+    setLangDropdownOpen(false);
+  }, [rawPathname]);
 
   useEffect(() => {
     const onScroll = () => {
@@ -69,11 +80,15 @@ export default function Navbar() {
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
-      if (toolsRef.current && !toolsRef.current.contains(event.target as Node)) {
+      const target = event.target as Node;
+      if (toolsRef.current && !toolsRef.current.contains(target)) {
         setToolsDropdownOpen(false);
       }
-      if (langRef.current && !langRef.current.contains(event.target as Node)) {
+      if (langRef.current && !langRef.current.contains(target)) {
         setLangDropdownOpen(false);
+      }
+      if (headerRef.current && !headerRef.current.contains(target)) {
+        setMobileMenuOpen(false);
       }
     }
     function handleEscape(event: KeyboardEvent) {
@@ -102,11 +117,16 @@ export default function Navbar() {
     cleanPathname === '/about-us' ||
     cleanPathname === '/about-tiktok-profile-viewer';
 
+  const hasMobileOverlay = mobileMenuOpen || langDropdownOpen;
+
   return (
     <header
-      className={`sticky top-0 z-40 w-full transition-all duration-200 ${
+      ref={headerRef}
+      className={`sticky top-0 z-40 w-full transition-colors duration-200 ${
         isScrolled
-          ? 'bg-[var(--surface-canvas)]/80 backdrop-blur-md border-b border-[var(--border-subtle)]/70 shadow-xs'
+          ? 'bg-[var(--surface-canvas)]/85 backdrop-blur-md border-b border-[var(--border-subtle)]/70 shadow-xs'
+          : hasMobileOverlay
+          ? 'bg-[var(--surface-elevated)]/95 lg:bg-transparent backdrop-blur-md lg:backdrop-blur-none border-b border-[var(--border-subtle)]/80 lg:border-transparent'
           : 'bg-transparent border-b border-transparent'
       }`}
     >
@@ -275,15 +295,24 @@ export default function Navbar() {
           <button
             type="button"
             aria-label={t('nav.selectLanguage')}
+            aria-expanded={langDropdownOpen}
             onClick={() => {
               setLangDropdownOpen(!langDropdownOpen);
               setMobileMenuOpen(false);
             }}
-            className="h-9 px-3.5 rounded-xl bg-white hover:bg-slate-50 border border-[var(--border-subtle)] text-[13px] font-semibold text-[var(--ink-primary)] inline-flex items-center justify-center gap-1.5 cursor-pointer transition-colors shadow-xs outline-none focus:outline-none focus-visible:outline-none"
+            className={`h-9 px-3 rounded-xl border text-[13px] font-semibold inline-flex items-center justify-center gap-1.5 cursor-pointer transition-colors shadow-xs outline-none focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] ${
+              langDropdownOpen
+                ? 'bg-[var(--pastel-blue)] border-[var(--pastel-blue-border)] text-[var(--accent-cyan-text)]'
+                : 'bg-white hover:bg-slate-50 border-[var(--border-subtle)] text-[var(--ink-primary)]'
+            }`}
           >
             <Globe className="w-3.5 h-3.5 text-[var(--accent-cyan-text)] shrink-0" />
             <span className="leading-none">{currentShortCode}</span>
-            <ChevronDown className="w-3.5 h-3.5 text-[var(--ink-muted)]" />
+            <ChevronDown
+              className={`w-3.5 h-3.5 text-[var(--ink-muted)] transition-transform duration-150 ${
+                langDropdownOpen ? 'rotate-180' : ''
+              }`}
+            />
           </button>
 
           <button
@@ -292,7 +321,11 @@ export default function Navbar() {
               setMobileMenuOpen(!mobileMenuOpen);
               setLangDropdownOpen(false);
             }}
-            className="w-9 h-9 rounded-xl bg-transparent text-[var(--ink-primary)] hover:bg-[var(--accent-primary)]/12 hover:text-[var(--accent-primary-text)] transition-colors cursor-pointer flex items-center justify-center outline-none focus:outline-none"
+            className={`w-10 h-10 rounded-xl border transition-colors cursor-pointer flex items-center justify-center outline-none focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] ${
+              mobileMenuOpen
+                ? 'bg-[var(--accent-soft)] border-[var(--pastel-pink-border)] text-[var(--accent-primary-text)]'
+                : 'bg-white/80 hover:bg-white border-[var(--border-subtle)] text-[var(--ink-primary)]'
+            }`}
             aria-label={t('nav.toggleMenu')}
             aria-expanded={mobileMenuOpen}
           >
@@ -301,92 +334,130 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Language Drawer */}
-      <MotionCollapse
-        isOpen={langDropdownOpen}
-        className="lg:hidden max-w-6xl mx-auto px-4 sm:px-6 pb-2"
-      >
-        <div className="rounded-xl border border-[var(--border-subtle)] bg-[var(--surface-elevated)] shadow-[var(--shadow-workbench)] px-4 py-3.5">
-          <p className="text-[11px] font-semibold text-[var(--ink-muted)] uppercase tracking-wider mb-2.5">
+      {/* Mobile Overlay Backdrop */}
+      {hasMobileOverlay && (
+        <div
+          aria-hidden="true"
+          onClick={closeAllDrawers}
+          className="lg:hidden fixed inset-0 top-16 z-40 bg-slate-950/25 backdrop-blur-[1px]"
+        />
+      )}
+
+      {/* Floating Mobile Language Drawer */}
+      <div className="lg:hidden absolute top-full inset-x-0 z-50 px-4 sm:px-6 pt-2 pointer-events-none">
+        <MotionDropdownPanel
+          isOpen={langDropdownOpen}
+          className="pointer-events-auto max-w-lg mx-auto rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface-elevated)] shadow-[var(--shadow-workbench)] p-3.5 max-h-[calc(100dvh-5.5rem)] overflow-y-auto"
+        >
+          <p className="text-[11px] font-bold text-[var(--ink-muted)] uppercase tracking-wider px-1 mb-2.5">
             {t('nav.selectLanguage')}
           </p>
           <div className="grid grid-cols-2 gap-2">
-            {languages.map((item) => (
-              <button
-                key={item.code}
-                type="button"
-                onClick={() => {
-                  setLanguage(item.code);
-                  setLangDropdownOpen(false);
-                }}
-                className={`h-9 px-3 rounded-lg text-xs text-start flex items-center justify-between border cursor-pointer transition-colors ${
-                  lang === item.code
-                    ? 'bg-[var(--pastel-blue)] border-[var(--pastel-blue-border)] text-[var(--accent-cyan-text)] font-semibold'
-                    : 'bg-[var(--surface-canvas)] border-[var(--border-subtle)] text-[var(--ink-primary)] hover:bg-[var(--pastel-blue)]/30'
-                }`}
-              >
-                <span className="truncate">
-                  {item.name} ({item.native})
-                </span>
-                {lang === item.code && (
-                  <Check className="w-3.5 h-3.5 text-[var(--accent-cyan-text)] shrink-0" />
-                )}
-              </button>
-            ))}
+            {languages.map((item) => {
+              const isSelected = lang === item.code;
+              return (
+                <button
+                  key={item.code}
+                  type="button"
+                  onClick={() => {
+                    setLanguage(item.code);
+                    setLangDropdownOpen(false);
+                  }}
+                  className={`min-h-[40px] px-3 py-2 rounded-xl text-xs text-start flex items-center justify-between gap-2 border cursor-pointer transition-colors ${
+                    isSelected
+                      ? 'bg-[var(--pastel-blue)] border-[var(--pastel-blue-border)] text-[var(--accent-cyan-text)] font-semibold'
+                      : 'bg-[var(--surface-canvas)] border-[var(--border-subtle)] text-[var(--ink-primary)] hover:bg-[var(--pastel-blue)]/30'
+                  }`}
+                >
+                  <span className="truncate">
+                    {item.name}{' '}
+                    <span className="text-[var(--ink-muted)] font-normal">
+                      ({item.native})
+                    </span>
+                  </span>
+                  {isSelected && (
+                    <Check className="w-3.5 h-3.5 text-[var(--accent-cyan-text)] shrink-0" />
+                  )}
+                </button>
+              );
+            })}
           </div>
-        </div>
-      </MotionCollapse>
+        </MotionDropdownPanel>
+      </div>
 
-      {/* Mobile Navigation Drawer */}
-      <MotionCollapse
-        isOpen={mobileMenuOpen}
-        className="lg:hidden max-w-6xl mx-auto px-4 sm:px-6 pb-2"
-      >
-        <div className="rounded-xl border border-[var(--border-subtle)] bg-[var(--surface-elevated)] shadow-[var(--shadow-workbench)] px-4 py-3.5 flex flex-col gap-1 max-h-[75vh] overflow-y-auto">
+      {/* Floating Mobile Navigation Drawer */}
+      <div className="lg:hidden absolute top-full inset-x-0 z-50 px-4 sm:px-6 pt-2 pointer-events-none">
+        <MotionDropdownPanel
+          isOpen={mobileMenuOpen}
+          className="pointer-events-auto max-w-lg mx-auto rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface-elevated)] shadow-[var(--shadow-workbench)] p-3 flex flex-col gap-1 max-h-[calc(100dvh-5.5rem)] overflow-y-auto"
+        >
           <Link
             href={localizeHref('/')}
             onClick={handleGoHome}
-            className="px-3.5 py-2.5 rounded-lg text-sm font-semibold text-[var(--ink-primary)] hover:bg-[var(--accent-primary)]/12 hover:text-[var(--accent-primary-text)] transition-colors"
+            className={`min-h-[42px] px-3.5 py-2.5 rounded-xl text-sm font-semibold flex items-center justify-between transition-colors ${
+              cleanPathname === '/'
+                ? 'bg-[var(--accent-soft)] text-[var(--accent-primary-text)]'
+                : 'text-[var(--ink-primary)] hover:bg-[var(--surface-canvas)]'
+            }`}
           >
-            {t('nav.home')}
+            <span>{t('nav.home')}</span>
           </Link>
+
           <Link
             href={localizeHref('/about-us')}
             onClick={() => setMobileMenuOpen(false)}
-            className="px-3.5 py-2.5 rounded-lg text-sm font-semibold text-[var(--ink-primary)] hover:bg-[var(--accent-primary)]/12 hover:text-[var(--accent-primary-text)] transition-colors"
+            className={`min-h-[42px] px-3.5 py-2.5 rounded-xl text-sm font-semibold flex items-center justify-between transition-colors ${
+              isAboutActive
+                ? 'bg-[var(--accent-soft)] text-[var(--accent-primary-text)]'
+                : 'text-[var(--ink-primary)] hover:bg-[var(--surface-canvas)]'
+            }`}
           >
-            {t('nav.about')}
+            <span>{t('nav.about')}</span>
           </Link>
+
           <Link
             href={localizeHref('/how-to-use-tiktok-profile-viewer')}
             onClick={() => setMobileMenuOpen(false)}
-            className="px-3.5 py-2.5 rounded-lg text-sm font-semibold text-[var(--ink-primary)] hover:bg-[var(--accent-primary)]/12 hover:text-[var(--accent-primary-text)] transition-colors"
+            className={`min-h-[42px] px-3.5 py-2.5 rounded-xl text-sm font-semibold flex items-center justify-between transition-colors ${
+              cleanPathname === '/how-to-use-tiktok-profile-viewer'
+                ? 'bg-[var(--accent-soft)] text-[var(--accent-primary-text)]'
+                : 'text-[var(--ink-primary)] hover:bg-[var(--surface-canvas)]'
+            }`}
           >
-            {t('nav.howToUse')}
+            <span>{t('nav.howToUse')}</span>
           </Link>
 
-          <div className="pt-2.5 mt-1 border-t border-[var(--border-subtle)]">
-            <span className="text-[11px] font-semibold text-[var(--ink-muted)] uppercase tracking-wider block px-3.5 mb-1.5">
+          <div className="pt-2.5 mt-1.5 border-t border-[var(--border-subtle)]">
+            <span className="text-[11px] font-bold text-[var(--ink-muted)] uppercase tracking-wider block px-3.5 mb-1.5">
               {t('nav.tools')}
             </span>
-            <div className="flex flex-col gap-0.5">
-              {TOOL_ITEMS.map((tool) => (
-                <Link
-                  key={tool.href}
-                  href={localizeHref(tool.href)}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="px-3.5 py-2 rounded-lg text-xs font-medium text-[var(--ink-primary)] hover:bg-[var(--accent-primary)]/12 hover:text-[var(--accent-primary-text)] transition-colors flex items-center justify-between gap-2"
-                >
-                  <span>{t(`nav.tool.${tool.key}.label`)}</span>
-                  <span className="text-[11px] font-normal text-[var(--ink-muted)] truncate">
-                    {t(`nav.tool.${tool.key}.desc`)}
-                  </span>
-                </Link>
-              ))}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-1">
+              {TOOL_ITEMS.map((tool) => {
+                const isToolActive = cleanPathname === tool.href;
+                return (
+                  <Link
+                    key={tool.href}
+                    href={localizeHref(tool.href)}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`px-3.5 py-2.5 rounded-xl transition-colors flex flex-col gap-0.5 ${
+                      isToolActive
+                        ? 'bg-[var(--pastel-blue)] text-[var(--accent-cyan-text)]'
+                        : 'text-[var(--ink-primary)] hover:bg-[var(--surface-canvas)]'
+                    }`}
+                  >
+                    <span className="text-[13px] font-semibold leading-snug">
+                      {t(`nav.tool.${tool.key}.label`)}
+                    </span>
+                    <span className="text-[11px] font-normal text-[var(--ink-muted)] leading-snug">
+                      {t(`nav.tool.${tool.key}.desc`)}
+                    </span>
+                  </Link>
+                );
+              })}
             </div>
           </div>
-        </div>
-      </MotionCollapse>
+        </MotionDropdownPanel>
+      </div>
     </header>
   );
 }
