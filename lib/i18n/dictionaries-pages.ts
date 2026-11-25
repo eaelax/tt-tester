@@ -1,4 +1,4 @@
-import type { LanguageCode, LanguageDictionaries, TranslationMap } from './types';
+import type { LanguageDictionaries, TranslationMap } from './types';
 
 const EN_PAGES: TranslationMap = {
   'legal.effective': 'Effective: November 2026',
@@ -438,4 +438,17 @@ export const PAGE_DICTIONARIES: LanguageDictionaries = {
   pt: PT_PAGES,
   he: HE_PAGES,
   hi: HI_PAGES,
+};
+
+export const PHRASE_TRANSLATIONS: LanguageDictionaries = {
+  en: {},
+  ar: {},
+  fr: {},
+  es: {},
+  de: {},
+  ru: {},
+  zh: {},
+  pt: {},
+  he: {},
+  hi: {},
 };

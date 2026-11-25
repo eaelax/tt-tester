@@ -22,8 +22,8 @@ interface FaqConfig {
 
 interface LocalizedToolViewProps {
   toolKey: 'videoDl' | 'mp3Dl' | 'viewer' | 'storyDl' | 'photoDl' | 'watermark';
-  features: [FeatureCardConfig, FeatureCardConfig, FeatureCardConfig];
-  faqs: FaqConfig[];
+  features: readonly [FeatureCardConfig, FeatureCardConfig, FeatureCardConfig];
+  faqs: readonly FaqConfig[];
   showAdSlot?: boolean;
 }
 
