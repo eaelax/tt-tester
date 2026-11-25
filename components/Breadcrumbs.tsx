@@ -24,24 +24,21 @@ export default function Breadcrumbs({ items }: BreadcrumbsProps) {
     return translateText(item.label);
   };
 
-  const homeHref = localizeHref('/');
-
   const schemaItems = [
     {
       '@type': 'ListItem',
       position: 1,
       name: t('breadcrumb.home'),
-      item: `https://tikprofilesviewer.com${homeHref === '/' ? '/' : homeHref}`,
+      item: `https://tikprofilesviewer.com${localizeHref('/')}`,
     },
-    ...items.map((item, idx) => {
-      const resolvedHref = item.href ? localizeHref(item.href) : undefined;
-      return {
-        '@type': 'ListItem',
-        position: idx + 2,
-        name: resolveLabel(item),
-        ...(resolvedHref ? { item: `https://tikprofilesviewer.com${resolvedHref}` } : {}),
-      };
-    }),
+    ...items.map((item, idx) => ({
+      '@type': 'ListItem',
+      position: idx + 2,
+      name: resolveLabel(item),
+      ...(item.href
+        ? { item: `https://tikprofilesviewer.com${localizeHref(item.href)}` }
+        : {}),
+    })),
   ];
 
   const breadcrumbSchema = {
@@ -59,7 +56,7 @@ export default function Breadcrumbs({ items }: BreadcrumbsProps) {
       <ol className="flex items-center flex-wrap gap-1.5 text-xs text-[var(--ink-muted)] font-medium">
         <li className="inline-flex items-center">
           <Link
-            href={homeHref}
+            href={localizeHref('/')}
             onClick={() => {
               if (typeof window !== 'undefined') {
                 window.dispatchEvent(new CustomEvent('tpv:reset-home'));

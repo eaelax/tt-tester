@@ -7,26 +7,27 @@ import HomeLowerSections from '@/components/HomeLowerSections';
 import { UI_DICTIONARIES } from '@/lib/i18n/dictionaries-ui';
 import {
   DEFAULT_LANGUAGE,
+  LanguageCode,
   SUPPORTED_LANGUAGES,
   isSupportedLanguage,
   localizeHref,
 } from '@/lib/i18n/types';
 
 export async function generateMetadata(): Promise<Metadata> {
-  const headerStore = await headers();
-  const headerLang = (headerStore.get('x-tpv-lang') || '').toLowerCase();
-  const lang = isSupportedLanguage(headerLang) ? headerLang : DEFAULT_LANGUAGE;
+  const reqHeaders = await headers();
+  const headerLang = reqHeaders.get('x-tpv-lang') || DEFAULT_LANGUAGE;
+  const lang: LanguageCode = isSupportedLanguage(headerLang)
+    ? headerLang
+    : DEFAULT_LANGUAGE;
 
   const dict = UI_DICTIONARIES[lang] || UI_DICTIONARIES.en;
   const pageTitle = `${dict['brand.name']} - ${dict['hero.homeTitle']}`;
   const pageDesc = dict['hero.homeSubtitle'];
-  const canonicalPath = localizeHref('/', lang);
-  const canonicalUrl = `https://tikprofilesviewer.com${canonicalPath === '/' ? '' : canonicalPath}`;
+  const canonicalUrl = `https://tikprofilesviewer.com${localizeHref('/', lang)}`;
 
   const languages: Record<string, string> = {};
   for (const item of SUPPORTED_LANGUAGES) {
-    const p = localizeHref('/', item.code);
-    languages[item.code] = `https://tikprofilesviewer.com${p === '/' ? '' : p}`;
+    languages[item.code] = `https://tikprofilesviewer.com${localizeHref('/', item.code)}`;
   }
 
   return {
@@ -121,6 +122,8 @@ export default function HomePage() {
           heroVariant="workbench"
           titleKey="hero.homeTitle"
           subtitleKey="hero.homeSubtitle"
+          title="TikTok Profile Viewer, HD Video Downloader & MP3 Audio Saver"
+          subtitle="Inspect public TikTok profiles anonymously, watch videos smoothly without lag, and save watermark-free HD MP4 videos and MP3 audio for free."
         >
           <HomeLowerSections />
         </TikTokProfileViewer>

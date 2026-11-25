@@ -17,7 +17,8 @@ import {
   extractLangFromPathname,
   getLanguageInfo,
   isSupportedLanguage,
-  localizeHref as localizeHrefHelper,
+  localizeHref as buildLocalizedHref,
+  stripLangPrefix,
 } from './types';
 import { UI_DICTIONARIES } from './dictionaries-ui';
 import { PAGE_DICTIONARIES, PHRASE_TRANSLATIONS } from './dictionaries-pages';
@@ -158,26 +159,28 @@ export function I18nProvider({
   children: React.ReactNode;
   initialLang?: LanguageCode;
 }) {
-  const pathname = usePathname() || '/';
+  const pathname = usePathname();
   const router = useRouter();
-  const pathLang = extractLangFromPathname(pathname);
+  const urlLang = extractLangFromPathname(pathname || '/');
+  const [lang, setLang] = useState<LanguageCode>(urlLang ?? initialLang);
 
-  const [lang, setLang] = useState<LanguageCode>(pathLang ?? initialLang);
-
+  // Sync active language with URL path whenever route changes
   useEffect(() => {
-    const resolvedFromPath = extractLangFromPathname(pathname);
-    const nextLang = resolvedFromPath ?? DEFAULT_LANGUAGE;
-    setLang((prev) => (prev !== nextLang ? nextLang : prev));
+    const pathLang = extractLangFromPathname(pathname || '/');
+    const resolved = pathLang ?? DEFAULT_LANGUAGE;
+    setLang((prev) => (prev === resolved ? prev : resolved));
   }, [pathname]);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
+
     const handleCustom = (e: Event) => {
       const custom = e as CustomEvent<{ lang?: string }>;
       if (custom.detail?.lang && isSupportedLanguage(custom.detail.lang)) {
         setLang(custom.detail.lang);
       }
     };
+
     window.addEventListener(LANG_CHANGE_EVENT, handleCustom);
     return () => {
       window.removeEventListener(LANG_CHANGE_EVENT, handleCustom);
@@ -212,28 +215,29 @@ export function I18nProvider({
       if (typeof window !== 'undefined') {
         try {
           localStorage.setItem(STORAGE_KEY, code);
-          window.dispatchEvent(new CustomEvent(LANG_CHANGE_EVENT, { detail: { lang: code } }));
+          window.dispatchEvent(
+            new CustomEvent(LANG_CHANGE_EVENT, { detail: { lang: code } })
+          );
         } catch {
-          // Ignore storage write errors
+          // Ignore storage write errors in restricted browsing modes
         }
+      }
 
-        const currentPath = window.location.pathname || pathname || '/';
-        const search = window.location.search || '';
-        const targetPath = localizeHrefHelper(currentPath, code);
-        const targetUrl = `${targetPath}${search}`;
+      const currentPath = pathname || '/';
+      const stripped = stripLangPrefix(currentPath);
+      const targetPath = buildLocalizedHref(stripped, code);
+      const search = typeof window !== 'undefined' ? window.location.search : '';
+      const nextUrl = `${targetPath}${search}`;
 
-        if (targetPath !== currentPath) {
-          router.push(targetUrl);
-        } else {
-          router.refresh();
-        }
+      if (nextUrl !== `${currentPath}${search}`) {
+        router.push(nextUrl);
       }
     },
     [pathname, router]
   );
 
   const localizeHref = useCallback(
-    (href: string) => localizeHrefHelper(href, lang),
+    (href: string) => buildLocalizedHref(href, lang),
     [lang]
   );
 

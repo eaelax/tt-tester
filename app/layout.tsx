@@ -4,6 +4,7 @@ import { Rubik, Cairo, JetBrains_Mono } from 'next/font/google';
 import { I18nProvider } from '@/lib/i18n/context';
 import {
   DEFAULT_LANGUAGE,
+  LanguageCode,
   getLanguageInfo,
   isSupportedLanguage,
 } from '@/lib/i18n/types';
@@ -60,9 +61,11 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const headerStore = await headers();
-  const headerLang = (headerStore.get('x-tpv-lang') || '').toLowerCase();
-  const lang = isSupportedLanguage(headerLang) ? headerLang : DEFAULT_LANGUAGE;
+  const reqHeaders = await headers();
+  const headerLang = reqHeaders.get('x-tpv-lang') || DEFAULT_LANGUAGE;
+  const lang: LanguageCode = isSupportedLanguage(headerLang)
+    ? headerLang
+    : DEFAULT_LANGUAGE;
   const langInfo = getLanguageInfo(lang);
 
   return (
@@ -85,7 +88,7 @@ export default async function RootLayout({
         />
       </head>
       <body className="min-h-screen bg-[var(--surface-canvas)] text-[var(--ink-primary)] font-sans antialiased overflow-x-hidden selection:bg-[var(--accent-soft)] selection:text-[var(--accent-primary-text)]">
-        <I18nProvider initialLang={langInfo.code}>{children}</I18nProvider>
+        <I18nProvider initialLang={lang}>{children}</I18nProvider>
       </body>
     </html>
   );

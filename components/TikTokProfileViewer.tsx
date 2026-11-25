@@ -121,6 +121,8 @@ interface TikTokProfileViewerProps {
   subtitle?: string;
   titleKey?: string;
   subtitleKey?: string;
+  titleVars?: Record<string, string | number>;
+  subtitleVars?: Record<string, string | number>;
   heroVariant?: 'default' | 'workbench';
   breadcrumbs?: React.ReactNode;
   children?: React.ReactNode;
@@ -133,11 +135,13 @@ export default function TikTokProfileViewer({
   subtitle,
   titleKey,
   subtitleKey,
+  titleVars,
+  subtitleVars,
   heroVariant = 'default',
   breadcrumbs,
   children,
 }: TikTokProfileViewerProps) {
-  const { t, translateText, localizeHref } = useI18n();
+  const { t, translateText } = useI18n();
 
   const [usernameInput, setUsernameInput] = useState(initialUsername);
   const [loading, setLoading] = useState(false);
@@ -186,9 +190,13 @@ export default function TikTokProfileViewer({
   const videoCardRefs = useRef<Map<string, HTMLDivElement>>(new Map());
   const hasActiveResult = Boolean(authorProfile || videos.length > 0 || loading);
 
-  const resolvedTitle = titleKey ? t(titleKey) : title ? translateText(title) : '';
+  const resolvedTitle = titleKey
+    ? t(titleKey, titleVars)
+    : title
+    ? translateText(title)
+    : '';
   const resolvedSubtitle = subtitleKey
-    ? t(subtitleKey)
+    ? t(subtitleKey, subtitleVars)
     : subtitle
     ? translateText(subtitle)
     : '';
@@ -210,7 +218,7 @@ export default function TikTokProfileViewer({
   const handleCopyProfileLink = () => {
     if (typeof window !== 'undefined' && authorProfile) {
       navigator.clipboard.writeText(
-        `https://tikprofilesviewer.com${localizeHref(`/profile/${authorProfile.unique_id}`)}`
+        `https://tikprofilesviewer.com/profile/${authorProfile.unique_id}`
       );
       setCopiedLink(true);
       setTimeout(() => setCopiedLink(false), 2000);
@@ -832,7 +840,7 @@ export default function TikTokProfileViewer({
               {renderErrorNotice()}
             </div>
 
-            {/* Capability Highlights */}
+            {/* Clean Simple Capability Highlights */}
             <div className="mt-7 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs font-semibold text-[var(--ink-primary)]/85">
               <span className="inline-flex items-center gap-1.5">
                 <Check className="w-3.5 h-3.5 text-[var(--accent-cyan-text)] shrink-0 stroke-[2.5]" />
@@ -880,7 +888,7 @@ export default function TikTokProfileViewer({
         </div>
       )}
 
-      {/* Results Container */}
+      {/* Results Container (Profile + Videos Grid) */}
       {(authorProfile || (videos.length > 0 && !loading)) && (
         <div
           ref={resultsRef}
@@ -1039,7 +1047,9 @@ export default function TikTokProfileViewer({
                       {t('profile.accountType')}
                     </span>
                     <span className="text-sm sm:text-base font-bold text-[var(--ink-primary)] tracking-tight leading-none truncate w-full">
-                      {authorProfile.verified ? t('profile.verified') : t('profile.notVerified')}
+                      {authorProfile.verified
+                        ? t('profile.verified')
+                        : t('profile.notVerified')}
                     </span>
                   </div>
                 </div>
@@ -1141,7 +1151,6 @@ export default function TikTokProfileViewer({
                           />
                         ) : null}
 
-                        {/* Frosted Glass Squircle Play Button */}
                         <div className="absolute inset-0 flex items-center justify-center bg-zinc-950/15 group-hover:bg-zinc-950/35 transition-colors duration-200 pointer-events-none">
                           <div className="w-12 h-12 rounded-2xl bg-zinc-950/60 backdrop-blur-sm border border-white/35 text-white flex items-center justify-center shadow-lg transition-all duration-200 group-hover:bg-[var(--accent-primary)] group-hover:border-[var(--accent-primary)] group-hover:text-white group-hover:scale-110 group-hover:shadow-[0_6px_20px_rgba(225,29,72,0.45)]">
                             <Play className="w-5 h-5 fill-current translate-x-0.5" />
@@ -1149,11 +1158,17 @@ export default function TikTokProfileViewer({
                         </div>
 
                         <div className="absolute inset-x-0 top-0 p-2.5 flex justify-between items-start bg-gradient-to-b from-zinc-950/75 via-zinc-950/20 to-transparent pointer-events-none">
-                          <span className="text-[11px] font-mono tabular-nums font-semibold px-2 py-0.5 rounded-md bg-zinc-950/75 text-white">
+                          <span
+                            dir="ltr"
+                            className="text-[11px] font-mono tabular-nums font-semibold px-2 py-0.5 rounded-md bg-zinc-950/75 text-white"
+                          >
                             #{index + 1}
                           </span>
                           {duration && (
-                            <span className="text-[11px] font-mono tabular-nums font-semibold px-2 py-0.5 rounded-md bg-zinc-950/75 text-white">
+                            <span
+                              dir="ltr"
+                              className="text-[11px] font-mono tabular-nums font-semibold px-2 py-0.5 rounded-md bg-zinc-950/75 text-white"
+                            >
                               {duration}
                             </span>
                           )}
@@ -1164,7 +1179,10 @@ export default function TikTokProfileViewer({
                             {video.title || t('profile.watchVideo')}
                           </p>
 
-                          <div className="grid grid-cols-3 items-center gap-1 text-xs text-white font-mono tabular-nums font-semibold pt-2 border-t border-white/20 w-full">
+                          <div
+                            dir="ltr"
+                            className="grid grid-cols-3 items-center gap-1 text-xs text-white font-mono tabular-nums font-semibold pt-2 border-t border-white/20 w-full"
+                          >
                             <span
                               className="flex items-center justify-start gap-1.5 min-w-0"
                               title={`${video.play_count || 0}`}
@@ -1337,7 +1355,10 @@ export default function TikTokProfileViewer({
                   {selectedVideo.title || t('modal.defaultVideoTitle')}
                 </p>
 
-                <div className="flex items-center justify-between text-xs sm:text-[13px] text-[var(--ink-secondary)] bg-[var(--surface-canvas)] px-4 py-2.5 rounded-xl border border-[var(--border-subtle)] font-mono tabular-nums font-bold">
+                <div
+                  dir="ltr"
+                  className="flex items-center justify-between text-xs sm:text-[13px] text-[var(--ink-secondary)] bg-[var(--surface-canvas)] px-4 py-2.5 rounded-xl border border-[var(--border-subtle)] font-mono tabular-nums font-bold"
+                >
                   <span className="flex items-center gap-1.5 text-[var(--ink-primary)]">
                     <Play className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-current" />
                     <span>{formatNumber(selectedVideo.play_count)}</span>

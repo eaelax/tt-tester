@@ -2,7 +2,6 @@
 
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
-import { useI18n } from '@/lib/i18n/context';
 import HowToUseSteps from '@/components/HowToUseSteps';
 import ExploreNichesSection from '@/components/ExploreNichesSection';
 import CreatorToolsSection from '@/components/CreatorToolsSection';
@@ -10,8 +9,9 @@ import FaqSection from '@/components/FaqSection';
 import AdSlot from '@/components/AdSlot';
 import { MotionFadeIn } from '@/components/MotionPrimitives';
 import { CREATORS } from '@/lib/creators-data';
+import { useI18n } from '@/lib/i18n/context';
 
-const CATEGORY_KEY_BY_SLUG: Record<string, string> = {
+const CATEGORY_KEY_MAP: Record<string, string> = {
   comedy: 'niches.c1',
   'food-cooking': 'niches.c2',
   'tech-ai': 'niches.c3',
@@ -84,7 +84,7 @@ export default function HomeLowerSections() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {featuredCreators.map((creator) => {
-              const catKey = CATEGORY_KEY_BY_SLUG[creator.categorySlug];
+              const catKey = CATEGORY_KEY_MAP[creator.categorySlug];
               const categoryLabel = catKey ? t(catKey) : creator.category;
 
               return (
@@ -117,12 +117,12 @@ export default function HomeLowerSections() {
                     <p
                       dir="ltr"
                       data-no-translate="true"
-                      className="text-xs font-mono font-medium text-[var(--ink-muted)] truncate text-start"
+                      className="text-xs font-mono font-medium text-[var(--ink-muted)] truncate w-fit"
                     >
                       @{creator.username}
                     </p>
                     <div className="flex items-center gap-1.5 text-xs text-[var(--ink-secondary)] mt-1">
-                      <span className="font-semibold text-[var(--ink-primary)] tabular-nums">
+                      <span className="font-semibold text-[var(--ink-primary)] tabular-nums shrink-0">
                         {t('home.followersLabel', { count: creator.followers })}
                       </span>
                       <span className="text-[var(--border-strong)]">•</span>

@@ -37,8 +37,8 @@ export default function Navbar() {
   const [langDropdownOpen, setLangDropdownOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
-  const rawPathname = usePathname() || '/';
-  const pathname = stripLangPrefix(rawPathname);
+  const rawPathname = usePathname();
+  const cleanPathname = stripLangPrefix(rawPathname || '/');
 
   const toolsRef = useRef<HTMLDivElement>(null);
   const langRef = useRef<HTMLDivElement>(null);
@@ -99,7 +99,8 @@ export default function Navbar() {
     }`;
 
   const isAboutActive =
-    pathname === '/about-us' || pathname === '/about-tiktok-profile-viewer';
+    cleanPathname === '/about-us' ||
+    cleanPathname === '/about-tiktok-profile-viewer';
 
   return (
     <header
@@ -137,7 +138,11 @@ export default function Navbar() {
 
         {/* Desktop Nav Links */}
         <nav aria-label="Main Navigation" className="hidden lg:flex items-center gap-1.5 shrink-0">
-          <Link href={localizeHref('/')} onClick={handleGoHome} className={navLinkClass(pathname === '/')}>
+          <Link
+            href={localizeHref('/')}
+            onClick={handleGoHome}
+            className={navLinkClass(cleanPathname === '/')}
+          >
             {t('nav.home')}
           </Link>
 
@@ -150,7 +155,7 @@ export default function Navbar() {
 
           <Link
             href={localizeHref('/how-to-use-tiktok-profile-viewer')}
-            className={navLinkClass(pathname === '/how-to-use-tiktok-profile-viewer')}
+            className={navLinkClass(cleanPathname === '/how-to-use-tiktok-profile-viewer')}
           >
             {t('nav.howToUse')}
           </Link>

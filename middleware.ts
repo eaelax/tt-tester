@@ -5,58 +5,54 @@ import {
   stripLangPrefix,
 } from '@/lib/i18n/types';
 
-const STATIC_EXT_RE = /\.(?:png|jpg|jpeg|gif|webp|svg|ico|css|js|mjs|map|woff2?|ttf|eot|txt|xml|json)$/i;
-
-const PATH_ALIASES: Record<string, string> = {
+const ROUTE_ALIASES: Record<string, string> = {
   '/about-us': '/about-tiktok-profile-viewer',
 };
 
-function resolveInternalPath(pathWithoutLang: string): string {
-  const normalized = pathWithoutLang === '/' ? '/' : pathWithoutLang.replace(/\/+$/, '');
-  return PATH_ALIASES[normalized] || pathWithoutLang;
-}
+const BYPASS_PREFIXES = ['/api', '/_next', '/assets', '/admintiktok'];
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   if (
-    pathname.startsWith('/_next') ||
-    pathname.startsWith('/api') ||
-    pathname.startsWith('/assets') ||
-    pathname.startsWith('/admintiktok') ||
-    STATIC_EXT_RE.test(pathname)
+    BYPASS_PREFIXES.some(
+      (prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`)
+    ) ||
+    pathname === '/favicon.ico' ||
+    pathname === '/icon.png' ||
+    pathname === '/robots.txt' ||
+    pathname === '/sitemap.xml' ||
+    /\/[^/]+\.[a-zA-Z0-9]+$/.test(pathname)
   ) {
     return NextResponse.next();
   }
 
-  const pathLang = extractLangFromPathname(pathname);
-  const activeLang = pathLang || DEFAULT_LANGUAGE;
-  const pathWithoutLang = pathLang ? stripLangPrefix(pathname) : pathname;
-  const internalPath = resolveInternalPath(pathWithoutLang);
+  const detectedLang = extractLangFromPathname(pathname);
+  const activeLang = detectedLang ?? DEFAULT_LANGUAGE;
+  const unprefixedPath = detectedLang ? stripLangPrefix(pathname) : pathname;
+  const normalizedPath =
+    unprefixedPath === '/' ? '/' : unprefixedPath.replace(/\/+$/, '') || '/';
+  const internalTarget = ROUTE_ALIASES[normalizedPath] ?? normalizedPath;
 
   const requestHeaders = new Headers(request.headers);
   requestHeaders.set('x-tpv-lang', activeLang);
-  requestHeaders.set('x-tpv-path', pathWithoutLang);
+  requestHeaders.set('x-tpv-pathname', normalizedPath);
 
-  if (pathLang || internalPath !== pathname) {
+  if (detectedLang || internalTarget !== pathname) {
     const rewriteUrl = request.nextUrl.clone();
-    rewriteUrl.pathname = internalPath;
+    rewriteUrl.pathname = internalTarget;
     return NextResponse.rewrite(rewriteUrl, {
-      request: {
-        headers: requestHeaders,
-      },
+      request: { headers: requestHeaders },
     });
   }
 
   return NextResponse.next({
-    request: {
-      headers: requestHeaders,
-    },
+    request: { headers: requestHeaders },
   });
 }
 
 export const config = {
   matcher: [
-    '/((?!_next/static|_next/image|favicon.ico|icon.png|robots.txt|sitemap.xml|api/|assets/|admintiktok).*)',
+    '/((?!api|_next/static|_next/image|assets|admintiktok|favicon\\.ico|icon\\.png|robots\\.txt|sitemap\\.xml).*)',
   ],
 };

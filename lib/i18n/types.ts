@@ -38,6 +38,8 @@ export type TranslationMap = Record<string, string>;
 
 export type LanguageDictionaries = Record<LanguageCode, TranslationMap>;
 
+const NON_LOCALIZED_PREFIXES = ['/api', '/_next', '/assets', '/admintiktok'];
+
 export function isSupportedLanguage(code: string): code is LanguageCode {
   return SUPPORTED_LANGUAGES.some((lang) => lang.code === code);
 }
@@ -51,23 +53,25 @@ export function getLanguageInfo(code: LanguageCode): LanguageInfo {
 
 export function extractLangFromPathname(pathname: string): LanguageCode | null {
   if (!pathname) return null;
-  const firstSegment = pathname.split('/').filter(Boolean)[0]?.toLowerCase() || '';
-  return isSupportedLanguage(firstSegment) ? firstSegment : null;
+  const normalized = pathname.startsWith('/') ? pathname : `/${pathname}`;
+  const firstSegment = normalized.split('/')[1]?.toLowerCase() || '';
+  if (isSupportedLanguage(firstSegment)) {
+    return firstSegment;
+  }
+  return null;
 }
 
 export function stripLangPrefix(pathname: string): string {
+  if (!pathname) return '/';
   const normalized = pathname.startsWith('/') ? pathname : `/${pathname}`;
-  const segments = normalized.split('/').filter(Boolean);
-  if (segments.length === 0) return '/';
-  const first = segments[0].toLowerCase();
-  if (isSupportedLanguage(first)) {
-    const rest = segments.slice(1);
-    return rest.length > 0 ? `/${rest.join('/')}` : '/';
+  const segments = normalized.split('/');
+  const firstSegment = segments[1]?.toLowerCase() || '';
+  if (isSupportedLanguage(firstSegment)) {
+    const rest = `/${segments.slice(2).join('/')}`;
+    return rest === '/' ? '/' : rest.replace(/\/+$/, '') || '/';
   }
-  return normalized;
+  return normalized === '/' ? '/' : normalized.replace(/\/+$/, '') || '/';
 }
-
-const UNLOCALIZED_PREFIXES = ['/api', '/assets', '/admintiktok', '/_next'];
 
 export function localizeHref(href: string, lang: LanguageCode): string {
   if (!href) return lang === DEFAULT_LANGUAGE ? '/' : `/${lang}`;
@@ -81,26 +85,23 @@ export function localizeHref(href: string, lang: LanguageCode): string {
     return href;
   }
 
-  const hashIndex = href.indexOf('#');
-  const hashPart = hashIndex >= 0 ? href.slice(hashIndex) : '';
-  const withoutHash = hashIndex >= 0 ? href.slice(0, hashIndex) : href;
+  const match = href.match(/^([^?#]*)(.*)$/);
+  const rawPath = match?.[1] || '/';
+  const suffix = match?.[2] || '';
+  const cleanPath = stripLangPrefix(rawPath);
 
-  const queryIndex = withoutHash.indexOf('?');
-  const searchPart = queryIndex >= 0 ? withoutHash.slice(queryIndex) : '';
-  const pathOnly = queryIndex >= 0 ? withoutHash.slice(0, queryIndex) : withoutHash;
-
-  const basePath = stripLangPrefix(pathOnly || '/');
-
-  if (UNLOCALIZED_PREFIXES.some((prefix) => basePath === prefix || basePath.startsWith(`${prefix}/`))) {
-    return href;
+  if (
+    NON_LOCALIZED_PREFIXES.some(
+      (prefix) => cleanPath === prefix || cleanPath.startsWith(`${prefix}/`)
+    )
+  ) {
+    return `${cleanPath}${suffix}`;
   }
 
-  const targetPath =
-    lang === DEFAULT_LANGUAGE
-      ? basePath
-      : basePath === '/'
-      ? `/${lang}`
-      : `/${lang}${basePath}`;
+  if (lang === DEFAULT_LANGUAGE) {
+    return `${cleanPath}${suffix}`;
+  }
 
-  return `${targetPath}${searchPart}${hashPart}`;
+  const prefixedPath = cleanPath === '/' ? `/${lang}` : `/${lang}${cleanPath}`;
+  return `${prefixedPath}${suffix}`;
 }
