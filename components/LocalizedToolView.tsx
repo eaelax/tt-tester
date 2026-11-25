@@ -1,21 +1,67 @@
 'use client';
 
-import type { LucideIcon } from 'lucide-react';
+import {
+  BarChart2,
+  Clock,
+  Download,
+  Eraser,
+  EyeOff,
+  Film,
+  Image as ImageIcon,
+  Layers,
+  Music,
+  ShieldCheck,
+  UserCheck,
+  Volume2,
+  Zap,
+  type LucideIcon,
+} from 'lucide-react';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import TikTokProfileViewer from '@/components/TikTokProfileViewer';
 import AdSlot from '@/components/AdSlot';
 import { useI18n } from '@/lib/i18n/context';
 
-interface FeatureCardConfig {
+export type ToolIconName =
+  | 'film'
+  | 'zap'
+  | 'download'
+  | 'volume2'
+  | 'music'
+  | 'eyeOff'
+  | 'userCheck'
+  | 'barChart2'
+  | 'clock'
+  | 'layers'
+  | 'shieldCheck'
+  | 'image'
+  | 'eraser';
+
+const TOOL_ICONS: Record<ToolIconName, LucideIcon> = {
+  film: Film,
+  zap: Zap,
+  download: Download,
+  volume2: Volume2,
+  music: Music,
+  eyeOff: EyeOff,
+  userCheck: UserCheck,
+  barChart2: BarChart2,
+  clock: Clock,
+  layers: Layers,
+  shieldCheck: ShieldCheck,
+  image: ImageIcon,
+  eraser: Eraser,
+};
+
+export interface FeatureCardConfig {
   titleKey: string;
   descKey: string;
-  icon: LucideIcon;
+  iconName: ToolIconName;
   iconBgClass: string;
   iconTextClass: string;
   iconBorderClass?: string;
 }
 
-interface FaqConfig {
+export interface FaqConfig {
   qKey: string;
   aKey: string;
 }
@@ -80,7 +126,7 @@ export default function LocalizedToolView({
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {features.map((card, idx) => {
-                  const Icon = card.icon;
+                  const Icon = TOOL_ICONS[card.iconName] || Film;
                   return (
                     <div
                       key={idx}

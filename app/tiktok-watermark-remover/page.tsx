@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import { headers } from 'next/headers';
-import { Eraser, Film, Zap } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import LocalizedToolView from '@/components/LocalizedToolView';
@@ -61,7 +60,7 @@ export default function WatermarkRemoverPage() {
     {
       titleKey: 'page.watermark.f1Title',
       descKey: 'page.watermark.f1Desc',
-      icon: Eraser,
+      iconName: 'eraser',
       iconBgClass: 'bg-[var(--accent-soft)]',
       iconTextClass: 'text-[var(--accent-primary-text)]',
       iconBorderClass: 'border-[var(--accent-primary)]/40',
@@ -69,7 +68,7 @@ export default function WatermarkRemoverPage() {
     {
       titleKey: 'page.watermark.f2Title',
       descKey: 'page.watermark.f2Desc',
-      icon: Film,
+      iconName: 'film',
       iconBgClass: 'bg-[var(--accent-cyan-soft)]',
       iconTextClass: 'text-[var(--accent-cyan-text)]',
       iconBorderClass: 'border-[var(--accent-cyan)]',
@@ -77,7 +76,7 @@ export default function WatermarkRemoverPage() {
     {
       titleKey: 'page.watermark.f3Title',
       descKey: 'page.watermark.f3Desc',
-      icon: Zap,
+      iconName: 'zap',
       iconBgClass: 'bg-[var(--accent-dark)]',
       iconTextClass: 'text-[var(--accent-contrast)]',
     },

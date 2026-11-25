@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import { headers } from 'next/headers';
-import { Layers, ShieldCheck, Image as ImageIcon } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import LocalizedToolView from '@/components/LocalizedToolView';
@@ -61,7 +60,7 @@ export default function PhotoDownloaderPage() {
     {
       titleKey: 'page.photoDl.f1Title',
       descKey: 'page.photoDl.f1Desc',
-      icon: Layers,
+      iconName: 'layers',
       iconBgClass: 'bg-[var(--pastel-blue)]',
       iconTextClass: 'text-[var(--accent-cyan-text)]',
       iconBorderClass: 'border-[var(--pastel-blue-border)]',
@@ -69,7 +68,7 @@ export default function PhotoDownloaderPage() {
     {
       titleKey: 'page.photoDl.f2Title',
       descKey: 'page.photoDl.f2Desc',
-      icon: ShieldCheck,
+      iconName: 'shieldCheck',
       iconBgClass: 'bg-[var(--pastel-pink)]',
       iconTextClass: 'text-[var(--accent-primary-text)]',
       iconBorderClass: 'border-[var(--pastel-pink-border)]',
@@ -77,7 +76,7 @@ export default function PhotoDownloaderPage() {
     {
       titleKey: 'page.photoDl.f3Title',
       descKey: 'page.photoDl.f3Desc',
-      icon: ImageIcon,
+      iconName: 'image',
       iconBgClass: 'bg-[var(--accent-dark)]',
       iconTextClass: 'text-[var(--accent-contrast)]',
     },

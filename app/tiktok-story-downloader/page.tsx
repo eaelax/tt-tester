@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import { headers } from 'next/headers';
-import { Clock, EyeOff, Film } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import LocalizedToolView from '@/components/LocalizedToolView';
@@ -61,7 +60,7 @@ export default function StoryDownloaderPage() {
     {
       titleKey: 'page.storyDl.f1Title',
       descKey: 'page.storyDl.f1Desc',
-      icon: Clock,
+      iconName: 'clock',
       iconBgClass: 'bg-[var(--pastel-pink)]',
       iconTextClass: 'text-[var(--accent-primary-text)]',
       iconBorderClass: 'border-[var(--pastel-pink-border)]',
@@ -69,7 +68,7 @@ export default function StoryDownloaderPage() {
     {
       titleKey: 'page.storyDl.f2Title',
       descKey: 'page.storyDl.f2Desc',
-      icon: EyeOff,
+      iconName: 'eyeOff',
       iconBgClass: 'bg-[var(--pastel-blue)]',
       iconTextClass: 'text-[var(--accent-cyan-text)]',
       iconBorderClass: 'border-[var(--pastel-blue-border)]',
@@ -77,7 +76,7 @@ export default function StoryDownloaderPage() {
     {
       titleKey: 'page.storyDl.f3Title',
       descKey: 'page.storyDl.f3Desc',
-      icon: Film,
+      iconName: 'film',
       iconBgClass: 'bg-[var(--accent-dark)]',
       iconTextClass: 'text-[var(--accent-contrast)]',
     },

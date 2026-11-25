@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import { headers } from 'next/headers';
-import { EyeOff, UserCheck, BarChart2 } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import LocalizedToolView from '@/components/LocalizedToolView';
@@ -61,7 +60,7 @@ export default function ProfileViewerPage() {
     {
       titleKey: 'page.viewer.f1Title',
       descKey: 'page.viewer.f1Desc',
-      icon: EyeOff,
+      iconName: 'eyeOff',
       iconBgClass: 'bg-[var(--pastel-blue)]',
       iconTextClass: 'text-[var(--accent-cyan-text)]',
       iconBorderClass: 'border-[var(--pastel-blue-border)]',
@@ -69,7 +68,7 @@ export default function ProfileViewerPage() {
     {
       titleKey: 'page.viewer.f2Title',
       descKey: 'page.viewer.f2Desc',
-      icon: UserCheck,
+      iconName: 'userCheck',
       iconBgClass: 'bg-[var(--pastel-pink)]',
       iconTextClass: 'text-[var(--accent-primary-text)]',
       iconBorderClass: 'border-[var(--pastel-pink-border)]',
@@ -77,7 +76,7 @@ export default function ProfileViewerPage() {
     {
       titleKey: 'page.viewer.f3Title',
       descKey: 'page.viewer.f3Desc',
-      icon: BarChart2,
+      iconName: 'barChart2',
       iconBgClass: 'bg-[var(--accent-dark)]',
       iconTextClass: 'text-[var(--accent-contrast)]',
     },

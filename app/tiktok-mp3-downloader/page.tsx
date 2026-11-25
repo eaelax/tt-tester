@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import { headers } from 'next/headers';
-import { Music, Volume2, Download } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import LocalizedToolView from '@/components/LocalizedToolView';
@@ -61,7 +60,7 @@ export default function AudioDownloaderPage() {
     {
       titleKey: 'page.mp3Dl.f1Title',
       descKey: 'page.mp3Dl.f1Desc',
-      icon: Volume2,
+      iconName: 'volume2',
       iconBgClass: 'bg-[var(--pastel-blue)]',
       iconTextClass: 'text-[var(--accent-cyan-text)]',
       iconBorderClass: 'border-[var(--pastel-blue-border)]',
@@ -69,7 +68,7 @@ export default function AudioDownloaderPage() {
     {
       titleKey: 'page.mp3Dl.f2Title',
       descKey: 'page.mp3Dl.f2Desc',
-      icon: Music,
+      iconName: 'music',
       iconBgClass: 'bg-[var(--pastel-pink)]',
       iconTextClass: 'text-[var(--accent-primary-text)]',
       iconBorderClass: 'border-[var(--pastel-pink-border)]',
@@ -77,7 +76,7 @@ export default function AudioDownloaderPage() {
     {
       titleKey: 'page.mp3Dl.f3Title',
       descKey: 'page.mp3Dl.f3Desc',
-      icon: Download,
+      iconName: 'download',
       iconBgClass: 'bg-[var(--accent-dark)]',
       iconTextClass: 'text-[var(--accent-contrast)]',
     },

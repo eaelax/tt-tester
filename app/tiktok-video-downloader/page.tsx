@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import { headers } from 'next/headers';
-import { Film, Zap, Download } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import LocalizedToolView from '@/components/LocalizedToolView';
@@ -61,7 +60,7 @@ export default function VideoDownloaderPage() {
     {
       titleKey: 'page.videoDl.f1Title',
       descKey: 'page.videoDl.f1Desc',
-      icon: Film,
+      iconName: 'film',
       iconBgClass: 'bg-[var(--pastel-blue)]',
       iconTextClass: 'text-[var(--accent-cyan-text)]',
       iconBorderClass: 'border-[var(--pastel-blue-border)]',
@@ -69,7 +68,7 @@ export default function VideoDownloaderPage() {
     {
       titleKey: 'page.videoDl.f2Title',
       descKey: 'page.videoDl.f2Desc',
-      icon: Zap,
+      iconName: 'zap',
       iconBgClass: 'bg-[var(--pastel-pink)]',
       iconTextClass: 'text-[var(--accent-primary-text)]',
       iconBorderClass: 'border-[var(--pastel-pink-border)]',
@@ -77,7 +76,7 @@ export default function VideoDownloaderPage() {
     {
       titleKey: 'page.videoDl.f3Title',
       descKey: 'page.videoDl.f3Desc',
-      icon: Download,
+      iconName: 'download',
       iconBgClass: 'bg-[var(--accent-dark)]',
       iconTextClass: 'text-[var(--accent-contrast)]',
     },
