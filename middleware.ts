@@ -14,10 +14,16 @@ const CANONICAL_REDIRECTS: Record<string, string> = {
   '/about-tiktok-profile-viewer': '/about-us',
 };
 
-const BYPASS_PREFIXES = ['/api', '/_next', '/assets', '/admintiktok', '/sitemaps'];
+const BYPASS_PREFIXES = ['/_next', '/assets', '/sitemaps'];
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
+
+  if (pathname === '/api' || pathname.startsWith('/api/')) {
+    const response = NextResponse.next();
+    response.headers.set('X-Robots-Tag', 'noindex, nofollow');
+    return response;
+  }
 
   if (
     BYPASS_PREFIXES.some(
@@ -37,6 +43,23 @@ export function middleware(request: NextRequest) {
   const unprefixedPath = detectedLang ? stripLangPrefix(pathname) : pathname;
   const normalizedPath =
     unprefixedPath === '/' ? '/' : unprefixedPath.replace(/\/+$/, '') || '/';
+
+  if (
+    normalizedPath === '/admintiktok' ||
+    normalizedPath.startsWith('/admintiktok/')
+  ) {
+    if (detectedLang) {
+      const rewriteUrl = request.nextUrl.clone();
+      rewriteUrl.pathname = normalizedPath;
+      const response = NextResponse.rewrite(rewriteUrl);
+      response.headers.set('X-Robots-Tag', 'noindex, nofollow');
+      return response;
+    }
+
+    const response = NextResponse.next();
+    response.headers.set('X-Robots-Tag', 'noindex, nofollow');
+    return response;
+  }
 
   const canonicalTarget = CANONICAL_REDIRECTS[normalizedPath];
   if (canonicalTarget) {
@@ -66,6 +89,6 @@ export function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    '/((?!api|_next/static|_next/image|assets|admintiktok|sitemaps|favicon\\.ico|icon\\.png|robots\\.txt|sitemap\\.xml).*)',
+    '/((?!_next/static|_next/image|assets|sitemaps|favicon\\.ico|icon\\.png|robots\\.txt|sitemap\\.xml).*)',
   ],
 };

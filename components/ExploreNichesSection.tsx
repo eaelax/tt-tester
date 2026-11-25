@@ -2,40 +2,21 @@
 
 import Link from 'next/link';
 import { ArrowRight, ChevronRight } from 'lucide-react';
+import { CATEGORIES } from '@/lib/creators-data';
 import { useI18n } from '@/lib/i18n/context';
 
-const NICHES = [
-  {
-    key: 'c1',
-    href: '/category/comedy',
-    count: 6,
-  },
-  {
-    key: 'c2',
-    href: '/category/food-cooking',
-    count: 5,
-  },
-  {
-    key: 'c3',
-    href: '/category/tech-ai',
-    count: 5,
-  },
-  {
-    key: 'c4',
-    href: '/category/gaming',
-    count: 5,
-  },
-  {
-    key: 'c5',
-    href: '/category/fitness-sports',
-    count: 5,
-  },
-  {
-    key: 'c6',
-    href: '/category/dance-music',
-    count: 5,
-  },
-] as const;
+const CATEGORY_KEY_MAP: Record<string, string> = {
+  comedy: 'c1',
+  'food-cooking': 'c2',
+  'tech-ai': 'c3',
+  gaming: 'c4',
+  'fitness-sports': 'c5',
+  'dance-music': 'c6',
+  'beauty-fashion': 'c7',
+  'education-science': 'c8',
+  'travel-adventure': 'c9',
+  'pets-animals': 'c10',
+};
 
 export default function ExploreNichesSection() {
   const { t, localizeHref } = useI18n();
@@ -69,27 +50,37 @@ export default function ExploreNichesSection() {
         </Link>
       </div>
 
-      {/* 6-Niche Directory Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
-        {NICHES.map((niche) => (
-          <Link
-            key={niche.href}
-            href={localizeHref(niche.href)}
-            className="group p-4 sm:p-5 rounded-xl bg-[var(--surface-canvas)] hover:bg-[var(--pastel-blue)] border border-[var(--border-subtle)] hover:border-[var(--accent-cyan)] transition-colors duration-150 flex flex-col justify-between gap-2"
-          >
-            <div className="flex items-center justify-between gap-2">
-              <h3 className="text-sm font-bold text-[var(--ink-primary)] group-hover:text-[var(--accent-cyan-text)] transition-colors duration-150 truncate">
-                {t(`niches.${niche.key}`)}
-              </h3>
-              <span className="text-[11px] font-semibold px-2 py-0.5 rounded-md bg-[var(--surface-elevated)] border border-[var(--border-subtle)] text-[var(--ink-secondary)] shrink-0 tabular-nums">
-                {t('niches.creatorsCount', { count: niche.count })}
-              </span>
-            </div>
-            <p className="text-xs text-[var(--ink-secondary)] line-clamp-2 leading-relaxed">
-              {t(`niches.${niche.key}Desc`)}
-            </p>
-          </Link>
-        ))}
+      {/* 10-Niche Directory Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3.5 mb-8">
+        {CATEGORIES.map((category) => {
+          const nicheKey = CATEGORY_KEY_MAP[category.slug];
+          const title = nicheKey ? t(`niches.${nicheKey}`) : category.name;
+          const desc = nicheKey
+            ? t(`niches.${nicheKey}Desc`)
+            : category.shortDescription;
+
+          return (
+            <Link
+              key={category.slug}
+              href={localizeHref(`/category/${category.slug}`)}
+              className="group p-4 rounded-xl bg-[var(--surface-canvas)] hover:bg-[var(--pastel-blue)] border border-[var(--border-subtle)] hover:border-[var(--accent-cyan)] transition-colors duration-150 flex flex-col justify-between gap-2.5"
+            >
+              <div className="flex flex-col gap-1.5">
+                <span className="text-[10px] font-semibold px-2 py-0.5 rounded-md bg-[var(--surface-elevated)] border border-[var(--border-subtle)] text-[var(--ink-secondary)] w-fit tabular-nums">
+                  {t('niches.creatorsCount', {
+                    count: category.creatorUsernames.length,
+                  })}
+                </span>
+                <h3 className="text-sm font-bold text-[var(--ink-primary)] group-hover:text-[var(--accent-cyan-text)] transition-colors duration-150 line-clamp-1">
+                  {title}
+                </h3>
+              </div>
+              <p className="text-xs text-[var(--ink-secondary)] line-clamp-2 leading-relaxed">
+                {desc}
+              </p>
+            </Link>
+          );
+        })}
       </div>
 
       {/* Three Value Pillars */}

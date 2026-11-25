@@ -14,6 +14,10 @@ const CATEGORY_TRANSLATION_MAP: Record<string, string> = {
   gaming: 'niches.c4',
   'fitness-sports': 'niches.c5',
   'dance-music': 'niches.c6',
+  'beauty-fashion': 'niches.c7',
+  'education-science': 'niches.c8',
+  'travel-adventure': 'niches.c9',
+  'pets-animals': 'niches.c10',
 };
 
 export default function CreatorsDirectoryView() {
@@ -36,7 +40,7 @@ export default function CreatorsDirectoryView() {
     '@type': 'CollectionPage',
     name: t('page.creators.title'),
     description: t('page.creators.subtitle'),
-    url: 'https://tikprofilesviewer.com/creators',
+    url: `https://tikprofilesviewer.com${localizeHref('/creators')}`,
   };
 
   return (

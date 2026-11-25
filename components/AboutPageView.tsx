@@ -22,7 +22,7 @@ export default function AboutPageView() {
     '@type': 'AboutPage',
     name: t('page.about.title'),
     description: t('page.about.subtitle'),
-    url: 'https://tikprofilesviewer.com/about-us',
+    url: `https://tikprofilesviewer.com${localizeHref('/about-us')}`,
   };
 
   return (

@@ -39,7 +39,7 @@ export default function EngagementCalculatorView() {
   const getRating = (rate: number) => {
     if (rate >= 9) {
       return {
-        label: 'Viral / Exceptional',
+        label: t('page.engageCalc.ratingViral'),
         color: 'text-[var(--accent-primary-text)]',
         bg: 'bg-[var(--accent-soft)]',
         border: 'border-[var(--accent-primary)]',
@@ -47,7 +47,7 @@ export default function EngagementCalculatorView() {
     }
     if (rate >= 5) {
       return {
-        label: 'Strong / Above Average',
+        label: t('page.engageCalc.ratingStrong'),
         color: 'text-[var(--accent-cyan-text)]',
         bg: 'bg-[var(--accent-cyan-soft)]',
         border: 'border-[var(--accent-cyan)]',
@@ -55,14 +55,14 @@ export default function EngagementCalculatorView() {
     }
     if (rate >= 3) {
       return {
-        label: 'Healthy / Standard',
+        label: t('page.engageCalc.ratingHealthy'),
         color: 'text-[var(--ink-primary)]',
         bg: 'bg-[var(--surface-sunken)]',
         border: 'border-[var(--border-strong)]',
       };
     }
     return {
-      label: 'Low / Room for Growth',
+      label: t('page.engageCalc.ratingLow'),
       color: 'text-[var(--ink-secondary)]',
       bg: 'bg-[var(--surface-sunken)]',
       border: 'border-[var(--border-subtle)]',
@@ -93,7 +93,7 @@ export default function EngagementCalculatorView() {
           <div className="flex items-center justify-between">
             <h2 className="text-sm font-bold text-[var(--ink-primary)] flex items-center gap-2">
               <Activity className="w-4 h-4 text-[var(--accent-primary-text)]" />
-              <span>Enter Post or Account Metrics</span>
+              <span>{t('page.engageCalc.inputHeading')}</span>
             </h2>
 
             {/* Mode Toggle */}
@@ -107,7 +107,7 @@ export default function EngagementCalculatorView() {
                     : 'text-[var(--ink-secondary)] hover:text-[var(--ink-primary)]'
                 }`}
               >
-                By Views
+                {t('page.engageCalc.byViews')}
               </button>
               <button
                 type="button"
@@ -118,7 +118,7 @@ export default function EngagementCalculatorView() {
                     : 'text-[var(--ink-secondary)] hover:text-[var(--ink-primary)]'
                 }`}
               >
-                By Followers
+                {t('page.engageCalc.byFollowers')}
               </button>
             </div>
           </div>
@@ -128,10 +128,10 @@ export default function EngagementCalculatorView() {
             <div>
               <label
                 htmlFor="likes-input"
-                className="block text-xs font-bold text-[var(--ink-primary)] mb-1 flex items-center gap-1.5"
+                className="text-xs font-bold text-[var(--ink-primary)] mb-1 flex items-center gap-1.5"
               >
                 <Heart className="w-3.5 h-3.5 text-[var(--accent-primary-text)]" />
-                <span>Total Video Likes</span>
+                <span>{t('page.engageCalc.likesLabel')}</span>
               </label>
               <input
                 id="likes-input"
@@ -146,10 +146,10 @@ export default function EngagementCalculatorView() {
             <div>
               <label
                 htmlFor="comments-input"
-                className="block text-xs font-bold text-[var(--ink-primary)] mb-1 flex items-center gap-1.5"
+                className="text-xs font-bold text-[var(--ink-primary)] mb-1 flex items-center gap-1.5"
               >
                 <MessageCircle className="w-3.5 h-3.5 text-[var(--accent-cyan-text)]" />
-                <span>Total Comments</span>
+                <span>{t('page.engageCalc.commentsLabel')}</span>
               </label>
               <input
                 id="comments-input"
@@ -164,10 +164,10 @@ export default function EngagementCalculatorView() {
             <div>
               <label
                 htmlFor="shares-input"
-                className="block text-xs font-bold text-[var(--ink-primary)] mb-1 flex items-center gap-1.5"
+                className="text-xs font-bold text-[var(--ink-primary)] mb-1 flex items-center gap-1.5"
               >
                 <Share2 className="w-3.5 h-3.5 text-[var(--ink-muted)]" />
-                <span>Total Shares &amp; Saves</span>
+                <span>{t('page.engageCalc.sharesLabel')}</span>
               </label>
               <input
                 id="shares-input"
@@ -184,7 +184,7 @@ export default function EngagementCalculatorView() {
                 htmlFor="benchmark-base-input"
                 className="block text-xs font-bold text-[var(--ink-primary)] mb-1"
               >
-                {calcMode === 'views' ? 'Total Video Views' : 'Total Followers'}
+                {calcMode === 'views' ? t('page.engageCalc.viewsLabel') : t('page.engageCalc.followersLabel')}
               </label>
               <input
                 id="benchmark-base-input"
@@ -202,7 +202,9 @@ export default function EngagementCalculatorView() {
           </div>
 
           <p className="text-[11px] text-[var(--ink-muted)] leading-relaxed">
-            Formula: ((Likes + Comments + Shares) / {calcMode === 'views' ? 'Views' : 'Followers'}) &times; 100
+            {calcMode === 'views'
+              ? t('page.engageCalc.formulaViews')
+              : t('page.engageCalc.formulaFollowers')}
           </p>
         </div>
 
@@ -210,7 +212,7 @@ export default function EngagementCalculatorView() {
         <div className="lg:col-span-5 p-4 sm:p-5 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)] flex flex-col justify-between">
           <div>
             <div className="text-[11px] font-bold uppercase tracking-wider text-[var(--ink-muted)] mb-1">
-              Calculated Engagement Rate
+              {t('page.engageCalc.resultHeading')}
             </div>
             <div
               dir="ltr"
@@ -228,15 +230,17 @@ export default function EngagementCalculatorView() {
             {/* Interaction Breakdown */}
             <div className="mt-4 pt-3.5 border-t border-[var(--border-subtle)] space-y-2 text-xs tabular-nums">
               <div className="flex justify-between text-[var(--ink-secondary)]">
-                <span>Total Interactions</span>
+                <span>{t('page.engageCalc.totalInteractions')}</span>
                 <span dir="ltr" className="font-bold text-[var(--ink-primary)]">
                   {totalInteractions.toLocaleString()}
                 </span>
               </div>
               <div className="flex justify-between text-[var(--ink-secondary)]">
-                <span>Calculation Basis</span>
+                <span>{t('page.engageCalc.calcBasis')}</span>
                 <span dir="ltr" className="font-bold text-[var(--ink-primary)]">
-                  {(calcMode === 'views' ? views : followers).toLocaleString()} {calcMode}
+                  {calcMode === 'views'
+                    ? t('page.engageCalc.basisViews', { count: views.toLocaleString() })
+                    : t('page.engageCalc.basisFollowers', { count: followers.toLocaleString() })}
                 </span>
               </div>
             </div>
@@ -244,21 +248,21 @@ export default function EngagementCalculatorView() {
 
           {/* Quick Benchmark Reference */}
           <div className="mt-4 pt-3 border-t border-[var(--border-subtle)] space-y-1.5 text-[11px] tabular-nums">
-            <div className="font-bold text-[var(--ink-primary)] mb-1">TikTok Engagement Scale:</div>
+            <div className="font-bold text-[var(--ink-primary)] mb-1">{t('page.engageCalc.scaleHeading')}</div>
             <div className="flex justify-between text-[var(--ink-secondary)]">
               <span>&lt; 3%</span>
-              <span>Low engagement</span>
+              <span>{t('page.engageCalc.scaleLow')}</span>
             </div>
             <div className="flex justify-between text-[var(--ink-secondary)]">
               <span>3% - 6%</span>
               <span className="text-[var(--accent-cyan-text)] font-semibold">
-                Standard healthy benchmark
+                {t('page.engageCalc.scaleHealthy')}
               </span>
             </div>
             <div className="flex justify-between text-[var(--ink-secondary)]">
               <span>&gt; 8%</span>
               <span className="text-[var(--accent-primary-text)] font-semibold">
-                High / Viral performer
+                {t('page.engageCalc.scaleHigh')}
               </span>
             </div>
           </div>
@@ -269,23 +273,23 @@ export default function EngagementCalculatorView() {
       <section className="mt-7 pt-7 border-t border-[var(--border-subtle)] grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
         <div className="p-4 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)]">
           <BarChart className="w-4 h-4 text-[var(--accent-primary-text)] mb-1.5" />
-          <h3 className="text-sm font-bold text-[var(--ink-primary)] mb-1">Views vs. Followers</h3>
+          <h3 className="text-sm font-bold text-[var(--ink-primary)] mb-1">{t('page.engageCalc.card1Title')}</h3>
           <p className="text-xs text-[var(--ink-secondary)] leading-relaxed">
-            Because the TikTok For You Page algorithm distributes content widely, calculating by views reflects true audience interest better than followers.
+            {t('page.engageCalc.card1Desc')}
           </p>
         </div>
         <div className="p-4 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)]">
           <CheckCircle2 className="w-4 h-4 text-[var(--accent-cyan-text)] mb-1.5" />
-          <h3 className="text-sm font-bold text-[var(--ink-primary)] mb-1">Brand Pitch Standard</h3>
+          <h3 className="text-sm font-bold text-[var(--ink-primary)] mb-1">{t('page.engageCalc.card2Title')}</h3>
           <p className="text-xs text-[var(--ink-secondary)] leading-relaxed">
-            Brand marketers and agencies require a consistent 4% or higher engagement rate before approving sponsored creator campaign contracts.
+            {t('page.engageCalc.card2Desc')}
           </p>
         </div>
         <div className="p-4 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)]">
           <HelpCircle className="w-4 h-4 text-[var(--accent-primary-text)] mb-1.5" />
-          <h3 className="text-sm font-bold text-[var(--ink-primary)] mb-1">Improving Engagement</h3>
+          <h3 className="text-sm font-bold text-[var(--ink-primary)] mb-1">{t('page.engageCalc.card3Title')}</h3>
           <p className="text-xs text-[var(--ink-secondary)] leading-relaxed">
-            Ask open-ended discussion questions in video captions and reply to the top comments within the first 60 minutes after publishing.
+            {t('page.engageCalc.card3Desc')}
           </p>
         </div>
       </section>

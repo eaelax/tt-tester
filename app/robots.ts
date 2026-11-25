@@ -17,7 +17,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: '*',
         allow: ['/', '/sitemaps/'],
-        disallow: ['/api/', '/admintiktok/', '/*?*sort=', '/*?*filter=', '/*?*utm_'],
+        disallow: ['/api/', '/admintiktok/'],
       },
     ],
     sitemap: `${baseUrl}/sitemap.xml`,

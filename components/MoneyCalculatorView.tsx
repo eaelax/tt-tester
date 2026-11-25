@@ -65,13 +65,13 @@ export default function MoneyCalculatorView() {
         <div className="lg:col-span-7 p-4 sm:p-5 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)] space-y-4">
           <h2 className="text-sm font-bold text-[var(--ink-primary)] flex items-center gap-2">
             <Sparkles className="w-4 h-4 text-[var(--accent-cyan-text)]" />
-            <span>Input Creator Metrics</span>
+            <span>{t('page.moneyCalc.inputHeading')}</span>
           </h2>
 
           {/* Followers Slider */}
           <div>
             <div className="flex justify-between text-xs font-bold mb-1">
-              <span className="text-[var(--ink-primary)]">Total Followers</span>
+              <span className="text-[var(--ink-primary)]">{t('page.moneyCalc.totalFollowers')}</span>
               <span dir="ltr" className="font-mono text-[var(--accent-cyan-text)] tabular-nums">
                 {followers.toLocaleString()}
               </span>
@@ -81,7 +81,7 @@ export default function MoneyCalculatorView() {
               min="1000"
               max="2000000"
               step="5000"
-              aria-label="Total followers"
+              aria-label={t('page.moneyCalc.totalFollowers')}
               value={followers}
               onChange={(e) => setFollowers(Number(e.target.value))}
               className="w-full h-2 bg-[var(--surface-sunken)] rounded-lg appearance-none cursor-pointer accent-[var(--accent-cyan)]"
@@ -97,7 +97,7 @@ export default function MoneyCalculatorView() {
           {/* Average Views Slider */}
           <div>
             <div className="flex justify-between text-xs font-bold mb-1">
-              <span className="text-[var(--ink-primary)]">Average Views Per Video</span>
+              <span className="text-[var(--ink-primary)]">{t('page.moneyCalc.avgViews')}</span>
               <span dir="ltr" className="font-mono text-[var(--accent-primary-text)] tabular-nums">
                 {avgViews.toLocaleString()}
               </span>
@@ -107,7 +107,7 @@ export default function MoneyCalculatorView() {
               min="500"
               max="1000000"
               step="2500"
-              aria-label="Average views per video"
+              aria-label={t('page.moneyCalc.avgViews')}
               value={avgViews}
               onChange={(e) => setAvgViews(Number(e.target.value))}
               className="w-full h-2 bg-[var(--surface-sunken)] rounded-lg appearance-none cursor-pointer accent-[var(--accent-primary)]"
@@ -123,9 +123,9 @@ export default function MoneyCalculatorView() {
           {/* Monthly Posts Slider */}
           <div>
             <div className="flex justify-between text-xs font-bold mb-1">
-              <span className="text-[var(--ink-primary)]">Monthly Video Uploads</span>
+              <span className="text-[var(--ink-primary)]">{t('page.moneyCalc.monthlyUploads')}</span>
               <span dir="ltr" className="font-mono text-[var(--ink-primary)] tabular-nums">
-                {monthlyPosts} videos
+                {t('page.moneyCalc.videosUnit', { count: monthlyPosts })}
               </span>
             </div>
             <input
@@ -133,7 +133,7 @@ export default function MoneyCalculatorView() {
               min="1"
               max="60"
               step="1"
-              aria-label="Monthly video uploads"
+              aria-label={t('page.moneyCalc.monthlyUploads')}
               value={monthlyPosts}
               onChange={(e) => setMonthlyPosts(Number(e.target.value))}
               className="w-full h-2 bg-[var(--surface-sunken)] rounded-lg appearance-none cursor-pointer accent-[var(--accent-dark)]"
@@ -146,7 +146,7 @@ export default function MoneyCalculatorView() {
               htmlFor="niche-selector"
               className="block text-xs font-bold text-[var(--ink-primary)] mb-1"
             >
-              Content Niche / Category
+              {t('page.moneyCalc.nicheLabel')}
             </label>
             <select
               id="niche-selector"
@@ -154,11 +154,11 @@ export default function MoneyCalculatorView() {
               onChange={(e) => setNicheCpm(Number(e.target.value))}
               className="w-full h-9 px-3 rounded-lg border border-[var(--border-strong)] bg-[var(--surface-canvas)] text-xs font-medium text-[var(--ink-primary)] focus:outline-none focus:border-[var(--accent-primary)]"
             >
-              <option value={4.5}>Finance, Investing &amp; Real Estate (High RPM)</option>
-              <option value={3.5}>Tech, Gadgets &amp; Software (Medium-High RPM)</option>
-              <option value={2.8}>Fitness, Health &amp; Wellness</option>
-              <option value={2.2}>Beauty, Fashion &amp; Lifestyle</option>
-              <option value={1.5}>Gaming, Entertainment &amp; Comedy (Standard RPM)</option>
+              <option value={4.5}>{t('page.moneyCalc.niche1')}</option>
+              <option value={3.5}>{t('page.moneyCalc.niche2')}</option>
+              <option value={2.8}>{t('page.moneyCalc.niche3')}</option>
+              <option value={2.2}>{t('page.moneyCalc.niche4')}</option>
+              <option value={1.5}>{t('page.moneyCalc.niche5')}</option>
             </select>
           </div>
         </div>
@@ -167,7 +167,7 @@ export default function MoneyCalculatorView() {
         <div className="lg:col-span-5 p-4 sm:p-5 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)] flex flex-col justify-between">
           <div>
             <div className="text-[11px] font-bold uppercase tracking-wider text-[var(--ink-muted)] mb-1">
-              Total Projected Monthly Earnings
+              {t('page.moneyCalc.projectedTitle')}
             </div>
             <div
               dir="ltr"
@@ -176,7 +176,7 @@ export default function MoneyCalculatorView() {
               ${totalMonthlyLow.toLocaleString()} - ${totalMonthlyHigh.toLocaleString()}
             </div>
             <p className="text-xs text-[var(--ink-secondary)] mt-1">
-              Estimated monthly revenue across sponsorships, creator rewards, and live stream gifts.
+              {t('page.moneyCalc.projectedSub')}
             </p>
 
             {/* Breakdown List */}
@@ -184,7 +184,7 @@ export default function MoneyCalculatorView() {
               <div className="flex items-center justify-between">
                 <span className="flex items-center gap-1.5 text-[var(--ink-secondary)]">
                   <Award className="w-3.5 h-3.5 text-[var(--accent-cyan-text)]" />
-                  <span>Sponsored Post (Per Video)</span>
+                  <span>{t('page.moneyCalc.sponsorPerPost')}</span>
                 </span>
                 <span dir="ltr" className="font-bold text-[var(--ink-primary)]">
                   ${sponsorPerPostLow.toLocaleString()} - ${sponsorPerPostHigh.toLocaleString()}
@@ -194,27 +194,27 @@ export default function MoneyCalculatorView() {
               <div className="flex items-center justify-between">
                 <span className="flex items-center gap-1.5 text-[var(--ink-secondary)]">
                   <Video className="w-3.5 h-3.5 text-[var(--accent-primary-text)]" />
-                  <span>Creator Rewards Program</span>
+                  <span>{t('page.moneyCalc.creatorRewards')}</span>
                 </span>
                 <span dir="ltr" className="font-bold text-[var(--ink-primary)]">
-                  ~${rewardsMonthly.toLocaleString()}/mo
+                  ~${rewardsMonthly.toLocaleString()}{t('page.moneyCalc.perMonth')}
                 </span>
               </div>
 
               <div className="flex items-center justify-between">
                 <span className="flex items-center gap-1.5 text-[var(--ink-secondary)]">
                   <DollarSign className="w-3.5 h-3.5 text-[var(--accent-cyan-text)]" />
-                  <span>Live Gifts &amp; Affiliate</span>
+                  <span>{t('page.moneyCalc.liveAffiliate')}</span>
                 </span>
                 <span dir="ltr" className="font-bold text-[var(--ink-primary)]">
-                  ~${liveAffiliateMonthly.toLocaleString()}/mo
+                  ~${liveAffiliateMonthly.toLocaleString()}{t('page.moneyCalc.perMonth')}
                 </span>
               </div>
             </div>
           </div>
 
           <div className="mt-4 pt-3 border-t border-[var(--border-subtle)] text-[11px] text-[var(--ink-muted)] leading-relaxed">
-            *Projections are educational estimates based on industry benchmarks. Actual earnings depend on viewer geography, watch retention, and brand negotiation.
+            {t('page.moneyCalc.disclaimer')}
           </div>
         </div>
       </div>
@@ -223,23 +223,23 @@ export default function MoneyCalculatorView() {
       <section className="mt-7 pt-7 border-t border-[var(--border-subtle)] grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
         <div className="p-4 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)]">
           <TrendingUp className="w-4 h-4 text-[var(--accent-cyan-text)] mb-1.5" />
-          <h3 className="text-sm font-bold text-[var(--ink-primary)] mb-1">Creator Rewards RPM</h3>
+          <h3 className="text-sm font-bold text-[var(--ink-primary)] mb-1">{t('page.moneyCalc.card1Title')}</h3>
           <p className="text-xs text-[var(--ink-secondary)] leading-relaxed">
-            Videos longer than 1 minute qualify for monetization if viewers watch past 5 seconds with search intent.
+            {t('page.moneyCalc.card1Desc')}
           </p>
         </div>
         <div className="p-4 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)]">
           <PieChart className="w-4 h-4 text-[var(--accent-primary-text)] mb-1.5" />
-          <h3 className="text-sm font-bold text-[var(--ink-primary)] mb-1">Sponsorship Pricing</h3>
+          <h3 className="text-sm font-bold text-[var(--ink-primary)] mb-1">{t('page.moneyCalc.card2Title')}</h3>
           <p className="text-xs text-[var(--ink-secondary)] leading-relaxed">
-            Brands pay between $10 to $25 per 10,000 views for authentic integrations in top buying niches.
+            {t('page.moneyCalc.card2Desc')}
           </p>
         </div>
         <div className="p-4 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)]">
           <HelpCircle className="w-4 h-4 text-[var(--accent-cyan-text)] mb-1.5" />
-          <h3 className="text-sm font-bold text-[var(--ink-primary)] mb-1">Audience Location</h3>
+          <h3 className="text-sm font-bold text-[var(--ink-primary)] mb-1">{t('page.moneyCalc.card3Title')}</h3>
           <p className="text-xs text-[var(--ink-secondary)] leading-relaxed">
-            Audiences in the US, UK, and Tier 1 countries generate significantly higher ad payouts and sponsor budgets.
+            {t('page.moneyCalc.card3Desc')}
           </p>
         </div>
       </section>

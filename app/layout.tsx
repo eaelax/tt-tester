@@ -8,6 +8,7 @@ import {
   getLanguageInfo,
   isSupportedLanguage,
 } from '@/lib/i18n/types';
+import { getBaseUrl } from '@/lib/seo/sitemap';
 import './globals.css';
 
 const rubik = Rubik({
@@ -31,6 +32,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(getBaseUrl()),
   title: 'Tik Profiles Viewer - Free TikTok Profile Viewer & HD Downloader',
   description:
     'View any TikTok profile anonymously, watch videos, and download watermark-free HD videos and MP3 audio for free on TikProfilesViewer.com.',

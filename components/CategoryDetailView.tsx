@@ -18,6 +18,10 @@ const CATEGORY_NAMES_MAP: Record<string, { nameKey: string; descKey: string }> =
   gaming: { nameKey: 'niches.c4', descKey: 'niches.c4Desc' },
   'fitness-sports': { nameKey: 'niches.c5', descKey: 'niches.c5Desc' },
   'dance-music': { nameKey: 'niches.c6', descKey: 'niches.c6Desc' },
+  'beauty-fashion': { nameKey: 'niches.c7', descKey: 'niches.c7Desc' },
+  'education-science': { nameKey: 'niches.c8', descKey: 'niches.c8Desc' },
+  'travel-adventure': { nameKey: 'niches.c9', descKey: 'niches.c9Desc' },
+  'pets-animals': { nameKey: 'niches.c10', descKey: 'niches.c10Desc' },
 };
 
 interface CategoryDetailViewProps {

@@ -8,9 +8,13 @@ const ALL_TOOLS = [
   { href: '/tiktok-video-downloader', key: 't1', index: '01' },
   { href: '/tiktok-mp3-downloader', key: 't2', index: '02' },
   { href: '/tiktok-profile-viewer', key: 't3', index: '03' },
-  { href: '/tiktok-story-downloader', key: 't5', index: '04' },
-  { href: '/tiktok-photo-downloader', key: 't6', index: '05' },
-  { href: '/tiktok-watermark-remover', key: 't10', index: '06' },
+  { href: '/tiktok-analytics', key: 't4', index: '04' },
+  { href: '/tiktok-story-downloader', key: 't5', index: '05' },
+  { href: '/tiktok-photo-downloader', key: 't6', index: '06' },
+  { href: '/tiktok-money-calculator', key: 't7', index: '07' },
+  { href: '/tiktok-engagement-calculator', key: 't8', index: '08' },
+  { href: '/tiktok-caption-generator', key: 't9', index: '09' },
+  { href: '/tiktok-watermark-remover', key: 't10', index: '10' },
 ] as const;
 
 export default function CreatorToolsSection() {
@@ -27,13 +31,13 @@ export default function CreatorToolsSection() {
         </p>
       </div>
 
-      {/* 6-Tool Downloader Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      {/* 10-Tool Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3.5">
         {ALL_TOOLS.map((tool) => (
           <Link
             key={tool.href}
             href={localizeHref(tool.href)}
-            className="group p-4 sm:p-5 rounded-xl bg-[var(--surface-elevated)] hover:bg-[var(--pastel-blue)] border border-[var(--border-subtle)] hover:border-[var(--accent-cyan)] shadow-[var(--shadow-card)] transition-colors duration-150 flex flex-col justify-between min-h-[144px]"
+            className="group p-4 rounded-xl bg-[var(--surface-elevated)] hover:bg-[var(--pastel-blue)] border border-[var(--border-subtle)] hover:border-[var(--accent-cyan)] shadow-[var(--shadow-card)] transition-colors duration-150 flex flex-col justify-between min-h-[148px]"
           >
             <div>
               <span className="inline-block text-[11px] font-mono font-bold text-[var(--ink-muted)] group-hover:text-[var(--accent-cyan-text)] tabular-nums mb-2 transition-colors duration-150">

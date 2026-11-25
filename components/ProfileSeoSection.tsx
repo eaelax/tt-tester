@@ -12,6 +12,10 @@ const CATEGORY_TRANSLATION_MAP: Record<string, string> = {
   gaming: 'niches.c4',
   'fitness-sports': 'niches.c5',
   'dance-music': 'niches.c6',
+  'beauty-fashion': 'niches.c7',
+  'education-science': 'niches.c8',
+  'travel-adventure': 'niches.c9',
+  'pets-animals': 'niches.c10',
 };
 
 interface ProfileSeoSectionProps {
@@ -164,10 +168,10 @@ export default function ProfileSeoSection({
                 </div>
                 <div className="min-w-0">
                   <div className="text-xs font-bold text-[var(--ink-primary)] truncate">
-                    {t('page.analytics.title')}
+                    {t('nav.tool.analytics.label')}
                   </div>
                   <div className="text-[11px] text-[var(--ink-muted)] truncate">
-                    {t('nav.tool.viewer.desc')}
+                    {t('nav.tool.analytics.desc')}
                   </div>
                 </div>
               </div>

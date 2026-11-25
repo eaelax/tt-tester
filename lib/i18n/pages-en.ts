@@ -25,9 +25,9 @@ export const EN_PAGES: TranslationMap = {
   'legal.nav.availability': 'Service Availability',
 
   'page.about.crumb': 'About Tik Profiles Viewer',
-  'page.about.title': 'About Tik Profiles Viewer',
+  'page.about.title': 'About Tik Profiles Viewer - Free Anonymous Viewer & HD Downloader',
   'page.about.subtitle':
-    'Tik Profiles Viewer (TikProfilesViewer.com) is a free web service built to let anyone inspect public TikTok profiles, watch videos smoothly, and download original HD videos without watermarks.',
+    'Tik Profiles Viewer (TikProfilesViewer.com) is a free web service built to inspect public TikTok profiles anonymously with no login and download HD MP4 videos without watermark.',
   'page.about.p1Title': 'Fast Video Playback',
   'page.about.p1Desc':
     'Our player buffers videos instantly so you can watch content without stuttering, loading screens, or aggressive app popups.',
@@ -68,9 +68,9 @@ export const EN_PAGES: TranslationMap = {
   'page.about.ctaPrimary': 'Open Profile Viewer',
 
   'page.howto.crumb': 'How to Use Tik Profiles Viewer',
-  'page.howto.title': 'How to Use Tik Profiles Viewer',
+  'page.howto.title': 'How to Use Tik Profiles Viewer & Download HD Videos Without Watermark',
   'page.howto.subtitle':
-    'Follow this simple guide to search any public TikTok profile, stream videos without stutter, and download watermark-free HD videos on TikProfilesViewer.com.',
+    'Follow this step-by-step guide to search any public TikTok profile anonymously with no login, stream videos smoothly, and download free HD MP4 and MP3 files.',
   'page.howto.s1Title': 'Search Any TikTok Username',
   'page.howto.s1Desc':
     'Go to the homepage and locate the search bar. Enter any public TikTok username (for example, khaby.lame or @charlidamelio), then click the Search button.',
@@ -100,9 +100,9 @@ export const EN_PAGES: TranslationMap = {
     'Search any public TikTok account, stream videos instantly, and save HD videos without watermarks.',
   'page.howto.ctaPrimary': 'Start Viewing Profiles',
 
-  'page.creators.title': 'Top TikTok Creators',
+  'page.creators.title': 'Top TikTok Creators Directory - Free Profile Viewer & HD Videos',
   'page.creators.subtitle':
-    'Browse the most followed TikTok creators. View their profiles and download videos without watermarks.',
+    'Browse the most followed TikTok creators across all niches. View public profiles anonymously with no login and download HD MP4 videos without watermark.',
   'page.creators.searchPlaceholder': 'Search creator name or @username...',
   'page.creators.allCategories': 'All Categories',
   'page.creators.followers': 'Followers',
@@ -111,11 +111,15 @@ export const EN_PAGES: TranslationMap = {
   'page.creators.emptyTitle': 'No creators found matching "{query}"',
   'page.creators.emptySubtitle': 'Try searching a different name or browse all categories.',
 
-  'page.categories.title': 'Explore TikTok by Category',
-  'page.categories.subtitle': 'Browse creators and videos by their content topic.',
+  'page.categories.title': 'Explore TikTok Creators by Category - Free Anonymous Viewer',
+  'page.categories.subtitle':
+    'Browse public TikTok creators and HD videos by topic including comedy, cooking, tech, gaming, fitness, dance, beauty, science, travel, and pets.',
   'page.categories.browse': 'Browse {name}',
   'page.categories.creatorsBadge': '{count} Creators',
 
+  'page.category.metaTitle': '{name} TikTok Creators & Free HD Videos Without Watermark',
+  'page.category.metaDesc':
+    'Browse top {name} TikTok creators anonymously with no login. View live follower counts and download free HD MP4 videos and MP3 audio without watermark.',
   'page.category.topHeading': 'Top {name} Creators',
   'page.category.topSubtitle':
     'Click any creator to view their profile and download watermark-free videos.',
@@ -125,9 +129,13 @@ export const EN_PAGES: TranslationMap = {
   'page.category.followersLabel': '{count} followers',
   'page.category.likesLabel': '{count} likes',
 
+  'page.profile.metaTitleKnown': '{displayName} (@{username}) TikTok Profile & HD Videos Without Watermark',
+  'page.profile.metaDescKnown':
+    'Watch and download @{username} TikTok videos in free HD MP4 without watermark. View {followers} followers and extract MP3 audio on TikProfilesViewer.com.',
+  'page.profile.metaTitleFallback': '@{username} TikTok Profile & Free HD Videos Without Watermark',
   'page.profile.heroTitleFallback': '@{username} TikTok Profile',
   'page.profile.heroSubtitleFallback':
-    'Watch and download @{username} public TikTok videos in watermark-free HD MP4 and MP3 audio.',
+    'Watch and download @{username} public TikTok videos anonymously in free HD MP4 without watermark and MP3 audio.',
   'page.profile.faqHeading': 'Frequently Asked Questions',
   'page.profile.q1': 'How do I download @{username} TikTok videos without watermark?',
   'page.profile.a1':
@@ -139,9 +147,9 @@ export const EN_PAGES: TranslationMap = {
     'Yes, 100% anonymous. You do not need a TikTok account, and the creator will never know you viewed their profile.',
 
   'page.videoDl.crumb': 'TikTok Video Downloader',
-  'page.videoDl.title': 'TikTok Video Downloader',
+  'page.videoDl.title': 'Free TikTok Video Downloader Without Watermark (HD MP4)',
   'page.videoDl.subtitle':
-    'Download TikTok videos in original HD MP4 format without watermarks for free.',
+    'Download public TikTok videos in free HD MP4 format without watermark and with no login required on any phone or computer.',
   'page.videoDl.bandTitle': 'How to Download TikTok Videos',
   'page.videoDl.bandSubtitle': 'Save your favorite videos in three easy steps.',
   'page.videoDl.f1Title': 'Enter Username',
@@ -160,9 +168,9 @@ export const EN_PAGES: TranslationMap = {
   'page.videoDl.a3': 'Yes. It works in any web browser on iPhone, Android, Mac, and Windows PC.',
 
   'page.mp3Dl.crumb': 'TikTok Audio MP3 Downloader',
-  'page.mp3Dl.title': 'TikTok MP3 Audio Downloader',
+  'page.mp3Dl.title': 'Free TikTok MP3 Audio Extractor & Sound Downloader',
   'page.mp3Dl.subtitle':
-    'Extract and download MP3 music tracks and voice audio from any TikTok video for free.',
+    'Extract and download clean MP3 music tracks and original voice audio from any public TikTok video for free with no login.',
   'page.mp3Dl.bandTitle': 'Extract Clean TikTok Audio',
   'page.mp3Dl.bandSubtitle': 'Save music tracks, sound effects, and voice clips in crisp MP3 format.',
   'page.mp3Dl.f1Title': 'Clean Sound Quality',
@@ -180,9 +188,9 @@ export const EN_PAGES: TranslationMap = {
   'page.mp3Dl.a3': 'Yes, 100% free with no limits.',
 
   'page.viewer.crumb': 'TikTok Profile Viewer',
-  'page.viewer.title': 'Anonymous TikTok Profile Viewer',
+  'page.viewer.title': 'Anonymous TikTok Profile Viewer - No Login, Free HD Stream',
   'page.viewer.subtitle':
-    'Search any public TikTok creator, see their follower stats, and watch videos anonymously without an account.',
+    'Search any public TikTok creator anonymously with no login, view live follower stats, and watch or save free HD MP4 videos without watermark.',
   'page.viewer.bandTitle': 'Private, Fast Profile Inspection',
   'page.viewer.bandSubtitle': 'Browse any public TikTok creator profile directly in your browser.',
   'page.viewer.f1Title': '100% Anonymous',
@@ -200,9 +208,9 @@ export const EN_PAGES: TranslationMap = {
   'page.viewer.a3': 'No. Only public accounts and public videos can be viewed.',
 
   'page.storyDl.crumb': 'TikTok Story Downloader',
-  'page.storyDl.title': 'TikTok Story Downloader',
+  'page.storyDl.title': 'Free TikTok Story Downloader Without Watermark - Anonymous & HD',
   'page.storyDl.subtitle':
-    'Download TikTok stories anonymously in original HD quality before they expire. Save clean MP4 videos with no watermarks and no login required.',
+    'Download public TikTok stories anonymously in free HD MP4 quality without watermark before they expire, with no login required.',
   'page.storyDl.bandTitle': 'Save 24-Hour Stories Forever',
   'page.storyDl.bandSubtitle': 'Watch and archive public TikTok stories before they disappear.',
   'page.storyDl.f1Title': 'Permanent Archive',
@@ -223,9 +231,9 @@ export const EN_PAGES: TranslationMap = {
     'No. All stories downloaded through our service are pure original video streams without any TikTok watermark logo.',
 
   'page.photoDl.crumb': 'TikTok Photo Downloader',
-  'page.photoDl.title': 'TikTok Photo & Slideshow Downloader',
+  'page.photoDl.title': 'Free TikTok Photo & Slideshow Downloader Without Watermark',
   'page.photoDl.subtitle':
-    'Extract and download clean individual images from any TikTok photo slideshow in original HD quality with no watermark.',
+    'Extract and download clean individual images from any public TikTok photo slideshow in original HD quality without watermark and no login.',
   'page.photoDl.bandTitle': 'Download Slideshow Photos in HD',
   'page.photoDl.bandSubtitle': 'Save clean carousel images directly in their original resolution.',
   'page.photoDl.f1Title': 'Individual Slide Extraction',
@@ -243,9 +251,9 @@ export const EN_PAGES: TranslationMap = {
     'All images are retrieved directly in their native uploaded resolution (typically 1080p HD or higher) with zero compression.',
 
   'page.watermark.crumb': 'TikTok Watermark Remover',
-  'page.watermark.title': 'TikTok Watermark Remover',
+  'page.watermark.title': 'Free TikTok Watermark Remover - Save Clean HD MP4 Videos',
   'page.watermark.subtitle':
-    'Remove the bouncing TikTok logo and username watermark cleanly without cropping, blurring, or losing original HD quality.',
+    'Remove the bouncing TikTok logo and username watermark cleanly to save free HD MP4 videos without cropping, blurring, or login.',
   'page.watermark.bandTitle': 'Clean Videos With Zero Logo Overlay',
   'page.watermark.bandSubtitle': 'Save original unwatermarked streams ready for offline playback or editing.',
   'page.watermark.f1Title': 'No Blurring or Cropping',
@@ -266,19 +274,129 @@ export const EN_PAGES: TranslationMap = {
     'Yes. Everything runs securely in your browser with zero software installs, browser extensions, or login requirements.',
 
   'page.analytics.crumb': 'TikTok Analytics',
-  'page.analytics.title': 'TikTok Profile Analytics',
+  'page.analytics.title': 'Free TikTok Profile Analytics - Engagement & Live View Stats',
   'page.analytics.subtitle':
-    'Check any public creator account. See live engagement rates, average video views, and estimated sponsorship value.',
+    'Inspect any public TikTok creator account anonymously with no login. View live engagement rates, average video views, and estimated sponsorship value.',
+  'page.analytics.engagementRate': 'Engagement Rate',
+  'page.analytics.rateViral': 'Viral-grade engagement',
+  'page.analytics.rateHealthy': 'Healthy creator activity',
+  'page.analytics.rateAverage': 'Average interaction',
+  'page.analytics.avgViews': 'Avg. Video Views',
+  'page.analytics.basedOnVideos': 'Based on last {count} videos',
+  'page.analytics.avgLikes': 'Avg. Video Likes',
+  'page.analytics.commentsPerVideo': '{count} comments / video',
+  'page.analytics.estSponsorship': 'Est. Sponsorship Value',
+  'page.analytics.perSponsoredPost': 'Estimated per sponsored post',
+  'page.analytics.notAvailable': 'N/A',
+  'page.analytics.recentBreakdown': 'Recent Videos Performance Breakdown',
+  'page.analytics.liveFeedMetrics': 'Live feed metrics',
+  'page.analytics.card1Title': 'Audience Quality Check',
+  'page.analytics.card1Desc':
+    'Spot inactive accounts by comparing follower count against real average views and comments per video.',
+  'page.analytics.card2Title': 'Engagement Benchmarks',
+  'page.analytics.card2Desc':
+    'Strong TikTok accounts often keep an engagement rate above 5 percent across recent short-form uploads.',
+  'page.analytics.card3Title': 'Creator Monetization',
+  'page.analytics.card3Desc':
+    'Estimate creator sponsorship values based on verified follower tiers and active audience response.',
+
   'page.moneyCalc.crumb': 'TikTok Money Calculator',
-  'page.moneyCalc.title': 'TikTok Money & Creator Earnings Calculator',
+  'page.moneyCalc.title': 'Free TikTok Money & Creator Earnings Calculator',
   'page.moneyCalc.subtitle':
-    'Estimate your monthly creator earnings from brand sponsorships, the Creator Rewards Program, and TikTok Shop affiliate commissions.',
+    'Estimate monthly TikTok creator earnings from brand sponsorships, the Creator Rewards Program, and live gifts with no login required.',
+  'page.moneyCalc.inputHeading': 'Input Creator Metrics',
+  'page.moneyCalc.totalFollowers': 'Total Followers',
+  'page.moneyCalc.avgViews': 'Average Views Per Video',
+  'page.moneyCalc.monthlyUploads': 'Monthly Video Uploads',
+  'page.moneyCalc.videosUnit': '{count} videos',
+  'page.moneyCalc.nicheLabel': 'Content Niche / Category',
+  'page.moneyCalc.niche1': 'Finance, Investing & Real Estate (High RPM)',
+  'page.moneyCalc.niche2': 'Tech, Gadgets & Software (Medium-High RPM)',
+  'page.moneyCalc.niche3': 'Fitness, Health & Wellness',
+  'page.moneyCalc.niche4': 'Beauty, Fashion & Lifestyle',
+  'page.moneyCalc.niche5': 'Gaming, Entertainment & Comedy (Standard RPM)',
+  'page.moneyCalc.projectedTitle': 'Total Projected Monthly Earnings',
+  'page.moneyCalc.projectedSub':
+    'Estimated monthly revenue across sponsorships, creator rewards, and live stream gifts.',
+  'page.moneyCalc.sponsorPerPost': 'Sponsored Post (Per Video)',
+  'page.moneyCalc.creatorRewards': 'Creator Rewards Program',
+  'page.moneyCalc.liveAffiliate': 'Live Gifts & Affiliate',
+  'page.moneyCalc.perMonth': '/mo',
+  'page.moneyCalc.disclaimer':
+    '*Projections are educational estimates based on industry benchmarks. Actual earnings depend on viewer geography, watch retention, and brand negotiation.',
+  'page.moneyCalc.card1Title': 'Creator Rewards RPM',
+  'page.moneyCalc.card1Desc':
+    'Videos longer than 1 minute qualify for monetization if viewers watch past 5 seconds with search intent.',
+  'page.moneyCalc.card2Title': 'Sponsorship Pricing',
+  'page.moneyCalc.card2Desc':
+    'Brands pay between $10 to $25 per 10,000 views for authentic integrations in top buying niches.',
+  'page.moneyCalc.card3Title': 'Audience Location',
+  'page.moneyCalc.card3Desc':
+    'Audiences in the US, UK, and Tier 1 countries generate significantly higher ad payouts and sponsor budgets.',
+
   'page.engageCalc.crumb': 'TikTok Engagement Calculator',
-  'page.engageCalc.title': 'TikTok Engagement Rate Calculator',
+  'page.engageCalc.title': 'Free TikTok Engagement Rate Calculator (Views & Followers)',
   'page.engageCalc.subtitle':
-    'Calculate your exact TikTok engagement rate by views or followers. Compare your creator metrics against verified industry benchmarks.',
+    'Calculate your exact TikTok engagement rate by views or followers and compare creator metrics against verified industry benchmarks.',
+  'page.engageCalc.inputHeading': 'Enter Post or Account Metrics',
+  'page.engageCalc.byViews': 'By Views',
+  'page.engageCalc.byFollowers': 'By Followers',
+  'page.engageCalc.likesLabel': 'Total Video Likes',
+  'page.engageCalc.commentsLabel': 'Total Comments',
+  'page.engageCalc.sharesLabel': 'Total Shares & Saves',
+  'page.engageCalc.viewsLabel': 'Total Video Views',
+  'page.engageCalc.followersLabel': 'Total Followers',
+  'page.engageCalc.formulaViews': 'Formula: ((Likes + Comments + Shares) / Views) x 100',
+  'page.engageCalc.formulaFollowers': 'Formula: ((Likes + Comments + Shares) / Followers) x 100',
+  'page.engageCalc.resultHeading': 'Calculated Engagement Rate',
+  'page.engageCalc.totalInteractions': 'Total Interactions',
+  'page.engageCalc.calcBasis': 'Calculation Basis',
+  'page.engageCalc.basisViews': '{count} views',
+  'page.engageCalc.basisFollowers': '{count} followers',
+  'page.engageCalc.scaleHeading': 'TikTok Engagement Scale:',
+  'page.engageCalc.scaleLow': 'Low engagement',
+  'page.engageCalc.scaleHealthy': 'Standard healthy benchmark',
+  'page.engageCalc.scaleHigh': 'High / Viral performer',
+  'page.engageCalc.ratingViral': 'Viral / Exceptional',
+  'page.engageCalc.ratingStrong': 'Strong / Above Average',
+  'page.engageCalc.ratingHealthy': 'Healthy / Standard',
+  'page.engageCalc.ratingLow': 'Low / Room for Growth',
+  'page.engageCalc.card1Title': 'Views vs. Followers',
+  'page.engageCalc.card1Desc':
+    'Because the TikTok For You Page algorithm distributes content widely, calculating by views reflects true audience interest better than followers.',
+  'page.engageCalc.card2Title': 'Brand Pitch Standard',
+  'page.engageCalc.card2Desc':
+    'Brand marketers and agencies require a consistent 4% or higher engagement rate before approving sponsored creator campaign contracts.',
+  'page.engageCalc.card3Title': 'Improving Engagement',
+  'page.engageCalc.card3Desc':
+    'Ask open-ended discussion questions in video captions and reply to the top comments within the first 60 minutes after publishing.',
+
   'page.captionGen.crumb': 'TikTok Caption & Hashtag Generator',
-  'page.captionGen.title': 'TikTok Caption & Hashtag Generator',
+  'page.captionGen.title': 'Free TikTok Caption & Hashtag Generator for Creators',
   'page.captionGen.subtitle':
-    'Build clear video hooks, short captions, and focused hashtags to help more viewers watch and share your posts.',
+    'Build clear video hooks, short captions, and focused hashtags in seconds with no login to boost views and shares.',
+  'page.captionGen.setupHeading': 'Choose Your Topic & Niche',
+  'page.captionGen.topicLabel': 'Video Topic (Optional)',
+  'page.captionGen.topicPlaceholder': 'e.g. 3 morning habits that save time',
+  'page.captionGen.nicheLabel': 'Content Niche',
+  'page.captionGen.newHookBtn': 'Generate Another Hook',
+  'page.captionGen.outputHeading': 'Ready-to-Paste Caption',
+  'page.captionGen.copyBtn': 'Copy Caption',
+  'page.captionGen.copiedBtn': 'Copied',
+  'page.captionGen.tipText':
+    'Tip: Keep your caption under 150 characters so viewers can read the opening hook on mobile without tapping to expand.',
+  'page.captionGen.niche.Viral': 'Viral',
+  'page.captionGen.niche.Comedy': 'Comedy',
+  'page.captionGen.niche.Food': 'Food',
+  'page.captionGen.niche.Tech': 'Tech',
+  'page.captionGen.niche.Fitness': 'Fitness',
+  'page.captionGen.niche.Dance': 'Dance',
+  'page.captionGen.hook1': 'Wait until the end to see what happened...',
+  'page.captionGen.hook2': 'Tell me you do this too without actually telling me.',
+  'page.captionGen.hook3': 'Stop scrolling if you need this tip today.',
+  'page.captionGen.hook4': 'I tested this TikTok life hack so you do not have to.',
+  'page.captionGen.hook5': 'Why did nobody tell me about this earlier?',
+  'page.captionGen.hook6': 'Here is the honest truth nobody talks about.',
+  'page.captionGen.hook7': 'Here is what happened when I tried this for 7 days:',
+  'page.captionGen.hook8': 'Save this video so you can come back to it later.',
 };

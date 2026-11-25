@@ -14,9 +14,9 @@ export default function Footer() {
 
   return (
     <footer className="w-full border-t border-[var(--border-subtle)] bg-[var(--surface-elevated)] text-[var(--ink-secondary)] text-xs mt-auto">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-10">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-8">
         {/* Col 1: Brand & Overview */}
-        <div className="lg:col-span-4 flex flex-col gap-3.5">
+        <div className="lg:col-span-3 flex flex-col gap-3.5">
           <Link
             href={localizeHref('/')}
             onClick={handleGoHome}
@@ -114,12 +114,44 @@ export default function Footer() {
           </ul>
         </div>
 
-        {/* Col 3: Explore & Guides */}
-        <div className="lg:col-span-2 flex flex-col gap-3">
+        {/* Col 3: Creator Analytics & Explore */}
+        <div className="lg:col-span-3 flex flex-col gap-3">
           <h4 className="text-[11px] font-bold uppercase tracking-wider text-[var(--ink-primary)]">
-            {t('footer.exploreHeading')}
+            {t('footer.creatorTools')}
           </h4>
           <ul className="flex flex-col gap-2 text-xs text-[var(--ink-secondary)]">
+            <li>
+              <Link
+                href={localizeHref('/tiktok-analytics')}
+                className="hover:text-[var(--accent-cyan-text)] transition-colors duration-150"
+              >
+                {t('nav.tool.analytics.label')}
+              </Link>
+            </li>
+            <li>
+              <Link
+                href={localizeHref('/tiktok-money-calculator')}
+                className="hover:text-[var(--accent-cyan-text)] transition-colors duration-150"
+              >
+                {t('nav.tool.money.label')}
+              </Link>
+            </li>
+            <li>
+              <Link
+                href={localizeHref('/tiktok-engagement-calculator')}
+                className="hover:text-[var(--accent-cyan-text)] transition-colors duration-150"
+              >
+                {t('nav.tool.engage.label')}
+              </Link>
+            </li>
+            <li>
+              <Link
+                href={localizeHref('/tiktok-caption-generator')}
+                className="hover:text-[var(--accent-cyan-text)] transition-colors duration-150"
+              >
+                {t('nav.tool.caption.label')}
+              </Link>
+            </li>
             <li>
               <Link
                 href={localizeHref('/creators')}
@@ -134,22 +166,6 @@ export default function Footer() {
                 className="hover:text-[var(--accent-cyan-text)] transition-colors duration-150"
               >
                 {t('nav.categories')}
-              </Link>
-            </li>
-            <li>
-              <Link
-                href={localizeHref('/about-us')}
-                className="hover:text-[var(--accent-cyan-text)] transition-colors duration-150"
-              >
-                {t('nav.about')}
-              </Link>
-            </li>
-            <li>
-              <Link
-                href={localizeHref('/how-to-use-tiktok-profile-viewer')}
-                className="hover:text-[var(--accent-cyan-text)] transition-colors duration-150"
-              >
-                {t('nav.howToUse')}
               </Link>
             </li>
           </ul>

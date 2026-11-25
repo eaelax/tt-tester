@@ -89,7 +89,7 @@ export default function AnalyticsPageView() {
       const { user, stats, videos } = result.data;
       const mappedVideos: AnalyticsVideo[] = (videos || []).map((v, idx) => ({
         id: String(v.video_id || v.id || idx),
-        title: v.title || 'TikTok Video',
+        title: v.title || t('modal.defaultVideoTitle'),
         cover: v.cover || v.origin_cover || '',
         originCover: v.origin_cover || v.cover || '',
         plays: Number(v.play_count) || 0,
@@ -292,58 +292,58 @@ export default function AnalyticsPageView() {
                 <div className="p-4 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)] shadow-[var(--shadow-card)]">
                   <div className="flex items-center gap-2 text-xs font-bold text-[var(--ink-secondary)] mb-1.5">
                     <TrendingUp className="w-4 h-4 text-[var(--accent-primary-text)]" />
-                    <span>Engagement Rate</span>
+                    <span>{t('page.analytics.engagementRate')}</span>
                   </div>
                   <div className="text-xl sm:text-2xl font-bold text-[var(--ink-primary)]">
                     {engagementRate}%
                   </div>
                   <p className="text-[11px] text-[var(--ink-muted)] mt-1">
                     {Number(engagementRate) > 8
-                      ? 'Viral-grade engagement'
+                      ? t('page.analytics.rateViral')
                       : Number(engagementRate) > 4
-                      ? 'Healthy creator activity'
-                      : 'Average interaction'}
+                      ? t('page.analytics.rateHealthy')
+                      : t('page.analytics.rateAverage')}
                   </p>
                 </div>
 
                 <div className="p-4 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)] shadow-[var(--shadow-card)]">
                   <div className="flex items-center gap-2 text-xs font-bold text-[var(--ink-secondary)] mb-1.5">
                     <Eye className="w-4 h-4 text-[var(--accent-cyan-text)]" />
-                    <span>Avg. Video Views</span>
+                    <span>{t('page.analytics.avgViews')}</span>
                   </div>
                   <div className="text-xl sm:text-2xl font-bold text-[var(--ink-primary)]">
                     {formatNum(avgViews)}
                   </div>
                   <p className="text-[11px] text-[var(--ink-muted)] mt-1">
-                    Based on last {videos.length} videos
+                    {t('page.analytics.basedOnVideos', { count: videos.length })}
                   </p>
                 </div>
 
                 <div className="p-4 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)] shadow-[var(--shadow-card)]">
                   <div className="flex items-center gap-2 text-xs font-bold text-[var(--ink-secondary)] mb-1.5">
                     <Heart className="w-4 h-4 text-[var(--accent-primary-text)]" />
-                    <span>Avg. Video Likes</span>
+                    <span>{t('page.analytics.avgLikes')}</span>
                   </div>
                   <div className="text-xl sm:text-2xl font-bold text-[var(--ink-primary)]">
                     {formatNum(avgLikes)}
                   </div>
                   <p className="text-[11px] text-[var(--ink-muted)] mt-1">
-                    {formatNum(avgComments)} comments / video
+                    {t('page.analytics.commentsPerVideo', { count: formatNum(avgComments) })}
                   </p>
                 </div>
 
                 <div className="p-4 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)] shadow-[var(--shadow-card)]">
                   <div className="flex items-center gap-2 text-xs font-bold text-[var(--ink-secondary)] mb-1.5">
                     <Sparkles className="w-4 h-4 text-[var(--accent-cyan-text)]" />
-                    <span>Est. Sponsorship Value</span>
+                    <span>{t('page.analytics.estSponsorship')}</span>
                   </div>
                   <div className="text-xl sm:text-2xl font-bold text-[var(--ink-primary)]">
                     {followerCountSafe > 0
                       ? `$${estEarningsLow.toLocaleString()} - $${estEarningsHigh.toLocaleString()}`
-                      : 'N/A'}
+                      : t('page.analytics.notAvailable')}
                   </div>
                   <p className="text-[11px] text-[var(--ink-muted)] mt-1">
-                    Estimated per sponsored post
+                    {t('page.analytics.perSponsoredPost')}
                   </p>
                 </div>
               </div>
@@ -353,10 +353,10 @@ export default function AnalyticsPageView() {
                 <div className="flex items-center justify-between mb-3.5">
                   <h3 className="text-sm font-bold text-[var(--ink-primary)] flex items-center gap-2">
                     <BarChart3 className="w-4 h-4 text-[var(--accent-primary-text)]" />
-                    <span>Recent Videos Performance Breakdown</span>
+                    <span>{t('page.analytics.recentBreakdown')}</span>
                   </h3>
                   <span className="text-[11px] font-semibold text-[var(--ink-muted)]">
-                    Live feed metrics
+                    {t('page.analytics.liveFeedMetrics')}
                   </span>
                 </div>
 
@@ -424,23 +424,23 @@ export default function AnalyticsPageView() {
       <section className="mt-10 pt-7 border-t border-[var(--border-subtle)] grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
         <div className="p-4 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)] shadow-[var(--shadow-card)]">
           <Users className="w-4 h-4 text-[var(--accent-cyan-text)] mb-1.5" />
-          <h2 className="text-sm font-bold text-[var(--ink-primary)] mb-1">Audience Quality Check</h2>
+          <h2 className="text-sm font-bold text-[var(--ink-primary)] mb-1">{t('page.analytics.card1Title')}</h2>
           <p className="text-xs text-[var(--ink-secondary)] leading-relaxed">
-            Spot inactive accounts by comparing follower count against real average views and comments per video.
+            {t('page.analytics.card1Desc')}
           </p>
         </div>
         <div className="p-4 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)] shadow-[var(--shadow-card)]">
           <TrendingUp className="w-4 h-4 text-[var(--accent-primary-text)] mb-1.5" />
-          <h2 className="text-sm font-bold text-[var(--ink-primary)] mb-1">Engagement Benchmarks</h2>
+          <h2 className="text-sm font-bold text-[var(--ink-primary)] mb-1">{t('page.analytics.card2Title')}</h2>
           <p className="text-xs text-[var(--ink-secondary)] leading-relaxed">
-            Strong TikTok accounts often keep an engagement rate above 5 percent across recent short-form uploads.
+            {t('page.analytics.card2Desc')}
           </p>
         </div>
         <div className="p-4 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)] shadow-[var(--shadow-card)]">
           <Sparkles className="w-4 h-4 text-[var(--accent-cyan-text)] mb-1.5" />
-          <h2 className="text-sm font-bold text-[var(--ink-primary)] mb-1">Creator Monetization</h2>
+          <h2 className="text-sm font-bold text-[var(--ink-primary)] mb-1">{t('page.analytics.card3Title')}</h2>
           <p className="text-xs text-[var(--ink-secondary)] leading-relaxed">
-            Estimate creator sponsorship values based on verified follower tiers and active audience response.
+            {t('page.analytics.card3Desc')}
           </p>
         </div>
       </section>

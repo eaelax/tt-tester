@@ -27,9 +27,9 @@ export const AR_PAGES: TranslationMap = {
   'legal.nav.availability': 'توافر الخدمة',
 
   'page.about.crumb': 'حول عارض حسابات تيك توك',
-  'page.about.title': 'حول عارض حسابات تيك توك',
+  'page.about.title': 'حول عارض حسابات تيك توك - تصفح سري مجاني وتنزيل HD',
   'page.about.subtitle':
-    'عارض حسابات تيك توك (TikProfilesViewer.com) هو خدمة ويب مجانية تتيح لأي شخص فحص حسابات تيك توك العامة ومشاهدة الفيديوهات بسلاسة وتنزيل الفيديوهات الأصلية بجودة HD بدون علامة مائية.',
+    'عارض حسابات تيك توك (TikProfilesViewer.com) هو خدمة ويب مجانية تتيح لأي شخص فحص حسابات تيك توك العامة بسرية بدون تسجيل دخول وتنزيل فيديوهات MP4 عالية الدقة بدون علامة مائية.',
   'page.about.p1Title': 'تشغيل فيديو سريع',
   'page.about.p1Desc':
     'يقوم مشغلنا بتحميل الفيديوهات فوراً حتى تتمكن من المشاهدة دون تقطيع أو شاشات انتظار أو نوافذ تطبيقات مزعجة.',
@@ -70,9 +70,9 @@ export const AR_PAGES: TranslationMap = {
   'page.about.ctaPrimary': 'فتح عارض الملفات',
 
   'page.howto.crumb': 'كيفية استخدام عارض حسابات تيك توك',
-  'page.howto.title': 'كيفية استخدام عارض حسابات تيك توك',
+  'page.howto.title': 'كيفية استخدام عارض حسابات تيك توك وتنزيل فيديو HD بدون علامة مائية',
   'page.howto.subtitle':
-    'اتبع هذا الدليل البسيط للبحث عن أي حساب تيك توك عام وتشغيل الفيديوهات بدون تقطيع وتنزيل فيديوهات HD بدون علامة مائية على TikProfilesViewer.com.',
+    'اتبع هذا الدليل البسيط لتصفح أي حساب تيك توك عام بسرية بدون تسجيل دخول، وتشغيل الفيديوهات بسلاسة، وتنزيل ملفات MP4 HD و MP3 مجاناً.',
   'page.howto.s1Title': 'ابحث عن أي اسم مستخدم تيك توك',
   'page.howto.s1Desc':
     'انتقل إلى الصفحة الرئيسية وحدد شريط البحث. أدخل أي اسم مستخدم عام على تيك توك (مثل khaby.lame أو @charlidamelio)، ثم اضغط على زر البحث.',
@@ -102,9 +102,9 @@ export const AR_PAGES: TranslationMap = {
     'ابحث عن أي حساب تيك توك عام وشاهد الفيديوهات فوراً واحفظ المقاطع عالية الدقة بدون علامة مائية.',
   'page.howto.ctaPrimary': 'ابدأ تصفح الملفات',
 
-  'page.creators.title': 'أشهر مبدعي تيك توك',
+  'page.creators.title': 'دليل أشهر مبدعي تيك توك - عارض مجاني وتنزيل فيديو HD',
   'page.creators.subtitle':
-    'تصفح أكثر صناع المحتوى متابعة على تيك توك. استعرض حساباتهم ونزّل الفيديوهات بدون علامة مائية.',
+    'تصفح أكثر صناع المحتوى متابعة في كل المجالات. استعرض الحسابات العامة بسرية بدون تسجيل دخول ونزّل فيديوهات MP4 بجودة HD بدون علامة مائية.',
   'page.creators.searchPlaceholder': 'ابحث باسم المبدع أو @username...',
   'page.creators.allCategories': 'كل التصنيفات',
   'page.creators.followers': 'المتابعون',
@@ -113,11 +113,15 @@ export const AR_PAGES: TranslationMap = {
   'page.creators.emptyTitle': 'لم يتم العثور على مبدعين مطابقين لـ "{query}"',
   'page.creators.emptySubtitle': 'جرب البحث باسم آخر أو تصفح جميع التصنيفات.',
 
-  'page.categories.title': 'استكشف تيك توك حسب التصنيف',
-  'page.categories.subtitle': 'تصفح المبدعين والفيديوهات حسب موضوع المحتوى.',
+  'page.categories.title': 'استكشف مبدعي تيك توك حسب التصنيف - تصفح سري مجاني',
+  'page.categories.subtitle':
+    'تصفح المبدعين العامين وفيديوهات HD حسب الموضوع مثل الكوميديا والطبخ والتقنية والألعاب واللياقة والرقص والجمال والعلوم والسفر والحيوانات الأليفة.',
   'page.categories.browse': 'تصفح {name}',
   'page.categories.creatorsBadge': '{count} مبدعين',
 
+  'page.category.metaTitle': 'أشهر مبدعي {name} على تيك توك وفيديوهات HD بدون علامة مائية',
+  'page.category.metaDesc':
+    'تصفح أشهر مبدعي {name} على تيك توك بسرية بدون تسجيل دخول. شاهد عدد المتابعين ونزّل فيديوهات MP4 HD وصوت MP3 مجاناً بدون علامة مائية.',
   'page.category.topHeading': 'أشهر مبدعي {name}',
   'page.category.topSubtitle':
     'اضغط على أي مبدع لعرض ملفه الشخصي وتنزيل الفيديوهات بدون علامة مائية.',
@@ -127,9 +131,13 @@ export const AR_PAGES: TranslationMap = {
   'page.category.followersLabel': '{count} متابع',
   'page.category.likesLabel': '{count} إعجاب',
 
+  'page.profile.metaTitleKnown': '{displayName} (@{username}) حساب تيك توك وفيديوهات HD بدون علامة مائية',
+  'page.profile.metaDescKnown':
+    'شاهد ونزّل فيديوهات @{username} على تيك توك بصيغة MP4 HD مجاناً بدون علامة مائية. اطلع على {followers} متابع واستخرج صوت MP3 على TikProfilesViewer.com.',
+  'page.profile.metaTitleFallback': 'حساب تيك توك @{username} وفيديوهات HD مجانية بدون علامة مائية',
   'page.profile.heroTitleFallback': 'ملف تيك توك @{username}',
   'page.profile.heroSubtitleFallback':
-    'شاهد وحمّل فيديوهات @{username} العامة على تيك توك بصيغة MP4 عالية الدقة بدون علامة مائية وصوت MP3.',
+    'شاهد وحمّل فيديوهات @{username} العامة على تيك توك بسرية بصيغة MP4 عالية الدقة بدون علامة مائية وصوت MP3.',
   'page.profile.faqHeading': 'الأسئلة الشائعة',
   'page.profile.q1': 'كيف يمكنني تنزيل فيديوهات @{username} بدون علامة مائية؟',
   'page.profile.a1':
@@ -141,9 +149,9 @@ export const AR_PAGES: TranslationMap = {
     'نعم، سري 100%. لا تحتاج إلى حساب تيك توك، ولن يعرف صانع المحتوى أبداً أنك شاهدت ملفه.',
 
   'page.videoDl.crumb': 'أداة تنزيل فيديو تيك توك',
-  'page.videoDl.title': 'تنزيل فيديوهات تيك توك بدون علامة مائية',
+  'page.videoDl.title': 'أداة تنزيل فيديوهات تيك توك مجاناً بدون علامة مائية (HD MP4)',
   'page.videoDl.subtitle':
-    'نزّل فيديوهات تيك توك بصيغة MP4 الأصلية عالية الدقة بدون علامات مائية مجاناً.',
+    'نزّل فيديوهات تيك توك العامة بصيغة MP4 عالية الدقة مجاناً بدون علامات مائية وبدون تسجيل دخول على أي هاتف أو كمبيوتر.',
   'page.videoDl.bandTitle': 'كيفية تنزيل فيديوهات تيك توك',
   'page.videoDl.bandSubtitle': 'احفظ مقاطعك المفضلة في ثلاث خطوات بسيطة.',
   'page.videoDl.f1Title': 'أدخل اسم المستخدم',
@@ -162,9 +170,9 @@ export const AR_PAGES: TranslationMap = {
   'page.videoDl.a3': 'نعم. يعمل عبر أي متصفح ويب على iPhone وAndroid وMac وWindows.',
 
   'page.mp3Dl.crumb': 'أداة تنزيل صوت MP3 من تيك توك',
-  'page.mp3Dl.title': 'تنزيل صوت وموسيقى تيك توك MP3',
+  'page.mp3Dl.title': 'مستخرج صوتيات وموسيقى تيك توك MP3 مجاناً',
   'page.mp3Dl.subtitle':
-    'استخرج وحمّل المقاطع الموسيقية والتسجيلات الصوتية من أي فيديو تيك توك بصيغة MP3 مجاناً.',
+    'استخرج وحمّل المقاطع الموسيقية والتسجيلات الصوتية الأصلية من أي فيديو تيك توك عام بصيغة MP3 مجاناً بدون تسجيل دخول.',
   'page.mp3Dl.bandTitle': 'استخراج صوت تيك توك نقي',
   'page.mp3Dl.bandSubtitle': 'احفظ المقاطع الموسيقية والمؤثرات الصوتية بصيغة MP3 واضحة.',
   'page.mp3Dl.f1Title': 'جودة صوت نقية',
@@ -182,9 +190,9 @@ export const AR_PAGES: TranslationMap = {
   'page.mp3Dl.a3': 'نعم، مجاني 100% وبدون قيود.',
 
   'page.viewer.crumb': 'عارض ملفات تيك توك',
-  'page.viewer.title': 'عارض حسابات تيك توك المجهول',
+  'page.viewer.title': 'عارض حسابات تيك توك السري - بدون تسجيل وبجودة HD',
   'page.viewer.subtitle':
-    'ابحث عن أي مبدع عام على تيك توك واطلع على إحصائيات المتابعين وشاهد الفيديوهات بسرية دون حساب.',
+    'ابحث عن أي مبدع عام على تيك توك بسرية بدون تسجيل دخول، واطلع على إحصائيات المتابعين، وشاهد ونزّل فيديوهات MP4 مجانية بدون علامة مائية.',
   'page.viewer.bandTitle': 'فحص سريع وخاص للملفات',
   'page.viewer.bandSubtitle': 'تصفح أي حساب مبدع عام على تيك توك مباشرة من متصفحك.',
   'page.viewer.f1Title': 'مجهول 100%',
@@ -202,9 +210,9 @@ export const AR_PAGES: TranslationMap = {
   'page.viewer.a3': 'لا. يمكن عرض الحسابات العامة والفيديوهات المنشورة للعامة فقط.',
 
   'page.storyDl.crumb': 'أداة تنزيل قصص تيك توك',
-  'page.storyDl.title': 'تنزيل قصص تيك توك (Stories)',
+  'page.storyDl.title': 'تنزيل قصص تيك توك بدون علامة مائية - سري ومجاني HD',
   'page.storyDl.subtitle':
-    'نزّل قصص تيك توك بسرية وبجودة HD الأصلية قبل انتهاء صلاحيتها. احفظ مقاطع MP4 بدون علامة مائية ودون تسجيل دخول.',
+    'نزّل قصص تيك توك العامة بسرية وبجودة MP4 HD بدون علامة مائية قبل انتهاء صلاحيتها وبدون تسجيل دخول.',
   'page.storyDl.bandTitle': 'احفظ قصص الـ 24 ساعة للأبد',
   'page.storyDl.bandSubtitle': 'شاهد واحفظ قصص تيك توك العامة قبل اختفائها.',
   'page.storyDl.f1Title': 'أرشيف دائم',
@@ -224,9 +232,9 @@ export const AR_PAGES: TranslationMap = {
   'page.storyDl.a3': 'لا. جميع القصص المنزلة عبر خدمتنا تأتي بدون أي شعار أو علامة مائية.',
 
   'page.photoDl.crumb': 'أداة تنزيل صور تيك توك',
-  'page.photoDl.title': 'تنزيل صور وعروض شرائح تيك توك',
+  'page.photoDl.title': 'تنزيل صور وعروض شرائح تيك توك مجاناً بدون علامة مائية',
   'page.photoDl.subtitle':
-    'استخرج وحمّل الصور الفردية النقية من أي عرض صور تيك توك بجودة HD الأصلية بدون علامة مائية.',
+    'استخرج وحمّل الصور الفردية النقية من أي عرض صور تيك توك عام بجودة HD الأصلية بدون علامة مائية وبدون تسجيل دخول.',
   'page.photoDl.bandTitle': 'تنزيل صور العروض بجودة HD',
   'page.photoDl.bandSubtitle': 'احفظ صور المنشورات متعددة الشرائح بدقتها الأصلية.',
   'page.photoDl.f1Title': 'استخراج كل صورة بشكل منفصل',
@@ -243,9 +251,9 @@ export const AR_PAGES: TranslationMap = {
   'page.photoDl.a2': 'يتم جلب جميع الصور بدقتها الأصلية المرفوعة (عادة 1080p HD أو أعلى) بدون ضغط.',
 
   'page.watermark.crumb': 'مزيل العلامة المائية من تيك توك',
-  'page.watermark.title': 'إزالة العلامة المائية من فيديوهات تيك توك',
+  'page.watermark.title': 'مزيل العلامة المائية من تيك توك مجاناً - حفظ فيديو HD MP4',
   'page.watermark.subtitle':
-    'أزل شعار تيك توك المتحرك والعلامة المائية لاسم المستخدم بنظافة تامة دون قص أو تشويش أو فقدان لجودة HD الأصلية.',
+    'أزل شعار تيك توك المتحرك والعلامة المائية لاسم المستخدم بنظافة تامة لحفظ فيديوهات MP4 HD مجانية دون قص أو تشويش أو تسجيل دخول.',
   'page.watermark.bandTitle': 'فيديوهات نقية بدون أي شعار',
   'page.watermark.bandSubtitle': 'احفظ المقاطع الأصلية الخالية من العلامة المائية وجاهزة للتشغيل أو المونتاج.',
   'page.watermark.f1Title': 'بدون تشويش أو قص',
@@ -264,17 +272,131 @@ export const AR_PAGES: TranslationMap = {
   'page.watermark.a3': 'نعم. يعمل كل شيء بأمان داخل متصفحك دون تثبيت أي برامج أو إضافات أو تسجيل دخول.',
 
   'page.analytics.crumb': 'إحصائيات تيك توك',
-  'page.analytics.title': 'إحصائيات حسابات تيك توك',
-  'page.analytics.subtitle': 'افحص أي حساب عام واطلع على معدلات التفاعل ومتوسط المشاهدات والقيمة التقديرية.',
+  'page.analytics.title': 'إحصائيات حسابات تيك توك مجاناً - التفاعل ومتوسط المشاهدات',
+  'page.analytics.subtitle':
+    'افحص أي حساب مبدع عام على تيك توك بسرية بدون تسجيل دخول، واطلع على معدلات التفاعل المباشرة ومتوسط المشاهدات والقيمة التقديرية للرعاية.',
+  'page.analytics.engagementRate': 'معدل التفاعل',
+  'page.analytics.rateViral': 'تفاعل فيروسي مرتفع',
+  'page.analytics.rateHealthy': 'نشاط مبدع صحي',
+  'page.analytics.rateAverage': 'تفاعل متوسط',
+  'page.analytics.avgViews': 'متوسط مشاهدات الفيديو',
+  'page.analytics.basedOnVideos': 'بناءً على آخر {count} فيديو',
+  'page.analytics.avgLikes': 'متوسط الإعجابات',
+  'page.analytics.commentsPerVideo': '{count} تعليق / فيديو',
+  'page.analytics.estSponsorship': 'قيمة الرعاية التقديرية',
+  'page.analytics.perSponsoredPost': 'تقدير لكل منشور ممول',
+  'page.analytics.notAvailable': 'غير متاح',
+  'page.analytics.recentBreakdown': 'تفصيل أداء أحدث الفيديوهات',
+  'page.analytics.liveFeedMetrics': 'إحصائيات مباشرة',
+  'page.analytics.card1Title': 'فحص جودة الجمهور',
+  'page.analytics.card1Desc':
+    'اكتشف الحسابات غير النشطة بمقارنة عدد المتابعين مع متوسط المشاهدات والتعليقات الحقيقي لكل فيديو.',
+  'page.analytics.card2Title': 'معايير التفاعل',
+  'page.analytics.card2Desc':
+    'تحافظ الحسابات القوية على تيك توك غالباً على معدل تفاعل يتجاوز 5 بالمئة عبر المقاطع الأخيرة.',
+  'page.analytics.card3Title': 'تحقيق الدخل للمبدعين',
+  'page.analytics.card3Desc':
+    'قدّر قيمة رعاية المبدعين بناءً على فئة المتابعين وتفاعل الجمهور النشط.',
+
   'page.moneyCalc.crumb': 'حاسبة أرباح تيك توك',
-  'page.moneyCalc.title': 'حاسبة أرباح وعائدات صناع المحتوى في تيك توك',
-  'page.moneyCalc.subtitle': 'قدر أرباحك الشهرية من الرعاية وبرنامج مكافآت المبدعين وعمولات المتجر.',
+  'page.moneyCalc.title': 'حاسبة أرباح وعائدات صناع المحتوى في تيك توك مجاناً',
+  'page.moneyCalc.subtitle':
+    'قدّر أرباح المبدعين الشهرية من الرعاية التجارية وبرنامج مكافآت المبدعين والهدايا المباشرة بدون تسجيل دخول.',
+  'page.moneyCalc.inputHeading': 'أدخل بيانات المبدع',
+  'page.moneyCalc.totalFollowers': 'إجمالي المتابعين',
+  'page.moneyCalc.avgViews': 'متوسط المشاهدات لكل فيديو',
+  'page.moneyCalc.monthlyUploads': 'عدد الفيديوهات الشهرية',
+  'page.moneyCalc.videosUnit': '{count} فيديو',
+  'page.moneyCalc.nicheLabel': 'مجال المحتوى / التصنيف',
+  'page.moneyCalc.niche1': 'المال والاستثمار والعقارات (عائد مرتفع)',
+  'page.moneyCalc.niche2': 'التقنية والأجهزة والبرمجيات (عائد فوق المتوسط)',
+  'page.moneyCalc.niche3': 'اللياقة والصحة والعافية',
+  'page.moneyCalc.niche4': 'الجمال والموضة وأسلوب الحياة',
+  'page.moneyCalc.niche5': 'الألعاب والترفيه والكوميديا (عائد قياسي)',
+  'page.moneyCalc.projectedTitle': 'إجمالي الأرباح الشهرية المتوقعة',
+  'page.moneyCalc.projectedSub':
+    'الدخل الشهري التقديري عبر الرعايات ومكافآت المبدعين وهدايا البث المباشر.',
+  'page.moneyCalc.sponsorPerPost': 'منشور ممول (لكل فيديو)',
+  'page.moneyCalc.creatorRewards': 'برنامج مكافآت المبدعين',
+  'page.moneyCalc.liveAffiliate': 'هدايا البث والتسويق بالعمولة',
+  'page.moneyCalc.perMonth': '/شهرياً',
+  'page.moneyCalc.disclaimer':
+    '*التوقعات هي تقديرات تعليمية مبنية على معايير السوق. تعتمد الأرباح الفعلية على موقع الجمهور ومدة المشاهدة والتفاوض.',
+  'page.moneyCalc.card1Title': 'عائد برنامج المكافآت',
+  'page.moneyCalc.card1Desc':
+    'تتأهل الفيديوهات الأطول من دقيقة لتحقيق الدخل إذا تجاوزت المشاهدة 5 ثوانٍ مع اهتمام بالبحث.',
+  'page.moneyCalc.card2Title': 'تسعير الرعايات',
+  'page.moneyCalc.card2Desc':
+    'تدفع العلامات التجارية عادة بين 10 إلى 25 دولاراً لكل 10,000 مشاهدة في المجالات الشرائية النشطة.',
+  'page.moneyCalc.card3Title': 'موقع الجمهور',
+  'page.moneyCalc.card3Desc':
+    'يحقق الجمهور في الأسواق الكبرى عوائد إعلانية وميزانيات رعاية أعلى بشكل ملحوظ.',
+
   'page.engageCalc.crumb': 'حاسبة تفاعل تيك توك',
-  'page.engageCalc.title': 'حاسبة معدل التفاعل على تيك توك',
-  'page.engageCalc.subtitle': 'احسب معدل تفاعلك بدقة بناءً على المشاهدات أو المتابعين وقارنه بالمعايير.',
+  'page.engageCalc.title': 'حاسبة معدل التفاعل على تيك توك مجاناً (بالمشاهدات والمتابعين)',
+  'page.engageCalc.subtitle':
+    'احسب معدل تفاعلك بدقة بناءً على المشاهدات أو المتابعين وقارن أداء حسابك بمعايير الصناعة الموثوقة.',
+  'page.engageCalc.inputHeading': 'أدخل أرقام المنشور أو الحساب',
+  'page.engageCalc.byViews': 'حسب المشاهدات',
+  'page.engageCalc.byFollowers': 'حسب المتابعين',
+  'page.engageCalc.likesLabel': 'إجمالي الإعجابات',
+  'page.engageCalc.commentsLabel': 'إجمالي التعليقات',
+  'page.engageCalc.sharesLabel': 'إجمالي المشاركات والحفظ',
+  'page.engageCalc.viewsLabel': 'إجمالي مشاهدات الفيديو',
+  'page.engageCalc.followersLabel': 'إجمالي المتابعين',
+  'page.engageCalc.formulaViews': 'المعادلة: ((الإعجابات + التعليقات + المشاركات) / المشاهدات) x 100',
+  'page.engageCalc.formulaFollowers': 'المعادلة: ((الإعجابات + التعليقات + المشاركات) / المتابعين) x 100',
+  'page.engageCalc.resultHeading': 'معدل التفاعل المحسوب',
+  'page.engageCalc.totalInteractions': 'إجمالي التفاعلات',
+  'page.engageCalc.calcBasis': 'أساس الحساب',
+  'page.engageCalc.basisViews': '{count} مشاهدة',
+  'page.engageCalc.basisFollowers': '{count} متابع',
+  'page.engageCalc.scaleHeading': 'مقياس التفاعل على تيك توك:',
+  'page.engageCalc.scaleLow': 'تفاعل منخفض',
+  'page.engageCalc.scaleHealthy': 'معدل صحي قياسي',
+  'page.engageCalc.scaleHigh': 'أداء مرتفع / فيروسي',
+  'page.engageCalc.ratingViral': 'فيروسي / استثنائي',
+  'page.engageCalc.ratingStrong': 'قوي / فوق المتوسط',
+  'page.engageCalc.ratingHealthy': 'صحي / قياسي',
+  'page.engageCalc.ratingLow': 'منخفض / قابل للتحسن',
+  'page.engageCalc.card1Title': 'المشاهدات مقابل المتابعين',
+  'page.engageCalc.card1Desc':
+    'نظراً لأن خوارزمية تيك توك توزع المحتوى على نطاق واسع، فإن الحساب حسب المشاهدات يعكس اهتمام الجمهور الحقيقي بشكل أدق.',
+  'page.engageCalc.card2Title': 'معيار عروض العلامات التجارية',
+  'page.engageCalc.card2Desc':
+    'تفضل العلامات التجارية والوكالات معدل تفاعل ثابت لا يقل عن 4% قبل اعتماد حملات الرعاية.',
+  'page.engageCalc.card3Title': 'رفع معدل التفاعل',
+  'page.engageCalc.card3Desc':
+    'اطرح أسئلة نقاشية مفتوحة في وصف الفيديو وتفاعل مع أبرز التعليقات خلال أول 60 دقيقة من النشر.',
+
   'page.captionGen.crumb': 'مولد نصوص ووسوم تيك توك',
-  'page.captionGen.title': 'مولد نصوص ووسوم تيك توك الترويجية',
-  'page.captionGen.subtitle': 'أنشئ نصوصاً وخطافات جذابة لزيادة مشاهدات ومشاركات مقاطعك.',
+  'page.captionGen.title': 'مولد نصوص ووسوم تيك توك مجاناً لصناع المحتوى',
+  'page.captionGen.subtitle':
+    'أنشئ مقدمات واضحة ونصوصاً قصيرة ووسوماً مركزة في ثوانٍ بدون تسجيل دخول لزيادة المشاهدات والمشاركات.',
+  'page.captionGen.setupHeading': 'اختر الموضوع والمجال',
+  'page.captionGen.topicLabel': 'موضوع الفيديو (اختياري)',
+  'page.captionGen.topicPlaceholder': 'مثال: 3 عادات صباحية توفر الوقت',
+  'page.captionGen.nicheLabel': 'مجال المحتوى',
+  'page.captionGen.newHookBtn': 'توليد مقدمة أخرى',
+  'page.captionGen.outputHeading': 'نص جاهز للنسخ واللصق',
+  'page.captionGen.copyBtn': 'نسخ النص',
+  'page.captionGen.copiedBtn': 'تم النسخ',
+  'page.captionGen.tipText':
+    'نصيحة: اجعل النص أقل من 150 حرفاً ليتمكن المشاهدون على الهاتف من قراءة المقدمة فوراً دون الحاجة للتوسيع.',
+  'page.captionGen.niche.Viral': 'رائج',
+  'page.captionGen.niche.Comedy': 'كوميديا',
+  'page.captionGen.niche.Food': 'طعام',
+  'page.captionGen.niche.Tech': 'تقنية',
+  'page.captionGen.niche.Fitness': 'لياقة',
+  'page.captionGen.niche.Dance': 'رقص',
+  'page.captionGen.hook1': 'انتظر حتى النهاية لترى ما حدث...',
+  'page.captionGen.hook2': 'أخبرني أنك تفعل هذا أيضاً دون أن تقول ذلك صراحة.',
+  'page.captionGen.hook3': 'توقف عن التمرير إذا كنت تحتاج هذه النصيحة اليوم.',
+  'page.captionGen.hook4': 'جرّبت هذه الحيلة الشائعة على تيك توك حتى لا تضطر لتجربتها.',
+  'page.captionGen.hook5': 'لماذا لم يخبرني أحد عن هذا من قبل؟',
+  'page.captionGen.hook6': 'إليك الحقيقة الصريحة التي لا يتحدث عنها أحد.',
+  'page.captionGen.hook7': 'إليك ما حدث عندما جربت هذا لمدة 7 أيام:',
+  'page.captionGen.hook8': 'احفظ هذا الفيديو لتعود إليه لاحقاً.',
 };
 
 export const FR_PAGES: TranslationMap = {
@@ -303,9 +425,9 @@ export const FR_PAGES: TranslationMap = {
   'legal.nav.availability': 'Disponibilité du Service',
 
   'page.about.crumb': 'À propos de Tik Profiles Viewer',
-  'page.about.title': 'À propos de Tik Profiles Viewer',
+  'page.about.title': 'À propos de Tik Profiles Viewer - Visionneuse Anonyme & HD Gratuite',
   'page.about.subtitle':
-    'Tik Profiles Viewer (TikProfilesViewer.com) est un service web gratuit conçu pour permettre à chacun d’inspecter des profils TikTok publics, regarder des vidéos avec fluidité et télécharger des vidéos HD originales sans filigrane.',
+    'Tik Profiles Viewer (TikProfilesViewer.com) est un service web gratuit pour consulter les profils TikTok publics anonymement sans connexion et télécharger des vidéos MP4 HD sans filigrane.',
   'page.about.p1Title': 'Lecture Vidéo Rapide',
   'page.about.p1Desc':
     'Notre lecteur charge les vidéos instantanément afin que vous puissiez regarder sans saccades, écrans de chargement ni fenêtres intrusives.',
@@ -346,9 +468,9 @@ export const FR_PAGES: TranslationMap = {
   'page.about.ctaPrimary': 'Ouvrir la Visionneuse',
 
   'page.howto.crumb': 'Comment utiliser Tik Profiles Viewer',
-  'page.howto.title': 'Comment utiliser Tik Profiles Viewer',
+  'page.howto.title': 'Comment Utiliser Tik Profiles Viewer & Télécharger en HD Sans Filigrane',
   'page.howto.subtitle':
-    'Suivez ce guide simple pour rechercher un profil TikTok public, lire des vidéos sans saccade et télécharger en HD sans filigrane sur TikProfilesViewer.com.',
+    'Suivez ce guide simple pour consulter tout profil TikTok public anonymement sans connexion, lire les vidéos sans saccade et télécharger gratuitement en MP4 HD et MP3.',
   'page.howto.s1Title': 'Recherchez n’importe quel pseudo TikTok',
   'page.howto.s1Desc':
     'Allez sur la page d’accueil et repérez la barre de recherche. Saisissez un pseudo TikTok public (par ex. khaby.lame ou @charlidamelio), puis cliquez sur Voir le Profil.',
@@ -378,9 +500,9 @@ export const FR_PAGES: TranslationMap = {
     'Recherchez n’importe quel compte TikTok public, lisez les vidéos instantanément et enregistrez en HD sans filigrane.',
   'page.howto.ctaPrimary': 'Explorer les Profils',
 
-  'page.creators.title': 'Top Créateurs TikTok',
+  'page.creators.title': 'Annuaire Top Créateurs TikTok - Visionneuse & Vidéos HD Gratuites',
   'page.creators.subtitle':
-    'Parcourez les créateurs TikTok les plus suivis. Consultez leurs profils et téléchargez des vidéos sans filigrane.',
+    'Parcourez les créateurs TikTok les plus suivis par catégorie. Consultez les profils anonymement sans connexion et téléchargez des vidéos MP4 HD sans filigrane.',
   'page.creators.searchPlaceholder': 'Rechercher un créateur ou @pseudo...',
   'page.creators.allCategories': 'Toutes les Catégories',
   'page.creators.followers': 'Abonnés',
@@ -389,11 +511,15 @@ export const FR_PAGES: TranslationMap = {
   'page.creators.emptyTitle': 'Aucun créateur trouvé pour "{query}"',
   'page.creators.emptySubtitle': 'Essayez un autre nom ou parcourez toutes les catégories.',
 
-  'page.categories.title': 'Explorer TikTok par Catégorie',
-  'page.categories.subtitle': 'Parcourez les créateurs et vidéos selon leur thématique.',
+  'page.categories.title': 'Explorer les Créateurs TikTok par Catégorie - Visionneuse Gratuite',
+  'page.categories.subtitle':
+    'Parcourez les créateurs publics et vidéos HD par thème : comédie, cuisine, tech, gaming, fitness, danse, beauté, science, voyage et animaux.',
   'page.categories.browse': 'Parcourir {name}',
   'page.categories.creatorsBadge': '{count} Créateurs',
 
+  'page.category.metaTitle': 'Top Créateurs {name} TikTok & Vidéos HD Sans Filigrane Gratuites',
+  'page.category.metaDesc':
+    'Explorez les meilleurs créateurs {name} sur TikTok anonymement sans connexion. Consultez les abonnés et téléchargez des vidéos MP4 HD et MP3 sans filigrane.',
   'page.category.topHeading': 'Top Créateurs {name}',
   'page.category.topSubtitle':
     'Cliquez sur un créateur pour voir son profil et télécharger des vidéos sans filigrane.',
@@ -403,9 +529,13 @@ export const FR_PAGES: TranslationMap = {
   'page.category.followersLabel': '{count} abonnés',
   'page.category.likesLabel': '{count} j’aime',
 
+  'page.profile.metaTitleKnown': '{displayName} (@{username}) Profil TikTok & Vidéos HD Sans Filigrane',
+  'page.profile.metaDescKnown':
+    'Regardez et téléchargez les vidéos TikTok de @{username} gratuitement en MP4 HD sans filigrane. Consultez {followers} abonnés et extrayez l’audio MP3 sur TikProfilesViewer.com.',
+  'page.profile.metaTitleFallback': '@{username} Profil TikTok & Vidéos HD Gratuites Sans Filigrane',
   'page.profile.heroTitleFallback': 'Profil TikTok @{username}',
   'page.profile.heroSubtitleFallback':
-    'Regardez et téléchargez les vidéos publiques TikTok de @{username} en MP4 HD sans filigrane et audio MP3.',
+    'Regardez et téléchargez anonymement les vidéos publiques TikTok de @{username} en MP4 HD gratuit sans filigrane et audio MP3.',
   'page.profile.faqHeading': 'Questions Fréquentes',
   'page.profile.q1': 'Comment télécharger les vidéos TikTok de @{username} sans filigrane ?',
   'page.profile.a1':
@@ -417,9 +547,9 @@ export const FR_PAGES: TranslationMap = {
     'Oui, 100% anonyme. Aucun compte TikTok n’est requis et le créateur ne saura jamais que vous avez visité son profil.',
 
   'page.videoDl.crumb': 'Téléchargeur Vidéo TikTok',
-  'page.videoDl.title': 'Téléchargeur Vidéo TikTok',
+  'page.videoDl.title': 'Téléchargeur Vidéo TikTok Gratuit Sans Filigrane (HD MP4)',
   'page.videoDl.subtitle':
-    'Téléchargez gratuitement des vidéos TikTok au format MP4 HD original sans filigrane.',
+    'Téléchargez gratuitement des vidéos TikTok publiques au format MP4 HD sans filigrane et sans connexion sur mobile ou ordinateur.',
   'page.videoDl.bandTitle': 'Comment Télécharger des Vidéos TikTok',
   'page.videoDl.bandSubtitle': 'Enregistrez vos vidéos préférées en trois étapes simples.',
   'page.videoDl.f1Title': 'Saisir le Pseudo',
@@ -438,9 +568,9 @@ export const FR_PAGES: TranslationMap = {
   'page.videoDl.a3': 'Oui. Il fonctionne dans tout navigateur sur iPhone, Android, Mac et Windows PC.',
 
   'page.mp3Dl.crumb': 'Téléchargeur Audio MP3 TikTok',
-  'page.mp3Dl.title': 'Téléchargeur Audio MP3 TikTok',
+  'page.mp3Dl.title': 'Extracteur Audio MP3 TikTok Gratuit & Téléchargeur de Sons',
   'page.mp3Dl.subtitle':
-    'Extrayez et téléchargez gratuitement les musiques MP3 et voix de toute vidéo TikTok.',
+    'Extrayez et téléchargez gratuitement les musiques MP3 et voix originales de toute vidéo TikTok publique sans connexion.',
   'page.mp3Dl.bandTitle': 'Extraire un Audio TikTok Propre',
   'page.mp3Dl.bandSubtitle': 'Enregistrez musiques, effets sonores et voix au format MP3 net.',
   'page.mp3Dl.f1Title': 'Qualité Sonore Nette',
@@ -458,9 +588,9 @@ export const FR_PAGES: TranslationMap = {
   'page.mp3Dl.a3': 'Oui, 100% gratuit et sans limite.',
 
   'page.viewer.crumb': 'Visionneuse de Profil TikTok',
-  'page.viewer.title': 'Visionneuse Anonyme de Profil TikTok',
+  'page.viewer.title': 'Visionneuse Anonyme de Profil TikTok - Sans Connexion & HD',
   'page.viewer.subtitle':
-    'Recherchez n’importe quel créateur public TikTok, consultez ses abonnés et regardez ses vidéos anonymement sans compte.',
+    'Recherchez n’importe quel créateur public TikTok anonymement sans connexion, consultez les abonnés et regardez ou enregistrez des vidéos MP4 HD sans filigrane.',
   'page.viewer.bandTitle': 'Inspection Privée et Rapide de Profil',
   'page.viewer.bandSubtitle': 'Parcourez tout profil public TikTok directement dans votre navigateur.',
   'page.viewer.f1Title': '100% Anonyme',
@@ -478,9 +608,9 @@ export const FR_PAGES: TranslationMap = {
   'page.viewer.a3': 'Non. Seuls les comptes et vidéos publics peuvent être consultés.',
 
   'page.storyDl.crumb': 'Téléchargeur de Stories TikTok',
-  'page.storyDl.title': 'Téléchargeur de Stories TikTok',
+  'page.storyDl.title': 'Téléchargeur de Stories TikTok Sans Filigrane - Anonyme & HD',
   'page.storyDl.subtitle':
-    'Téléchargez anonymement les stories TikTok en qualité HD originale avant leur expiration, sans filigrane et sans connexion.',
+    'Téléchargez anonymement les stories TikTok publiques en qualité MP4 HD sans filigrane avant leur expiration et sans connexion.',
   'page.storyDl.bandTitle': 'Sauvegardez les Stories 24h pour Toujours',
   'page.storyDl.bandSubtitle': 'Regardez et archivez les stories publiques TikTok avant qu’elles ne disparaissent.',
   'page.storyDl.f1Title': 'Archive Permanente',
@@ -500,9 +630,9 @@ export const FR_PAGES: TranslationMap = {
   'page.storyDl.a3': 'Non. Toutes les stories sont téléchargées sans aucun logo TikTok.',
 
   'page.photoDl.crumb': 'Téléchargeur Photo TikTok',
-  'page.photoDl.title': 'Téléchargeur de Photos & Diaporamas TikTok',
+  'page.photoDl.title': 'Téléchargeur Gratuit de Photos & Diaporamas TikTok Sans Filigrane',
   'page.photoDl.subtitle':
-    'Extrayez et téléchargez chaque image d’un diaporama photo TikTok en qualité HD originale sans filigrane.',
+    'Extrayez et téléchargez chaque image d’un diaporama photo TikTok public en qualité HD originale sans filigrane et sans connexion.',
   'page.photoDl.bandTitle': 'Téléchargez les Photos en HD',
   'page.photoDl.bandSubtitle': 'Enregistrez les images de carrousels directement dans leur résolution d’origine.',
   'page.photoDl.f1Title': 'Extraction Individuelle',
@@ -519,9 +649,9 @@ export const FR_PAGES: TranslationMap = {
   'page.photoDl.a2': 'Les images sont téléchargées dans leur résolution native d’origine (généralement 1080p HD ou plus) sans compression.',
 
   'page.watermark.crumb': 'Suppresseur de Filigrane TikTok',
-  'page.watermark.title': 'Suppresseur de Filigrane TikTok',
+  'page.watermark.title': 'Suppresseur de Filigrane TikTok Gratuit - Vidéos MP4 HD Nettes',
   'page.watermark.subtitle':
-    'Supprimez proprement le logo rebondissant et le filigrane TikTok sans recadrer, flouter ni perdre la qualité HD d’origine.',
+    'Supprimez proprement le logo rebondissant et le filigrane TikTok pour enregistrer des vidéos MP4 HD gratuites sans recadrage, flou ni connexion.',
   'page.watermark.bandTitle': 'Vidéos Propres Sans Logo Incrusté',
   'page.watermark.bandSubtitle': 'Enregistrez les flux originaux sans filigrane pour le montage ou la lecture hors ligne.',
   'page.watermark.f1Title': 'Sans Flou ni Recadrage',
@@ -540,17 +670,131 @@ export const FR_PAGES: TranslationMap = {
   'page.watermark.a3': 'Oui. Tout s’exécute dans votre navigateur sans logiciel, extension ni connexion.',
 
   'page.analytics.crumb': 'Analytique TikTok',
-  'page.analytics.title': 'Analytique de Profil TikTok',
-  'page.analytics.subtitle': 'Consultez les taux d’engagement en direct, les vues moyennes et la valeur publicitaire.',
+  'page.analytics.title': 'Analytique de Profil TikTok Gratuite - Engagement & Vues Moyennes',
+  'page.analytics.subtitle':
+    'Analysez tout compte TikTok public anonymement sans connexion. Consultez le taux d’engagement en direct, les vues moyennes et la valeur sponsorisée.',
+  'page.analytics.engagementRate': 'Taux d’engagement',
+  'page.analytics.rateViral': 'Engagement viral élevé',
+  'page.analytics.rateHealthy': 'Activité créateur saine',
+  'page.analytics.rateAverage': 'Interaction moyenne',
+  'page.analytics.avgViews': 'Vues moyennes / vidéo',
+  'page.analytics.basedOnVideos': 'Sur les {count} dernières vidéos',
+  'page.analytics.avgLikes': 'J’aime moyens / vidéo',
+  'page.analytics.commentsPerVideo': '{count} commentaires / vidéo',
+  'page.analytics.estSponsorship': 'Valeur sponsoring estimée',
+  'page.analytics.perSponsoredPost': 'Estimation par publication sponsorisée',
+  'page.analytics.notAvailable': 'N/D',
+  'page.analytics.recentBreakdown': 'Détail des performances des vidéos récentes',
+  'page.analytics.liveFeedMetrics': 'Métriques en direct',
+  'page.analytics.card1Title': 'Qualité de l’audience',
+  'page.analytics.card1Desc':
+    'Repérez les comptes inactifs en comparant les abonnés aux vues et commentaires moyens réels.',
+  'page.analytics.card2Title': 'Repères d’engagement',
+  'page.analytics.card2Desc':
+    'Les comptes TikTok performants maintiennent souvent un taux d’engagement supérieur à 5 pour cent.',
+  'page.analytics.card3Title': 'Monétisation créateur',
+  'page.analytics.card3Desc':
+    'Estimez la valeur des partenariats selon les paliers d’abonnés vérifiés et l’interaction active.',
+
   'page.moneyCalc.crumb': 'Calculateur de Revenus TikTok',
-  'page.moneyCalc.title': 'Calculateur de Gains TikTok',
-  'page.moneyCalc.subtitle': 'Estimez vos revenus mensuels issus des partenariats et du programme des créateurs.',
+  'page.moneyCalc.title': 'Calculateur Gratuit de Gains & Revenus TikTok pour Créateurs',
+  'page.moneyCalc.subtitle':
+    'Estimez les revenus mensuels sur TikTok grâce aux sponsorings de marques, au Creator Rewards Program et aux cadeaux en direct sans connexion.',
+  'page.moneyCalc.inputHeading': 'Saisir les métriques créateur',
+  'page.moneyCalc.totalFollowers': 'Total des abonnés',
+  'page.moneyCalc.avgViews': 'Vues moyennes par vidéo',
+  'page.moneyCalc.monthlyUploads': 'Publications mensuelles',
+  'page.moneyCalc.videosUnit': '{count} vidéos',
+  'page.moneyCalc.nicheLabel': 'Thématique / Catégorie',
+  'page.moneyCalc.niche1': 'Finance, Investissement & Immobilier (RPM élevé)',
+  'page.moneyCalc.niche2': 'Tech, Gadgets & Logiciels (RPM moyen-haut)',
+  'page.moneyCalc.niche3': 'Fitness, Santé & Bien-être',
+  'page.moneyCalc.niche4': 'Beauté, Mode & Lifestyle',
+  'page.moneyCalc.niche5': 'Gaming, Divertissement & Comédie (RPM standard)',
+  'page.moneyCalc.projectedTitle': 'Revenus mensuels projetés',
+  'page.moneyCalc.projectedSub':
+    'Revenus mensuels estimés entre sponsorings, récompenses créateurs et cadeaux en direct.',
+  'page.moneyCalc.sponsorPerPost': 'Post sponsorisé (par vidéo)',
+  'page.moneyCalc.creatorRewards': 'Creator Rewards Program',
+  'page.moneyCalc.liveAffiliate': 'Cadeaux Live & Affiliation',
+  'page.moneyCalc.perMonth': '/mois',
+  'page.moneyCalc.disclaimer':
+    '*Ces projections sont des estimations indicatives basées sur les benchmarks du secteur.',
+  'page.moneyCalc.card1Title': 'RPM Creator Rewards',
+  'page.moneyCalc.card1Desc':
+    'Les vidéos de plus d’une minute sont éligibles à la monétisation si les spectateurs regardent plus de 5 secondes.',
+  'page.moneyCalc.card2Title': 'Tarifs de sponsoring',
+  'page.moneyCalc.card2Desc':
+    'Les marques paient entre 10 $ et 25 $ pour 10 000 vues sur les niches commerciales portées par l’achat.',
+  'page.moneyCalc.card3Title': 'Zone géographique',
+  'page.moneyCalc.card3Desc':
+    'Les audiences dans les marchés majeurs génèrent des budgets publicitaires nettement supérieurs.',
+
   'page.engageCalc.crumb': 'Calculateur d’Engagement TikTok',
-  'page.engageCalc.title': 'Calculateur de Taux d’Engagement TikTok',
-  'page.engageCalc.subtitle': 'Calculez votre taux d’engagement exact par vues ou abonnés.',
+  'page.engageCalc.title': 'Calculateur Gratuit de Taux d’Engagement TikTok (Vues & Abonnés)',
+  'page.engageCalc.subtitle':
+    'Calculez votre taux d’engagement TikTok exact par vues ou abonnés et comparez vos résultats aux benchmarks du secteur.',
+  'page.engageCalc.inputHeading': 'Entrez les chiffres du post ou du compte',
+  'page.engageCalc.byViews': 'Par vues',
+  'page.engageCalc.byFollowers': 'Par abonnés',
+  'page.engageCalc.likesLabel': 'Total des J’aime',
+  'page.engageCalc.commentsLabel': 'Total des commentaires',
+  'page.engageCalc.sharesLabel': 'Total partages & enregistrements',
+  'page.engageCalc.viewsLabel': 'Total des vues vidéo',
+  'page.engageCalc.followersLabel': 'Total des abonnés',
+  'page.engageCalc.formulaViews': 'Formule : ((J’aime + Commentaires + Partages) / Vues) x 100',
+  'page.engageCalc.formulaFollowers': 'Formule : ((J’aime + Commentaires + Partages) / Abonnés) x 100',
+  'page.engageCalc.resultHeading': 'Taux d’engagement calculé',
+  'page.engageCalc.totalInteractions': 'Interactions totales',
+  'page.engageCalc.calcBasis': 'Base de calcul',
+  'page.engageCalc.basisViews': '{count} vues',
+  'page.engageCalc.basisFollowers': '{count} abonnés',
+  'page.engageCalc.scaleHeading': 'Échelle d’engagement TikTok :',
+  'page.engageCalc.scaleLow': 'Engagement faible',
+  'page.engageCalc.scaleHealthy': 'Seuil sain standard',
+  'page.engageCalc.scaleHigh': 'Performance élevée / virale',
+  'page.engageCalc.ratingViral': 'Viral / Exceptionnel',
+  'page.engageCalc.ratingStrong': 'Fort / Au-dessus de la moyenne',
+  'page.engageCalc.ratingHealthy': 'Sain / Standard',
+  'page.engageCalc.ratingLow': 'Faible / Marge de progression',
+  'page.engageCalc.card1Title': 'Vues vs Abonnés',
+  'page.engageCalc.card1Desc':
+    'L’algorithme TikTok diffusant largement les vidéos, le calcul par vues reflète mieux l’intérêt réel que le nombre d’abonnés.',
+  'page.engageCalc.card2Title': 'Critère des marques',
+  'page.engageCalc.card2Desc':
+    'Les agences demandent souvent un taux d’engagement régulier de 4% ou plus avant de valider un partenariat.',
+  'page.engageCalc.card3Title': 'Améliorer l’engagement',
+  'page.engageCalc.card3Desc':
+    'Posez une question ouverte en légende et répondez aux meilleurs commentaires dans les 60 premières minutes.',
+
   'page.captionGen.crumb': 'Générateur de Légendes TikTok',
-  'page.captionGen.title': 'Générateur de Légendes et Hashtags TikTok',
-  'page.captionGen.subtitle': 'Créez des accroches percutantes et des hashtags ciblés pour vos vidéos.',
+  'page.captionGen.title': 'Générateur Gratuit de Légendes & Hashtags TikTok',
+  'page.captionGen.subtitle':
+    'Créez des accroches claires, légendes courtes et hashtags ciblés en quelques secondes sans connexion pour augmenter vues et partages.',
+  'page.captionGen.setupHeading': 'Choisissez votre sujet & thématique',
+  'page.captionGen.topicLabel': 'Sujet de la vidéo (optionnel)',
+  'page.captionGen.topicPlaceholder': 'ex. 3 habitudes du matin pour gagner du temps',
+  'page.captionGen.nicheLabel': 'Thématique du contenu',
+  'page.captionGen.newHookBtn': 'Générer une autre accroche',
+  'page.captionGen.outputHeading': 'Légende prête à coller',
+  'page.captionGen.copyBtn': 'Copier',
+  'page.captionGen.copiedBtn': 'Copié',
+  'page.captionGen.tipText':
+    'Astuce : gardez votre légende sous 150 caractères afin que l’accroche reste visible sur mobile sans tronquer.',
+  'page.captionGen.niche.Viral': 'Viral',
+  'page.captionGen.niche.Comedy': 'Comédie',
+  'page.captionGen.niche.Food': 'Cuisine',
+  'page.captionGen.niche.Tech': 'Tech',
+  'page.captionGen.niche.Fitness': 'Fitness',
+  'page.captionGen.niche.Dance': 'Danse',
+  'page.captionGen.hook1': 'Attendez la fin pour voir ce qui s’est passé...',
+  'page.captionGen.hook2': 'Dites-moi que vous faites ça aussi sans le dire directement.',
+  'page.captionGen.hook3': 'Arrêtez de défiler si vous avez besoin de cette astuce aujourd’hui.',
+  'page.captionGen.hook4': 'J’ai testé cette astuce TikTok pour vous éviter de le faire.',
+  'page.captionGen.hook5': 'Pourquoi personne ne m’en a parlé plus tôt ?',
+  'page.captionGen.hook6': 'Voici la vérité honnête dont personne ne parle.',
+  'page.captionGen.hook7': 'Voici ce qui s’est passé après 7 jours de test :',
+  'page.captionGen.hook8': 'Enregistrez cette vidéo pour la retrouver facilement plus tard.',
 };
 
 export const ES_PAGES: TranslationMap = {
@@ -579,9 +823,9 @@ export const ES_PAGES: TranslationMap = {
   'legal.nav.availability': 'Disponibilidad del Servicio',
 
   'page.about.crumb': 'Sobre Tik Profiles Viewer',
-  'page.about.title': 'Sobre Tik Profiles Viewer',
+  'page.about.title': 'Sobre Tik Profiles Viewer - Visor Anónimo y Descargador HD Gratis',
   'page.about.subtitle':
-    'Tik Profiles Viewer (TikProfilesViewer.com) es un servicio web gratuito diseñado para que cualquiera pueda revisar perfiles públicos de TikTok, ver videos con fluidez y descargar videos HD originales sin marcas de agua.',
+    'Tik Profiles Viewer (TikProfilesViewer.com) es un servicio web gratuito para ver perfiles públicos de TikTok de forma anónima sin registro y descargar videos MP4 HD sin marca de agua.',
   'page.about.p1Title': 'Reproducción Rápida',
   'page.about.p1Desc':
     'Nuestro reproductor carga los videos al instante para que disfrutes sin cortes, pantallas de carga ni ventanas molestas.',
@@ -622,9 +866,9 @@ export const ES_PAGES: TranslationMap = {
   'page.about.ctaPrimary': 'Abrir Visor de Perfiles',
 
   'page.howto.crumb': 'Cómo Usar Tik Profiles Viewer',
-  'page.howto.title': 'Cómo Usar Tik Profiles Viewer',
+  'page.howto.title': 'Cómo Usar Tik Profiles Viewer y Descargar Videos HD Sin Marca de Agua',
   'page.howto.subtitle':
-    'Sigue esta guía sencilla para buscar cualquier perfil público de TikTok, reproducir videos sin cortes y descargar videos HD sin marca de agua en TikProfilesViewer.com.',
+    'Sigue esta guía sencilla para buscar perfiles públicos de TikTok de forma anónima sin registro, ver videos sin cortes y descargar MP4 HD y MP3 gratis.',
   'page.howto.s1Title': 'Busca Cualquier Usuario de TikTok',
   'page.howto.s1Desc':
     'Ve a la página de inicio y ubica la barra de búsqueda. Escribe cualquier usuario público (por ejemplo, khaby.lame o @charlidamelio) y pulsa Ver Perfil.',
@@ -654,9 +898,9 @@ export const ES_PAGES: TranslationMap = {
     'Busca cualquier cuenta pública de TikTok, reproduce videos al instante y guarda videos HD sin marca de agua.',
   'page.howto.ctaPrimary': 'Empezar a Ver Perfiles',
 
-  'page.creators.title': 'Top Creadores de TikTok',
+  'page.creators.title': 'Directorio Top Creadores de TikTok - Visor y Videos HD Gratis',
   'page.creators.subtitle':
-    'Explora los creadores más seguidos de TikTok. Revisa sus perfiles y descarga videos sin marcas de agua.',
+    'Explora los creadores más seguidos de TikTok en cada categoría. Mira perfiles anónimamente sin registro y descarga videos MP4 HD sin marca de agua.',
   'page.creators.searchPlaceholder': 'Buscar nombre o @usuario...',
   'page.creators.allCategories': 'Todas las Categorías',
   'page.creators.followers': 'Seguidores',
@@ -665,11 +909,15 @@ export const ES_PAGES: TranslationMap = {
   'page.creators.emptyTitle': 'No se encontraron creadores que coincidan con "{query}"',
   'page.creators.emptySubtitle': 'Prueba otro nombre o explora todas las categorías.',
 
-  'page.categories.title': 'Explorar TikTok por Categoría',
-  'page.categories.subtitle': 'Navega por creadores y videos según su tema.',
+  'page.categories.title': 'Explorar Creadores de TikTok por Categoría - Visor Gratis',
+  'page.categories.subtitle':
+    'Navega por creadores públicos y videos HD según el tema: comedia, cocina, tecnología, gaming, fitness, baile, belleza, ciencia, viajes y mascotas.',
   'page.categories.browse': 'Explorar {name}',
   'page.categories.creatorsBadge': '{count} Creadores',
 
+  'page.category.metaTitle': 'Top Creadores de {name} en TikTok y Videos HD Sin Marca de Agua',
+  'page.category.metaDesc':
+    'Explora los mejores creadores de {name} en TikTok de forma anónima sin registro. Consulta seguidores y descarga videos MP4 HD y MP3 gratis sin marca de agua.',
   'page.category.topHeading': 'Top Creadores de {name}',
   'page.category.topSubtitle':
     'Haz clic en cualquier creador para ver su perfil y descargar videos sin marca de agua.',
@@ -679,9 +927,13 @@ export const ES_PAGES: TranslationMap = {
   'page.category.followersLabel': '{count} seguidores',
   'page.category.likesLabel': '{count} me gusta',
 
+  'page.profile.metaTitleKnown': '{displayName} (@{username}) Perfil de TikTok y Videos HD Sin Marca de Agua',
+  'page.profile.metaDescKnown':
+    'Mira y descarga videos de @{username} en TikTok en MP4 HD gratis sin marca de agua. Consulta {followers} seguidores y extrae audio MP3 en TikProfilesViewer.com.',
+  'page.profile.metaTitleFallback': '@{username} Perfil de TikTok y Videos HD Gratis Sin Marca de Agua',
   'page.profile.heroTitleFallback': 'Perfil de TikTok @{username}',
   'page.profile.heroSubtitleFallback':
-    'Mira y descarga videos públicos de @{username} en TikTok en MP4 HD sin marca de agua y audio MP3.',
+    'Mira y descarga videos públicos de @{username} en TikTok de forma anónima en MP4 HD sin marca de agua y audio MP3.',
   'page.profile.faqHeading': 'Preguntas Frecuentes',
   'page.profile.q1': '¿Cómo descargo videos de @{username} sin marca de agua?',
   'page.profile.a1':
@@ -693,9 +945,9 @@ export const ES_PAGES: TranslationMap = {
     'Sí, 100% anónimo. No necesitas cuenta de TikTok y el creador nunca sabrá que visitaste su perfil.',
 
   'page.videoDl.crumb': 'Descargador de Videos TikTok',
-  'page.videoDl.title': 'Descargador de Videos de TikTok',
+  'page.videoDl.title': 'Descargador de Videos TikTok Gratis Sin Marca de Agua (HD MP4)',
   'page.videoDl.subtitle':
-    'Descarga videos de TikTok en formato MP4 HD original sin marcas de agua gratis.',
+    'Descarga videos públicos de TikTok en formato MP4 HD gratis sin marca de agua y sin iniciar sesión en cualquier móvil o PC.',
   'page.videoDl.bandTitle': 'Cómo Descargar Videos de TikTok',
   'page.videoDl.bandSubtitle': 'Guarda tus videos favoritos en tres pasos sencillos.',
   'page.videoDl.f1Title': 'Ingresa el Usuario',
@@ -714,9 +966,9 @@ export const ES_PAGES: TranslationMap = {
   'page.videoDl.a3': 'Sí. Funciona en cualquier navegador en iPhone, Android, Mac y Windows PC.',
 
   'page.mp3Dl.crumb': 'Descargador Audio MP3 TikTok',
-  'page.mp3Dl.title': 'Descargador de Audio MP3 de TikTok',
+  'page.mp3Dl.title': 'Extractor de Audio MP3 de TikTok Gratis y Descargador de Sonidos',
   'page.mp3Dl.subtitle':
-    'Extrae y descarga pistas MP3 de música y voz desde cualquier video de TikTok gratis.',
+    'Extrae y descarga pistas MP3 de música y voz original desde cualquier video público de TikTok gratis y sin registro.',
   'page.mp3Dl.bandTitle': 'Extrae Audio Limpio de TikTok',
   'page.mp3Dl.bandSubtitle': 'Guarda canciones, efectos de sonido y voces en formato MP3 nítido.',
   'page.mp3Dl.f1Title': 'Calidad de Sonido Limpia',
@@ -734,9 +986,9 @@ export const ES_PAGES: TranslationMap = {
   'page.mp3Dl.a3': 'Sí, 100% gratuita y sin límites.',
 
   'page.viewer.crumb': 'Visor de Perfiles de TikTok',
-  'page.viewer.title': 'Visor Anónimo de Perfiles de TikTok',
+  'page.viewer.title': 'Visor Anónimo de Perfiles TikTok - Sin Registro y HD Gratis',
   'page.viewer.subtitle':
-    'Busca cualquier creador público de TikTok, revisa sus seguidores y mira sus videos de forma anónima sin cuenta.',
+    'Busca cualquier creador público de TikTok de forma anónima sin iniciar sesión, revisa seguidores y mira o descarga videos MP4 HD sin marca de agua.',
   'page.viewer.bandTitle': 'Inspección Privada y Rápida de Perfiles',
   'page.viewer.bandSubtitle': 'Explora cualquier perfil público de TikTok directamente en tu navegador.',
   'page.viewer.f1Title': '100% Anónimo',
@@ -754,9 +1006,9 @@ export const ES_PAGES: TranslationMap = {
   'page.viewer.a3': 'No. Solo es posible ver cuentas públicas y videos públicos.',
 
   'page.storyDl.crumb': 'Descargador de Historias TikTok',
-  'page.storyDl.title': 'Descargador de Historias de TikTok',
+  'page.storyDl.title': 'Descargador de Historias TikTok Sin Marca de Agua - Anónimo y HD',
   'page.storyDl.subtitle':
-    'Descarga historias de TikTok de forma anónima en HD original antes de que expiren, sin marca de agua y sin iniciar sesión.',
+    'Descarga historias públicas de TikTok de forma anónima en HD MP4 sin marca de agua antes de que expiren y sin iniciar sesión.',
   'page.storyDl.bandTitle': 'Guarda Historias de 24h Para Siempre',
   'page.storyDl.bandSubtitle': 'Mira y archiva historias públicas de TikTok antes de que desaparezcan.',
   'page.storyDl.f1Title': 'Archivo Permanente',
@@ -776,9 +1028,9 @@ export const ES_PAGES: TranslationMap = {
   'page.storyDl.a3': 'No. Todas las historias se descargan limpias y sin el logo de TikTok.',
 
   'page.photoDl.crumb': 'Descargador de Fotos TikTok',
-  'page.photoDl.title': 'Descargador de Fotos y Carruseles de TikTok',
+  'page.photoDl.title': 'Descargador Gratis de Fotos y Carruseles TikTok Sin Marca de Agua',
   'page.photoDl.subtitle':
-    'Extrae y descarga imágenes individuales limpias de cualquier carrusel de TikTok en HD original sin marca de agua.',
+    'Extrae y descarga imágenes individuales limpias de cualquier carrusel público de TikTok en HD original sin marca de agua y sin registro.',
   'page.photoDl.bandTitle': 'Descarga Fotos de Carruseles en HD',
   'page.photoDl.bandSubtitle': 'Guarda imágenes de presentaciones directamente en su resolución original.',
   'page.photoDl.f1Title': 'Extracción Individual',
@@ -795,9 +1047,9 @@ export const ES_PAGES: TranslationMap = {
   'page.photoDl.a2': 'Todas las imágenes se descargan en su resolución nativa original (1080p HD o superior) sin compresión.',
 
   'page.watermark.crumb': 'Quitar Marca de Agua TikTok',
-  'page.watermark.title': 'Eliminador de Marca de Agua de TikTok',
+  'page.watermark.title': 'Eliminador de Marca de Agua TikTok Gratis - Videos HD MP4 Limpios',
   'page.watermark.subtitle':
-    'Elimina limpiamente el logotipo rebotante y el usuario de TikTok sin recortar, difuminar ni perder la calidad HD original.',
+    'Elimina limpiamente el logotipo rebotante y el usuario de TikTok para guardar videos MP4 HD gratis sin recortar, difuminar ni iniciar sesión.',
   'page.watermark.bandTitle': 'Videos Limpios Sin Logotipo',
   'page.watermark.bandSubtitle': 'Guarda transmisiones originales sin marca listas para editar o reproducir sin conexión.',
   'page.watermark.f1Title': 'Sin Desenfoque ni Recortes',
@@ -816,15 +1068,129 @@ export const ES_PAGES: TranslationMap = {
   'page.watermark.a3': 'Sí. Todo funciona en tu navegador sin instalar programas ni extensiones.',
 
   'page.analytics.crumb': 'Analítica de TikTok',
-  'page.analytics.title': 'Analítica de Perfiles de TikTok',
-  'page.analytics.subtitle': 'Consulta tasas de interacción en vivo, vistas promedio y valor estimado.',
+  'page.analytics.title': 'Analítica Gratis de Perfiles TikTok - Engagement y Vues Medias',
+  'page.analytics.subtitle':
+    'Analiza cualquier cuenta pública de TikTok anónimamente sin registro. Consulta tasas de interacción en vivo, vistas promedio y valor de patrocinio.',
+  'page.analytics.engagementRate': 'Tasa de interacción',
+  'page.analytics.rateViral': 'Interacción viral alta',
+  'page.analytics.rateHealthy': 'Actividad saludable',
+  'page.analytics.rateAverage': 'Interacción promedio',
+  'page.analytics.avgViews': 'Vistas promedio / video',
+  'page.analytics.basedOnVideos': 'Basado en los últimos {count} videos',
+  'page.analytics.avgLikes': 'Me gusta promedio / video',
+  'page.analytics.commentsPerVideo': '{count} comentarios / video',
+  'page.analytics.estSponsorship': 'Valor estimado de patrocinio',
+  'page.analytics.perSponsoredPost': 'Estimación por video patrocinado',
+  'page.analytics.notAvailable': 'N/D',
+  'page.analytics.recentBreakdown': 'Desglose de rendimiento de videos recientes',
+  'page.analytics.liveFeedMetrics': 'Métricas en vivo',
+  'page.analytics.card1Title': 'Control de calidad de audiencia',
+  'page.analytics.card1Desc':
+    'Detecta cuentas inactivas comparando seguidores con vistas y comentarios reales por video.',
+  'page.analytics.card2Title': 'Referencias de engagement',
+  'page.analytics.card2Desc':
+    'Las cuentas sólidas de TikTok suelen mantener una tasa de interacción superior al 5 por ciento.',
+  'page.analytics.card3Title': 'Monetización de creadores',
+  'page.analytics.card3Desc':
+    'Estima el valor comercial de patrocinios según seguidores verificados y respuesta activa.',
+
   'page.moneyCalc.crumb': 'Calculadora de Ingresos TikTok',
-  'page.moneyCalc.title': 'Calculadora de Ganancias de Creadores',
-  'page.moneyCalc.subtitle': 'Estima tus ganancias mensuales por patrocinios y el programa de creadores.',
+  'page.moneyCalc.title': 'Calculadora Gratis de Ganancias y Dinero en TikTok',
+  'page.moneyCalc.subtitle':
+    'Estima ganancias mensuales de creadores por patrocinios de marca, Creator Rewards Program y regalos en vivo sin iniciar sesión.',
+  'page.moneyCalc.inputHeading': 'Ingresar métricas del creador',
+  'page.moneyCalc.totalFollowers': 'Seguidores totales',
+  'page.moneyCalc.avgViews': 'Vistas promedio por video',
+  'page.moneyCalc.monthlyUploads': 'Videos subidos al mes',
+  'page.moneyCalc.videosUnit': '{count} videos',
+  'page.moneyCalc.nicheLabel': 'Nicho o categoría de contenido',
+  'page.moneyCalc.niche1': 'Finanzas, Inversión e Inmobiliaria (RPM alto)',
+  'page.moneyCalc.niche2': 'Tecnología, Gadgets y Software (RPM medio-alto)',
+  'page.moneyCalc.niche3': 'Fitness, Salud y Bienestar',
+  'page.moneyCalc.niche4': 'Belleza, Moda y Estilo de Vida',
+  'page.moneyCalc.niche5': 'Gaming, Entretenimiento y Comedia (RPM estándar)',
+  'page.moneyCalc.projectedTitle': 'Ingresos mensuales estimados',
+  'page.moneyCalc.projectedSub':
+    'Ingresos mensuales estimados entre patrocinios, recompensas y regalos en vivo.',
+  'page.moneyCalc.sponsorPerPost': 'Publicación patrocinada (por video)',
+  'page.moneyCalc.creatorRewards': 'Creator Rewards Program',
+  'page.moneyCalc.liveAffiliate': 'Regalos en vivo y afiliados',
+  'page.moneyCalc.perMonth': '/mes',
+  'page.moneyCalc.disclaimer':
+    '*Las proyecciones son estimaciones educativas basadas en referencias del sector.',
+  'page.moneyCalc.card1Title': 'RPM de Creator Rewards',
+  'page.moneyCalc.card1Desc':
+    'Los videos de más de 1 minuto califican si los espectadores superan los 5 segundos de reproducción.',
+  'page.moneyCalc.card2Title': 'Tarifas de patrocinio',
+  'page.moneyCalc.card2Desc':
+    'Las marcas suelen pagar entre $10 y $25 por cada 10,000 vistas en nichos comerciales activos.',
+  'page.moneyCalc.card3Title': 'Ubicación de la audiencia',
+  'page.moneyCalc.card3Desc':
+    'Las audiencias en mercados principales generan pagos publicitarios y presupuestos de marca más altos.',
+
   'page.engageCalc.crumb': 'Calculadora de Engagement',
-  'page.engageCalc.title': 'Calculadora de Tasa de Engagement de TikTok',
-  'page.engageCalc.subtitle': 'Calcula tu tasa de interacción exacta por vistas o seguidores.',
+  'page.engageCalc.title': 'Calculadora Gratis de Tasa de Engagement TikTok (Vistas y Seguidores)',
+  'page.engageCalc.subtitle':
+    'Calcula tu tasa exacta de interacción en TikTok por vistas o seguidores y compárala con referencias del sector.',
+  'page.engageCalc.inputHeading': 'Ingresa métricas de publicación o cuenta',
+  'page.engageCalc.byViews': 'Por vistas',
+  'page.engageCalc.byFollowers': 'Por seguidores',
+  'page.engageCalc.likesLabel': 'Total de Me gusta',
+  'page.engageCalc.commentsLabel': 'Total de comentarios',
+  'page.engageCalc.sharesLabel': 'Total compartidos y guardados',
+  'page.engageCalc.viewsLabel': 'Total de vistas del video',
+  'page.engageCalc.followersLabel': 'Total de seguidores',
+  'page.engageCalc.formulaViews': 'Fórmula: ((Me gusta + Comentarios + Compartidos) / Vistas) x 100',
+  'page.engageCalc.formulaFollowers': 'Fórmula: ((Me gusta + Comentarios + Compartidos) / Seguidores) x 100',
+  'page.engageCalc.resultHeading': 'Taux de engagement calculado',
+  'page.engageCalc.totalInteractions': 'Interacciones totales',
+  'page.engageCalc.calcBasis': 'Base de cálculo',
+  'page.engageCalc.basisViews': '{count} vistas',
+  'page.engageCalc.basisFollowers': '{count} seguidores',
+  'page.engageCalc.scaleHeading': 'Escala de engagement en TikTok:',
+  'page.engageCalc.scaleLow': 'Interacción baja',
+  'page.engageCalc.scaleHealthy': 'Referencia saludable estándar',
+  'page.engageCalc.scaleHigh': 'Rendimiento alto / viral',
+  'page.engageCalc.ratingViral': 'Viral / Excepcional',
+  'page.engageCalc.ratingStrong': 'Fuerte / Sobre el promedio',
+  'page.engageCalc.ratingHealthy': 'Saludable / Estándar',
+  'page.engageCalc.ratingLow': 'Bajo / Margen de mejora',
+  'page.engageCalc.card1Title': 'Vistas vs Seguidores',
+  'page.engageCalc.card1Desc':
+    'Como el algoritmo distribuye los videos ampliamente, calcular por vistas refleja mejor el interés real.',
+  'page.engageCalc.card2Title': 'Estándar para marcas',
+  'page.engageCalc.card2Desc':
+    'Marcas y agencias suelen buscar una tasa constante de 4% o superior antes de aprobar campañas.',
+  'page.engageCalc.card3Title': 'Cómo mejorar la interacción',
+  'page.engageCalc.card3Desc':
+    'Haz preguntas abiertas en la descripción y responde a los primeros comentarios en la primera hora.',
+
   'page.captionGen.crumb': 'Generador de Leyendas',
-  'page.captionGen.title': 'Generador de Leyendas y Hashtags para TikTok',
-  'page.captionGen.subtitle': 'Crea ganchos y hashtags atractivos para conseguir más vistas.',
+  'page.captionGen.title': 'Generador Gratis de Leyendas y Hashtags para TikTok',
+  'page.captionGen.subtitle':
+    'Crea ganchos claros, leyendas cortas y hashtags enfocados al instante sin registro para aumentar tus vistas y compartidos.',
+  'page.captionGen.setupHeading': 'Elige tu tema y nicho',
+  'page.captionGen.topicLabel': 'Tema del video (opcional)',
+  'page.captionGen.topicPlaceholder': 'ej. 3 hábitos de mañana que ahorran tiempo',
+  'page.captionGen.nicheLabel': 'Nicho de contenido',
+  'page.captionGen.newHookBtn': 'Generar otro gancho',
+  'page.captionGen.outputHeading': 'Leyenda lista para pegar',
+  'page.captionGen.copyBtn': 'Copiar leyenda',
+  'page.captionGen.copiedBtn': 'Copiado',
+  'page.captionGen.tipText':
+    'Consejo: mantén tu leyenda por debajo de 150 caracteres para que el gancho inicial se lea completo en móviles.',
+  'page.captionGen.niche.Viral': 'Viral',
+  'page.captionGen.niche.Comedy': 'Comedia',
+  'page.captionGen.niche.Food': 'Comida',
+  'page.captionGen.niche.Tech': 'Tecnología',
+  'page.captionGen.niche.Fitness': 'Fitness',
+  'page.captionGen.niche.Dance': 'Baile',
+  'page.captionGen.hook1': 'Espera hasta el final para ver lo que pasó...',
+  'page.captionGen.hook2': 'Dime que tú también haces esto sin decirlo directamente.',
+  'page.captionGen.hook3': 'Deja de deslizar si necesitas este consejo hoy.',
+  'page.captionGen.hook4': 'Probé este truco de TikTok para que tú no tengas que hacerlo.',
+  'page.captionGen.hook5': '¿Por qué nadie me contó esto antes?',
+  'page.captionGen.hook6': 'Esta es la verdad sincera de la que nadie habla.',
+  'page.captionGen.hook7': 'Esto fue lo que pasó cuando lo probé durante 7 días:',
+  'page.captionGen.hook8': 'Guarda este video para volver a verlo más tarde.',
 };

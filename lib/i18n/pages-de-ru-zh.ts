@@ -27,9 +27,9 @@ export const DE_PAGES: TranslationMap = {
   'legal.nav.availability': 'Dienstverfügbarkeit',
 
   'page.about.crumb': 'Über Tik Profiles Viewer',
-  'page.about.title': 'Über Tik Profiles Viewer',
+  'page.about.title': 'Über Tik Profiles Viewer - Anonymer Profil-Viewer & HD-Downloader',
   'page.about.subtitle':
-    'Tik Profiles Viewer (TikProfilesViewer.com) ist ein kostenloser Webdienst, mit dem jeder öffentliche TikTok-Profile ansehen, Videos flüssig abspielen und Original-HD-Videos ohne Wasserzeichen herunterladen kann.',
+    'Tik Profiles Viewer (TikProfilesViewer.com) ist ein kostenloser Webdienst zum anonymen Ansehen öffentlicher TikTok-Profile ohne Login und zum Laden von HD-MP4-Videos ohne Wasserzeichen.',
   'page.about.p1Title': 'Schnelle Videowiedergabe',
   'page.about.p1Desc':
     'Unser Player lädt Videos sofort, sodass Sie Inhalte ohne Ruckeln, lange Ladebildschirme oder störende App-Popups ansehen können.',
@@ -70,9 +70,9 @@ export const DE_PAGES: TranslationMap = {
   'page.about.ctaPrimary': 'Profil-Viewer öffnen',
 
   'page.howto.crumb': 'Anleitung für Tik Profiles Viewer',
-  'page.howto.title': 'So nutzen Sie Tik Profiles Viewer',
+  'page.howto.title': 'Anleitung: TikTok-Profile Anonym Ansehen & HD ohne Wasserzeichen Laden',
   'page.howto.subtitle':
-    'Folgen Sie dieser einfachen Anleitung, um öffentliche TikTok-Profile zu suchen, Videos flüssig anzusehen und HD-Videos ohne Wasserzeichen auf TikProfilesViewer.com herunterzuladen.',
+    'Folgen Sie dieser Anleitung, um öffentliche TikTok-Profile anonym ohne Login zu suchen, Videos flüssig anzusehen und kostenlos HD-MP4 sowie MP3 herunterzuladen.',
   'page.howto.s1Title': 'Einen TikTok-Benutzernamen suchen',
   'page.howto.s1Desc':
     'Öffnen Sie die Startseite und suchen Sie die Suchleiste. Geben Sie einen öffentlichen Benutzernamen ein (z. B. khaby.lame oder @charlidamelio) und klicken Sie auf Profil öffnen.',
@@ -102,9 +102,9 @@ export const DE_PAGES: TranslationMap = {
     'Suchen Sie ein öffentliches TikTok-Konto, streamen Sie Videos sofort und sichern Sie HD-Clips ohne Wasserzeichen.',
   'page.howto.ctaPrimary': 'Profile ansehen',
 
-  'page.creators.title': 'Top TikTok Creator',
+  'page.creators.title': 'Top TikTok Creator Verzeichnis - Anonymer Viewer & HD-Videos',
   'page.creators.subtitle':
-    'Entdecken Sie die meistgefolgten TikTok-Creator. Sehen Sie ihre Profile an und laden Sie Videos ohne Wasserzeichen.',
+    'Entdecken Sie die meistgefolgten TikTok-Creator in jeder Kategorie. Sehen Sie Profile anonym ohne Login an und laden Sie HD-MP4-Videos ohne Wasserzeichen.',
   'page.creators.searchPlaceholder': 'Creator oder @Benutzername suchen...',
   'page.creators.allCategories': 'Alle Kategorien',
   'page.creators.followers': 'Follower',
@@ -113,11 +113,15 @@ export const DE_PAGES: TranslationMap = {
   'page.creators.emptyTitle': 'Keine Creator passend zu "{query}" gefunden',
   'page.creators.emptySubtitle': 'Versuchen Sie einen anderen Namen oder alle Kategorien.',
 
-  'page.categories.title': 'TikTok nach Kategorie entdecken',
-  'page.categories.subtitle': 'Durchsuchen Sie Creator und Videos nach Themengebiet.',
+  'page.categories.title': 'TikTok Creator nach Kategorie entdecken - Kostenloser Viewer',
+  'page.categories.subtitle':
+    'Durchsuchen Sie öffentliche Creator und HD-Videos nach Themen: Comedy, Kochen, Technik, Gaming, Fitness, Tanz, Beauty, Wissenschaft, Reisen und Tiere.',
   'page.categories.browse': '{name} ansehen',
   'page.categories.creatorsBadge': '{count} Creator',
 
+  'page.category.metaTitle': 'Top {name} TikTok Creator & Kostenlose HD-Videos ohne Wasserzeichen',
+  'page.category.metaDesc':
+    'Entdecken Sie führende {name} TikTok Creator anonym ohne Login. Prüfen Sie Follower-Zahlen und laden Sie kostenlose HD-MP4-Videos und MP3 ohne Wasserzeichen.',
   'page.category.topHeading': 'Top {name} Creator',
   'page.category.topSubtitle':
     'Klicken Sie auf einen Creator, um das Profil zu öffnen und Videos ohne Wasserzeichen zu laden.',
@@ -127,9 +131,13 @@ export const DE_PAGES: TranslationMap = {
   'page.category.followersLabel': '{count} Follower',
   'page.category.likesLabel': '{count} Likes',
 
+  'page.profile.metaTitleKnown': '{displayName} (@{username}) TikTok-Profil & HD-Videos ohne Wasserzeichen',
+  'page.profile.metaDescKnown':
+    'Sehen und laden Sie TikTok-Videos von @{username} kostenlos als HD-MP4 ohne Wasserzeichen. {followers} Follower und MP3-Audio auf TikProfilesViewer.com.',
+  'page.profile.metaTitleFallback': '@{username} TikTok-Profil & Kostenlose HD-Videos ohne Wasserzeichen',
   'page.profile.heroTitleFallback': '@{username} TikTok-Profil',
   'page.profile.heroSubtitleFallback':
-    'Öffentliche TikTok-Videos von @{username} als HD-MP4 ohne Wasserzeichen und MP3-Audio ansehen und laden.',
+    'Öffentliche TikTok-Videos von @{username} anonym als kostenloses HD-MP4 ohne Wasserzeichen und MP3-Audio ansehen und laden.',
   'page.profile.faqHeading': 'Häufig Gestellte Fragen',
   'page.profile.q1': 'Wie lade ich TikTok-Videos von @{username} ohne Wasserzeichen?',
   'page.profile.a1':
@@ -141,9 +149,9 @@ export const DE_PAGES: TranslationMap = {
     'Ja, 100% anonym. Sie benötigen kein TikTok-Konto und der Creator erfährt nichts von Ihrem Besuch.',
 
   'page.videoDl.crumb': 'TikTok Video Downloader',
-  'page.videoDl.title': 'TikTok Video Downloader',
+  'page.videoDl.title': 'Kostenloser TikTok Video Downloader ohne Wasserzeichen (HD MP4)',
   'page.videoDl.subtitle':
-    'Laden Sie TikTok-Videos im originalen HD-MP4-Format kostenlos ohne Wasserzeichen herunter.',
+    'Laden Sie öffentliche TikTok-Videos kostenlos im HD-MP4-Format ohne Wasserzeichen und ohne Login auf Smartphone oder PC herunter.',
   'page.videoDl.bandTitle': 'So laden Sie TikTok-Videos herunter',
   'page.videoDl.bandSubtitle': 'Speichern Sie Ihre Lieblingsvideos in drei einfachen Schritten.',
   'page.videoDl.f1Title': 'Benutzernamen eingeben',
@@ -162,9 +170,9 @@ export const DE_PAGES: TranslationMap = {
   'page.videoDl.a3': 'Ja. Es läuft in jedem Browser auf iPhone, Android, Mac und Windows.',
 
   'page.mp3Dl.crumb': 'TikTok Audio MP3 Downloader',
-  'page.mp3Dl.title': 'TikTok MP3 Audio Downloader',
+  'page.mp3Dl.title': 'Kostenloser TikTok MP3 Audio Extraktor & Sound Downloader',
   'page.mp3Dl.subtitle':
-    'Extrahieren und laden Sie MP3-Musik und Sprachaufnahmen aus jedem TikTok-Video kostenlos herunter.',
+    'Extrahieren und laden Sie saubere MP3-Musik und Originalton aus jedem öffentlichen TikTok-Video kostenlos und ohne Login.',
   'page.mp3Dl.bandTitle': 'Sauberes TikTok-Audio extrahieren',
   'page.mp3Dl.bandSubtitle': 'Speichern Sie Musik, Soundeffekte und Sprache als klares MP3.',
   'page.mp3Dl.f1Title': 'Klare Klangqualität',
@@ -182,9 +190,9 @@ export const DE_PAGES: TranslationMap = {
   'page.mp3Dl.a3': 'Ja, 100% kostenlos ohne Limits.',
 
   'page.viewer.crumb': 'TikTok Profil-Viewer',
-  'page.viewer.title': 'Anonymer TikTok Profil-Viewer',
+  'page.viewer.title': 'Anonymer TikTok Profil-Viewer - Ohne Login & Kostenloses HD',
   'page.viewer.subtitle':
-    'Suchen Sie öffentliche TikTok-Creator, sehen Sie Follower-Statistiken und schauen Sie Videos anonym ohne Konto.',
+    'Suchen Sie öffentliche TikTok-Creator anonym ohne Login, sehen Sie Follower-Statistiken und laden Sie kostenlose HD-MP4-Videos ohne Wasserzeichen.',
   'page.viewer.bandTitle': 'Private, schnelle Profilprüfung',
   'page.viewer.bandSubtitle': 'Durchsuchen Sie jedes öffentliche TikTok-Profil direkt im Browser.',
   'page.viewer.f1Title': '100% Anonym',
@@ -202,9 +210,9 @@ export const DE_PAGES: TranslationMap = {
   'page.viewer.a3': 'Nein. Es können nur öffentliche Konten und öffentliche Videos angezeigt werden.',
 
   'page.storyDl.crumb': 'TikTok Story Downloader',
-  'page.storyDl.title': 'TikTok Story Downloader',
+  'page.storyDl.title': 'Kostenloser TikTok Story Downloader ohne Wasserzeichen - Anonym & HD',
   'page.storyDl.subtitle':
-    'Laden Sie TikTok-Stories anonym in originaler HD-Qualität herunter, bevor sie ablaufen. Saubere MP4s ohne Wasserzeichen und ohne Login.',
+    'Laden Sie öffentliche TikTok-Stories anonym als HD-MP4 ohne Wasserzeichen herunter, bevor sie ablaufen, ganz ohne Login.',
   'page.storyDl.bandTitle': '24-Stunden-Stories dauerhaft sichern',
   'page.storyDl.bandSubtitle': 'Sehen und archivieren Sie öffentliche TikTok-Stories, bevor sie verschwinden.',
   'page.storyDl.f1Title': 'Dauerhaftes Archiv',
@@ -224,9 +232,9 @@ export const DE_PAGES: TranslationMap = {
   'page.storyDl.a3': 'Nein. Alle Stories werden ohne TikTok-Logo gespeichert.',
 
   'page.photoDl.crumb': 'TikTok Foto Downloader',
-  'page.photoDl.title': 'TikTok Foto- & Diashow-Downloader',
+  'page.photoDl.title': 'Kostenloser TikTok Foto- & Diashow-Downloader ohne Wasserzeichen',
   'page.photoDl.subtitle':
-    'Extrahieren und speichern Sie einzelne Bilder aus jeder TikTok-Foto-Diashow in originaler HD-Qualität ohne Wasserzeichen.',
+    'Extrahieren und speichern Sie einzelne Bilder aus öffentlichen TikTok-Diashows in originaler HD-Qualität ohne Wasserzeichen und ohne Login.',
   'page.photoDl.bandTitle': 'Diashow-Fotos in HD herunterladen',
   'page.photoDl.bandSubtitle': 'Speichern Sie Karussell-Bilder direkt in ihrer Originalauflösung.',
   'page.photoDl.f1Title': 'Einzelbild-Extraktion',
@@ -243,9 +251,9 @@ export const DE_PAGES: TranslationMap = {
   'page.photoDl.a2': 'Alle Bilder werden in ihrer nativen Upload-Auflösung (meist 1080p HD oder höher) ohne Kompression geladen.',
 
   'page.watermark.crumb': 'TikTok Wasserzeichen-Entferner',
-  'page.watermark.title': 'TikTok Wasserzeichen-Entferner',
+  'page.watermark.title': 'Kostenloser TikTok Wasserzeichen-Entferner - Saubere HD MP4 Videos',
   'page.watermark.subtitle':
-    'Entfernen Sie das springende TikTok-Logo und das Wasserzeichen sauber ohne Zuschneiden, Weichzeichnen oder Qualitätsverlust.',
+    'Entfernen Sie das springende TikTok-Logo sauber für kostenlose HD-MP4-Videos ohne Zuschneiden, Weichzeichnen oder Anmeldung.',
   'page.watermark.bandTitle': 'Saubere Videos ohne Logo-Overlay',
   'page.watermark.bandSubtitle': 'Speichern Sie Originalstreams ohne Wasserzeichen für Bearbeitung oder Offline-Wiedergabe.',
   'page.watermark.f1Title': 'Kein Weichzeichnen oder Zuschneiden',
@@ -264,17 +272,131 @@ export const DE_PAGES: TranslationMap = {
   'page.watermark.a3': 'Ja. Alles läuft direkt im Browser ohne Software-Installation oder Login.',
 
   'page.analytics.crumb': 'TikTok Analytics',
-  'page.analytics.title': 'TikTok Profil-Analytik',
-  'page.analytics.subtitle': 'Prüfe Engagement-Raten, durchschnittliche Aufrufe und Sponsorenwert.',
+  'page.analytics.title': 'Kostenlose TikTok Profil-Analytik - Engagement & Aufrufe',
+  'page.analytics.subtitle':
+    'Prüfen Sie öffentliche TikTok-Konten anonym ohne Login. Sehen Sie Engagement-Raten, durchschnittliche Aufrufe und geschätzten Sponsorenwert.',
+  'page.analytics.engagementRate': 'Engagement-Rate',
+  'page.analytics.rateViral': 'Virales Engagement',
+  'page.analytics.rateHealthy': 'Gesunde Creator-Aktivität',
+  'page.analytics.rateAverage': 'Durchschnittliche Interaktion',
+  'page.analytics.avgViews': 'Durchschn. Videoaufrufe',
+  'page.analytics.basedOnVideos': 'Basierend auf den letzten {count} Videos',
+  'page.analytics.avgLikes': 'Durchschn. Video-Likes',
+  'page.analytics.commentsPerVideo': '{count} Kommentare / Video',
+  'page.analytics.estSponsorship': 'Geschätzter Sponsorenwert',
+  'page.analytics.perSponsoredPost': 'Schätzung pro gesponsertem Post',
+  'page.analytics.notAvailable': 'K. A.',
+  'page.analytics.recentBreakdown': 'Leistungsübersicht der letzten Videos',
+  'page.analytics.liveFeedMetrics': 'Live-Feed-Daten',
+  'page.analytics.card1Title': 'Qualität der Zielgruppe',
+  'page.analytics.card1Desc':
+    'Erkennen Sie inaktive Konten durch Vergleich von Followern mit echten Aufrufen und Kommentaren.',
+  'page.analytics.card2Title': 'Engagement-Benchmarks',
+  'page.analytics.card2Desc':
+    'Starke TikTok-Konten halten bei neuen Videos häufig eine Engagement-Rate von über 5 Prozent.',
+  'page.analytics.card3Title': 'Creator-Monetarisierung',
+  'page.analytics.card3Desc':
+    'Schätzen Sie Sponsoring-Werte anhand verifizierter Follower-Stufen und aktiver Publikumsreaktion.',
+
   'page.moneyCalc.crumb': 'TikTok Einnahmen-Rechner',
-  'page.moneyCalc.title': 'TikTok Einnahmen-Rechner für Creator',
-  'page.moneyCalc.subtitle': 'Schätze monatliche Einnahmen durch Sponsoring und Creator-Program.',
+  'page.moneyCalc.title': 'Kostenloser TikTok Geld- & Creator-Einnahmen-Rechner',
+  'page.moneyCalc.subtitle':
+    'Schätzen Sie monatliche Creator-Einnahmen aus Markensponsoring, Creator Rewards Program und Live-Geschenken ohne Anmeldung.',
+  'page.moneyCalc.inputHeading': 'Creator-Werte eingeben',
+  'page.moneyCalc.totalFollowers': 'Follower gesamt',
+  'page.moneyCalc.avgViews': 'Durchschnittliche Aufrufe pro Video',
+  'page.moneyCalc.monthlyUploads': 'Monatliche Video-Uploads',
+  'page.moneyCalc.videosUnit': '{count} Videos',
+  'page.moneyCalc.nicheLabel': 'Content-Nische / Kategorie',
+  'page.moneyCalc.niche1': 'Finanzen, Investment & Immobilien (Hoher RPM)',
+  'page.moneyCalc.niche2': 'Technik, Gadgets & Software (Mittelhoher RPM)',
+  'page.moneyCalc.niche3': 'Fitness, Gesundheit & Wellness',
+  'page.moneyCalc.niche4': 'Beauty, Mode & Lifestyle',
+  'page.moneyCalc.niche5': 'Gaming, Unterhaltung & Comedy (Standard-RPM)',
+  'page.moneyCalc.projectedTitle': 'Geschätzte monatliche Gesamteinnahmen',
+  'page.moneyCalc.projectedSub':
+    'Geschätzter Monatsumsatz aus Sponsoring, Creator Rewards und Live-Geschenken.',
+  'page.moneyCalc.sponsorPerPost': 'Gesponserter Post (pro Video)',
+  'page.moneyCalc.creatorRewards': 'Creator Rewards Program',
+  'page.moneyCalc.liveAffiliate': 'Live-Geschenke & Affiliate',
+  'page.moneyCalc.perMonth': '/Monat',
+  'page.moneyCalc.disclaimer':
+    '*Schätzungen dienen nur zur Orientierung auf Basis von Branchenrichtwerten.',
+  'page.moneyCalc.card1Title': 'Creator Rewards RPM',
+  'page.moneyCalc.card1Desc':
+    'Videos über 1 Minute sind monetarisierbar, wenn Zuschauer länger als 5 Sekunden ansehen.',
+  'page.moneyCalc.card2Title': 'Sponsoring-Preise',
+  'page.moneyCalc.card2Desc':
+    'Marken zahlen oft 10 bis 25 US-Dollar pro 10.000 Aufrufe in kaufstarken Nischen.',
+  'page.moneyCalc.card3Title': 'Standort des Publikums',
+  'page.moneyCalc.card3Desc':
+    'Zielgruppen in großen Märkten erzielen deutlich höhere Auszahlungen und Sponsorenbudgets.',
+
   'page.engageCalc.crumb': 'TikTok Engagement-Rechner',
-  'page.engageCalc.title': 'TikTok Engagement-Raten-Rechner',
-  'page.engageCalc.subtitle': 'Berechne deine genaue Engagement-Rate nach Aufrufen oder Followern.',
+  'page.engageCalc.title': 'Kostenloser TikTok Engagement-Raten-Rechner (Aufrufe & Follower)',
+  'page.engageCalc.subtitle':
+    'Berechnen Sie Ihre exakte TikTok Engagement-Rate nach Aufrufen oder Followern und vergleichen Sie sie mit Branchenwerten.',
+  'page.engageCalc.inputHeading': 'Beitrags- oder Kontowerte eingeben',
+  'page.engageCalc.byViews': 'Nach Aufrufen',
+  'page.engageCalc.byFollowers': 'Nach Followern',
+  'page.engageCalc.likesLabel': 'Video-Likes gesamt',
+  'page.engageCalc.commentsLabel': 'Kommentare gesamt',
+  'page.engageCalc.sharesLabel': 'Shares & Speicherungen gesamt',
+  'page.engageCalc.viewsLabel': 'Videoaufrufe gesamt',
+  'page.engageCalc.followersLabel': 'Follower gesamt',
+  'page.engageCalc.formulaViews': 'Formel: ((Likes + Kommentare + Shares) / Aufrufe) x 100',
+  'page.engageCalc.formulaFollowers': 'Formel: ((Likes + Kommentare + Shares) / Follower) x 100',
+  'page.engageCalc.resultHeading': 'Berechnete Engagement-Rate',
+  'page.engageCalc.totalInteractions': 'Interaktionen gesamt',
+  'page.engageCalc.calcBasis': 'Berechnungsgrundlage',
+  'page.engageCalc.basisViews': '{count} Aufrufe',
+  'page.engageCalc.basisFollowers': '{count} Follower',
+  'page.engageCalc.scaleHeading': 'TikTok Engagement-Skala:',
+  'page.engageCalc.scaleLow': 'Niedriges Engagement',
+  'page.engageCalc.scaleHealthy': 'Gesunder Standardwert',
+  'page.engageCalc.scaleHigh': 'Hohe / virale Leistung',
+  'page.engageCalc.ratingViral': 'Viral / Außergewöhnlich',
+  'page.engageCalc.ratingStrong': 'Stark / Überdurchschnittlich',
+  'page.engageCalc.ratingHealthy': 'Gesund / Standard',
+  'page.engageCalc.ratingLow': 'Niedrig / Ausbaufähig',
+  'page.engageCalc.card1Title': 'Aufrufe vs. Follower',
+  'page.engageCalc.card1Desc':
+    'Da der TikTok-Feed Inhalte breit verteilt, zeigt die Berechnung nach Aufrufen echtes Interesse am besten.',
+  'page.engageCalc.card2Title': 'Marken-Standard',
+  'page.engageCalc.card2Desc':
+    'Agenturen erwarten meist eine konstante Rate von 4% oder höher vor bezahlten Kooperationen.',
+  'page.engageCalc.card3Title': 'Engagement steigern',
+  'page.engageCalc.card3Desc':
+    'Stellen Sie offene Fragen in der Beschreibung und beantworten Sie Top-Kommentare in den ersten 60 Minuten.',
+
   'page.captionGen.crumb': 'TikTok Caption Generator',
-  'page.captionGen.title': 'TikTok Caption- & Hashtag-Generator',
-  'page.captionGen.subtitle': 'Erstelle virale Hooks und Hashtags für mehr Aufrufe.',
+  'page.captionGen.title': 'Kostenloser TikTok Caption- & Hashtag-Generator',
+  'page.captionGen.subtitle':
+    'Erstellen Sie klare Video-Hooks, kurze Captions und passende Hashtags in Sekunden ohne Login für mehr Aufrufe.',
+  'page.captionGen.setupHeading': 'Thema & Nische wählen',
+  'page.captionGen.topicLabel': 'Videothema (optional)',
+  'page.captionGen.topicPlaceholder': 'z. B. 3 Morgengewohnheiten, die Zeit sparen',
+  'page.captionGen.nicheLabel': 'Inhaltsnische',
+  'page.captionGen.newHookBtn': 'Anderen Hook erzeugen',
+  'page.captionGen.outputHeading': 'Fertige Caption zum Kopieren',
+  'page.captionGen.copyBtn': 'Kopieren',
+  'page.captionGen.copiedBtn': 'Kopiert',
+  'page.captionGen.tipText':
+    'Tipp: Halten Sie die Caption unter 150 Zeichen, damit der Einstieg mobil ohne Aufklappen lesbar bleibt.',
+  'page.captionGen.niche.Viral': 'Viral',
+  'page.captionGen.niche.Comedy': 'Comedy',
+  'page.captionGen.niche.Food': 'Essen',
+  'page.captionGen.niche.Tech': 'Tech',
+  'page.captionGen.niche.Fitness': 'Fitness',
+  'page.captionGen.niche.Dance': 'Tanz',
+  'page.captionGen.hook1': 'Warte bis zum Ende, um zu sehen, was passiert ist...',
+  'page.captionGen.hook2': 'Sag mir, dass du das auch machst, ohne es direkt zu sagen.',
+  'page.captionGen.hook3': 'Hör auf zu scrollen, wenn du diesen Tipp heute brauchst.',
+  'page.captionGen.hook4': 'Ich habe diesen TikTok-Lifehack getestet, damit du es nicht musst.',
+  'page.captionGen.hook5': 'Warum hat mir das niemand früher gesagt?',
+  'page.captionGen.hook6': 'Hier ist die ehrliche Wahrheit, über die niemand spricht.',
+  'page.captionGen.hook7': 'Das ist passiert, als ich es 7 Tage lang getestet habe:',
+  'page.captionGen.hook8': 'Speichere dieses Video, um später darauf zurückzukommen.',
 };
 
 export const RU_PAGES: TranslationMap = {
@@ -303,9 +425,9 @@ export const RU_PAGES: TranslationMap = {
   'legal.nav.availability': 'Доступность сервиса',
 
   'page.about.crumb': 'О сервисе Tik Profiles Viewer',
-  'page.about.title': 'О сервисе Tik Profiles Viewer',
+  'page.about.title': 'О Tik Profiles Viewer: анонимный просмотр и загрузчик HD видео',
   'page.about.subtitle':
-    'Tik Profiles Viewer (TikProfilesViewer.com) — это бесплатный веб-сервис для анонимного просмотра публичных профилей TikTok, плавного воспроизведения роликов и скачивания оригинальных HD-видео без водяных знаков.',
+    'Tik Profiles Viewer (TikProfilesViewer.com) представляет собой бесплатный веб-сервис для анонимного просмотра публичных профилей TikTok без входа и скачивания HD MP4 видео без водяного знака.',
   'page.about.p1Title': 'Быстрое воспроизведение видео',
   'page.about.p1Desc':
     'Наш плеер мгновенно буферизует видео, чтобы вы могли смотреть ролики без зависаний, долгих загрузок и навязчивой рекламы приложений.',
@@ -346,9 +468,9 @@ export const RU_PAGES: TranslationMap = {
   'page.about.ctaPrimary': 'Открыть просмотрщик',
 
   'page.howto.crumb': 'Как пользоваться Tik Profiles Viewer',
-  'page.howto.title': 'Как пользоваться Tik Profiles Viewer',
+  'page.howto.title': 'Как пользоваться Tik Profiles Viewer и скачивать HD без водяного знака',
   'page.howto.subtitle':
-    'Следуйте этой простой инструкции для поиска любого публичного профиля TikTok, просмотра роликов без задержек и скачивания HD-видео на TikProfilesViewer.com.',
+    'Простая инструкция для анонимного просмотра публичных профилей TikTok без входа, плавного просмотра роликов и бесплатной загрузки HD MP4 и MP3.',
   'page.howto.s1Title': 'Найдите любого пользователя TikTok',
   'page.howto.s1Desc':
     'Откройте главную страницу и найдите строку поиска. Введите публичный ник TikTok (например, khaby.lame или @charlidamelio) и нажмите Открыть профиль.',
@@ -366,7 +488,7 @@ export const RU_PAGES: TranslationMap = {
     'В окне плеера нажмите Скачать HD видео для сохранения чистого MP4 без логотипа TikTok или Скачать аудио (MP3) для сохранения звука.',
   'page.howto.tipsTitle': 'Полезные советы для лучшего опыта',
   'page.howto.t1Label': 'Символ @ не обязателен:',
-  'page.howto.t1Desc': 'Можно вводить имя пользователя с @ или без него — оба варианта работают одинаково быстро.',
+  'page.howto.t1Desc': 'Можно вводить имя пользователя с @ или без него, оба варианта работают одинаково быстро.',
   'page.howto.t2Label': 'Работает на iPhone и Android:',
   'page.howto.t2Desc': 'Видео сохраняются прямо в папку Файлы или Загрузки без сторонних программ.',
   'page.howto.t3Label': 'Полноэкранный просмотр:',
@@ -378,9 +500,9 @@ export const RU_PAGES: TranslationMap = {
     'Находите публичные аккаунты TikTok, смотрите видео мгновенно и сохраняйте HD-ролики без водяных знаков.',
   'page.howto.ctaPrimary': 'Начать просмотр профилей',
 
-  'page.creators.title': 'Топ авторов TikTok',
+  'page.creators.title': 'Каталог топ авторов TikTok: просмотр и HD видео без знака',
   'page.creators.subtitle':
-    'Просматривайте самых популярных авторов TikTok. Открывайте профили и скачивайте видео без водяных знаков.',
+    'Просматривайте самых популярных авторов TikTok во всех категориях. Открывайте профили анонимно без входа и скачивайте HD MP4 видео без водяных знаков.',
   'page.creators.searchPlaceholder': 'Поиск по имени или @нику...',
   'page.creators.allCategories': 'Все категории',
   'page.creators.followers': 'Подписчики',
@@ -389,11 +511,15 @@ export const RU_PAGES: TranslationMap = {
   'page.creators.emptyTitle': 'Авторы по запросу "{query}" не найдены',
   'page.creators.emptySubtitle': 'Попробуйте другое имя или просмотрите все категории.',
 
-  'page.categories.title': 'Категории TikTok',
-  'page.categories.subtitle': 'Выбирайте авторов и видео по интересующей тематике.',
+  'page.categories.title': 'Категории авторов TikTok: бесплатный анонимный просмотр',
+  'page.categories.subtitle':
+    'Выбирайте публичных авторов и HD видео по темам: юмор, кулинария, технологии, игры, фитнес, танцы, красота, наука, путешествия и питомцы.',
   'page.categories.browse': 'Открыть: {name}',
   'page.categories.creatorsBadge': 'Авторов: {count}',
 
+  'page.category.metaTitle': 'Топ авторы {name} в TikTok и бесплатные HD видео без знака',
+  'page.category.metaDesc':
+    'Изучайте лучших авторов TikTok в категории {name} анонимно без входа. Смотрите статистику подписчиков и скачивайте HD MP4 и MP3 без водяного знака.',
   'page.category.topHeading': 'Топ авторов: {name}',
   'page.category.topSubtitle':
     'Нажмите на любого автора, чтобы открыть профиль и скачать видео без водяных знаков.',
@@ -403,9 +529,13 @@ export const RU_PAGES: TranslationMap = {
   'page.category.followersLabel': '{count} подписчиков',
   'page.category.likesLabel': '{count} лайков',
 
+  'page.profile.metaTitleKnown': '{displayName} (@{username}) профиль TikTok и HD видео без водяного знака',
+  'page.profile.metaDescKnown':
+    'Смотрите и скачивайте видео @{username} из TikTok в HD MP4 бесплатно без водяного знака. {followers} подписчиков и MP3 звук на TikProfilesViewer.com.',
+  'page.profile.metaTitleFallback': '@{username} профиль TikTok и бесплатные HD видео без знака',
   'page.profile.heroTitleFallback': 'Профиль TikTok @{username}',
   'page.profile.heroSubtitleFallback':
-    'Смотрите и скачивайте публичные видео @{username} в HD MP4 без водяного знака и аудио MP3.',
+    'Смотрите и скачивайте публичные видео @{username} анонимно в бесплатном HD MP4 без водяного знака и аудио MP3.',
   'page.profile.faqHeading': 'Частые вопросы',
   'page.profile.q1': 'Как скачать видео @{username} из TikTok без водяного знака?',
   'page.profile.a1':
@@ -417,9 +547,9 @@ export const RU_PAGES: TranslationMap = {
     'Да, на 100%. Аккаунт TikTok не нужен, и автор никогда не узнает о вашем визите.',
 
   'page.videoDl.crumb': 'Загрузчик видео TikTok',
-  'page.videoDl.title': 'Загрузчик видео TikTok',
+  'page.videoDl.title': 'Бесплатный загрузчик видео TikTok без водяного знака (HD MP4)',
   'page.videoDl.subtitle':
-    'Скачивайте видео TikTok в оригинальном качестве HD MP4 без водяных знаков бесплатно.',
+    'Скачивайте публичные видео TikTok в бесплатном формате HD MP4 без водяных знаков и без входа на телефоне и ПК.',
   'page.videoDl.bandTitle': 'Как скачать видео с TikTok',
   'page.videoDl.bandSubtitle': 'Сохраняйте любимые ролики за три простых шага.',
   'page.videoDl.f1Title': 'Введите имя пользователя',
@@ -438,9 +568,9 @@ export const RU_PAGES: TranslationMap = {
   'page.videoDl.a3': 'Да, в любом браузере на iPhone, Android, Mac и Windows.',
 
   'page.mp3Dl.crumb': 'Загрузчик аудио MP3 TikTok',
-  'page.mp3Dl.title': 'Загрузчик аудио MP3 из TikTok',
+  'page.mp3Dl.title': 'Бесплатный экстрактор аудио MP3 и музыки из TikTok',
   'page.mp3Dl.subtitle':
-    'Извлекайте и скачивайте музыку и голос в MP3 из любого видео TikTok бесплатно.',
+    'Извлекайте и скачивайте чистые MP3 треки и оригинальный голос из любого публичного видео TikTok бесплатно и без регистрации.',
   'page.mp3Dl.bandTitle': 'Извлечение чистого звука TikTok',
   'page.mp3Dl.bandSubtitle': 'Сохраняйте музыку, звуковые эффекты и речь в четком формате MP3.',
   'page.mp3Dl.f1Title': 'Чистое качество звука',
@@ -458,9 +588,9 @@ export const RU_PAGES: TranslationMap = {
   'page.mp3Dl.a3': 'Да, полностью бесплатна и без ограничений.',
 
   'page.viewer.crumb': 'Просмотр профилей TikTok',
-  'page.viewer.title': 'Анонимный просмотр профилей TikTok',
+  'page.viewer.title': 'Анонимный просмотр профилей TikTok: без входа и в HD',
   'page.viewer.subtitle':
-    'Находите публичных авторов TikTok, смотрите статистику подписчиков и ролики анонимно без аккаунта.',
+    'Ищите публичных авторов TikTok анонимно без входа, просматривайте подписчиков и сохраняйте бесплатные HD MP4 видео без водяного знака.',
   'page.viewer.bandTitle': 'Приватный и быстрый обзор профиля',
   'page.viewer.bandSubtitle': 'Просматривайте любой открытый профиль TikTok прямо в браузере.',
   'page.viewer.f1Title': '100% анонимность',
@@ -478,9 +608,9 @@ export const RU_PAGES: TranslationMap = {
   'page.viewer.a3': 'Нет. Доступны только открытые профили и публичные видео.',
 
   'page.storyDl.crumb': 'Загрузчик сторис TikTok',
-  'page.storyDl.title': 'Загрузчик историй (Stories) TikTok',
+  'page.storyDl.title': 'Загрузчик историй TikTok без водяного знака: анонимно и в HD',
   'page.storyDl.subtitle':
-    'Скачивайте сторис TikTok анонимно в оригинальном HD-качестве до их исчезновения, без водяного знака и входа.',
+    'Скачивайте публичные сторис TikTok анонимно в формате HD MP4 без водяного знака до их удаления и без входа в аккаунт.',
   'page.storyDl.bandTitle': 'Сохраняйте 24-часовые истории навсегда',
   'page.storyDl.bandSubtitle': 'Смотрите и сохраняйте публичные сторис TikTok до удаления.',
   'page.storyDl.f1Title': 'Постоянный архив',
@@ -500,9 +630,9 @@ export const RU_PAGES: TranslationMap = {
   'page.storyDl.a3': 'Нет. Все сторис загружаются без логотипа TikTok.',
 
   'page.photoDl.crumb': 'Загрузчик фото TikTok',
-  'page.photoDl.title': 'Загрузчик фото и слайд-шоу TikTok',
+  'page.photoDl.title': 'Бесплатный загрузчик фото и слайд-шоу TikTok без знака',
   'page.photoDl.subtitle':
-    'Извлекайте и скачивайте отдельные чистые изображения из любых фото-каруселей TikTok в оригинальном HD без водяных знаков.',
+    'Извлекайте и скачивайте чистые отдельные фото из любых публичных слайд-шоу TikTok в оригинальном HD без водяных знаков и без входа.',
   'page.photoDl.bandTitle': 'Скачивайте фото из слайд-шоу в HD',
   'page.photoDl.bandSubtitle': 'Сохраняйте изображения каруселей в исходном разрешении.',
   'page.photoDl.f1Title': 'Извлечение каждого слайда',
@@ -519,9 +649,9 @@ export const RU_PAGES: TranslationMap = {
   'page.photoDl.a2': 'Все изображения загружаются в исходном разрешении (обычно 1080p HD или выше) без сжатия.',
 
   'page.watermark.crumb': 'Удаление водяного знака TikTok',
-  'page.watermark.title': 'Удаление водяного знака TikTok',
+  'page.watermark.title': 'Бесплатное удаление водяного знака TikTok: чистые HD MP4 видео',
   'page.watermark.subtitle':
-    'Убирайте прыгающий логотип TikTok и имя автора чисто, без обрезки, размытия и потери исходного HD-качества.',
+    'Убирайте прыгающий логотип TikTok чисто и сохраняйте бесплатные HD MP4 видео без обрезки, размытия и регистрации.',
   'page.watermark.bandTitle': 'Чистые видео без логотипов',
   'page.watermark.bandSubtitle': 'Сохраняйте исходные потоки без водяных знаков для монтажа и просмотра.',
   'page.watermark.f1Title': 'Без размытия и обрезки',
@@ -540,17 +670,131 @@ export const RU_PAGES: TranslationMap = {
   'page.watermark.a3': 'Да. Все работает в браузере без установки программ, расширений и входа в систему.',
 
   'page.analytics.crumb': 'Аналитика TikTok',
-  'page.analytics.title': 'Аналитика профиля TikTok',
-  'page.analytics.subtitle': 'Проверяйте уровень вовлеченности, просмотры и спонсорскую стоимость.',
+  'page.analytics.title': 'Бесплатная аналитика профиля TikTok: ER и средние просмотры',
+  'page.analytics.subtitle':
+    'Проверяйте публичные аккаунты TikTok анонимно без входа. Смотрите уровень вовлеченности в реальном времени, средние просмотры и рекламную оценку.',
+  'page.analytics.engagementRate': 'Уровень вовлеченности',
+  'page.analytics.rateViral': 'Вирусная вовлеченность',
+  'page.analytics.rateHealthy': 'Высокая активность автора',
+  'page.analytics.rateAverage': 'Среднее взаимодействие',
+  'page.analytics.avgViews': 'Средние просмотры видео',
+  'page.analytics.basedOnVideos': 'По последним {count} видео',
+  'page.analytics.avgLikes': 'Средние лайки видео',
+  'page.analytics.commentsPerVideo': '{count} коммент. / видео',
+  'page.analytics.estSponsorship': 'Оценка спонсорского поста',
+  'page.analytics.perSponsoredPost': 'Ориентир за рекламный пост',
+  'page.analytics.notAvailable': 'Н/Д',
+  'page.analytics.recentBreakdown': 'Разбор статистики последних видео',
+  'page.analytics.liveFeedMetrics': 'Живые метрики ленты',
+  'page.analytics.card1Title': 'Проверка качества аудитории',
+  'page.analytics.card1Desc':
+    'Выявляйте неактивные аккаунты, сравнивая число подписчиков с реальными просмотрами и комментариями.',
+  'page.analytics.card2Title': 'Ориентиры вовлеченности',
+  'page.analytics.card2Desc':
+    'Сильные аккаунты TikTok часто удерживают вовлеченность выше 5 процентов на новых роликах.',
+  'page.analytics.card3Title': 'Монетизация авторов',
+  'page.analytics.card3Desc':
+    'Оценивайте стоимость рекламы по числу подписчиков и активности аудитории.',
+
   'page.moneyCalc.crumb': 'Калькулятор доходов TikTok',
-  'page.moneyCalc.title': 'Калькулятор заработка авторов TikTok',
-  'page.moneyCalc.subtitle': 'Оцените ежемесячный доход от интеграций и программы вознаграждений.',
+  'page.moneyCalc.title': 'Бесплатный калькулятор доходов и заработка авторов TikTok',
+  'page.moneyCalc.subtitle':
+    'Оцените ежемесячный заработок автора от спонсорства, Creator Rewards Program и подарков в эфире без входа.',
+  'page.moneyCalc.inputHeading': 'Укажите показатели автора',
+  'page.moneyCalc.totalFollowers': 'Всего подписчиков',
+  'page.moneyCalc.avgViews': 'Средние просмотры на видео',
+  'page.moneyCalc.monthlyUploads': 'Видео в месяц',
+  'page.moneyCalc.videosUnit': '{count} видео',
+  'page.moneyCalc.nicheLabel': 'Ниша / категория контента',
+  'page.moneyCalc.niche1': 'Финансы, инвестиции и недвижимость (высокий RPM)',
+  'page.moneyCalc.niche2': 'Технологии, гаджеты и софт (выше среднего RPM)',
+  'page.moneyCalc.niche3': 'Фитнес, здоровье и уход за собой',
+  'page.moneyCalc.niche4': 'Красота, мода и стиль жизни',
+  'page.moneyCalc.niche5': 'Игры, развлечения и юмор (базовый RPM)',
+  'page.moneyCalc.projectedTitle': 'Прогнозируемый доход в месяц',
+  'page.moneyCalc.projectedSub':
+    'Ориентировочный месячный доход от рекламы, программы вознаграждений и подарков.',
+  'page.moneyCalc.sponsorPerPost': 'Рекламный пост (за видео)',
+  'page.moneyCalc.creatorRewards': 'Creator Rewards Program',
+  'page.moneyCalc.liveAffiliate': 'Подарки эфиров и партнерки',
+  'page.moneyCalc.perMonth': '/мес',
+  'page.moneyCalc.disclaimer':
+    '*Прогноз носит справочный характер и основан на рыночных ориентирах.',
+  'page.moneyCalc.card1Title': 'RPM Creator Rewards',
+  'page.moneyCalc.card1Desc':
+    'Ролики длиннее 1 минуты подходят для монетизации при просмотре дольше 5 секунд.',
+  'page.moneyCalc.card2Title': 'Стоимость интеграций',
+  'page.moneyCalc.card2Desc':
+    'Бренды обычно платят от 10 до 25 долларов за 10 000 просмотров в коммерческих нишах.',
+  'page.moneyCalc.card3Title': 'География аудитории',
+  'page.moneyCalc.card3Desc':
+    'Зрители из крупных рынков обеспечивают более высокие выплаты и рекламные бюджеты.',
+
   'page.engageCalc.crumb': 'Калькулятор вовлеченности',
-  'page.engageCalc.title': 'Калькулятор вовлеченности TikTok',
-  'page.engageCalc.subtitle': 'Рассчитайте точный коэффициент вовлеченности по просмотрам или подписчикам.',
+  'page.engageCalc.title': 'Бесплатный калькулятор вовлеченности TikTok (по просмотрам и подписчикам)',
+  'page.engageCalc.subtitle':
+    'Рассчитайте точный коэффициент вовлеченности TikTok по просмотрам или подписчикам и сравните с нормой.',
+  'page.engageCalc.inputHeading': 'Введите показатели поста или аккаунта',
+  'page.engageCalc.byViews': 'По просмотрам',
+  'page.engageCalc.byFollowers': 'По подписчикам',
+  'page.engageCalc.likesLabel': 'Всего лайков',
+  'page.engageCalc.commentsLabel': 'Всего комментариев',
+  'page.engageCalc.sharesLabel': 'Всего репостов и сохранений',
+  'page.engageCalc.viewsLabel': 'Всего просмотров видео',
+  'page.engageCalc.followersLabel': 'Всего подписчиков',
+  'page.engageCalc.formulaViews': 'Формула: ((Лайки + Комментарии + Репосты) / Просмотры) x 100',
+  'page.engageCalc.formulaFollowers': 'Формула: ((Лайки + Комментарии + Репосты) / Подписчики) x 100',
+  'page.engageCalc.resultHeading': 'Расчетный уровень вовлеченности',
+  'page.engageCalc.totalInteractions': 'Всего взаимодействий',
+  'page.engageCalc.calcBasis': 'База расчета',
+  'page.engageCalc.basisViews': '{count} просмотров',
+  'page.engageCalc.basisFollowers': '{count} подписчиков',
+  'page.engageCalc.scaleHeading': 'Шкала вовлеченности TikTok:',
+  'page.engageCalc.scaleLow': 'Низкая вовлеченность',
+  'page.engageCalc.scaleHealthy': 'Здоровая норма',
+  'page.engageCalc.scaleHigh': 'Высокий / вирусный результат',
+  'page.engageCalc.ratingViral': 'Вирусный / Исключительный',
+  'page.engageCalc.ratingStrong': 'Сильный / Выше среднего',
+  'page.engageCalc.ratingHealthy': 'Здоровый / Стандарт',
+  'page.engageCalc.ratingLow': 'Низкий / Есть потенциал роста',
+  'page.engageCalc.card1Title': 'Просмотры против подписчиков',
+  'page.engageCalc.card1Desc':
+    'Поскольку лента рекомендаций широко охватывает новых зрителей, расчет по просмотрам точнее.',
+  'page.engageCalc.card2Title': 'Стандарт для брендов',
+  'page.engageCalc.card2Desc':
+    'Агентства обычно ищут стабильный ER от 4% и выше перед запуском рекламных интеграций.',
+  'page.engageCalc.card3Title': 'Как повысить ER',
+  'page.engageCalc.card3Desc':
+    'Задавайте открытые вопросы в подписи и отвечайте на лучшие комментарии в первые 60 минут.',
+
   'page.captionGen.crumb': 'Генератор описаний',
-  'page.captionGen.title': 'Генератор описаний и хэштегов TikTok',
-  'page.captionGen.subtitle': 'Создавайте вирусные хуки и хэштеги для роста охватов.',
+  'page.captionGen.title': 'Бесплатный генератор описаний и хэштегов для TikTok',
+  'page.captionGen.subtitle':
+    'Создавайте цепляющие хуки, короткие подписи и точные хэштеги без входа для роста просмотров и репостов.',
+  'page.captionGen.setupHeading': 'Выберите тему и нишу',
+  'page.captionGen.topicLabel': 'Тема видео (необязательно)',
+  'page.captionGen.topicPlaceholder': 'напр. 3 утренние привычки, экономящие время',
+  'page.captionGen.nicheLabel': 'Тематика контента',
+  'page.captionGen.newHookBtn': 'Сгенерировать другой хук',
+  'page.captionGen.outputHeading': 'Готовое описание для копирования',
+  'page.captionGen.copyBtn': 'Копировать',
+  'page.captionGen.copiedBtn': 'Скопировано',
+  'page.captionGen.tipText':
+    'Совет: делайте подпись короче 150 символов, чтобы первый хук читался на экране смартфона целиком.',
+  'page.captionGen.niche.Viral': 'Вирусное',
+  'page.captionGen.niche.Comedy': 'Юмор',
+  'page.captionGen.niche.Food': 'Еда',
+  'page.captionGen.niche.Tech': 'Техника',
+  'page.captionGen.niche.Fitness': 'Фитнес',
+  'page.captionGen.niche.Dance': 'Танцы',
+  'page.captionGen.hook1': 'Досмотрите до конца, чтобы увидеть, что случилось...',
+  'page.captionGen.hook2': 'Скажите, что тоже так делаете, не говоря этого прямо.',
+  'page.captionGen.hook3': 'Остановите ленту, если вам нужен этот совет сегодня.',
+  'page.captionGen.hook4': 'Я проверил этот лайфхак из TikTok, чтобы вам не пришлось.',
+  'page.captionGen.hook5': 'Почему никто не рассказал мне об этом раньше?',
+  'page.captionGen.hook6': 'Вот честная правда, о которой мало кто говорит.',
+  'page.captionGen.hook7': 'Вот что вышло, когда я пробовал это 7 дней подряд:',
+  'page.captionGen.hook8': 'Сохраните видео, чтобы вернуться к нему позже.',
 };
 
 export const ZH_PAGES: TranslationMap = {
@@ -579,9 +823,9 @@ export const ZH_PAGES: TranslationMap = {
   'legal.nav.availability': '服务可用性',
 
   'page.about.crumb': '关于 Tik Profiles Viewer',
-  'page.about.title': '关于 Tik Profiles Viewer',
+  'page.about.title': '关于 Tik Profiles Viewer - 免费匿名主页查看与无水印高清下载',
   'page.about.subtitle':
-    'Tik Profiles Viewer (TikProfilesViewer.com) 是一款免费网页服务，让任何人都可以匿名查看公开 TikTok 主页、流畅播放视频并免费下载无水印原画高清视频。',
+    'Tik Profiles Viewer (TikProfilesViewer.com) 是一款免费网页服务，支持免登录匿名查看公开 TikTok 主页，并免费下载无水印高清 MP4 视频。',
   'page.about.p1Title': '高速视频播放',
   'page.about.p1Desc':
     '我们的播放器可即时缓冲视频，让您流畅观看内容，告别卡顿、加载等待或烦人的应用弹窗。',
@@ -622,9 +866,9 @@ export const ZH_PAGES: TranslationMap = {
   'page.about.ctaPrimary': '打开主页查看器',
 
   'page.howto.crumb': '如何使用 Tik Profiles Viewer',
-  'page.howto.title': '如何使用 Tik Profiles Viewer',
+  'page.howto.title': '如何使用 Tik Profiles Viewer 并免费下载无水印高清视频',
   'page.howto.subtitle':
-    '按照以下简单指南，在 TikProfilesViewer.com 搜索任意公开 TikTok 主页、流畅播片并下载无水印高清视频。',
+    '按照以下简单步骤，免登录匿名搜索公开 TikTok 主页，流畅播放视频并免费保存无水印高清 MP4 与 MP3 音频。',
   'page.howto.s1Title': '搜索任意 TikTok 用户名',
   'page.howto.s1Desc':
     '打开首页并找到搜索栏。输入任意公开 TikTok 用户名（例如 khaby.lame 或 @charlidamelio），然后点击查看主页。',
@@ -654,9 +898,9 @@ export const ZH_PAGES: TranslationMap = {
     '搜索任意公开 TikTok 账号，即时观看视频并保存无水印高清画质。',
   'page.howto.ctaPrimary': '开始浏览主页',
 
-  'page.creators.title': '热门 TikTok 创作者',
+  'page.creators.title': '热门 TikTok 创作者目录 - 免费主页查看与无水印高清视频',
   'page.creators.subtitle':
-    '浏览粉丝最多的 TikTok 创作者，查看主页并免费下载无水印视频。',
+    '按领域浏览粉丝最多的 TikTok 创作者，免登录匿名查看主页并免费下载无水印高清 MP4 视频。',
   'page.creators.searchPlaceholder': '搜索创作者名称或 @用户名...',
   'page.creators.allCategories': '全部分类',
   'page.creators.followers': '粉丝',
@@ -665,11 +909,15 @@ export const ZH_PAGES: TranslationMap = {
   'page.creators.emptyTitle': '未找到匹配 "{query}" 的创作者',
   'page.creators.emptySubtitle': '请尝试搜索其他名称或浏览全部分类。',
 
-  'page.categories.title': '按分类探索 TikTok',
-  'page.categories.subtitle': '按内容主题浏览创作者与视频。',
+  'page.categories.title': '按分类探索 TikTok 创作者 - 免费匿名主页查看器',
+  'page.categories.subtitle':
+    '按喜剧、美食、科技、游戏、健身、舞蹈、美妆、科学、旅行和萌宠等主题浏览公开创作者与高清视频。',
   'page.categories.browse': '浏览 {name}',
   'page.categories.creatorsBadge': '{count} 位创作者',
 
+  'page.category.metaTitle': '热门 {name} TikTok 创作者与无水印免费高清视频',
+  'page.category.metaDesc':
+    '免登录匿名浏览顶级 {name} TikTok 创作者，查看实时粉丝数并免费下载无水印高清 MP4 视频和 MP3 音频。',
   'page.category.topHeading': '热门 {name} 创作者',
   'page.category.topSubtitle':
     '点击任意创作者即可查看其主页并下载无水印视频。',
@@ -679,9 +927,13 @@ export const ZH_PAGES: TranslationMap = {
   'page.category.followersLabel': '{count} 粉丝',
   'page.category.likesLabel': '{count} 获赞',
 
+  'page.profile.metaTitleKnown': '{displayName} (@{username}) TikTok 主页与无水印高清视频',
+  'page.profile.metaDescKnown':
+    '免费观看并下载 @{username} 的无水印高清 MP4 TikTok 视频，在 TikProfilesViewer.com 查看 {followers} 粉丝与提取 MP3 音频。',
+  'page.profile.metaTitleFallback': '@{username} TikTok 主页与免费无水印高清视频',
   'page.profile.heroTitleFallback': '@{username} 的 TikTok 主页',
   'page.profile.heroSubtitleFallback':
-    '在线观看并下载 @{username} 的公开 TikTok 视频（无水印高清 MP4 与 MP3 音频）。',
+    '匿名在线观看并下载 @{username} 的公开 TikTok 视频（免费无水印高清 MP4 与 MP3 音频）。',
   'page.profile.faqHeading': '常见问题',
   'page.profile.q1': '如何下载 @{username} 的无水印 TikTok 视频？',
   'page.profile.a1':
@@ -693,9 +945,9 @@ export const ZH_PAGES: TranslationMap = {
     '是的，100% 匿名。您无需拥有 TikTok 账号，创作者也永远不会知道您浏览了他的主页。',
 
   'page.videoDl.crumb': 'TikTok 视频下载器',
-  'page.videoDl.title': 'TikTok 无水印视频下载器',
+  'page.videoDl.title': '免费 TikTok 无水印视频下载器 (高清 MP4)',
   'page.videoDl.subtitle':
-    '免费下载原画高清 MP4 格式的 TikTok 视频，完全无水印。',
+    '免登录在任意手机或电脑上免费下载无水印高清 MP4 格式的公开 TikTok 视频。',
   'page.videoDl.bandTitle': '如何下载 TikTok 视频',
   'page.videoDl.bandSubtitle': '只需三步，轻松保存您喜欢的视频。',
   'page.videoDl.f1Title': '输入用户名',
@@ -714,9 +966,9 @@ export const ZH_PAGES: TranslationMap = {
   'page.videoDl.a3': '支持。可在 iPhone、Android、Mac 和 Windows 的任意浏览器中使用。',
 
   'page.mp3Dl.crumb': 'TikTok MP3 音频下载器',
-  'page.mp3Dl.title': 'TikTok MP3 音频提取与下载器',
+  'page.mp3Dl.title': '免费 TikTok MP3 音频提取与原声下载器',
   'page.mp3Dl.subtitle':
-    '免费从任意 TikTok 视频中提取并下载 MP3 音乐与人声音频。',
+    '免登录免费从任意公开 TikTok 视频中提取并下载纯净 MP3 音乐与原声音频。',
   'page.mp3Dl.bandTitle': '提取纯净 TikTok 音频',
   'page.mp3Dl.bandSubtitle': '以清晰 MP3 格式保存音乐、音效与语音片段。',
   'page.mp3Dl.f1Title': '纯净音质',
@@ -734,9 +986,9 @@ export const ZH_PAGES: TranslationMap = {
   'page.mp3Dl.a3': '是的，100% 免费且无次数限制。',
 
   'page.viewer.crumb': 'TikTok 主页查看器',
-  'page.viewer.title': '匿名 TikTok 主页查看器',
+  'page.viewer.title': '匿名 TikTok 主页查看器 - 免登录免费高清浏览',
   'page.viewer.subtitle':
-    '无需账号即可搜索任意公开 TikTok 创作者，查看粉丝数据并匿名观看视频。',
+    '免登录匿名搜索任意公开 TikTok 创作者，查看实时粉丝数据并观看或保存无水印高清 MP4 视频。',
   'page.viewer.bandTitle': '私密快速的主页查看体验',
   'page.viewer.bandSubtitle': '直接在浏览器中浏览任何公开 TikTok 创作者主页。',
   'page.viewer.f1Title': '100% 匿名',
@@ -754,9 +1006,9 @@ export const ZH_PAGES: TranslationMap = {
   'page.viewer.a3': '不可以，仅支持查看公开账号与公开视频。',
 
   'page.storyDl.crumb': 'TikTok 快拍下载器',
-  'page.storyDl.title': 'TikTok 快拍 (Story) 下载器',
+  'page.storyDl.title': '免费 TikTok 无水印快拍下载器 - 匿名高清保存',
   'page.storyDl.subtitle':
-    '在快拍过期前匿名下载原画高清版本，保存无水印 MP4 视频且无需登录。',
+    '免登录在快拍过期前匿名下载无水印高清 MP4 版本，轻松永久保存公开快拍内容。',
   'page.storyDl.bandTitle': '永久保存 24 小时快拍',
   'page.storyDl.bandSubtitle': '在公开 TikTok 快拍消失前及时观看并存档。',
   'page.storyDl.f1Title': '永久存档',
@@ -776,9 +1028,9 @@ export const ZH_PAGES: TranslationMap = {
   'page.storyDl.a3': '没有，通过本服务下载的所有快拍均不带任何 TikTok 水印。',
 
   'page.photoDl.crumb': 'TikTok 图片下载器',
-  'page.photoDl.title': 'TikTok 图片与幻灯片下载器',
+  'page.photoDl.title': '免费 TikTok 无水印图片与幻灯片下载器',
   'page.photoDl.subtitle':
-    '从任意 TikTok 幻灯片帖子中提取并下载单张无水印原画高清图片。',
+    '免登录从任意公开 TikTok 幻灯片帖子中提取并下载单张无水印原画高清图片。',
   'page.photoDl.bandTitle': '高清下载幻灯片照片',
   'page.photoDl.bandSubtitle': '直接以原始分辨率保存纯净轮播图。',
   'page.photoDl.f1Title': '单张精准提取',
@@ -795,9 +1047,9 @@ export const ZH_PAGES: TranslationMap = {
   'page.photoDl.a2': '所有图片均以原始上传分辨率（通常为 1080p HD 或更高）无损获取。',
 
   'page.watermark.crumb': 'TikTok 去水印工具',
-  'page.watermark.title': 'TikTok 视频去水印工具',
+  'page.watermark.title': '免费 TikTok 视频去水印工具 - 保存纯净高清 MP4',
   'page.watermark.subtitle':
-    '干净移除跳动的 TikTok 标志与用户名水印，不裁剪、不模糊，无损保留原画高清画质。',
+    '免登录干净移除跳动的 TikTok 标志与用户名水印，不裁剪、不模糊，免费保存原画高清 MP4。',
   'page.watermark.bandTitle': '零标志遮挡的纯净视频',
   'page.watermark.bandSubtitle': '保存原始无水印视频流，随时离线观看或二次剪辑。',
   'page.watermark.f1Title': '不模糊、不裁剪',
@@ -816,15 +1068,117 @@ export const ZH_PAGES: TranslationMap = {
   'page.watermark.a3': '是的，全程在浏览器安全运行，无需安装软件、插件或登录。',
 
   'page.analytics.crumb': 'TikTok 数据分析',
-  'page.analytics.title': 'TikTok 主页数据分析',
-  'page.analytics.subtitle': '检查任意公开账号的互动率、平均播放量与商业估值。',
+  'page.analytics.title': '免费 TikTok 主页数据分析 - 互动率与平均播放统计',
+  'page.analytics.subtitle':
+    '免登录匿名检查任意公开 TikTok 账号，查看实时互动率、平均播放量与预估品牌赞助价值。',
+  'page.analytics.engagementRate': '互动率',
+  'page.analytics.rateViral': '爆款级互动表现',
+  'page.analytics.rateHealthy': '健康的创作者活跃度',
+  'page.analytics.rateAverage': '平均互动水平',
+  'page.analytics.avgViews': '平均视频播放量',
+  'page.analytics.basedOnVideos': '基于最近 {count} 个视频',
+  'page.analytics.avgLikes': '平均视频点赞数',
+  'page.analytics.commentsPerVideo': '每条视频 {count} 条评论',
+  'page.analytics.estSponsorship': '预估赞助报价',
+  'page.analytics.perSponsoredPost': '单个赞助视频预估值',
+  'page.analytics.notAvailable': '暂无数据',
+  'page.analytics.recentBreakdown': '近期视频表现明细',
+  'page.analytics.liveFeedMetrics': '实时公开数据',
+  'page.analytics.card1Title': '受众质量检查',
+  'page.analytics.card1Desc': '通过对比粉丝数与真实平均播放和评论数，识别低活跃度账号。',
+  'page.analytics.card2Title': '互动率基准',
+  'page.analytics.card2Desc': '优质 TikTok 账号近期短视频的互动率通常能保持在 5% 以上。',
+  'page.analytics.card3Title': '创作者变现评估',
+  'page.analytics.card3Desc': '根据粉丝量级与真实观众反馈估算创作者商业合作价值。',
+
   'page.moneyCalc.crumb': 'TikTok 收入计算器',
-  'page.moneyCalc.title': 'TikTok 创作者收入估算器',
-  'page.moneyCalc.subtitle': '估算您通过品牌赞助、创作者奖励计划和电商佣金获得的月收入。',
+  'page.moneyCalc.title': '免费 TikTok 创作者收益与收入估算器',
+  'page.moneyCalc.subtitle':
+    '免登录估算您通过品牌赞助、创作者奖励计划和直播礼物获得的月度收入。',
+  'page.moneyCalc.inputHeading': '输入创作者数据',
+  'page.moneyCalc.totalFollowers': '粉丝总数',
+  'page.moneyCalc.avgViews': '每条视频平均播放量',
+  'page.moneyCalc.monthlyUploads': '每月发布视频数',
+  'page.moneyCalc.videosUnit': '{count} 条视频',
+  'page.moneyCalc.nicheLabel': '内容领域 / 分类',
+  'page.moneyCalc.niche1': '财经、投资与房产（高 RPM）',
+  'page.moneyCalc.niche2': '科技、数码与软件（中高 RPM）',
+  'page.moneyCalc.niche3': '健身、健康与养生',
+  'page.moneyCalc.niche4': '美妆、时尚与生活方式',
+  'page.moneyCalc.niche5': '游戏、娱乐与喜剧（标准 RPM）',
+  'page.moneyCalc.projectedTitle': '预计每月总收入',
+  'page.moneyCalc.projectedSub': '结合品牌赞助、创作者奖励和直播礼物的月度估算收入。',
+  'page.moneyCalc.sponsorPerPost': '单条赞助报价',
+  'page.moneyCalc.creatorRewards': '创作者奖励计划',
+  'page.moneyCalc.liveAffiliate': '直播礼物与带货佣金',
+  'page.moneyCalc.perMonth': '/月',
+  'page.moneyCalc.disclaimer': '*预测数值仅作参考，实际收入取决于观众地区、完播率与商务议价。',
+  'page.moneyCalc.card1Title': 'Creator Rewards RPM',
+  'page.moneyCalc.card1Desc': '超过 1 分钟的视频在观众观看超过 5 秒后即可计入合格播放收益。',
+  'page.moneyCalc.card2Title': '赞助合作定价',
+  'page.moneyCalc.card2Desc': '消费决策较强的领域每万次播放报价通常在 10 至 25 美元之间。',
+  'page.moneyCalc.card3Title': '受众地区影响',
+  'page.moneyCalc.card3Desc': '主要消费市场的观众通常能带来更高的广告分成与品牌预算。',
+
   'page.engageCalc.crumb': 'TikTok 互动率计算器',
-  'page.engageCalc.title': 'TikTok 互动率计算器',
-  'page.engageCalc.subtitle': '按播放量或粉丝数精确计算您的 TikTok 互动率。',
+  'page.engageCalc.title': '免费 TikTok 互动率计算器（按播放量与粉丝数）',
+  'page.engageCalc.subtitle':
+    '按播放量或粉丝数精确计算您的 TikTok 互动率，并与行业基准标准对比。',
+  'page.engageCalc.inputHeading': '输入视频或账号数据',
+  'page.engageCalc.byViews': '按播放量',
+  'page.engageCalc.byFollowers': '按粉丝数',
+  'page.engageCalc.likesLabel': '视频总点赞数',
+  'page.engageCalc.commentsLabel': '总评论数',
+  'page.engageCalc.sharesLabel': '总分享与收藏数',
+  'page.engageCalc.viewsLabel': '视频总播放量',
+  'page.engageCalc.followersLabel': '粉丝总数',
+  'page.engageCalc.formulaViews': '公式：((点赞 + 评论 + 分享) / 播放量) x 100',
+  'page.engageCalc.formulaFollowers': '公式：((点赞 + 评论 + 分享) / 粉丝数) x 100',
+  'page.engageCalc.resultHeading': '计算得出的互动率',
+  'page.engageCalc.totalInteractions': '总互动次数',
+  'page.engageCalc.calcBasis': '计算基准',
+  'page.engageCalc.basisViews': '{count} 播放',
+  'page.engageCalc.basisFollowers': '{count} 粉丝',
+  'page.engageCalc.scaleHeading': 'TikTok 互动率参考标准：',
+  'page.engageCalc.scaleLow': '互动偏低',
+  'page.engageCalc.scaleHealthy': '健康标准区间',
+  'page.engageCalc.scaleHigh': '高互动 / 爆款表现',
+  'page.engageCalc.ratingViral': '爆款 / 卓越',
+  'page.engageCalc.ratingStrong': '优秀 / 高于平均',
+  'page.engageCalc.ratingHealthy': '健康 / 标准',
+  'page.engageCalc.ratingLow': '偏低 / 有提升空间',
+  'page.engageCalc.card1Title': '播放量 vs 粉丝数',
+  'page.engageCalc.card1Desc': '由于推荐算法向非粉丝广泛分发内容，按播放量计算更能反映真实兴趣。',
+  'page.engageCalc.card2Title': '品牌合作门槛',
+  'page.engageCalc.card2Desc': '品牌方在投放合作前通常要求创作者保持 4% 以上的稳定互动率。',
+  'page.engageCalc.card3Title': '提升互动技巧',
+  'page.engageCalc.card3Desc': '在文案末尾提出开放式问题，并在发布后前 60 分钟积极回复热门评论。',
+
   'page.captionGen.crumb': 'TikTok 文案与标签生成器',
-  'page.captionGen.title': 'TikTok 文案与标签生成器',
-  'page.captionGen.subtitle': '生成吸睛的视频钩子与热门标签，助您获得更多曝光。',
+  'page.captionGen.title': '免费 TikTok 文案与标签生成器',
+  'page.captionGen.subtitle':
+    '免登录几秒生成清晰的视频开头钩子、简短文案与精准标签，助力提升播放和分享。',
+  'page.captionGen.setupHeading': '选择主题与领域',
+  'page.captionGen.topicLabel': '视频主题（可选）',
+  'page.captionGen.topicPlaceholder': '例如：节省时间的 3 个早晨习惯',
+  'page.captionGen.nicheLabel': '内容领域',
+  'page.captionGen.newHookBtn': '换一个开头钩子',
+  'page.captionGen.outputHeading': '可直接复制的文案',
+  'page.captionGen.copyBtn': '复制文案',
+  'page.captionGen.copiedBtn': '已复制',
+  'page.captionGen.tipText': '提示：建议将文案控制在 150 字以内，方便手机端观众无需展开即可看完开头。',
+  'page.captionGen.niche.Viral': '爆款热门',
+  'page.captionGen.niche.Comedy': '喜剧搞笑',
+  'page.captionGen.niche.Food': '美食烹饪',
+  'page.captionGen.niche.Tech': '数码科技',
+  'page.captionGen.niche.Fitness': '健身运动',
+  'page.captionGen.niche.Dance': '舞蹈音乐',
+  'page.captionGen.hook1': '看到最后，看看发生了什么...',
+  'page.captionGen.hook2': '别直接说，告诉我你是不是也这样做。',
+  'page.captionGen.hook3': '如果你今天正需要这个技巧，请先别划走。',
+  'page.captionGen.hook4': '我替大家实测了这个 TikTok 小技巧，结果如下：',
+  'page.captionGen.hook5': '为什么以前从来没有人告诉我这个方法？',
+  'page.captionGen.hook6': '这是大家很少提起的真实情况。',
+  'page.captionGen.hook7': '坚持尝试 7 天后，真实变化是这样的：',
+  'page.captionGen.hook8': '先收藏这条视频，方便之后随时回来查看。',
 };

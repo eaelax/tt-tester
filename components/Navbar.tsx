@@ -15,6 +15,10 @@ const TOOL_ITEMS = [
   { href: '/tiktok-story-downloader', key: 'story' },
   { href: '/tiktok-photo-downloader', key: 'photo' },
   { href: '/tiktok-watermark-remover', key: 'watermark' },
+  { href: '/tiktok-analytics', key: 'analytics' },
+  { href: '/tiktok-money-calculator', key: 'money' },
+  { href: '/tiktok-engagement-calculator', key: 'engage' },
+  { href: '/tiktok-caption-generator', key: 'caption' },
 ] as const;
 
 const SHORT_CODE_FALLBACK: Record<string, string> = {
@@ -207,7 +211,7 @@ export default function Navbar() {
 
             <MotionDropdownPanel
               isOpen={toolsDropdownOpen}
-              className="absolute top-full end-0 mt-2 w-72 max-h-[420px] overflow-y-auto rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)] shadow-[var(--shadow-workbench)] p-2 z-50 flex flex-col gap-0.5"
+              className="absolute top-full end-0 mt-2 w-[34rem] max-w-[90vw] max-h-[460px] overflow-y-auto rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)] shadow-[var(--shadow-workbench)] p-2.5 z-50 grid grid-cols-2 gap-1"
             >
               {TOOL_ITEMS.map((tool) => (
                 <Link
@@ -219,7 +223,7 @@ export default function Navbar() {
                   <div className="font-semibold text-xs group-hover:text-[var(--accent-primary-text)] transition-colors">
                     {t(`nav.tool.${tool.key}.label`)}
                   </div>
-                  <div className="text-[11px] text-[var(--ink-muted)] mt-0.5">
+                  <div className="text-[11px] text-[var(--ink-muted)] mt-0.5 line-clamp-1">
                     {t(`nav.tool.${tool.key}.desc`)}
                   </div>
                 </Link>

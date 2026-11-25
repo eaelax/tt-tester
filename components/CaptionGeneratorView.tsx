@@ -6,16 +6,7 @@ import Breadcrumbs from '@/components/Breadcrumbs';
 import AdSlot from '@/components/AdSlot';
 import { useI18n } from '@/lib/i18n/context';
 
-const PRESET_HOOKS = [
-  'Wait until the end to see what happened...',
-  'Tell me you do this too without actually telling me.',
-  'Stop scrolling if you need this tip today.',
-  'I tested this TikTok life hack so you do not have to.',
-  'Why did nobody tell me about this earlier?',
-  'Here is the honest truth nobody talks about.',
-  'Here is what happened when I tried this for 7 days:',
-  'Save this video so you can come back to it later.',
-];
+const NICHES = ['Viral', 'Comedy', 'Food', 'Tech', 'Fitness', 'Dance'] as const;
 
 const PRESET_TAGS: Record<string, string[]> = {
   Viral: ['#fyp', '#foryou', '#viral', '#trending', '#tiktok', '#explore', '#foryoupage'],
@@ -29,17 +20,21 @@ const PRESET_TAGS: Record<string, string[]> = {
 export default function CaptionGeneratorView() {
   const { t } = useI18n();
   const [topic, setTopic] = useState('');
-  const [niche, setNiche] = useState('Viral');
-  const [generatedHook, setGeneratedHook] = useState(PRESET_HOOKS[0]);
+  const [niche, setNiche] = useState<(typeof NICHES)[number]>('Viral');
+  const [hookIndex, setHookIndex] = useState<number>(1);
   const [copied, setCopied] = useState(false);
 
   const generateNewHook = () => {
-    const candidates = PRESET_HOOKS.filter((hook) => hook !== generatedHook);
-    const pool = candidates.length > 0 ? candidates : PRESET_HOOKS;
-    const random = pool[Math.floor(Math.random() * pool.length)];
-    setGeneratedHook(random);
+    setHookIndex((prev) => {
+      let next = Math.floor(Math.random() * 8) + 1;
+      if (next === prev) {
+        next = (prev % 8) + 1;
+      }
+      return next;
+    });
   };
 
+  const generatedHook = t(`page.captionGen.hook${hookIndex}`);
   const currentTags = PRESET_TAGS[niche] || PRESET_TAGS.Viral;
   const trimmedTopic = topic.trim();
   const fullCaption = `${trimmedTopic ? `${trimmedTopic} - ` : ''}${generatedHook}\n\n${currentTags.join(' ')}`;
@@ -74,7 +69,7 @@ export default function CaptionGeneratorView() {
         <div className="lg:col-span-6 bg-[var(--surface-elevated)] rounded-xl border border-[var(--border-subtle)] p-5 sm:p-6 space-y-4 shadow-[var(--shadow-card)]">
           <h2 className="text-sm sm:text-base font-bold text-[var(--ink-primary)] border-b border-[var(--border-subtle)] pb-3 flex items-center gap-2">
             <Sparkles className="w-4 h-4 text-[var(--accent-cyan-text)]" />
-            <span>Choose Your Topic &amp; Niche</span>
+            <span>{t('page.captionGen.setupHeading')}</span>
           </h2>
 
           <div>
@@ -82,24 +77,24 @@ export default function CaptionGeneratorView() {
               htmlFor="caption-topic-input"
               className="text-xs font-bold text-[var(--ink-primary)] block mb-1.5"
             >
-              Video Topic (Optional)
+              {t('page.captionGen.topicLabel')}
             </label>
             <input
               id="caption-topic-input"
               type="text"
               value={topic}
               onChange={(e) => setTopic(e.target.value)}
-              placeholder="e.g. 3 morning habits that save time"
+              placeholder={t('page.captionGen.topicPlaceholder')}
               className="w-full h-10 px-3.5 rounded-lg border border-[var(--border-strong)] bg-[var(--surface-canvas)] text-xs text-[var(--ink-primary)] placeholder:text-[var(--ink-muted)] focus:bg-[var(--surface-elevated)] focus:outline-none focus:border-[var(--accent-cyan)] focus:ring-2 focus:ring-[var(--accent-cyan)]/20 transition-colors"
             />
           </div>
 
           <div>
             <span className="text-xs font-bold text-[var(--ink-primary)] block mb-1.5">
-              Content Niche
+              {t('page.captionGen.nicheLabel')}
             </span>
             <div className="grid grid-cols-3 gap-2">
-              {Object.keys(PRESET_TAGS).map((cat) => (
+              {NICHES.map((cat) => (
                 <button
                   key={cat}
                   type="button"
@@ -110,7 +105,7 @@ export default function CaptionGeneratorView() {
                       : 'bg-[var(--surface-canvas)] text-[var(--ink-primary)] border-[var(--border-subtle)] hover:bg-[var(--accent-cyan-soft)] hover:border-[var(--accent-cyan)]'
                   }`}
                 >
-                  {cat}
+                  {t(`page.captionGen.niche.${cat}`)}
                 </button>
               ))}
             </div>
@@ -122,7 +117,7 @@ export default function CaptionGeneratorView() {
             className="w-full h-10 rounded-lg border border-[var(--border-strong)] bg-[var(--surface-canvas)] hover:bg-[var(--pastel-blue)] hover:border-[var(--accent-cyan)] text-[var(--ink-primary)] font-bold text-xs flex items-center justify-center gap-2 cursor-pointer transition-colors"
           >
             <RefreshCw className="w-3.5 h-3.5" />
-            <span>Generate Another Hook</span>
+            <span>{t('page.captionGen.newHookBtn')}</span>
           </button>
         </div>
 
@@ -131,7 +126,7 @@ export default function CaptionGeneratorView() {
           <div>
             <div className="flex items-center justify-between pb-3 border-b border-[var(--border-subtle)] mb-4">
               <span className="text-xs font-bold uppercase tracking-wider text-[var(--ink-muted)]">
-                Ready-to-Paste Caption
+                {t('page.captionGen.outputHeading')}
               </span>
               <button
                 type="button"
@@ -143,7 +138,11 @@ export default function CaptionGeneratorView() {
                 ) : (
                   <Copy className="w-3.5 h-3.5" />
                 )}
-                <span>{copied ? 'Copied' : 'Copy Caption'}</span>
+                <span>
+                  {copied
+                    ? t('page.captionGen.copiedBtn')
+                    : t('page.captionGen.copyBtn')}
+                </span>
               </button>
             </div>
 
@@ -168,7 +167,7 @@ export default function CaptionGeneratorView() {
           </div>
 
           <p className="text-[11px] text-[var(--ink-muted)] leading-relaxed">
-            Tip: Keep your caption under 150 characters so viewers can read the opening hook on mobile without tapping to expand.
+            {t('page.captionGen.tipText')}
           </p>
         </div>
       </div>

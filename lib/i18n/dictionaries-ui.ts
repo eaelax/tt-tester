@@ -24,13 +24,22 @@ const EN_UI: TranslationMap = {
   'nav.tool.photo.desc': 'Download carousel images in HD',
   'nav.tool.watermark.label': 'Watermark Remover',
   'nav.tool.watermark.desc': 'Remove TikTok logo for Reels',
+  'nav.tool.analytics.label': 'Profile Analytics',
+  'nav.tool.analytics.desc': 'Check engagement and average views',
+  'nav.tool.money.label': 'Money Calculator',
+  'nav.tool.money.desc': 'Estimate creator sponsorship earnings',
+  'nav.tool.engage.label': 'Engagement Calculator',
+  'nav.tool.engage.desc': 'Measure engagement rate by views',
+  'nav.tool.caption.label': 'Caption Generator',
+  'nav.tool.caption.desc': 'Generate video hooks and hashtags',
 
   'footer.tagline':
-    'Free web utility to inspect public TikTok profiles anonymously, stream videos smoothly, and download clean HD MP4 videos and MP3 audio tracks.',
+    'Free web utility to inspect public TikTok profiles anonymously, stream videos smoothly, and download clean HD MP4 videos and MP3 audio tracks without watermark.',
   'footer.aboutUs': 'About us',
   'footer.howToUse': 'How to use',
   'footer.topCreators': 'Top Creators',
   'footer.freeTools': 'Free Downloader Tools',
+  'footer.creatorTools': 'Creator Analytics & Tools',
   'footer.exploreHeading': 'Explore & Guides',
   'footer.legalHeading': 'Legal & Protection',
   'footer.copyright': 'TikProfilesViewer.com. All rights reserved.',
@@ -43,9 +52,10 @@ const EN_UI: TranslationMap = {
   'breadcrumb.topCreators': 'Top Creators',
   'breadcrumb.categories': 'Categories',
 
-  'hero.homeTitle': 'TikTok Profile Viewer, HD Video Downloader & MP3 Audio Saver',
+  'hero.homeTitle':
+    'Free TikTok Profile Viewer, HD Video Downloader & MP3 Audio Extractor Without Watermark',
   'hero.homeSubtitle':
-    'Inspect public TikTok profiles anonymously, watch videos smoothly without lag, and save watermark-free HD MP4 videos and MP3 audio for free.',
+    'Inspect public TikTok profiles anonymously with no login, watch videos smoothly, and download free HD MP4 videos and MP3 audio without watermark.',
   'hero.ctaCreators': 'Browse Top Creators',
   'hero.ctaTools': 'Explore Free Tools',
   'hero.ctaHowItWorks': 'See How It Works',
@@ -58,6 +68,8 @@ const EN_UI: TranslationMap = {
   'search.btn': 'View Profile',
   'search.searching': 'Searching...',
   'search.popular': 'Popular creators:',
+  'search.recent': 'Recent searches:',
+  'search.clearRecent': 'Clear history',
   'search.noticeTitle': 'Profile lookup notice',
   'search.errorEmpty': 'Please enter a TikTok username.',
   'search.errorNotFound': 'User @{username} was not found or is private.',
@@ -75,6 +87,7 @@ const EN_UI: TranslationMap = {
   'profile.avatar': 'Save Avatar',
   'profile.copyLink': 'Copy Link',
   'profile.copied': 'Copied',
+  'profile.sharePage': 'Profile Page',
   'profile.openTikTok': 'Open TikTok',
   'profile.publicCreator': 'Public Creator Profile',
   'profile.status': 'Status',
@@ -156,9 +169,9 @@ const EN_UI: TranslationMap = {
   'steps.s3Desc':
     'Click Download HD Video to save clean MP4 files with no watermark, or click Download Audio to save MP3 music with one tap.',
 
-  'niches.title': 'Explore TikTok Niches & Creator Formats',
+  'niches.title': 'Explore TikTok Niches & Creator Categories',
   'niches.subtitle':
-    'From cooking tutorials and tech reviews to comedy sketches, browse public accounts by topic and save clean HD videos with zero restrictions.',
+    'From cooking tutorials and tech reviews to comedy, beauty, science, travel, and pets, browse public accounts by topic and save clean HD videos.',
   'niches.allCategories': 'All categories',
   'niches.c1': 'Comedy & Entertainment',
   'niches.c1Desc': 'Viral sketches, parodies, and reaction creators.',
@@ -172,6 +185,14 @@ const EN_UI: TranslationMap = {
   'niches.c5Desc': 'Training routines, mobility drills, and athletic clips.',
   'niches.c6': 'Dance & Music',
   'niches.c6Desc': 'Trending choreography and extractable MP3 sounds.',
+  'niches.c7': 'Beauty & Fashion',
+  'niches.c7Desc': 'Makeup tutorials, skincare routines, and outfit trends.',
+  'niches.c8': 'Education & Science',
+  'niches.c8Desc': 'Space facts, physics experiments, and science explainers.',
+  'niches.c9': 'Travel & Lifestyle',
+  'niches.c9Desc': 'Destination guides, cinematography, and adventure vlogs.',
+  'niches.c10': 'Pets & Animals',
+  'niches.c10Desc': 'Cute dogs, cooking cats, and animal rescue stories.',
   'niches.creatorsCount': '{count} creators',
   'niches.p1Title': '100% Anonymous Viewing',
   'niches.p1Desc':
@@ -184,9 +205,9 @@ const EN_UI: TranslationMap = {
     'Get original full-resolution MP4 video and clean MP3 audio directly on your device.',
   'niches.cta': 'Search a creator in your favorite niche',
 
-  'tools.title': 'Free Downloader Tools',
+  'tools.title': 'Free Downloader & Creator Tools',
   'tools.subtitle':
-    'Pick a free tool to download clean HD media, inspect public profiles, or remove watermarks.',
+    'Pick a free tool to download clean HD media, inspect public profiles, calculate engagement, or remove watermarks.',
   'tools.openTool': 'Open tool',
   'tools.t1Title': 'HD Video Downloader',
   'tools.t1Desc': 'Save original 1080p MP4 videos with no watermark.',
@@ -194,10 +215,18 @@ const EN_UI: TranslationMap = {
   'tools.t2Desc': 'Extract background audio and sounds in clean MP3.',
   'tools.t3Title': 'Anonymous Viewer',
   'tools.t3Desc': 'View profile data and follower counts anonymously.',
+  'tools.t4Title': 'Profile Analytics',
+  'tools.t4Desc': 'Inspect engagement rate, average views, and post stats.',
   'tools.t5Title': 'Story Downloader',
   'tools.t5Desc': 'Save disappearing stories before they expire in 24h.',
   'tools.t6Title': 'Photo & Slideshow',
   'tools.t6Desc': 'Download full-res carousel slideshow photos in HD.',
+  'tools.t7Title': 'Money Calculator',
+  'tools.t7Desc': 'Estimate monthly creator rewards and sponsor value.',
+  'tools.t8Title': 'Engagement Calculator',
+  'tools.t8Desc': 'Calculate engagement rate by views or followers.',
+  'tools.t9Title': 'Caption Generator',
+  'tools.t9Desc': 'Build short video hooks and focused hashtags.',
   'tools.t10Title': 'Watermark Remover',
   'tools.t10Desc': 'Remove TikTok logos for Instagram Reels and Shorts.',
 
@@ -241,6 +270,21 @@ const EN_UI: TranslationMap = {
   'home.privateTitle': 'Private & Anonymous',
   'home.privateDesc':
     'Nobody knows you viewed their profile. No sign-up required, and your activity stays private.',
+
+  'schema.webAppDesc':
+    'Free TikTok profile viewer, video player, and watermark-free HD MP4 video and MP3 audio downloader.',
+  'schema.faq1Q': 'How do I download TikTok videos without watermark for free?',
+  'schema.faq1A':
+    'Type the creator username in the search box, click on the video you want, and click Download HD Video. The video will save directly to your device without any watermark.',
+  'schema.faq2Q': 'Can I view TikTok profiles without an account?',
+  'schema.faq2A':
+    'Yes. Tik Profiles Viewer is completely free and anonymous. You do not need to sign in or have a TikTok account to view profiles and watch videos.',
+  'schema.faq3Q': 'How do I download only the audio or music from a video?',
+  'schema.faq3A':
+    'Click on any video to open the player, then click the Download Audio (MP3) button. The audio track will save to your device as an MP3 file.',
+  'schema.faq4Q': 'How many videos can I see on a profile?',
+  'schema.faq4A':
+    'The first 30 videos load right away. You can click Show More Videos at the bottom of the grid to load 15 more videos each time until you reach the first video.',
 };
 
 const AR_UI: TranslationMap = {
@@ -267,13 +311,22 @@ const AR_UI: TranslationMap = {
   'nav.tool.photo.desc': 'تنزيل صور العروض بجودة HD',
   'nav.tool.watermark.label': 'إزالة العلامة المائية',
   'nav.tool.watermark.desc': 'إزالة شعار تيك توك لمقاطع Reels',
+  'nav.tool.analytics.label': 'إحصائيات الحساب',
+  'nav.tool.analytics.desc': 'فحص التفاعل ومتوسط المشاهدات',
+  'nav.tool.money.label': 'حاسبة الأرباح',
+  'nav.tool.money.desc': 'تقدير عوائد الرعاية والمبدعين',
+  'nav.tool.engage.label': 'حاسبة التفاعل',
+  'nav.tool.engage.desc': 'قياس معدل التفاعل بدقة',
+  'nav.tool.caption.label': 'مولد النصوص والوسوم',
+  'nav.tool.caption.desc': 'إنشاء خطافات جذابة ووسوم',
 
   'footer.tagline':
-    'أداة ويب مجانية لتصفح ملفات تيك توك العامة بسرية، ومشاهدة الفيديوهات بسلاسة، وتنزيل مقاطع MP4 بجودة HD وصوتيات MP3 بدون علامة مائية.',
+    'أداة ويب مجانية لتصفح ملفات تيك توك العامة بسرية بدون تسجيل دخول، ومشاهدة الفيديوهات بسلاسة، وتنزيل مقاطع MP4 بجودة HD وصوتيات MP3 بدون علامة مائية.',
   'footer.aboutUs': 'من نحن',
   'footer.howToUse': 'طريقة الاستخدام',
   'footer.topCreators': 'أشهر المبدعين',
   'footer.freeTools': 'أدوات التنزيل المجانية',
+  'footer.creatorTools': 'أدوات وإحصائيات المبدعين',
   'footer.exploreHeading': 'استكشف والأدلة',
   'footer.legalHeading': 'الشؤون القانونية والحماية',
   'footer.copyright': 'TikProfilesViewer.com. جميع الحقوق محفوظة.',
@@ -286,9 +339,9 @@ const AR_UI: TranslationMap = {
   'breadcrumb.topCreators': 'أشهر المبدعين',
   'breadcrumb.categories': 'التصنيفات',
 
-  'hero.homeTitle': 'عارض حسابات تيك توك، تنزيل فيديوهات HD وصوتيات MP3 بدون علامة مائية',
+  'hero.homeTitle': 'عارض حسابات تيك توك مجاني، تنزيل فيديو HD وصوتيات MP3 بدون علامة مائية',
   'hero.homeSubtitle':
-    'تصفح حسابات تيك توك العامة بسرية تامة، وشاهد الفيديوهات بسلاسة بدون تقطيع، واحفظ فيديوهات MP4 عالية الدقة وملفات الصوت MP3 مجاناً.',
+    'تصفح حسابات تيك توك العامة بسرية تامة بدون تسجيل دخول، وشاهد الفيديوهات بسلاسة، واحفظ فيديوهات MP4 عالية الدقة وملفات الصوت MP3 مجاناً.',
   'hero.ctaCreators': 'تصفح أشهر المبدعين',
   'hero.ctaTools': 'استكشف الأدوات المجانية',
   'hero.ctaHowItWorks': 'تعرف على طريقة العمل',
@@ -301,6 +354,8 @@ const AR_UI: TranslationMap = {
   'search.btn': 'عرض الحساب',
   'search.searching': 'جاري البحث...',
   'search.popular': 'مبدعون مشهورون:',
+  'search.recent': 'عمليات البحث الأخيرة:',
+  'search.clearRecent': 'مسح السجل',
   'search.noticeTitle': 'تنبيه البحث عن الحساب',
   'search.errorEmpty': 'يرجى إدخال اسم مستخدم تيك توك.',
   'search.errorNotFound': 'لم يتم العثور على المستخدم @{username} أو أن حسابه خاص.',
@@ -318,6 +373,7 @@ const AR_UI: TranslationMap = {
   'profile.avatar': 'حفظ الصورة',
   'profile.copyLink': 'نسخ الرابط',
   'profile.copied': 'تم النسخ',
+  'profile.sharePage': 'صفحة الحساب',
   'profile.openTikTok': 'فتح تيك توك',
   'profile.publicCreator': 'حساب مبدع عام',
   'profile.status': 'الحالة',
@@ -398,9 +454,9 @@ const AR_UI: TranslationMap = {
   'steps.s3Desc':
     'اضغط على تنزيل فيديو HD لحفظ ملفات MP4 بدون علامة مائية، أو اضغط على تنزيل الصوت لحفظ موسيقى MP3 بنقرة واحدة.',
 
-  'niches.title': 'استكشف مجالات تيك توك وتنسيقات المبدعين',
+  'niches.title': 'استكشف مجالات تيك توك وتصنيفات المبدعين',
   'niches.subtitle':
-    'من وصفات الطبخ ومراجعات التقنية إلى المقاطع الكوميدية، تصفح الحسابات العامة حسب الموضوع واحفظ فيديوهات HD نقية بدون قيود.',
+    'من وصفات الطبخ ومراجعات التقنية إلى الكوميديا والجمال والعلوم والسفر والحيوانات الأليفة، تصفح الحسابات العامة واحفظ فيديوهات HD نقية.',
   'niches.allCategories': 'كل التصنيفات',
   'niches.c1': 'الكوميديا والترفيه',
   'niches.c1Desc': 'مشاهد ساخرة، محاكاة، ومبدعو ردود الفعل.',
@@ -414,6 +470,14 @@ const AR_UI: TranslationMap = {
   'niches.c5Desc': 'روتين التمارين، المرونة الحركية، والمقاطع الرياضية.',
   'niches.c6': 'الرقص والموسيقى',
   'niches.c6Desc': 'تصميمات الرقص الرائجة وأصوات MP3 القابلة للاستخراج.',
+  'niches.c7': 'الجمال والأزياء',
+  'niches.c7Desc': 'دروس المكياج، العناية بالبشرة، وإطلالات الموضة.',
+  'niches.c8': 'التعليم والعلوم',
+  'niches.c8Desc': 'حقائق الفضاء، تجارب الفيزياء، والشروحات العلمية.',
+  'niches.c9': 'السفر وأسلوب الحياة',
+  'niches.c9Desc': 'أدلة الوجهات، التصوير الجوي، ويوميات المغامرات.',
+  'niches.c10': 'الحيوانات الأليفة',
+  'niches.c10Desc': 'مقاطع الكلاب والقطط اللطيفة وقصص إنقاذ الحيوانات.',
   'niches.creatorsCount': '{count} مبدعين',
   'niches.p1Title': 'تصفح سري 100%',
   'niches.p1Desc':
@@ -425,9 +489,9 @@ const AR_UI: TranslationMap = {
   'niches.p3Desc': 'احصل على فيديو MP4 بالدقة الكاملة الأصلية وصوت MP3 نقي مباشرة على جهازك.',
   'niches.cta': 'ابحث عن مبدع في مجالك المفضل',
 
-  'tools.title': 'أدوات التنزيل المجانية',
+  'tools.title': 'أدوات التنزيل والمبدعين المجانية',
   'tools.subtitle':
-    'اختر أداة مجانية لتنزيل وسائط HD نقية، أو فحص الملفات العامة، أو إزالة العلامات المائية.',
+    'اختر أداة مجانية لتنزيل وسائط HD نقية، فحص الملفات العامة، حساب التفاعل، أو إزالة العلامات المائية.',
   'tools.openTool': 'افتح الأداة',
   'tools.t1Title': 'تنزيل فيديو HD',
   'tools.t1Desc': 'احفظ فيديوهات MP4 الأصلية بدقة 1080p بدون علامة مائية.',
@@ -435,10 +499,18 @@ const AR_UI: TranslationMap = {
   'tools.t2Desc': 'استخرج الموسيقى الخلفية والأصوات بصيغة MP3 نقية.',
   'tools.t3Title': 'عارض الحسابات السري',
   'tools.t3Desc': 'شاهد بيانات الملف وعدد المتابعين بشكل مجهول تماماً.',
+  'tools.t4Title': 'إحصائيات الحساب',
+  'tools.t4Desc': 'افحص معدل التفاعل ومتوسط المشاهدات وأداء المقاطع.',
   'tools.t5Title': 'تنزيل القصص',
   'tools.t5Desc': 'احفظ القصص المؤقتة قبل اختفائها بعد 24 ساعة.',
   'tools.t6Title': 'الصور والعروض',
   'tools.t6Desc': 'نزّل صور عروض تيك توك بالدقة الكاملة HD.',
+  'tools.t7Title': 'حاسبة الأرباح',
+  'tools.t7Desc': 'قدّر العائد الشهري من الرعاية وبرامج المبدعين.',
+  'tools.t8Title': 'حاسبة التفاعل',
+  'tools.t8Desc': 'احسب معدل التفاعل حسب المشاهدات أو المتابعين.',
+  'tools.t9Title': 'مولد النصوص والوسوم',
+  'tools.t9Desc': 'أنشئ مقدمات جذابة ووسوماً مركزة لمنشوراتك.',
   'tools.t10Title': 'مزيل العلامة المائية',
   'tools.t10Desc': 'أزل شعار تيك توك لإعادة النشر على Reels و Shorts.',
 
@@ -448,22 +520,22 @@ const AR_UI: TranslationMap = {
   'faq.contactSupport': 'تواصل مع الدعم',
   'faq.q1': 'هل عارض حسابات تيك توك مجاني 100%؟',
   'faq.a1':
-    'نعم، عارض حسابات تيك توك مجاني تماماً للاستخدام. لا توجد خطط مدفوعة ولا رسوم اشتراك ولا حدود للتنزيل. يمكنك تصفح أي عدد من الحسابات وتنزيل الفيديوهات في أي وقت.',
+    'نعم، عارض حسابات تيك توك مجاني تماماً للاستخدام. لا توجد خطط مدفوعة ولا رسوم اشتراك ولا حدود للتنزيل.',
   'faq.q2': 'هل يمكنني تصفح الحسابات ومشاهدة الفيديوهات بسرية تامة؟',
   'faq.a2':
-    'نعم. لا تحتاج إلى تسجيل الدخول إلى تيك توك أو إنشاء حساب. لن يتلقى المبدع أي إشعار أو سجل مشاهدة يشير إلى أنك تفحصت حسابه أو نزّلت محتواه.',
+    'نعم. لا تحتاج إلى تسجيل الدخول إلى تيك توك أو إنشاء حساب. لن يتلقى المبدع أي إشعار يشير إلى زيارتك.',
   'faq.q3': 'كيف تزيل أداة تنزيل الفيديو العلامة المائية لتيك توك؟',
   'faq.a3':
-    'يتصل محركنا مباشرة بشبكة توصيل المحتوى العامة لجلب بث الفيديو الأصلي عالي الدقة قبل إضافة العلامة المائية المتحركة أو نصوص اسم المستخدم.',
+    'يتصل محركنا مباشرة بشبكة توصيل المحتوى العامة لجلب بث الفيديو الأصلي عالي الدقة قبل إضافة العلامة المائية.',
   'faq.q4': 'هل يمكنني استخراج وتنزيل الموسيقى الخلفية أو الصوت (MP3)؟',
   'faq.a4':
-    'نعم. تحتوي كل بطاقة فيديو على زر مخصص لتنزيل الصوت يتيح لك استخراج وحفظ الصوت الأصلي النقي بصيغة MP3 بنقرة واحدة.',
+    'نعم. تحتوي كل بطاقة فيديو على زر مخصص لتنزيل الصوت يتيح لك حفظ الصوت الأصلي النقي بصيغة MP3 بنقرة واحدة.',
   'faq.q5': 'ما هي الأجهزة والمتصفحات المدعومة؟',
   'faq.a5':
-    'يعمل عارض حسابات تيك توك بسلاسة في جميع المتصفحات الحديثة بما في ذلك Safari على iPhone و iPad، و Google Chrome على Android والكمبيوتر، و Firefox و Edge.',
+    'يعمل بسلاسة في جميع المتصفحات الحديثة بما في ذلك Safari على iPhone و iPad، و Chrome على Android والكمبيوتر، و Firefox و Edge.',
   'faq.q6': 'كيف يمكنني تنزيل صورة الملف الشخصي بجودة عالية؟',
   'faq.a6':
-    'ابحث عن اسم مستخدم أي مبدع، ثم اضغط على زر حفظ الصورة داخل بطاقة تفاصيل الحساب. سيتم حفظ الصورة الأصلية بالحجم الكامل على جهازك مباشرة.',
+    'ابحث عن اسم مستخدم أي مبدع، ثم اضغط على زر حفظ الصورة داخل بطاقة تفاصيل الحساب.',
 
   'home.trendingTitle': 'مبدعو تيك توك الرائجون',
   'home.trendingSubtitle': 'حسابات عامة شهيرة يمكنك فحصها ومشاهدتها الآن.',
@@ -479,6 +551,21 @@ const AR_UI: TranslationMap = {
   'home.freeDesc': 'بدون مدفوعات أو بطاقة ائتمان أو حدود يومية. نزّل كل ما تحتاجه.',
   'home.privateTitle': 'خاص ومجهول الهوية',
   'home.privateDesc': 'لا أحد يعلم أنك شاهدت ملفه. بدون تسجيل دخول وبخصوصية كاملة.',
+
+  'schema.webAppDesc':
+    'عارض حسابات تيك توك مجاني ومشغل فيديو وأداة تنزيل MP4 بجودة HD بدون علامة مائية واستخراج صوت MP3.',
+  'schema.faq1Q': 'كيف أنزل فيديوهات تيك توك بدون علامة مائية مجاناً؟',
+  'schema.faq1A':
+    'اكتب اسم مستخدم المبدع في مربع البحث، واضغط على الفيديو المطلوب، ثم اضغط على تنزيل فيديو HD لحفظه مباشرة بدون علامة مائية.',
+  'schema.faq2Q': 'هل يمكنني تصفح حسابات تيك توك بدون امتلاك حساب؟',
+  'schema.faq2A':
+    'نعم. عارض حسابات تيك توك مجاني وسري بالكامل ولا يتطلب تسجيل الدخول أو وجود حساب تيك توك.',
+  'schema.faq3Q': 'كيف أحفظ الصوت أو الموسيقى فقط من الفيديو؟',
+  'schema.faq3A':
+    'اضغط على أي فيديو لفتح المشغل ثم اضغط على زر تنزيل الصوت (MP3) ليتم حفظ الملف الصوتي على جهازك.',
+  'schema.faq4Q': 'كم عدد الفيديوهات التي يمكن عرضها في الحساب؟',
+  'schema.faq4A':
+    'يتم تحميل أول 30 فيديو فوراً، ويمكنك الضغط على عرض المزيد من الفيديوهات لتحميل 15 فيديو إضافياً في كل مرة.',
 };
 
 const FR_UI: TranslationMap = {
@@ -505,13 +592,22 @@ const FR_UI: TranslationMap = {
   'nav.tool.photo.desc': 'Télécharger les carrousels en HD',
   'nav.tool.watermark.label': 'Suppresseur de Filigrane',
   'nav.tool.watermark.desc': 'Retirer le logo TikTok pour Reels',
+  'nav.tool.analytics.label': 'Analytique de Profil',
+  'nav.tool.analytics.desc': 'Voir engagement et vues moyennes',
+  'nav.tool.money.label': 'Calculateur de Revenus',
+  'nav.tool.money.desc': 'Estimer les revenus créateur',
+  'nav.tool.engage.label': 'Calculateur d’Engagement',
+  'nav.tool.engage.desc': 'Calculer le taux par vues ou abonnés',
+  'nav.tool.caption.label': 'Générateur de Légendes',
+  'nav.tool.caption.desc': 'Créer accroches et hashtags',
 
   'footer.tagline':
-    'Outil web gratuit pour consulter les profils TikTok publics anonymement, lire les vidéos avec fluidité et télécharger des vidéos MP4 HD et MP3 sans filigrane.',
+    'Outil web gratuit pour consulter les profils TikTok publics anonymement sans connexion, lire les vidéos avec fluidité et télécharger des vidéos MP4 HD et MP3 sans filigrane.',
   'footer.aboutUs': 'À propos',
   'footer.howToUse': 'Mode d’emploi',
   'footer.topCreators': 'Top Créateurs',
   'footer.freeTools': 'Outils Gratuits',
+  'footer.creatorTools': 'Analytique & Calculateurs',
   'footer.exploreHeading': 'Explorer & Guides',
   'footer.legalHeading': 'Légal & Protection',
   'footer.copyright': 'TikProfilesViewer.com. Tous droits réservés.',
@@ -524,9 +620,10 @@ const FR_UI: TranslationMap = {
   'breadcrumb.topCreators': 'Top Créateurs',
   'breadcrumb.categories': 'Catégories',
 
-  'hero.homeTitle': 'Visionneuse de Profils TikTok, Téléchargeur Vidéo HD & Audio MP3 Sans Filigrane',
+  'hero.homeTitle':
+    'Visionneuse de Profils TikTok Gratuite, Téléchargeur Vidéo HD MP4 & Extracteur Audio MP3 Sans Filigrane',
   'hero.homeSubtitle':
-    'Consultez les profils publics TikTok anonymement, regardez les vidéos sans ralentissement et enregistrez des MP4 HD sans filigrane et des pistes MP3 gratuitement.',
+    'Consultez les profils publics TikTok anonymement sans connexion, regardez les vidéos sans ralentissement et téléchargez gratuitement des MP4 HD sans filigrane et des pistes MP3.',
   'hero.ctaCreators': 'Parcourir les Créateurs',
   'hero.ctaTools': 'Explorer les Outils',
   'hero.ctaHowItWorks': 'Comment ça marche',
@@ -539,6 +636,8 @@ const FR_UI: TranslationMap = {
   'search.btn': 'Voir le Profil',
   'search.searching': 'Recherche...',
   'search.popular': 'Créateurs populaires :',
+  'search.recent': 'Recherches récentes :',
+  'search.clearRecent': 'Effacer l’historique',
   'search.noticeTitle': 'Info de recherche',
   'search.errorEmpty': 'Veuillez saisir un nom d’utilisateur TikTok.',
   'search.errorNotFound': 'L’utilisateur @{username} est introuvable ou privé.',
@@ -556,6 +655,7 @@ const FR_UI: TranslationMap = {
   'profile.avatar': 'Sauvegarder l’avatar',
   'profile.copyLink': 'Copier le lien',
   'profile.copied': 'Copié',
+  'profile.sharePage': 'Page du profil',
   'profile.openTikTok': 'Ouvrir TikTok',
   'profile.publicCreator': 'Profil Créateur Public',
   'profile.status': 'Statut',
@@ -637,9 +737,9 @@ const FR_UI: TranslationMap = {
   'steps.s3Desc':
     'Cliquez sur Télécharger Vidéo HD pour obtenir un MP4 sans filigrane, ou Télécharger Audio pour sauver le MP3.',
 
-  'niches.title': 'Explorez les Catégories & Formats TikTok',
+  'niches.title': 'Explorez les Catégories & Niches TikTok',
   'niches.subtitle':
-    'Des recettes aux tests tech en passant par la comédie, explorez les comptes publics par thème et téléchargez en HD sans restriction.',
+    'Des recettes aux tests tech, en passant par la comédie, la beauté, la science, les voyages et les animaux, explorez par thème et téléchargez en HD.',
   'niches.allCategories': 'Toutes les catégories',
   'niches.c1': 'Comédie & Divertissement',
   'niches.c1Desc': 'Sketchs viraux, parodies et créateurs de réactions.',
@@ -653,6 +753,14 @@ const FR_UI: TranslationMap = {
   'niches.c5Desc': 'Programmes sportifs, mobilité et performances.',
   'niches.c6': 'Danse & Musique',
   'niches.c6Desc': 'Chorégraphies tendances et sons MP3 à extraire.',
+  'niches.c7': 'Beauté & Mode',
+  'niches.c7Desc': 'Tutoriels maquillage, soins de la peau et tendances tenues.',
+  'niches.c8': 'Éducation & Science',
+  'niches.c8Desc': 'Espace, expériences de physique et explications claires.',
+  'niches.c9': 'Voyage & Lifestyle',
+  'niches.c9Desc': 'Guides de destinations, drones et vlogs d’aventure.',
+  'niches.c10': 'Animaux & Compagnie',
+  'niches.c10Desc': 'Chiens et chats adorables et histoires de sauvetage.',
   'niches.creatorsCount': '{count} créateurs',
   'niches.p1Title': 'Navigation 100% anonyme',
   'niches.p1Desc':
@@ -665,9 +773,9 @@ const FR_UI: TranslationMap = {
     'Obtenez des vidéos MP4 en résolution originale et un son MP3 propre directement sur votre appareil.',
   'niches.cta': 'Rechercher un créateur dans votre catégorie',
 
-  'tools.title': 'Outils de Téléchargement Gratuits',
+  'tools.title': 'Outils Gratuits de Téléchargement & Créateurs',
   'tools.subtitle':
-    'Choisissez un outil gratuit pour télécharger en HD, inspecter un profil ou retirer les filigranes.',
+    'Choisissez un outil gratuit pour télécharger en HD, inspecter un profil, calculer l’engagement ou retirer les filigranes.',
   'tools.openTool': 'Ouvrir l’outil',
   'tools.t1Title': 'Téléchargeur Vidéo HD',
   'tools.t1Desc': 'Enregistrez des MP4 1080p originaux sans filigrane.',
@@ -675,10 +783,18 @@ const FR_UI: TranslationMap = {
   'tools.t2Desc': 'Extrayez la musique et les voix au format MP3.',
   'tools.t3Title': 'Visionneuse Anonyme',
   'tools.t3Desc': 'Consultez les profils et abonnés anonymement.',
+  'tools.t4Title': 'Analytique de Profil',
+  'tools.t4Desc': 'Analysez taux d’engagement et vues moyennes.',
   'tools.t5Title': 'Téléchargeur de Stories',
   'tools.t5Desc': 'Sauvegardez les stories avant leur expiration sous 24h.',
   'tools.t6Title': 'Photos & Diaporamas',
   'tools.t6Desc': 'Téléchargez les photos de carrousels en HD.',
+  'tools.t7Title': 'Calculateur de Revenus',
+  'tools.t7Desc': 'Estimez les gains mensuels de sponsoring et créateur.',
+  'tools.t8Title': 'Calculateur d’Engagement',
+  'tools.t8Desc': 'Calculez le taux d’interaction par vues ou abonnés.',
+  'tools.t9Title': 'Générateur de Légendes',
+  'tools.t9Desc': 'Créez des accroches courtes et des hashtags ciblés.',
   'tools.t10Title': 'Suppresseur de Filigrane',
   'tools.t10Desc': 'Retirez le logo TikTok pour Reels et YouTube Shorts.',
 
@@ -688,22 +804,22 @@ const FR_UI: TranslationMap = {
   'faq.contactSupport': 'Contacter le support',
   'faq.q1': 'Tik Profiles Viewer est-il 100% gratuit ?',
   'faq.a1':
-    'Oui, Tik Profiles Viewer est entièrement gratuit. Aucun abonnement, aucun frais caché et aucune limite quotidienne de téléchargement.',
+    'Oui, Tik Profiles Viewer est entièrement gratuit. Aucun abonnement, aucun frais caché et aucune limite quotidienne.',
   'faq.q2': 'Puis-je consulter les profils et vidéos de façon anonyme ?',
   'faq.a2':
-    'Oui. Aucune connexion TikTok n’est requise. Le créateur ne reçoit jamais de notification indiquant que vous avez consulté son profil.',
+    'Oui. Aucune connexion TikTok n’est requise. Le créateur ne reçoit jamais de notification de visite.',
   'faq.q3': 'Comment l’outil retire-t-il les filigranes TikTok ?',
   'faq.a3':
-    'Notre moteur récupère directement le flux vidéo original haute définition avant que le logo TikTok et le texte ne soient incrustés.',
+    'Notre moteur récupère directement le flux vidéo original haute définition avant l’ajout du logo TikTok.',
   'faq.q4': 'Puis-je extraire et télécharger uniquement la musique (MP3) ?',
   'faq.a4':
     'Oui. Chaque vidéo dispose d’un bouton Télécharger Audio pour enregistrer la bande sonore originale en MP3 en un clic.',
   'faq.q5': 'Quels appareils et navigateurs sont compatibles ?',
   'faq.a5':
-    'Le site fonctionne sur tous les navigateurs modernes : Safari sur iPhone/iPad, Chrome sur Android et PC, Firefox, Edge et macOS.',
+    'Le site fonctionne sur Safari (iPhone/iPad), Chrome (Android/PC), Firefox, Edge et macOS.',
   'faq.q6': 'Comment télécharger la photo de profil en haute qualité ?',
   'faq.a6':
-    'Recherchez un pseudo, puis cliquez sur Sauvegarder l’avatar dans la fiche du profil pour enregistrer l’image originale.',
+    'Recherchez un pseudo, puis cliquez sur Sauvegarder l’avatar dans la fiche du profil.',
 
   'home.trendingTitle': 'Créateurs TikTok Populaires',
   'home.trendingSubtitle': 'Créateurs publics populaires que vous pouvez consulter dès maintenant.',
@@ -719,6 +835,21 @@ const FR_UI: TranslationMap = {
   'home.freeDesc': 'Sans paiement, sans carte bancaire et sans limite quotidienne.',
   'home.privateTitle': 'Privé & Anonyme',
   'home.privateDesc': 'Personne ne sait que vous avez visité son profil. Sans inscription.',
+
+  'schema.webAppDesc':
+    'Visionneuse de profils TikTok gratuite, lecteur vidéo et téléchargeur HD MP4 sans filigrane et audio MP3.',
+  'schema.faq1Q': 'Comment télécharger des vidéos TikTok sans filigrane gratuitement ?',
+  'schema.faq1A':
+    'Saisissez le pseudo du créateur dans la barre de recherche, cliquez sur la vidéo souhaitée puis sur Télécharger Vidéo HD.',
+  'schema.faq2Q': 'Puis-je voir des profils TikTok sans avoir de compte ?',
+  'schema.faq2A':
+    'Oui. Tik Profiles Viewer est gratuit et anonyme, sans connexion ni compte TikTok requis.',
+  'schema.faq3Q': 'Comment télécharger uniquement le son ou la musique d’une vidéo ?',
+  'schema.faq3A':
+    'Ouvrez la vidéo dans le lecteur puis cliquez sur Télécharger Audio (MP3) pour enregistrer la piste.',
+  'schema.faq4Q': 'Combien de vidéos puis-je voir sur un profil ?',
+  'schema.faq4A':
+    'Les 30 premières vidéos se chargent immédiatement, puis le bouton Afficher plus de vidéos charge 15 vidéos supplémentaires à chaque clic.',
 };
 
 const ES_UI: TranslationMap = {
@@ -745,13 +876,22 @@ const ES_UI: TranslationMap = {
   'nav.tool.photo.desc': 'Descarga imágenes en HD',
   'nav.tool.watermark.label': 'Quitar Marca de Agua',
   'nav.tool.watermark.desc': 'Elimina el logo de TikTok',
+  'nav.tool.analytics.label': 'Analítica de Perfiles',
+  'nav.tool.analytics.desc': 'Consulta interacción y vistas medias',
+  'nav.tool.money.label': 'Calculadora de Ingresos',
+  'nav.tool.money.desc': 'Estima ganancias de creadores',
+  'nav.tool.engage.label': 'Calculadora de Engagement',
+  'nav.tool.engage.desc': 'Calcula tasa por vistas o seguidores',
+  'nav.tool.caption.label': 'Generador de Leyendas',
+  'nav.tool.caption.desc': 'Crea ganchos y hashtags virales',
 
   'footer.tagline':
-    'Herramienta web gratuita para ver perfiles públicos de TikTok de forma anónima, reproducir videos sin cortes y descargar MP4 HD y audio MP3 sin marca de agua.',
+    'Herramienta web gratuita para ver perfiles públicos de TikTok de forma anónima sin registro, reproducir videos sin cortes y descargar MP4 HD y audio MP3 sin marca de agua.',
   'footer.aboutUs': 'Sobre nosotros',
   'footer.howToUse': 'Cómo usar',
   'footer.topCreators': 'Top Creadores',
   'footer.freeTools': 'Herramientas Gratuitas',
+  'footer.creatorTools': 'Analítica y Calculadoras',
   'footer.exploreHeading': 'Explorar y Guías',
   'footer.legalHeading': 'Legal y Protección',
   'footer.copyright': 'TikProfilesViewer.com. Todos los derechos reservados.',
@@ -764,9 +904,10 @@ const ES_UI: TranslationMap = {
   'breadcrumb.topCreators': 'Top Creadores',
   'breadcrumb.categories': 'Categorías',
 
-  'hero.homeTitle': 'Visor de Perfiles de TikTok, Descargador de Videos HD y Audio MP3 Sin Marca de Agua',
+  'hero.homeTitle':
+    'Visor de Perfiles de TikTok Gratis, Descargador de Videos HD MP4 y Audio MP3 Sin Marca de Agua',
   'hero.homeSubtitle':
-    'Inspecciona perfiles públicos de TikTok de forma anónima, mira videos sin interrupciones y guarda MP4 en HD sin marca de agua y audio MP3 gratis.',
+    'Inspecciona perfiles públicos de TikTok de forma anónima y sin iniciar sesión, mira videos sin cortes y descarga MP4 HD sin marca de agua y MP3 gratis.',
   'hero.ctaCreators': 'Ver Top Creadores',
   'hero.ctaTools': 'Explorar Herramientas',
   'hero.ctaHowItWorks': 'Cómo Funciona',
@@ -779,6 +920,8 @@ const ES_UI: TranslationMap = {
   'search.btn': 'Ver Perfil',
   'search.searching': 'Buscando...',
   'search.popular': 'Creadores populares:',
+  'search.recent': 'Búsquedas recientes:',
+  'search.clearRecent': 'Limpiar historial',
   'search.noticeTitle': 'Aviso de búsqueda',
   'search.errorEmpty': 'Por favor ingresa un nombre de usuario de TikTok.',
   'search.errorNotFound': 'No se encontró al usuario @{username} o su cuenta es privada.',
@@ -796,6 +939,7 @@ const ES_UI: TranslationMap = {
   'profile.avatar': 'Guardar Avatar',
   'profile.copyLink': 'Copiar enlace',
   'profile.copied': 'Copiado',
+  'profile.sharePage': 'Página del perfil',
   'profile.openTikTok': 'Abrir TikTok',
   'profile.publicCreator': 'Perfil Público de Creador',
   'profile.status': 'Estado',
@@ -877,9 +1021,9 @@ const ES_UI: TranslationMap = {
   'steps.s3Desc':
     'Pulsa Descargar Video HD para guardar MP4 sin marca de agua, o Descargar Audio para guardar el MP3.',
 
-  'niches.title': 'Explora Categorías y Formatos de TikTok',
+  'niches.title': 'Explora Categorías y Nichos de TikTok',
   'niches.subtitle':
-    'Desde recetas y tecnología hasta comedia, explora cuentas públicas por temática y descarga videos HD sin límites.',
+    'Desde recetas y tecnología hasta comedia, belleza, ciencia, viajes y mascotas, explora cuentas públicas por tema y descarga videos HD.',
   'niches.allCategories': 'Todas las categorías',
   'niches.c1': 'Comedia y Entretenimiento',
   'niches.c1Desc': 'Sketches virales, parodias y creadores de humor.',
@@ -893,6 +1037,14 @@ const ES_UI: TranslationMap = {
   'niches.c5Desc': 'Rutinas de entrenamiento, movilidad y deporte.',
   'niches.c6': 'Baile y Música',
   'niches.c6Desc': 'Coreografías virales y sonidos MP3 descargables.',
+  'niches.c7': 'Belleza y Moda',
+  'niches.c7Desc': 'Tutoriales de maquillaje, cuidado facial y estilos.',
+  'niches.c8': 'Educación y Ciencia',
+  'niches.c8Desc': 'Datos del espacio, experimentos de física y ciencia.',
+  'niches.c9': 'Viajes y Estilo de Vida',
+  'niches.c9Desc': 'Guías de destinos, drones y vlogs de aventura.',
+  'niches.c10': 'Mascotas y Animales',
+  'niches.c10Desc': 'Perros y gatos adorables e historias de rescate.',
   'niches.creatorsCount': '{count} creadores',
   'niches.p1Title': 'Modo 100% anónimo',
   'niches.p1Desc':
@@ -905,9 +1057,9 @@ const ES_UI: TranslationMap = {
     'Obtén video MP4 en resolución original y audio MP3 limpio directamente en tu dispositivo.',
   'niches.cta': 'Buscar un creador en tu categoría favorita',
 
-  'tools.title': 'Herramientas Gratuitas de Descarga',
+  'tools.title': 'Herramientas Gratuitas de Descarga y Creadores',
   'tools.subtitle':
-    'Elige una herramienta gratuita para descargar contenido HD, ver perfiles o quitar marcas de agua.',
+    'Elige una herramienta gratuita para descargar contenido HD, ver perfiles, calcular interacción o quitar marcas de agua.',
   'tools.openTool': 'Abrir herramienta',
   'tools.t1Title': 'Descargador Video HD',
   'tools.t1Desc': 'Guarda videos MP4 1080p originales sin marca de agua.',
@@ -915,10 +1067,18 @@ const ES_UI: TranslationMap = {
   'tools.t2Desc': 'Extrae la música de fondo y sonidos en MP3 limpio.',
   'tools.t3Title': 'Visor Anónimo',
   'tools.t3Desc': 'Consulta datos del perfil y seguidores de forma anónima.',
+  'tools.t4Title': 'Analítica de Perfiles',
+  'tools.t4Desc': 'Revisa tasas de interacción y vistas promedio.',
   'tools.t5Title': 'Descargador de Historias',
   'tools.t5Desc': 'Guarda historias antes de que desaparezcan en 24h.',
   'tools.t6Title': 'Fotos y Carruseles',
   'tools.t6Desc': 'Descarga imágenes de carruseles en calidad HD.',
+  'tools.t7Title': 'Calculadora de Ingresos',
+  'tools.t7Desc': 'Estima ganancias mensuales de patrocinio y creador.',
+  'tools.t8Title': 'Calculadora de Engagement',
+  'tools.t8Desc': 'Calcula la tasa de interacción por vistas o seguidores.',
+  'tools.t9Title': 'Generador de Leyendas',
+  'tools.t9Desc': 'Crea ganchos cortos y hashtags enfocados.',
   'tools.t10Title': 'Quitar Marca de Agua',
   'tools.t10Desc': 'Elimina el logo de TikTok para Reels y Shorts.',
 
@@ -959,6 +1119,21 @@ const ES_UI: TranslationMap = {
   'home.freeDesc': 'Sin pagos, sin tarjeta y sin topes diarios. Descarga todo lo que necesites.',
   'home.privateTitle': 'Privado y Anónimo',
   'home.privateDesc': 'Nadie sabrá que viste su perfil. Sin registro y con total privacidad.',
+
+  'schema.webAppDesc':
+    'Visor gratuito de perfiles de TikTok, reproductor de video y descargador de MP4 HD sin marca de agua y audio MP3.',
+  'schema.faq1Q': '¿Cómo descargo videos de TikTok sin marca de agua gratis?',
+  'schema.faq1A':
+    'Escribe el usuario del creador en el buscador, haz clic en el video deseado y pulsa Descargar Video HD para guardarlo sin marca de agua.',
+  'schema.faq2Q': '¿Puedo ver perfiles de TikTok sin tener cuenta?',
+  'schema.faq2A':
+    'Sí. Tik Profiles Viewer es totalmente gratis y anónimo, sin registro ni cuenta de TikTok.',
+  'schema.faq3Q': '¿Cómo descargo solo el audio o música de un video?',
+  'schema.faq3A':
+    'Haz clic en cualquier video para abrir el reproductor y pulsa Descargar Audio (MP3).',
+  'schema.faq4Q': '¿Cuántos videos puedo ver en un perfil?',
+  'schema.faq4A':
+    'Los primeros 30 videos se cargan al instante y puedes pulsar Mostrar más videos para cargar 15 más cada vez.',
 };
 
 const DE_UI: TranslationMap = {
@@ -985,13 +1160,22 @@ const DE_UI: TranslationMap = {
   'nav.tool.photo.desc': 'Karussell-Bilder in HD laden',
   'nav.tool.watermark.label': 'Wasserzeichen-Entferner',
   'nav.tool.watermark.desc': 'TikTok-Logo sauber entfernen',
+  'nav.tool.analytics.label': 'Profil-Analytik',
+  'nav.tool.analytics.desc': 'Engagement und Aufrufe prüfen',
+  'nav.tool.money.label': 'Einnahmen-Rechner',
+  'nav.tool.money.desc': 'Creator-Einnahmen abschätzen',
+  'nav.tool.engage.label': 'Engagement-Rechner',
+  'nav.tool.engage.desc': 'Rate nach Aufrufen berechnen',
+  'nav.tool.caption.label': 'Caption-Generator',
+  'nav.tool.caption.desc': 'Hooks und Hashtags erstellen',
 
   'footer.tagline':
-    'Kostenloses Web-Tool zum anonymen Ansehen öffentlicher TikTok-Profile, flüssigen Abspielen und Herunterladen von HD-MP4-Videos und MP3-Audio ohne Wasserzeichen.',
+    'Kostenloses Web-Tool zum anonymen Ansehen öffentlicher TikTok-Profile ohne Login, flüssigen Abspielen und Herunterladen von HD-MP4-Videos und MP3-Audio ohne Wasserzeichen.',
   'footer.aboutUs': 'Über uns',
   'footer.howToUse': 'Anleitung',
   'footer.topCreators': 'Top Creator',
   'footer.freeTools': 'Kostenlose Tools',
+  'footer.creatorTools': 'Analytik & Rechner',
   'footer.exploreHeading': 'Entdecken & Guides',
   'footer.legalHeading': 'Rechtliches & Schutz',
   'footer.copyright': 'TikProfilesViewer.com. Alle Rechte vorbehalten.',
@@ -1004,9 +1188,10 @@ const DE_UI: TranslationMap = {
   'breadcrumb.topCreators': 'Top Creator',
   'breadcrumb.categories': 'Kategorien',
 
-  'hero.homeTitle': 'TikTok Profil-Viewer, HD Video Downloader & MP3 Audio ohne Wasserzeichen',
+  'hero.homeTitle':
+    'Kostenloser TikTok Profil-Viewer, HD MP4 Video Downloader & MP3 Audio ohne Wasserzeichen',
   'hero.homeSubtitle':
-    'Sieh dir öffentliche TikTok-Profile anonym an, spiele Videos ohne Ruckeln ab und speichere HD-MP4-Videos sowie MP3-Audio kostenlos ohne Wasserzeichen.',
+    'Sieh dir öffentliche TikTok-Profile anonym ohne Anmeldung an, spiele Videos flüssig ab und speichere HD-MP4-Videos sowie MP3-Audio kostenlos ohne Wasserzeichen.',
   'hero.ctaCreators': 'Top Creator entdecken',
   'hero.ctaTools': 'Kostenlose Tools',
   'hero.ctaHowItWorks': 'So funktioniert es',
@@ -1019,6 +1204,8 @@ const DE_UI: TranslationMap = {
   'search.btn': 'Profil öffnen',
   'search.searching': 'Suche läuft...',
   'search.popular': 'Beliebte Creator:',
+  'search.recent': 'Letzte Suchen:',
+  'search.clearRecent': 'Verlauf löschen',
   'search.noticeTitle': 'Suchhinweis',
   'search.errorEmpty': 'Bitte gib einen TikTok-Benutzernamen ein.',
   'search.errorNotFound': 'Nutzer @{username} wurde nicht gefunden oder ist privat.',
@@ -1035,6 +1222,7 @@ const DE_UI: TranslationMap = {
   'profile.avatar': 'Avatar speichern',
   'profile.copyLink': 'Link kopieren',
   'profile.copied': 'Kopiert',
+  'profile.sharePage': 'Profilseite',
   'profile.openTikTok': 'TikTok öffnen',
   'profile.publicCreator': 'Öffentliches Creator-Profil',
   'profile.status': 'Status',
@@ -1116,9 +1304,9 @@ const DE_UI: TranslationMap = {
   'steps.s3Desc':
     'Klicke auf HD-Video herunterladen für saubere MP4s oder auf Audio laden für die MP3-Spur.',
 
-  'niches.title': 'TikTok-Nischen & Formate entdecken',
+  'niches.title': 'TikTok-Nischen & Kategorien entdecken',
   'niches.subtitle':
-    'Von Kochrezepten über Tech-Reviews bis Comedy: Durchsuche öffentliche Konten nach Themen und lade HD-Videos ohne Einschränkungen.',
+    'Von Kochrezepten und Tech-Reviews bis Comedy, Beauty, Wissenschaft, Reisen und Haustieren: Durchsuche öffentliche Konten nach Themen.',
   'niches.allCategories': 'Alle Kategorien',
   'niches.c1': 'Comedy & Unterhaltung',
   'niches.c1Desc': 'Virale Sketche, Parodien und Reaktionsvideos.',
@@ -1132,6 +1320,14 @@ const DE_UI: TranslationMap = {
   'niches.c5Desc': 'Workouts, Beweglichkeit und Sport-Clips.',
   'niches.c6': 'Tanz & Musik',
   'niches.c6Desc': 'Aktuelle Choreografien und MP3-Sounds.',
+  'niches.c7': 'Beauty & Mode',
+  'niches.c7Desc': 'Make-up-Tutorials, Hautpflege und Outfit-Trends.',
+  'niches.c8': 'Bildung & Wissenschaft',
+  'niches.c8Desc': 'Weltraum-Fakten, Physik-Experimente und Erklärvideos.',
+  'niches.c9': 'Reisen & Lifestyle',
+  'niches.c9Desc': 'Reiseführer, Drohnenaufnahmen und Abenteuer-Vlogs.',
+  'niches.c10': 'Tiere & Haustiere',
+  'niches.c10Desc': 'Niedliche Hunde, kochende Katzen und Tiergeschichten.',
   'niches.creatorsCount': '{count} Creator',
   'niches.p1Title': '100% anonyme Nutzung',
   'niches.p1Desc':
@@ -1144,9 +1340,9 @@ const DE_UI: TranslationMap = {
     'Lade MP4-Videos in Originalauflösung und klares MP3-Audio direkt auf dein Gerät.',
   'niches.cta': 'Creator in deiner Lieblingsnische suchen',
 
-  'tools.title': 'Kostenlose Downloader-Tools',
+  'tools.title': 'Kostenlose Downloader- & Creator-Tools',
   'tools.subtitle':
-    'Wähle ein kostenloses Tool für HD-Downloads, Profilchecks oder zum Entfernen von Wasserzeichen.',
+    'Wähle ein kostenloses Tool für HD-Downloads, Profilchecks, Engagement-Werte oder zum Entfernen von Wasserzeichen.',
   'tools.openTool': 'Tool öffnen',
   'tools.t1Title': 'HD Video Downloader',
   'tools.t1Desc': 'Originale 1080p-MP4-Videos ohne Wasserzeichen speichern.',
@@ -1154,10 +1350,18 @@ const DE_UI: TranslationMap = {
   'tools.t2Desc': 'Musik und Sounds als saubere MP3-Datei laden.',
   'tools.t3Title': 'Anonymer Viewer',
   'tools.t3Desc': 'Profildaten und Follower-Zahlen anonym ansehen.',
+  'tools.t4Title': 'Profil-Analytik',
+  'tools.t4Desc': 'Engagement-Rate und durchschnittliche Aufrufe prüfen.',
   'tools.t5Title': 'Story Downloader',
   'tools.t5Desc': 'Stories sichern, bevor sie nach 24h verschwinden.',
   'tools.t6Title': 'Fotos & Diashows',
   'tools.t6Desc': 'Karussell-Bilder in voller HD-Auflösung laden.',
+  'tools.t7Title': 'Einnahmen-Rechner',
+  'tools.t7Desc': 'Monatliche Einnahmen und Sponsorenwerte schätzen.',
+  'tools.t8Title': 'Engagement-Rechner',
+  'tools.t8Desc': 'Engagement-Rate nach Aufrufen oder Followern berechnen.',
+  'tools.t9Title': 'Caption-Generator',
+  'tools.t9Desc': 'Kurze Video-Hooks und gezielte Hashtags erstellen.',
   'tools.t10Title': 'Wasserzeichen-Entferner',
   'tools.t10Desc': 'TikTok-Logos für Reels und Shorts entfernen.',
 
@@ -1198,6 +1402,21 @@ const DE_UI: TranslationMap = {
   'home.freeDesc': 'Keine Zahlungen, keine Kreditkarte und keine Tageslimits.',
   'home.privateTitle': 'Privat & Anonym',
   'home.privateDesc': 'Niemand erfährt von deinem Besuch. Keine Registrierung nötig.',
+
+  'schema.webAppDesc':
+    'Kostenloser TikTok Profil-Viewer, Videoplayer und Downloader für HD-MP4-Videos ohne Wasserzeichen und MP3-Audio.',
+  'schema.faq1Q': 'Wie lade ich TikTok-Videos kostenlos ohne Wasserzeichen herunter?',
+  'schema.faq1A':
+    'Gib den Benutzernamen in die Suche ein, wähle ein Video und klicke auf HD-Video herunterladen.',
+  'schema.faq2Q': 'Kann ich TikTok-Profile ohne eigenes Konto ansehen?',
+  'schema.faq2A':
+    'Ja. Tik Profiles Viewer ist kostenlos und anonym, ganz ohne Login oder TikTok-Konto.',
+  'schema.faq3Q': 'Wie speichere ich nur die Musik oder den Ton eines Videos?',
+  'schema.faq3A':
+    'Öffne ein Video im Player und klicke auf Audio laden (MP3).',
+  'schema.faq4Q': 'Wie viele Videos kann ich auf einem Profil sehen?',
+  'schema.faq4A':
+    'Die ersten 30 Videos werden sofort geladen; mit Mehr Videos laden erscheinen jeweils 15 weitere.',
 };
 
 const RU_UI: TranslationMap = {
@@ -1224,13 +1443,22 @@ const RU_UI: TranslationMap = {
   'nav.tool.photo.desc': 'Скачать фото из каруселей в HD',
   'nav.tool.watermark.label': 'Удаление водяного знака',
   'nav.tool.watermark.desc': 'Убрать логотип TikTok для Reels',
+  'nav.tool.analytics.label': 'Аналитика профиля',
+  'nav.tool.analytics.desc': 'Вовлеченность и средние просмотры',
+  'nav.tool.money.label': 'Калькулятор доходов',
+  'nav.tool.money.desc': 'Оценка дохода автора в месяц',
+  'nav.tool.engage.label': 'Калькулятор вовлеченности',
+  'nav.tool.engage.desc': 'Расчет ER по просмотрам',
+  'nav.tool.caption.label': 'Генератор описаний',
+  'nav.tool.caption.desc': 'Хуки и хэштеги для видео',
 
   'footer.tagline':
-    'Бесплатный веб-сервис для анонимного просмотра публичных профилей TikTok, плавного воспроизведения видео и скачивания HD MP4 и MP3 без водяного знака.',
+    'Бесплатный веб-сервис для анонимного просмотра публичных профилей TikTok без входа, плавного воспроизведения видео и скачивания HD MP4 и MP3 без водяного знака.',
   'footer.aboutUs': 'О нас',
   'footer.howToUse': 'Инструкция',
   'footer.topCreators': 'Топ авторы',
   'footer.freeTools': 'Бесплатные инструменты',
+  'footer.creatorTools': 'Аналитика и калькуляторы',
   'footer.exploreHeading': 'Разделы и гиды',
   'footer.legalHeading': 'Право и защита',
   'footer.copyright': 'TikProfilesViewer.com. Все права защищены.',
@@ -1243,9 +1471,10 @@ const RU_UI: TranslationMap = {
   'breadcrumb.topCreators': 'Топ авторы',
   'breadcrumb.categories': 'Категории',
 
-  'hero.homeTitle': 'Просмотр профилей TikTok, скачивание HD видео и MP3 без водяного знака',
+  'hero.homeTitle':
+    'Бесплатный просмотр профилей TikTok, скачивание HD MP4 видео и MP3 без водяного знака',
   'hero.homeSubtitle':
-    'Анонимно просматривайте публичные профили TikTok, смотрите видео без задержек и бесплатно скачивайте HD MP4 и аудио MP3 без водяного знака.',
+    'Анонимно просматривайте публичные профили TikTok без регистрации, смотрите видео без задержек и бесплатно скачивайте HD MP4 и аудио MP3 без водяного знака.',
   'hero.ctaCreators': 'Топ авторы',
   'hero.ctaTools': 'Все инструменты',
   'hero.ctaHowItWorks': 'Как это работает',
@@ -1258,10 +1487,12 @@ const RU_UI: TranslationMap = {
   'search.btn': 'Открыть профиль',
   'search.searching': 'Поиск...',
   'search.popular': 'Популярные авторы:',
+  'search.recent': 'Недавние поиски:',
+  'search.clearRecent': 'Очистить историю',
   'search.noticeTitle': 'Результат поиска',
   'search.errorEmpty': 'Пожалуйста, введите имя пользователя TikTok.',
   'search.errorNotFound': 'Пользователь @{username} не найден или профиль закрыт.',
-  'search.errorPrivate': '@{username} — приватный аккаунт TikTok.',
+  'search.errorPrivate': '@{username}: приватный аккаунт TikTok.',
   'search.errorNoVideos': 'У @{username} сейчас нет доступных публичных видео.',
   'search.errorFailed': 'Не удалось загрузить данные профиля.',
 
@@ -1274,6 +1505,7 @@ const RU_UI: TranslationMap = {
   'profile.avatar': 'Скачать аватар',
   'profile.copyLink': 'Копировать ссылку',
   'profile.copied': 'Скопировано',
+  'profile.sharePage': 'Страница профиля',
   'profile.openTikTok': 'Открыть TikTok',
   'profile.publicCreator': 'Публичный профиль автора',
   'profile.status': 'Статус',
@@ -1350,7 +1582,7 @@ const RU_UI: TranslationMap = {
   'steps.s3Desc': 'Нажмите Скачать HD видео для MP4 без знака или Скачать аудио для сохранения MP3.',
 
   'niches.title': 'Категории и форматы TikTok',
-  'niches.subtitle': 'От кулинарии и обзоров техники до комедии: открывайте публичные аккаунты по темам и скачивайте видео без ограничений.',
+  'niches.subtitle': 'От кулинарии и обзоров техники до комедии, красоты, науки, путешествий и питомцев: открывайте публичные аккаунты по темам.',
   'niches.allCategories': 'Все категории',
   'niches.c1': 'Юмор и развлечения',
   'niches.c1Desc': 'Вирусные скетчи, пародии и реакции.',
@@ -1364,6 +1596,14 @@ const RU_UI: TranslationMap = {
   'niches.c5Desc': 'Тренировки, растяжка и спортивные трюки.',
   'niches.c6': 'Танцы и музыка',
   'niches.c6Desc': 'Трендовые танцы и треки в формате MP3.',
+  'niches.c7': 'Красота и мода',
+  'niches.c7Desc': 'Макияж, уход за кожей и модные образы.',
+  'niches.c8': 'Образование и наука',
+  'niches.c8Desc': 'Космос, физические опыты и научные факты.',
+  'niches.c9': 'Путешествия и стиль',
+  'niches.c9Desc': 'Гиды по городам, съемка с дронов и влоги.',
+  'niches.c10': 'Питомцы и животные',
+  'niches.c10Desc': 'Милые собаки, коты и истории спасения.',
   'niches.creatorsCount': 'Авторов: {count}',
   'niches.p1Title': '100% анонимность',
   'niches.p1Desc': 'Аккаунт TikTok не нужен. Авторы никогда не увидят вас в истории просмотров.',
@@ -1373,8 +1613,8 @@ const RU_UI: TranslationMap = {
   'niches.p3Desc': 'Получайте оригинальное MP4 видео и чистый MP3 звук прямо на устройство.',
   'niches.cta': 'Найти автора в любимой категории',
 
-  'tools.title': 'Бесплатные инструменты загрузки',
-  'tools.subtitle': 'Выберите бесплатный инструмент для скачивания видео, просмотра профилей или удаления знака.',
+  'tools.title': 'Бесплатные инструменты загрузки и аналитики',
+  'tools.subtitle': 'Выберите бесплатный инструмент для скачивания видео, просмотра профилей, расчетов или удаления знака.',
   'tools.openTool': 'Открыть',
   'tools.t1Title': 'Загрузчик видео HD',
   'tools.t1Desc': 'Сохраняйте оригинальные MP4 1080p без водяных знаков.',
@@ -1382,10 +1622,18 @@ const RU_UI: TranslationMap = {
   'tools.t2Desc': 'Скачивайте фоновую музыку и звук в формате MP3.',
   'tools.t3Title': 'Анонимный просмотр',
   'tools.t3Desc': 'Просматривайте статистику и подписчиков анонимно.',
+  'tools.t4Title': 'Аналитика профиля',
+  'tools.t4Desc': 'Проверяйте вовлеченность и средние просмотры.',
   'tools.t5Title': 'Загрузчик сторис',
   'tools.t5Desc': 'Сохраняйте истории до их удаления через 24 часа.',
   'tools.t6Title': 'Фото и слайды',
   'tools.t6Desc': 'Скачивайте фото из каруселей в полном HD.',
+  'tools.t7Title': 'Калькулятор доходов',
+  'tools.t7Desc': 'Оцените доход от рекламы и программы авторов.',
+  'tools.t8Title': 'Калькулятор вовлеченности',
+  'tools.t8Desc': 'Рассчитайте ER по просмотрам или подписчикам.',
+  'tools.t9Title': 'Генератор описаний',
+  'tools.t9Desc': 'Создавайте короткие хуки и хэштеги для постов.',
   'tools.t10Title': 'Удаление знака',
   'tools.t10Desc': 'Убирайте логотип TikTok для Reels и Shorts.',
 
@@ -1418,6 +1666,21 @@ const RU_UI: TranslationMap = {
   'home.freeDesc': 'Никаких оплат, карт и дневных лимитов на скачивание.',
   'home.privateTitle': 'Приватно и анонимно',
   'home.privateDesc': 'Никто не узнает о вашем визите. Регистрация не требуется.',
+
+  'schema.webAppDesc':
+    'Бесплатный просмотр профилей TikTok, видеоплеер и загрузчик HD MP4 видео и MP3 аудио без водяного знака.',
+  'schema.faq1Q': 'Как бесплатно скачать видео TikTok без водяного знака?',
+  'schema.faq1A':
+    'Введите ник автора в поиск, выберите видео и нажмите Скачать HD видео. Ролик сохранится без водяного знака.',
+  'schema.faq2Q': 'Можно ли смотреть профили TikTok без аккаунта?',
+  'schema.faq2A':
+    'Да. Tik Profiles Viewer работает бесплатно и анонимно без входа в TikTok.',
+  'schema.faq3Q': 'Как скачать только звук или музыку из видео?',
+  'schema.faq3A':
+    'Откройте любое видео и нажмите кнопку Скачать аудио (MP3).',
+  'schema.faq4Q': 'Сколько видео можно посмотреть в профиле?',
+  'schema.faq4A':
+    'Первые 30 видео загружаются сразу, далее кнопка Показать еще видео добавляет по 15 роликов.',
 };
 
 const ZH_UI: TranslationMap = {
@@ -1444,13 +1707,22 @@ const ZH_UI: TranslationMap = {
   'nav.tool.photo.desc': '下载高清轮播图片',
   'nav.tool.watermark.label': '去水印工具',
   'nav.tool.watermark.desc': '移除 TikTok 水印标识',
+  'nav.tool.analytics.label': '主页数据分析',
+  'nav.tool.analytics.desc': '查看互动率与平均播放',
+  'nav.tool.money.label': '创作者收入计算器',
+  'nav.tool.money.desc': '估算月度赞助与奖励收益',
+  'nav.tool.engage.label': '互动率计算器',
+  'nav.tool.engage.desc': '按播放量或粉丝数计算',
+  'nav.tool.caption.label': '文案与标签生成器',
+  'nav.tool.caption.desc': '生成吸睛开头与标签',
 
   'footer.tagline':
-    '免费网页工具，支持匿名查看公开 TikTok 主页、流畅播放视频以及下载无水印高清 MP4 视频和 MP3 音频。',
+    '免费网页工具，支持免登录匿名查看公开 TikTok 主页、流畅播放视频以及下载无水印高清 MP4 视频和 MP3 音频。',
   'footer.aboutUs': '关于我们',
   'footer.howToUse': '使用指南',
   'footer.topCreators': '热门创作者',
   'footer.freeTools': '免费下载工具',
+  'footer.creatorTools': '创作者分析与工具',
   'footer.exploreHeading': '探索与指南',
   'footer.legalHeading': '法律与保护',
   'footer.copyright': 'TikProfilesViewer.com. 保留所有权利。',
@@ -1463,9 +1735,9 @@ const ZH_UI: TranslationMap = {
   'breadcrumb.topCreators': '热门创作者',
   'breadcrumb.categories': '分类',
 
-  'hero.homeTitle': 'TikTok 主页查看器、无水印高清视频下载与 MP3 音频提取',
+  'hero.homeTitle': '免费 TikTok 主页查看器、无水印高清 MP4 视频下载与 MP3 音频提取器',
   'hero.homeSubtitle':
-    '匿名浏览公开 TikTok 主页，流畅播放视频不卡顿，免费保存无水印高清 MP4 视频和 MP3 音频。',
+    '免登录匿名浏览公开 TikTok 主页，流畅播放视频不卡顿，免费保存无水印高清 MP4 视频和 MP3 音频。',
   'hero.ctaCreators': '浏览热门创作者',
   'hero.ctaTools': '探索免费工具',
   'hero.ctaHowItWorks': '查看使用步骤',
@@ -1478,6 +1750,8 @@ const ZH_UI: TranslationMap = {
   'search.btn': '查看主页',
   'search.searching': '搜索中...',
   'search.popular': '热门创作者：',
+  'search.recent': '最近搜索：',
+  'search.clearRecent': '清除记录',
   'search.noticeTitle': '查找提示',
   'search.errorEmpty': '请输入 TikTok 用户名。',
   'search.errorNotFound': '未找到用户 @{username} 或该账号为私密账号。',
@@ -1494,6 +1768,7 @@ const ZH_UI: TranslationMap = {
   'profile.avatar': '保存头像',
   'profile.copyLink': '复制链接',
   'profile.copied': '已复制',
+  'profile.sharePage': '主页详情页',
   'profile.openTikTok': '打开 TikTok',
   'profile.publicCreator': '公开创作者主页',
   'profile.status': '状态',
@@ -1569,8 +1844,8 @@ const ZH_UI: TranslationMap = {
   'steps.s3Title': '下载高画质文件',
   'steps.s3Desc': '点击下载高清视频保存无水印 MP4，或点击下载音频一键保存 MP3 音乐。',
 
-  'niches.title': '按领域探索 TikTok 创作者',
-  'niches.subtitle': '涵盖美食教程、科技评测、搞笑短剧等分类，按主题浏览公开账号并无限制保存高清视频。',
+  'niches.title': '按领域探索 TikTok 创作者分类',
+  'niches.subtitle': '涵盖美食教程、科技评测、搞笑短剧、美妆、科普、旅行与萌宠等分类，按主题浏览公开账号并保存高清视频。',
   'niches.allCategories': '全部分类',
   'niches.c1': '喜剧与娱乐',
   'niches.c1Desc': '热门搞笑短剧、模仿和趣味反应视频。',
@@ -1584,6 +1859,14 @@ const ZH_UI: TranslationMap = {
   'niches.c5Desc': '训练计划、体能拉伸与运动挑战。',
   'niches.c6': '舞蹈与音乐',
   'niches.c6Desc': '热门编舞与可提取的 MP3 背景音乐。',
+  'niches.c7': '美妆与时尚',
+  'niches.c7Desc': '彩妆教程、护肤心得与穿搭灵感。',
+  'niches.c8': '教育与科学',
+  'niches.c8Desc': '太空科普、物理实验与趣味知识讲解。',
+  'niches.c9': '旅行与生活',
+  'niches.c9Desc': '目的地攻略、航拍大片与探险日志。',
+  'niches.c10': '萌宠与动物',
+  'niches.c10Desc': '可爱猫狗日常、宠物厨艺与救助故事。',
   'niches.creatorsCount': '{count} 位创作者',
   'niches.p1Title': '100% 匿名查看',
   'niches.p1Desc': '无需登录 TikTok 账号，创作者不会在访客记录中看到您的信息。',
@@ -1593,8 +1876,8 @@ const ZH_UI: TranslationMap = {
   'niches.p3Desc': '直接获取原始分辨率 MP4 视频和纯净 MP3 音频到本地设备。',
   'niches.cta': '搜索您感兴趣领域的创作者',
 
-  'tools.title': '免费下载工具',
-  'tools.subtitle': '选择免费工具下载无水印高清视频、查看公开资料或提取音频。',
+  'tools.title': '免费下载与创作者工具',
+  'tools.subtitle': '选择免费工具下载无水印高清视频、查看公开资料、分析数据或提取音频。',
   'tools.openTool': '打开工具',
   'tools.t1Title': '高清视频下载器',
   'tools.t1Desc': '保存原始 1080p 无水印 MP4 视频。',
@@ -1602,10 +1885,18 @@ const ZH_UI: TranslationMap = {
   'tools.t2Desc': '提取背景音乐与原声为纯净 MP3。',
   'tools.t3Title': '匿名查看器',
   'tools.t3Desc': '匿名查看账号资料与粉丝数据。',
+  'tools.t4Title': '主页数据分析',
+  'tools.t4Desc': '分析创作者互动率、平均播放与内容表现。',
   'tools.t5Title': '快拍下载器',
   'tools.t5Desc': '在 24 小时过期前保存快拍内容。',
   'tools.t6Title': '图文与幻灯片',
   'tools.t6Desc': '下载全分辨率高清轮播图片。',
+  'tools.t7Title': '收入计算器',
+  'tools.t7Desc': '估算每月品牌赞助与创作者计划收益。',
+  'tools.t8Title': '互动率计算器',
+  'tools.t8Desc': '按播放量或粉丝数计算精确互动率。',
+  'tools.t9Title': '文案与标签生成器',
+  'tools.t9Desc': '打造吸睛视频开头与精准标签。',
   'tools.t10Title': '去水印工具',
   'tools.t10Desc': '移除 TikTok 标志以便保存纯净画面。',
 
@@ -1638,6 +1929,17 @@ const ZH_UI: TranslationMap = {
   'home.freeDesc': '无需付款、无需信用卡，也没有每日次数限制。',
   'home.privateTitle': '私密且匿名',
   'home.privateDesc': '无需注册登录，保护您的浏览隐私。',
+
+  'schema.webAppDesc':
+    '免费 TikTok 主页查看器、视频播放器以及无水印高清 MP4 视频与 MP3 音频下载工具。',
+  'schema.faq1Q': '如何免费下载无水印 TikTok 视频？',
+  'schema.faq1A': '在搜索框输入创作者用户名，点击想看的视频后选择下载高清视频即可保存无水印版本。',
+  'schema.faq2Q': '没有 TikTok 账号也能查看主页吗？',
+  'schema.faq2A': '可以。Tik Profiles Viewer 完全免费且匿名，无需登录或注册账号。',
+  'schema.faq3Q': '如何只下载视频里的音频或音乐？',
+  'schema.faq3A': '点击任意视频打开播放器，然后点击下载音频 (MP3) 即可保存为 MP3 文件。',
+  'schema.faq4Q': '一个主页可以加载多少个视频？',
+  'schema.faq4A': '首批立即加载 30 个视频，点击底部的加载更多视频可每次追加加载 15 个。',
 };
 
 const PT_UI: TranslationMap = {
@@ -1664,13 +1966,22 @@ const PT_UI: TranslationMap = {
   'nav.tool.photo.desc': 'Baixe imagens do carrossel em HD',
   'nav.tool.watermark.label': 'Remover Marca d’Água',
   'nav.tool.watermark.desc': 'Remova o logo do TikTok',
+  'nav.tool.analytics.label': 'Analítica de Perfil',
+  'nav.tool.analytics.desc': 'Veja engajamento e média de views',
+  'nav.tool.money.label': 'Calculadora de Ganhos',
+  'nav.tool.money.desc': 'Estime ganhos mensais de criadores',
+  'nav.tool.engage.label': 'Calculadora de Engajamento',
+  'nav.tool.engage.desc': 'Calcule a taxa por views ou fãs',
+  'nav.tool.caption.label': 'Gerador de Legendas',
+  'nav.tool.caption.desc': 'Crie ganchos e hashtags',
 
   'footer.tagline':
-    'Ferramenta gratuita para ver perfis públicos do TikTok anonimamente, assistir vídeos sem travamentos e baixar MP4 HD e MP3 sem marca d’água.',
+    'Ferramenta gratuita para ver perfis públicos do TikTok anonimamente sem login, assistir vídeos sem travamentos e baixar MP4 HD e MP3 sem marca d’água.',
   'footer.aboutUs': 'Sobre nós',
   'footer.howToUse': 'Como usar',
   'footer.topCreators': 'Top Criadores',
   'footer.freeTools': 'Ferramentas Grátis',
+  'footer.creatorTools': 'Analítica e Calculadoras',
   'footer.exploreHeading': 'Explorar e Guias',
   'footer.legalHeading': 'Legal e Proteção',
   'footer.copyright': 'TikProfilesViewer.com. Todos os direitos reservados.',
@@ -1683,9 +1994,10 @@ const PT_UI: TranslationMap = {
   'breadcrumb.topCreators': 'Top Criadores',
   'breadcrumb.categories': 'Categorias',
 
-  'hero.homeTitle': 'Visualizador de Perfis do TikTok, Baixador de Vídeos HD e Áudio MP3 Sem Marca d’Água',
+  'hero.homeTitle':
+    'Visualizador de Perfis do TikTok Grátis, Baixador de Vídeos HD MP4 e Áudio MP3 Sem Marca d’Água',
   'hero.homeSubtitle':
-    'Inspecione perfis públicos do TikTok anonimamente, assista aos vídeos com fluidez e salve MP4 HD sem marca d’água e áudio MP3 de graça.',
+    'Inspecione perfis públicos do TikTok anonimamente sem login, assista aos vídeos com fluidez e baixe MP4 HD sem marca d’água e áudio MP3 de graça.',
   'hero.ctaCreators': 'Ver Top Criadores',
   'hero.ctaTools': 'Explorar Ferramentas',
   'hero.ctaHowItWorks': 'Como Funciona',
@@ -1698,6 +2010,8 @@ const PT_UI: TranslationMap = {
   'search.btn': 'Ver Perfil',
   'search.searching': 'Buscando...',
   'search.popular': 'Criadores populares:',
+  'search.recent': 'Buscas recentes:',
+  'search.clearRecent': 'Limpar histórico',
   'search.noticeTitle': 'Aviso da busca',
   'search.errorEmpty': 'Digite um nome de usuário do TikTok.',
   'search.errorNotFound': 'Usuário @{username} não encontrado ou conta privada.',
@@ -1714,6 +2028,7 @@ const PT_UI: TranslationMap = {
   'profile.avatar': 'Salvar Avatar',
   'profile.copyLink': 'Copiar link',
   'profile.copied': 'Copiado',
+  'profile.sharePage': 'Página do perfil',
   'profile.openTikTok': 'Abrir TikTok',
   'profile.publicCreator': 'Perfil Público',
   'profile.status': 'Status',
@@ -1789,8 +2104,8 @@ const PT_UI: TranslationMap = {
   'steps.s3Title': 'Baixe em alta qualidade',
   'steps.s3Desc': 'Clique em Baixar Vídeo HD para MP4 sem marca ou Baixar Áudio para salvar MP3.',
 
-  'niches.title': 'Explore Nichos e Formatos do TikTok',
-  'niches.subtitle': 'De receitas e reviews de tecnologia até comédia, navegue por tópicos e baixe vídeos em HD.',
+  'niches.title': 'Explore Nichos e Categorias do TikTok',
+  'niches.subtitle': 'De receitas e tecnologia até comédia, beleza, ciência, viagens e pets, navegue por tópicos e baixe vídeos em HD.',
   'niches.allCategories': 'Todas categorias',
   'niches.c1': 'Comédia e Entretenimento',
   'niches.c1Desc': 'Esquetes virais, paródias e criadores de humor.',
@@ -1804,6 +2119,14 @@ const PT_UI: TranslationMap = {
   'niches.c5Desc': 'Treinos, mobilidade e desempenho atlético.',
   'niches.c6': 'Dança e Música',
   'niches.c6Desc': 'Coreografias virais e áudios MP3.',
+  'niches.c7': 'Beleza e Moda',
+  'niches.c7Desc': 'Tutoriais de maquiagem, skincare e estilo.',
+  'niches.c8': 'Educação e Ciência',
+  'niches.c8Desc': 'Fatos espaciais, física e curiosidades científicas.',
+  'niches.c9': 'Viagens e Estilo de Vida',
+  'niches.c9Desc': 'Guias de destinos, drones e vlogs de aventura.',
+  'niches.c10': 'Pets e Animais',
+  'niches.c10Desc': 'Cães e gatos fofos e histórias de resgate.',
   'niches.creatorsCount': '{count} criadores',
   'niches.p1Title': 'Visualização 100% anônima',
   'niches.p1Desc': 'Não precisa de conta no TikTok. Criadores nunca veem sua visita.',
@@ -1813,8 +2136,8 @@ const PT_UI: TranslationMap = {
   'niches.p3Desc': 'Salve MP4 original e áudio MP3 limpo direto no aparelho.',
   'niches.cta': 'Buscar criador no seu nicho favorito',
 
-  'tools.title': 'Ferramentas Gratuitas',
-  'tools.subtitle': 'Escolha uma ferramenta para baixar mídia HD, ver perfis ou remover marcas.',
+  'tools.title': 'Ferramentas Gratuitas de Download e Criadores',
+  'tools.subtitle': 'Escolha uma ferramenta para baixar mídia HD, ver perfis, calcular engajamento ou remover marcas.',
   'tools.openTool': 'Abrir ferramenta',
   'tools.t1Title': 'Baixador Vídeo HD',
   'tools.t1Desc': 'Salve vídeos MP4 1080p originais sem marca d’água.',
@@ -1822,10 +2145,18 @@ const PT_UI: TranslationMap = {
   'tools.t2Desc': 'Extraia músicas e sons em MP3 limpo.',
   'tools.t3Title': 'Visualizador Anônimo',
   'tools.t3Desc': 'Veja dados e seguidores anonimamente.',
+  'tools.t4Title': 'Analítica de Perfil',
+  'tools.t4Desc': 'Avalie engajamento e média de visualizações.',
   'tools.t5Title': 'Baixador de Stories',
   'tools.t5Desc': 'Salve stories antes que sumam em 24h.',
   'tools.t6Title': 'Fotos e Slides',
   'tools.t6Desc': 'Baixe fotos de carrosséis em alta definição.',
+  'tools.t7Title': 'Calculadora de Ganhos',
+  'tools.t7Desc': 'Estime ganhos mensais com patrocínios e programa.',
+  'tools.t8Title': 'Calculadora de Engajamento',
+  'tools.t8Desc': 'Calcule a taxa de interação por views ou fãs.',
+  'tools.t9Title': 'Gerador de Legendas',
+  'tools.t9Desc': 'Monte ganchos curtos e hashtags direcionadas.',
   'tools.t10Title': 'Remover Marca d’Água',
   'tools.t10Desc': 'Remova o logo do TikTok para Reels e Shorts.',
 
@@ -1858,6 +2189,21 @@ const PT_UI: TranslationMap = {
   'home.freeDesc': 'Sem pagamentos, sem cartão e sem limites diários.',
   'home.privateTitle': 'Privado e Anônimo',
   'home.privateDesc': 'Ninguém sabe que você visitou. Sem cadastro.',
+
+  'schema.webAppDesc':
+    'Visualizador gratuito de perfis do TikTok, player de vídeo e baixador de MP4 HD sem marca d’água e áudio MP3.',
+  'schema.faq1Q': 'Como baixar vídeos do TikTok sem marca d’água de graça?',
+  'schema.faq1A':
+    'Digite o usuário na busca, clique no vídeo desejado e clique em Baixar Vídeo HD para salvar sem marca d’água.',
+  'schema.faq2Q': 'Posso ver perfis do TikTok sem ter conta?',
+  'schema.faq2A':
+    'Sim. O Tik Profiles Viewer é grátis e anônimo, sem login ou conta no TikTok.',
+  'schema.faq3Q': 'Como baixar apenas o áudio ou música de um vídeo?',
+  'schema.faq3A':
+    'Abra qualquer vídeo e clique em Baixar Áudio (MP3) para salvar a faixa.',
+  'schema.faq4Q': 'Quantos vídeos posso ver em um perfil?',
+  'schema.faq4A':
+    'Os primeiros 30 vídeos carregam na hora e você pode clicar em Mostrar mais vídeos para carregar mais 15 por vez.',
 };
 
 const HE_UI: TranslationMap = {
@@ -1884,13 +2230,22 @@ const HE_UI: TranslationMap = {
   'nav.tool.photo.desc': 'הורדת תמונות באיכות HD',
   'nav.tool.watermark.label': 'הסרת סימן מים',
   'nav.tool.watermark.desc': 'הסרת לוגו טיקטוק נקי',
+  'nav.tool.analytics.label': 'אנליטיקה של פרופיל',
+  'nav.tool.analytics.desc': 'שיעורי מעורבות וממוצע צפיות',
+  'nav.tool.money.label': 'מחשבון הכנסות',
+  'nav.tool.money.desc': 'הערכת הכנסות חודשית ליוצרים',
+  'nav.tool.engage.label': 'מחשבון מעורבות',
+  'nav.tool.engage.desc': 'חישוב אחוז מעורבות לפי צפיות',
+  'nav.tool.caption.label': 'מחולל כיתובים והאשטאגים',
+  'nav.tool.caption.desc': 'יצירת פתיחים ותגיות ממוקדות',
 
   'footer.tagline':
-    'שירות אינטרנט חינמי לצפייה אנונימית בפרופילים ציבוריים, ניגון סרטונים והורדת MP4 באיכות HD ואודיו MP3 ללא סימן מים.',
+    'שירות אינטרנט חינמי לצפייה אנונימית בפרופילים ציבוריים ללא התחברות, ניגון סרטונים והורדת MP4 באיכות HD ואודיו MP3 ללא סימן מים.',
   'footer.aboutUs': 'אודות',
   'footer.howToUse': 'איך להשתמש',
   'footer.topCreators': 'יוצרים מובילים',
   'footer.freeTools': 'כלי הורדה חינמיים',
+  'footer.creatorTools': 'אנליטיקה ומחשבונים',
   'footer.exploreHeading': 'גלה ומדריכים',
   'footer.legalHeading': 'משפטי והגנה',
   'footer.copyright': 'TikProfilesViewer.com. כל הזכויות שמורות.',
@@ -1903,9 +2258,10 @@ const HE_UI: TranslationMap = {
   'breadcrumb.topCreators': 'יוצרים מובילים',
   'breadcrumb.categories': 'קטגוריות',
 
-  'hero.homeTitle': 'צפייה בפרופילי טיקטוק, הורדת סרטוני HD ושמירת אודיו MP3 ללא סימן מים',
+  'hero.homeTitle':
+    'צפייה בפרופילי טיקטוק בחינם, הורדת סרטוני HD MP4 ושמירת אודיו MP3 ללא סימן מים',
   'hero.homeSubtitle':
-    'בדוק פרופילים ציבוריים בטיקטוק באופן אנונימי, צפה בסרטונים בצורה חלקה והורד קבצי MP4 HD ו-MP3 בחינם ללא סימן מים.',
+    'בדוק פרופילים ציבוריים בטיקטוק באופן אנונימי ללא התחברות, צפה בסרטונים בצורה חלקה והורד קבצי MP4 HD ו-MP3 בחינם ללא סימן מים.',
   'hero.ctaCreators': 'יוצרים מובילים',
   'hero.ctaTools': 'כלים חינמיים',
   'hero.ctaHowItWorks': 'איך זה עובד',
@@ -1918,6 +2274,8 @@ const HE_UI: TranslationMap = {
   'search.btn': 'הצג פרופיל',
   'search.searching': 'מחפש...',
   'search.popular': 'יוצרים פופולריים:',
+  'search.recent': 'חיפושים אחרונים:',
+  'search.clearRecent': 'נקה היסטוריה',
   'search.noticeTitle': 'הודעת חיפוש',
   'search.errorEmpty': 'אנא הזן שם משתמש בטיקטוק.',
   'search.errorNotFound': 'המשתמש @{username} לא נמצא או שחשבונו פרטי.',
@@ -1934,6 +2292,7 @@ const HE_UI: TranslationMap = {
   'profile.avatar': 'שמור תמונה',
   'profile.copyLink': 'העתק קישור',
   'profile.copied': 'הועתק',
+  'profile.sharePage': 'דף הפרופיל',
   'profile.openTikTok': 'פתח בטיקטוק',
   'profile.publicCreator': 'פרופיל יוצר ציבורי',
   'profile.status': 'סטטוס',
@@ -2010,7 +2369,7 @@ const HE_UI: TranslationMap = {
   'steps.s3Desc': 'לחץ על הורד וידאו HD לשמירת MP4 ללא סימן מים, או הורד אודיו ל-MP3.',
 
   'niches.title': 'חקור קטגוריות ופורמטים בטיקטוק',
-  'niches.subtitle': 'מבישול וטכנולוגיה ועד קומדיה, גלה חשבונות ציבוריים והורד סרטוני HD בחינם.',
+  'niches.subtitle': 'מבישול וטכנולוגיה ועד קומדיה, יופי, מדע, טיולים וחיות מחמד, גלה חשבונות ציבוריים והורד סרטוני HD.',
   'niches.allCategories': 'כל הקטגוריות',
   'niches.c1': 'קומדיה ובידור',
   'niches.c1Desc': 'מערכונים ויראליים, פרודיות וסרטוני תגובה.',
@@ -2024,6 +2383,14 @@ const HE_UI: TranslationMap = {
   'niches.c5Desc': 'שגרות אימון, גמישות ואתלטיקה.',
   'niches.c6': 'ריקוד ומוזיקה',
   'niches.c6Desc': 'טרנדים של ריקודים וצלילי MP3 להורדה.',
+  'niches.c7': 'יופי ואופנה',
+  'niches.c7Desc': 'מדריכי איפור, טיפוח עור והשראת לבוש.',
+  'niches.c8': 'חינוך ומדע',
+  'niches.c8Desc': 'עובדות חלל, ניסויים בפיזיקה והסברים.',
+  'niches.c9': 'טיולים וסגנון חיים',
+  'niches.c9Desc': 'מדריכי יעדים, צילומי רחפן וולוגים.',
+  'niches.c10': 'חיות מחמד ובעלי חיים',
+  'niches.c10Desc': 'כלבים וחתולים חמודים וסיפורי הצלה.',
   'niches.creatorsCount': '{count} יוצרים',
   'niches.p1Title': 'צפייה אנונימית 100%',
   'niches.p1Desc': 'אין צורך בחשבון טיקטוק. יוצרים לעולם לא יראו שביקרת בפרופיל.',
@@ -2033,8 +2400,8 @@ const HE_UI: TranslationMap = {
   'niches.p3Desc': 'קבל סרטוני MP4 ברזולוציה מקורית ושמע MP3 נקי ישירות למכשיר.',
   'niches.cta': 'חפש יוצר בקטגוריה המועדפת עליך',
 
-  'tools.title': 'כלי הורדה חינמיים',
-  'tools.subtitle': 'בחר כלי חינמי להורדת מדיה ב-HD, צפייה בפרופילים או הסרת סימני מים.',
+  'tools.title': 'כלי הורדה ויוצרים חינמיים',
+  'tools.subtitle': 'בחר כלי חינמי להורדת מדיה ב-HD, צפייה בפרופילים, חישוב מעורבות או הסרת סימני מים.',
   'tools.openTool': 'פתח כלי',
   'tools.t1Title': 'מוריד וידאו HD',
   'tools.t1Desc': 'שמור סרטוני 1080p MP4 מקוריים ללא סימן מים.',
@@ -2042,10 +2409,18 @@ const HE_UI: TranslationMap = {
   'tools.t2Desc': 'חלץ מוזיקת רקע וצלילים ל-MP3 נקי.',
   'tools.t3Title': 'מציג אנונימי',
   'tools.t3Desc': 'צפה בנתוני פרופיל ומספר עוקבים בסודיות.',
+  'tools.t4Title': 'אנליטיקת פרופיל',
+  'tools.t4Desc': 'בדוק שיעורי מעורבות וממוצע צפיות.',
   'tools.t5Title': 'מוריד סטוריז',
   'tools.t5Desc': 'שמור סטוריז לפני שהם נמחקים תוך 24 שעות.',
   'tools.t6Title': 'תמונות ומצגות',
   'tools.t6Desc': 'הורד תמונות ממצגות טיקטוק באיכות HD.',
+  'tools.t7Title': 'מחשבון הכנסות',
+  'tools.t7Desc': 'הערך רווחים חודשיים מחסויות ותכניות יוצרים.',
+  'tools.t8Title': 'מחשבון מעורבות',
+  'tools.t8Desc': 'חשב שיעור מעורבות לפי צפיות או עוקבים.',
+  'tools.t9Title': 'מחולל כיתובים',
+  'tools.t9Desc': 'צור פתיחים קצרים והאשטאגים ממוקדים.',
   'tools.t10Title': 'מסיר סימן מים',
   'tools.t10Desc': 'הסר את לוגו טיקטוק עבור Reels ו-Shorts.',
 
@@ -2078,6 +2453,21 @@ const HE_UI: TranslationMap = {
   'home.freeDesc': 'ללא תשלום, ללא כרטיס אשראי וללא הגבלה יומית.',
   'home.privateTitle': 'פרטי ואנונימי',
   'home.privateDesc': 'אף אחד לא יודע שצפית בפרופיל. ללא הרשמה.',
+
+  'schema.webAppDesc':
+    'כלי חינמי לצפייה בפרופילי טיקטוק, נגן וידאו ומוריד סרטוני MP4 HD ללא סימן מים ואודיו MP3.',
+  'schema.faq1Q': 'איך מורידים סרטוני טיקטוק ללא סימן מים בחינם?',
+  'schema.faq1A':
+    'הזן את שם המשתמש בתיבת החיפוש, לחץ על הסרטון ובחר הורד וידאו HD לשמירה ללא סימן מים.',
+  'schema.faq2Q': 'האם אפשר לצפות בפרופילים בטיקטוק בלי חשבון?',
+  'schema.faq2A':
+    'כן. Tik Profiles Viewer חינמי ואנונימי ללא צורך בהתחברות או חשבון טיקטוק.',
+  'schema.faq3Q': 'איך מורידים רק את השמע או המוזיקה מסרטון?',
+  'schema.faq3A':
+    'לחץ על כל סרטון לפתיחת הנגן ובחר הורד אודיו (MP3).',
+  'schema.faq4Q': 'כמה סרטונים ניתן לראות בפרופיל?',
+  'schema.faq4A':
+    '30 הסרטונים הראשונים נטענים מיד, ולחיצה על הצג עוד סרטונים טוענת עוד 15 בכל פעם.',
 };
 
 const HI_UI: TranslationMap = {
@@ -2104,13 +2494,22 @@ const HI_UI: TranslationMap = {
   'nav.tool.photo.desc': 'HD में कैरोसेल इमेज डाउनलोड करें',
   'nav.tool.watermark.label': 'वॉटरमार्क रिमूवर',
   'nav.tool.watermark.desc': 'Reels के लिए TikTok लोगो हटाएं',
+  'nav.tool.analytics.label': 'प्रोफाइल एनालिटिक्स',
+  'nav.tool.analytics.desc': 'एंगेजमेंट और औसत व्यूज देखें',
+  'nav.tool.money.label': 'मनी कैलकुलेटर',
+  'nav.tool.money.desc': 'क्रिएटर की मासिक कमाई अनुमानित करें',
+  'nav.tool.engage.label': 'एंगेजमेंट कैलकुलेटर',
+  'nav.tool.engage.desc': 'व्यूज या फॉलोअर्स से दर निकालें',
+  'nav.tool.caption.label': 'कैप्शन जनरेटर',
+  'nav.tool.caption.desc': 'वीडियो हुक और हैशटैग बनाएं',
 
   'footer.tagline':
-    'पब्लिक TikTok प्रोफाइल गुमनाम रूप से देखने, बिना रुकावट वीडियो चलाने और बिना वॉटरमार्क HD MP4 वीडियो व MP3 ऑडियो डाउनलोड करने की मुफ्त सेवा।',
+    'बिना लॉगिन पब्लिक TikTok प्रोफाइल गुमनाम रूप से देखने, बिना रुकावट वीडियो चलाने और बिना वॉटरमार्क HD MP4 वीडियो व MP3 ऑडियो डाउनलोड करने की मुफ्त सेवा।',
   'footer.aboutUs': 'हमारे बारे में',
   'footer.howToUse': 'उपयोग कैसे करें',
   'footer.topCreators': 'टॉप क्रिएटर्स',
   'footer.freeTools': 'मुफ्त डाउनलोड टूल्स',
+  'footer.creatorTools': 'क्रिएटर एनालिटिक्स और टूल्स',
   'footer.exploreHeading': 'एक्सप्लोर और गाइड',
   'footer.legalHeading': 'कानूनी और सुरक्षा',
   'footer.copyright': 'TikProfilesViewer.com. सर्वाधिकार सुरक्षित।',
@@ -2123,9 +2522,10 @@ const HI_UI: TranslationMap = {
   'breadcrumb.topCreators': 'टॉप क्रिएटर्स',
   'breadcrumb.categories': 'श्रेणियां',
 
-  'hero.homeTitle': 'TikTok प्रोफाइल व्यूअर, बिना वॉटरमार्क HD वीडियो डाउनलोडर और MP3 ऑडियो सेवर',
+  'hero.homeTitle':
+    'मुफ्त TikTok प्रोफाइल व्यूअर, बिना वॉटरमार्क HD MP4 वीडियो डाउनलोडर और MP3 ऑडियो एक्सट्रैक्टर',
   'hero.homeSubtitle':
-    'किसी भी पब्लिक TikTok प्रोफाइल को गुमनाम रूप से देखें, बिना रुकावट वीडियो चलाएं और बिना वॉटरमार्क HD MP4 व MP3 ऑडियो मुफ्त में सेव करें।',
+    'बिना लॉगिन किसी भी पब्लिक TikTok प्रोफाइल को गुमनाम रूप से देखें, बिना रुकावट वीडियो चलाएं और बिना वॉटरमार्क HD MP4 व MP3 ऑडियो मुफ्त में सेव करें।',
   'hero.ctaCreators': 'टॉप क्रिएटर्स देखें',
   'hero.ctaTools': 'मुफ्त टूल्स देखें',
   'hero.ctaHowItWorks': 'यह कैसे काम करता है',
@@ -2138,6 +2538,8 @@ const HI_UI: TranslationMap = {
   'search.btn': 'प्रोफाइल देखें',
   'search.searching': 'खोज जारी है...',
   'search.popular': 'लोकप्रिय क्रिएटर्स:',
+  'search.recent': 'हाल की खोजें:',
+  'search.clearRecent': 'इतिहास मिटाएं',
   'search.noticeTitle': 'खोज सूचना',
   'search.errorEmpty': 'कृपया एक TikTok यूज़रनेम दर्ज करें।',
   'search.errorNotFound': 'यूज़र @{username} नहीं मिला या अकाउंट प्राइवेट है।',
@@ -2154,6 +2556,7 @@ const HI_UI: TranslationMap = {
   'profile.avatar': 'अवतार सेव करें',
   'profile.copyLink': 'लिंक कॉपी करें',
   'profile.copied': 'कॉपी हो गया',
+  'profile.sharePage': 'प्रोफाइल पेज',
   'profile.openTikTok': 'TikTok खोलें',
   'profile.publicCreator': 'पब्लिक क्रिएटर प्रोफाइल',
   'profile.status': 'स्थिति',
@@ -2230,7 +2633,7 @@ const HI_UI: TranslationMap = {
   'steps.s3Desc': 'बिना वॉटरमार्क MP4 के लिए HD वीडियो डाउनलोड करें या MP3 के लिए ऑडियो डाउनलोड पर क्लिक करें।',
 
   'niches.title': 'TikTok श्रेणियां और क्रिएटर एक्सप्लोर करें',
-  'niches.subtitle': 'कुकिंग, टेक रिव्यू और कॉमेडी तक विषय के अनुसार पब्लिक अकाउंट देखें और HD वीडियो सेव करें।',
+  'niches.subtitle': 'कुकिंग, टेक, कॉमेडी, ब्यूटी, विज्ञान, ट्रैवल और पेट्स तक विषय के अनुसार पब्लिक अकाउंट देखें और HD वीडियो सेव करें।',
   'niches.allCategories': 'सभी श्रेणियां',
   'niches.c1': 'कॉमेडी और मनोरंजन',
   'niches.c1Desc': 'वायरल स्किट, पैरोडी और रिएक्शन क्रिएटर्स।',
@@ -2244,6 +2647,14 @@ const HI_UI: TranslationMap = {
   'niches.c5Desc': 'वर्कआउट रूटीन, फिटनेस टिप्स और खेल क्लिप्स।',
   'niches.c6': 'डांस और म्यूजिक',
   'niches.c6Desc': 'ट्रेंडिंग डांस और डाउनलोड करने योग्य MP3 साउंड्स।',
+  'niches.c7': 'ब्यूटी और फैशन',
+  'niches.c7Desc': 'मेकअप ट्यूटोरियल, स्किनकेयर और आउटफिट ट्रेंड्स।',
+  'niches.c8': 'शिक्षा और विज्ञान',
+  'niches.c8Desc': 'अंतरिक्ष तथ्य, फिजिक्स प्रयोग और विज्ञान पाठ।',
+  'niches.c9': 'ट्रैवल और लाइफस्टाइल',
+  'niches.c9Desc': 'यात्रा गाइड, सिनेमैटोग्राफी और एडवेंचर व्लॉग्स।',
+  'niches.c10': 'पालतू जानवर और जीव',
+  'niches.c10Desc': 'प्यारे कुत्ते, बिल्लियां और एनिमल रेस्क्यू कहानियां।',
   'niches.creatorsCount': '{count} क्रिएटर्स',
   'niches.p1Title': '100% गुमनाम ब्राउज़िंग',
   'niches.p1Desc': 'TikTok अकाउंट की ज़रूरत नहीं। क्रिएटर को कभी पता नहीं चलेगा।',
@@ -2253,8 +2664,8 @@ const HI_UI: TranslationMap = {
   'niches.p3Desc': 'सीधे अपने डिवाइस पर असली MP4 वीडियो और साफ MP3 ऑडियो पाएं।',
   'niches.cta': 'अपनी पसंदीदा श्रेणी में क्रिएटर खोजें',
 
-  'tools.title': 'मुफ्त डाउनलोडर टूल्स',
-  'tools.subtitle': 'साफ HD मीडिया डाउनलोड करने, प्रोफाइल देखने या वॉटरमार्क हटाने के लिए टूल चुनें।',
+  'tools.title': 'मुफ्त डाउनलोडर और क्रिएटर टूल्स',
+  'tools.subtitle': 'साफ HD मीडिया डाउनलोड करने, प्रोफाइल देखने, एंगेजमेंट निकालने या वॉटरमार्क हटाने के लिए टूल चुनें।',
   'tools.openTool': 'टूल खोलें',
   'tools.t1Title': 'HD वीडियो डाउनलोडर',
   'tools.t1Desc': 'बिना वॉटरमार्क असली 1080p MP4 वीडियो सेव करें।',
@@ -2262,10 +2673,18 @@ const HI_UI: TranslationMap = {
   'tools.t2Desc': 'बैकग्राउंड म्यूजिक और आवाज को MP3 में निकालें।',
   'tools.t3Title': 'गुमनाम व्यूअर',
   'tools.t3Desc': 'प्रोफाइल डेटा और फॉलोअर्स गुमनाम रूप से देखें।',
+  'tools.t4Title': 'प्रोफाइल एनालिटिक्स',
+  'tools.t4Desc': 'एंगेजमेंट दर, औसत व्यूज और पोस्ट आंकड़े देखें।',
   'tools.t5Title': 'स्टोरी डाउनलोडर',
   'tools.t5Desc': '24 घंटे में खत्म होने से पहले स्टोरी सेव करें।',
   'tools.t6Title': 'फोटो और स्लाइडशो',
   'tools.t6Desc': 'HD में फुल-रेज़ोल्यूशन कैरोसेल फोटो डाउनलोड करें।',
+  'tools.t7Title': 'मनी कैलकुलेटर',
+  'tools.t7Desc': 'स्पॉन्सरशिप और क्रिएटर रिवॉर्ड्स से कमाई अनुमानित करें।',
+  'tools.t8Title': 'एंगेजमेंट कैलकुलेटर',
+  'tools.t8Desc': 'व्यूज या फॉलोअर्स से एंगेजमेंट रेट निकालें।',
+  'tools.t9Title': 'कैप्शन जनरेटर',
+  'tools.t9Desc': 'छोटे वीडियो हुक और केंद्रित हैशटैग बनाएं।',
   'tools.t10Title': 'वॉटरमार्क रिमूवर',
   'tools.t10Desc': 'Reels और Shorts के लिए TikTok लोगो हटाएं।',
 
@@ -2298,6 +2717,21 @@ const HI_UI: TranslationMap = {
   'home.freeDesc': 'कोई भुगतान नहीं, कोई कार्ड नहीं और कोई दैनिक सीमा नहीं।',
   'home.privateTitle': 'निजी और गुमनाम',
   'home.privateDesc': 'किसी को पता नहीं चलेगा कि आपने प्रोफाइल देखा। बिना साइन-अप के।',
+
+  'schema.webAppDesc':
+    'मुफ्त TikTok प्रोफाइल व्यूअर, वीडियो प्लेयर और बिना वॉटरमार्क HD MP4 वीडियो व MP3 ऑडियो डाउनलोडर।',
+  'schema.faq1Q': 'मैं बिना वॉटरमार्क TikTok वीडियो मुफ्त में कैसे डाउनलोड करूँ?',
+  'schema.faq1A':
+    'सर्च बॉक्स में क्रिएटर का यूज़रनेम लिखें, वीडियो चुनें और बिना वॉटरमार्क सेव करने के लिए HD वीडियो डाउनलोड करें पर क्लिक करें।',
+  'schema.faq2Q': 'क्या मैं बिना अकाउंट के TikTok प्रोफाइल देख सकता हूँ?',
+  'schema.faq2A':
+    'हाँ। Tik Profiles Viewer पूरी तरह मुफ्त और गुमनाम है, इसके लिए लॉगिन की ज़रूरत नहीं है।',
+  'schema.faq3Q': 'वीडियो से केवल ऑडियो या गाना कैसे डाउनलोड करें?',
+  'schema.faq3A':
+    'किसी भी वीडियो पर क्लिक करें और MP3 फ़ाइल सेव करने के लिए ऑडियो डाउनलोड करें (MP3) दबाएं।',
+  'schema.faq4Q': 'एक प्रोफाइल पर कितने वीडियो देखे जा सकते हैं?',
+  'schema.faq4A':
+    'पहले 30 वीडियो तुरंत लोड होते हैं और और वीडियो दिखाएं पर क्लिक करके हर बार 15 और वीडियो लोड किए जा सकते हैं।',
 };
 
 export const UI_DICTIONARIES: LanguageDictionaries = {
