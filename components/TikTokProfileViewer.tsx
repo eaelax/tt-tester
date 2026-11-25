@@ -714,7 +714,7 @@ export default function TikTokProfileViewer({
       <div className="flex items-center flex-1 min-w-0">
         <span
           aria-hidden="true"
-          style={{ marginTop: '-10px' }}
+          style={{ marginTop: '-4px' }}
           className="flex items-center justify-center leading-none text-xl sm:text-2xl font-bold text-[var(--accent-primary)] select-none shrink-0 ps-3 pe-1 self-center"
         >
           @
