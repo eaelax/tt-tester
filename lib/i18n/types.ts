@@ -38,6 +38,19 @@ export type TranslationMap = Record<string, string>;
 
 export type LanguageDictionaries = Record<LanguageCode, TranslationMap>;
 
+export type TemplateVars = Record<string, string | number>;
+
+export function interpolateTemplate(
+  template: string,
+  vars?: TemplateVars
+): string {
+  if (!vars) return template;
+  return template.replace(/\{(\w+)\}/g, (_, token: string) => {
+    const val = vars[token];
+    return val !== undefined && val !== null ? String(val) : `{${token}}`;
+  });
+}
+
 const NON_LOCALIZED_PREFIXES = ['/api', '/_next', '/assets', '/admintiktok'];
 
 export function isSupportedLanguage(code: string): code is LanguageCode {

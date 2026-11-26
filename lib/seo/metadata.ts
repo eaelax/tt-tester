@@ -6,12 +6,14 @@ import {
   DEFAULT_LANGUAGE,
   LanguageCode,
   SUPPORTED_LANGUAGES,
+  interpolateTemplate,
   isSupportedLanguage,
   localizeHref,
+  type TemplateVars,
 } from '@/lib/i18n/types';
 import { getBaseUrl } from '@/lib/seo/sitemap';
 
-export type TemplateVars = Record<string, string | number>;
+export { interpolateTemplate, type TemplateVars };
 
 interface BuildLocalizedMetadataOptions {
   path: string;
@@ -25,17 +27,6 @@ interface BuildLocalizedMetadataOptions {
   type?: 'website' | 'article' | 'profile';
   images?: { url: string; alt?: string }[];
   appendBrand?: boolean;
-}
-
-export function interpolateTemplate(
-  template: string,
-  vars?: TemplateVars
-): string {
-  if (!vars) return template;
-  return template.replace(/\{(\w+)\}/g, (_, token: string) => {
-    const val = vars[token];
-    return val !== undefined && val !== null ? String(val) : `{${token}}`;
-  });
 }
 
 export async function getRequestLanguage(): Promise<LanguageCode> {

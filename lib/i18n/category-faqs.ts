@@ -1,8 +1,7 @@
 import type { CategoryData } from '@/lib/creators-data';
 import { UI_DICTIONARIES } from '@/lib/i18n/dictionaries-ui';
 import { PAGE_DICTIONARIES } from '@/lib/i18n/dictionaries-pages';
-import type { LanguageCode } from '@/lib/i18n/types';
-import { interpolateTemplate } from '@/lib/seo/metadata';
+import { interpolateTemplate, type LanguageCode } from '@/lib/i18n/types';
 
 export interface CategoryFaqItem {
   question: string;
