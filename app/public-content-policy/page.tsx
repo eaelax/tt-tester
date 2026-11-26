@@ -1,14 +1,17 @@
 import type { Metadata } from 'next';
 import LegalLayout from '@/components/LegalLayout';
+import { buildLocalizedMetadata } from '@/lib/seo/metadata';
 
-export const metadata: Metadata = {
-  title: 'Public Content Policy - Tik Profiles Viewer',
-  description:
-    'Our public content policy explaining how Tik Profiles Viewer accesses and displays only publicly available social media data without circumventing privacy controls.',
-  alternates: {
-    canonical: 'https://tikprofilesviewer.com/public-content-policy',
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  return buildLocalizedMetadata({
+    path: '/public-content-policy',
+    titleKey: 'legal.nav.publicContent',
+    fallbackTitle: 'Public Content Policy',
+    rawDescription:
+      'Our public content policy explaining how Tik Profiles Viewer accesses and displays only publicly available social media data without circumventing privacy controls.',
+    type: 'article',
+  });
+}
 
 export default function PublicContentPolicyPage() {
   return (

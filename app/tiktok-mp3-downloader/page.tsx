@@ -1,58 +1,18 @@
 import type { Metadata } from 'next';
-import { headers } from 'next/headers';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import LocalizedToolView from '@/components/LocalizedToolView';
-import { UI_DICTIONARIES } from '@/lib/i18n/dictionaries-ui';
-import { PAGE_DICTIONARIES } from '@/lib/i18n/dictionaries-pages';
-import {
-  DEFAULT_LANGUAGE,
-  LanguageCode,
-  SUPPORTED_LANGUAGES,
-  isSupportedLanguage,
-  localizeHref,
-} from '@/lib/i18n/types';
+import { buildLocalizedMetadata } from '@/lib/seo/metadata';
 
 export async function generateMetadata(): Promise<Metadata> {
-  const reqHeaders = await headers();
-  const headerLang = reqHeaders.get('x-tpv-lang') || DEFAULT_LANGUAGE;
-  const lang: LanguageCode = isSupportedLanguage(headerLang)
-    ? headerLang
-    : DEFAULT_LANGUAGE;
-
-  const uiDict = UI_DICTIONARIES[lang] || UI_DICTIONARIES.en;
-  const pageDict = PAGE_DICTIONARIES[lang] || PAGE_DICTIONARIES.en;
-
-  const pageTitle = `${pageDict['page.mp3Dl.title']} - ${uiDict['brand.name']}`;
-  const pageDesc = pageDict['page.mp3Dl.subtitle'];
-  const canonicalUrl = `https://tikprofilesviewer.com${localizeHref(
-    '/tiktok-mp3-downloader',
-    lang
-  )}`;
-
-  const languages: Record<string, string> = {};
-  for (const item of SUPPORTED_LANGUAGES) {
-    languages[item.code] = `https://tikprofilesviewer.com${localizeHref(
-      '/tiktok-mp3-downloader',
-      item.code
-    )}`;
-  }
-
-  return {
-    title: pageTitle,
-    description: pageDesc,
-    openGraph: {
-      title: pageTitle,
-      description: pageDesc,
-      url: canonicalUrl,
-      siteName: uiDict['brand.name'],
-      type: 'website',
-    },
-    alternates: {
-      canonical: canonicalUrl,
-      languages,
-    },
-  };
+  return buildLocalizedMetadata({
+    path: '/tiktok-mp3-downloader',
+    titleKey: 'page.mp3Dl.title',
+    descriptionKey: 'page.mp3Dl.subtitle',
+    fallbackTitle: 'Free TikTok MP3 Audio Extractor & Sound Downloader',
+    fallbackDescription:
+      'Extract and download clean MP3 music tracks and original voice audio from any public TikTok video for free with no login.',
+  });
 }
 
 export default function AudioDownloaderPage() {

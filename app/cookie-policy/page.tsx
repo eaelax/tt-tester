@@ -1,48 +1,17 @@
 import type { Metadata } from 'next';
-import { headers } from 'next/headers';
 import Link from 'next/link';
 import LegalLayout from '@/components/LegalLayout';
-import { UI_DICTIONARIES } from '@/lib/i18n/dictionaries-ui';
-import {
-  DEFAULT_LANGUAGE,
-  LanguageCode,
-  SUPPORTED_LANGUAGES,
-  isSupportedLanguage,
-  localizeHref,
-} from '@/lib/i18n/types';
+import { buildLocalizedMetadata } from '@/lib/seo/metadata';
 
 export async function generateMetadata(): Promise<Metadata> {
-  const reqHeaders = await headers();
-  const headerLang = reqHeaders.get('x-tpv-lang') || DEFAULT_LANGUAGE;
-  const lang: LanguageCode = isSupportedLanguage(headerLang)
-    ? headerLang
-    : DEFAULT_LANGUAGE;
-
-  const uiDict = UI_DICTIONARIES[lang] || UI_DICTIONARIES.en;
-
-  const pageTitle = `Cookie Policy - ${uiDict['brand.name']}`;
-  const pageDesc = 'Cookie Policy for Tik Profiles Viewer on TikProfilesViewer.com.';
-  const canonicalUrl = `https://tikprofilesviewer.com${localizeHref(
-    '/cookie-policy',
-    lang
-  )}`;
-
-  const languages: Record<string, string> = {};
-  for (const item of SUPPORTED_LANGUAGES) {
-    languages[item.code] = `https://tikprofilesviewer.com${localizeHref(
-      '/cookie-policy',
-      item.code
-    )}`;
-  }
-
-  return {
-    title: pageTitle,
-    description: pageDesc,
-    alternates: {
-      canonical: canonicalUrl,
-      languages,
-    },
-  };
+  return buildLocalizedMetadata({
+    path: '/cookie-policy',
+    titleKey: 'legal.nav.cookies',
+    fallbackTitle: 'Cookie Policy',
+    rawDescription:
+      'Cookie Policy for Tik Profiles Viewer on TikProfilesViewer.com.',
+    type: 'article',
+  });
 }
 
 export default function CookiePolicyPage() {

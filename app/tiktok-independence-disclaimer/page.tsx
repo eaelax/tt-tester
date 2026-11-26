@@ -1,14 +1,17 @@
 import type { Metadata } from 'next';
 import LegalLayout from '@/components/LegalLayout';
+import { buildLocalizedMetadata } from '@/lib/seo/metadata';
 
-export const metadata: Metadata = {
-  title: 'TikTok Independence Disclaimer - Tik Profiles Viewer',
-  description:
-    'Official statement of non-affiliation and independence regarding TikTok Inc., ByteDance Ltd., and third-party trademarks on TikProfilesViewer.com.',
-  alternates: {
-    canonical: 'https://tikprofilesviewer.com/tiktok-independence-disclaimer',
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  return buildLocalizedMetadata({
+    path: '/tiktok-independence-disclaimer',
+    titleKey: 'legal.nav.independence',
+    fallbackTitle: 'TikTok Independence Disclaimer',
+    rawDescription:
+      'Official statement of non-affiliation and independence regarding TikTok Inc., ByteDance Ltd., and third-party trademarks on TikProfilesViewer.com.',
+    type: 'article',
+  });
+}
 
 export default function TikTokIndependenceDisclaimerPage() {
   return (

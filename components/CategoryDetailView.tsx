@@ -10,19 +10,10 @@ import {
   CATEGORIES,
 } from '@/lib/creators-data';
 import { useI18n } from '@/lib/i18n/context';
-
-const CATEGORY_NAMES_MAP: Record<string, { nameKey: string; descKey: string }> = {
-  comedy: { nameKey: 'niches.c1', descKey: 'niches.c1Desc' },
-  'food-cooking': { nameKey: 'niches.c2', descKey: 'niches.c2Desc' },
-  'tech-ai': { nameKey: 'niches.c3', descKey: 'niches.c3Desc' },
-  gaming: { nameKey: 'niches.c4', descKey: 'niches.c4Desc' },
-  'fitness-sports': { nameKey: 'niches.c5', descKey: 'niches.c5Desc' },
-  'dance-music': { nameKey: 'niches.c6', descKey: 'niches.c6Desc' },
-  'beauty-fashion': { nameKey: 'niches.c7', descKey: 'niches.c7Desc' },
-  'education-science': { nameKey: 'niches.c8', descKey: 'niches.c8Desc' },
-  'travel-adventure': { nameKey: 'niches.c9', descKey: 'niches.c9Desc' },
-  'pets-animals': { nameKey: 'niches.c10', descKey: 'niches.c10Desc' },
-};
+import {
+  CATEGORY_NICHE_KEY_MAP,
+  getLocalizedCategoryBundle,
+} from '@/lib/i18n/category-faqs';
 
 interface CategoryDetailViewProps {
   category: CategoryData;
@@ -33,25 +24,13 @@ export default function CategoryDetailView({
   category,
   creators,
 }: CategoryDetailViewProps) {
-  const { t, localizeHref, translateText } = useI18n();
+  const { lang, t, localizeHref } = useI18n();
 
-  const mapped = CATEGORY_NAMES_MAP[category.slug];
-  const localizedCategoryName = mapped ? t(mapped.nameKey) : category.name;
-  const localizedSubtitle = mapped ? t(mapped.descKey) : category.seoDescription;
+  const bundle = getLocalizedCategoryBundle(category, lang);
+  const localizedCategoryName = bundle.name;
+  const localizedSubtitle = bundle.description;
+  const localizedFaqs = bundle.faqs;
   const otherCategories = CATEGORIES.filter((c) => c.slug !== category.slug).slice(0, 4);
-
-  const faqSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'FAQPage',
-    mainEntity: category.faqs.map((faq) => ({
-      '@type': 'Question',
-      name: translateText(faq.question),
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: translateText(faq.answer),
-      },
-    })),
-  };
 
   return (
     <>
@@ -59,7 +38,11 @@ export default function CategoryDetailView({
         <div className="max-w-[1120px] mx-auto px-4 sm:px-6 pt-3 pb-0.5">
           <Breadcrumbs
             items={[
-              { label: t('breadcrumb.categories'), href: '/categories' },
+              {
+                label: t('breadcrumb.categories'),
+                href: '/categories',
+                translationKey: 'breadcrumb.categories',
+              },
               { label: localizedCategoryName },
             ]}
           />
@@ -67,11 +50,6 @@ export default function CategoryDetailView({
       </div>
 
       <main className="flex-1 w-full flex flex-col">
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-        />
-
         <TikTokProfileViewer
           initialUsername=""
           autoSearch={false}
@@ -115,7 +93,10 @@ export default function CategoryDetailView({
                       <div className="relative w-12 h-12 rounded-xl overflow-hidden bg-[var(--surface-sunken)] shrink-0 border border-[var(--border-subtle)]">
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
-                          src={creator.avatar || `/api/avatar?username=${encodeURIComponent(creator.username)}`}
+                          src={
+                            creator.avatar ||
+                            `/api/avatar?username=${encodeURIComponent(creator.username)}`
+                          }
                           alt={creator.displayName}
                           referrerPolicy="no-referrer"
                           className="w-full h-full object-cover"
@@ -138,11 +119,15 @@ export default function CategoryDetailView({
                         </p>
                         <div className="flex items-center gap-1.5 text-xs text-[var(--ink-secondary)] font-medium mt-1 tabular-nums">
                           <span className="font-bold text-[var(--ink-primary)]">
-                            {t('page.category.followersLabel', { count: creator.followers })}
+                            {t('page.category.followersLabel', {
+                              count: creator.followers,
+                            })}
                           </span>
                           <span>•</span>
                           <span>
-                            {t('page.category.likesLabel', { count: creator.likes })}
+                            {t('page.category.likesLabel', {
+                              count: creator.likes,
+                            })}
                           </span>
                         </div>
                       </div>
@@ -154,27 +139,29 @@ export default function CategoryDetailView({
               </div>
             </section>
 
-            {/* Band 2: Category FAQs */}
-            {category.faqs.length > 0 && (
+            {/* Band 2: Localized Category FAQs */}
+            {localizedFaqs.length > 0 && (
               <section className="w-full bg-[var(--surface-elevated)] border-b border-[var(--border-subtle)] py-10 sm:py-12">
                 <div className="max-w-[1120px] mx-auto px-4 sm:px-6">
                   <div className="text-center max-w-xl mx-auto mb-6">
                     <h2 className="text-2xl sm:text-3xl font-bold text-[var(--ink-primary)] tracking-tight">
-                      {t('page.category.faqHeading', { name: localizedCategoryName })}
+                      {t('page.category.faqHeading', {
+                        name: localizedCategoryName,
+                      })}
                     </h2>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {category.faqs.map((faq, index) => (
+                    {localizedFaqs.map((faq, index) => (
                       <div
                         key={index}
                         className="p-5 rounded-xl bg-[var(--surface-sunken)] border border-[var(--border-subtle)] shadow-[var(--shadow-card)] flex flex-col gap-1.5"
                       >
                         <h3 className="text-sm font-bold text-[var(--ink-primary)]">
-                          {translateText(faq.question)}
+                          {faq.question}
                         </h3>
                         <p className="text-xs sm:text-[13px] text-[var(--ink-secondary)] leading-relaxed">
-                          {translateText(faq.answer)}
+                          {faq.answer}
                         </p>
                       </div>
                     ))}
@@ -200,7 +187,7 @@ export default function CategoryDetailView({
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
                   {otherCategories.map((c) => {
-                    const cMap = CATEGORY_NAMES_MAP[c.slug];
+                    const cMap = CATEGORY_NICHE_KEY_MAP[c.slug];
                     const cName = cMap ? t(cMap.nameKey) : c.name;
                     return (
                       <Link

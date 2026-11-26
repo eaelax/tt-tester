@@ -1,14 +1,17 @@
 import type { Metadata } from 'next';
 import LegalLayout from '@/components/LegalLayout';
+import { buildLocalizedMetadata } from '@/lib/seo/metadata';
 
-export const metadata: Metadata = {
-  title: 'Security Policy - Tik Profiles Viewer',
-  description:
-    'Security Policy and data protection overview for Tik Profiles Viewer on TikProfilesViewer.com. Learn about our SSL/TLS encryption, WAF architecture, and vulnerability response standards.',
-  alternates: {
-    canonical: 'https://tikprofilesviewer.com/security-policy',
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  return buildLocalizedMetadata({
+    path: '/security-policy',
+    titleKey: 'legal.nav.security',
+    fallbackTitle: 'Security Policy',
+    rawDescription:
+      'Security Policy and data protection overview for Tik Profiles Viewer on TikProfilesViewer.com. Learn about our SSL/TLS encryption, WAF architecture, and vulnerability response standards.',
+    type: 'article',
+  });
+}
 
 export default function SecurityPolicyPage() {
   return (

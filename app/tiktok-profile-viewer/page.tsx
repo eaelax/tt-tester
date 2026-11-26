@@ -1,58 +1,18 @@
 import type { Metadata } from 'next';
-import { headers } from 'next/headers';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import LocalizedToolView from '@/components/LocalizedToolView';
-import { UI_DICTIONARIES } from '@/lib/i18n/dictionaries-ui';
-import { PAGE_DICTIONARIES } from '@/lib/i18n/dictionaries-pages';
-import {
-  DEFAULT_LANGUAGE,
-  LanguageCode,
-  SUPPORTED_LANGUAGES,
-  isSupportedLanguage,
-  localizeHref,
-} from '@/lib/i18n/types';
+import { buildLocalizedMetadata } from '@/lib/seo/metadata';
 
 export async function generateMetadata(): Promise<Metadata> {
-  const reqHeaders = await headers();
-  const headerLang = reqHeaders.get('x-tpv-lang') || DEFAULT_LANGUAGE;
-  const lang: LanguageCode = isSupportedLanguage(headerLang)
-    ? headerLang
-    : DEFAULT_LANGUAGE;
-
-  const uiDict = UI_DICTIONARIES[lang] || UI_DICTIONARIES.en;
-  const pageDict = PAGE_DICTIONARIES[lang] || PAGE_DICTIONARIES.en;
-
-  const pageTitle = `${pageDict['page.viewer.title']} - ${uiDict['brand.name']}`;
-  const pageDesc = pageDict['page.viewer.subtitle'];
-  const canonicalUrl = `https://tikprofilesviewer.com${localizeHref(
-    '/tiktok-profile-viewer',
-    lang
-  )}`;
-
-  const languages: Record<string, string> = {};
-  for (const item of SUPPORTED_LANGUAGES) {
-    languages[item.code] = `https://tikprofilesviewer.com${localizeHref(
-      '/tiktok-profile-viewer',
-      item.code
-    )}`;
-  }
-
-  return {
-    title: pageTitle,
-    description: pageDesc,
-    openGraph: {
-      title: pageTitle,
-      description: pageDesc,
-      url: canonicalUrl,
-      siteName: uiDict['brand.name'],
-      type: 'website',
-    },
-    alternates: {
-      canonical: canonicalUrl,
-      languages,
-    },
-  };
+  return buildLocalizedMetadata({
+    path: '/tiktok-profile-viewer',
+    titleKey: 'page.viewer.title',
+    descriptionKey: 'page.viewer.subtitle',
+    fallbackTitle: 'Anonymous TikTok Profile Viewer - No Login, Free HD Stream',
+    fallbackDescription:
+      'Search any public TikTok creator anonymously with no login, view live follower stats, and watch or save free HD MP4 videos without watermark.',
+  });
 }
 
 export default function ProfileViewerPage() {

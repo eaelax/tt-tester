@@ -1,34 +1,19 @@
 import type { Metadata } from 'next';
-import { headers } from 'next/headers';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import TikTokProfileViewer from '@/components/TikTokProfileViewer';
 import HomeLowerSections from '@/components/HomeLowerSections';
 import { UI_DICTIONARIES } from '@/lib/i18n/dictionaries-ui';
-import {
-  DEFAULT_LANGUAGE,
-  LanguageCode,
-  SUPPORTED_LANGUAGES,
-  isSupportedLanguage,
-  localizeHref,
-} from '@/lib/i18n/types';
+import { SUPPORTED_LANGUAGES, localizeHref } from '@/lib/i18n/types';
+import { buildAlternates, getRequestLanguage } from '@/lib/seo/metadata';
+import { getBaseUrl } from '@/lib/seo/sitemap';
 
 export async function generateMetadata(): Promise<Metadata> {
-  const reqHeaders = await headers();
-  const headerLang = reqHeaders.get('x-tpv-lang') || DEFAULT_LANGUAGE;
-  const lang: LanguageCode = isSupportedLanguage(headerLang)
-    ? headerLang
-    : DEFAULT_LANGUAGE;
-
+  const lang = await getRequestLanguage();
   const dict = UI_DICTIONARIES[lang] || UI_DICTIONARIES.en;
   const pageTitle = `${dict['brand.name']} - ${dict['hero.homeTitle']}`;
   const pageDesc = dict['hero.homeSubtitle'];
-  const canonicalUrl = `https://tikprofilesviewer.com${localizeHref('/', lang)}`;
-
-  const languages: Record<string, string> = {};
-  for (const item of SUPPORTED_LANGUAGES) {
-    languages[item.code] = `https://tikprofilesviewer.com${localizeHref('/', item.code)}`;
-  }
+  const alternates = buildAlternates('/', lang);
 
   return {
     title: pageTitle,
@@ -36,26 +21,38 @@ export async function generateMetadata(): Promise<Metadata> {
     openGraph: {
       title: pageTitle,
       description: pageDesc,
-      url: canonicalUrl,
+      url: alternates.canonical,
       siteName: dict['brand.name'],
+      locale: lang,
+      alternateLocale: SUPPORTED_LANGUAGES.filter((item) => item.code !== lang).map(
+        (item) => item.code
+      ),
       type: 'website',
     },
-    alternates: {
-      canonical: canonicalUrl,
-      languages,
+    twitter: {
+      card: 'summary_large_image',
+      title: pageTitle,
+      description: pageDesc,
     },
+    alternates,
   };
 }
 
-export default function HomePage() {
+export default async function HomePage() {
+  const lang = await getRequestLanguage();
+  const dict = UI_DICTIONARIES[lang] || UI_DICTIONARIES.en;
+  const baseUrl = getBaseUrl();
+  const localizedHomeUrl = `${baseUrl}${localizeHref('/', lang)}`;
+
   const webAppSchema = {
     '@context': 'https://schema.org',
     '@type': 'WebApplication',
-    name: 'Tik Profiles Viewer',
+    name: dict['brand.name'],
+    url: localizedHomeUrl,
+    inLanguage: lang,
     applicationCategory: 'MultimediaApplication',
     operatingSystem: 'All',
-    description:
-      'Free TikTok profile viewer, video player, and watermark-free HD video and MP3 audio downloader.',
+    description: dict['schema.webAppDesc'],
     offers: {
       '@type': 'Offer',
       price: '0',
@@ -66,37 +63,38 @@ export default function HomePage() {
   const faqSchema = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
+    inLanguage: lang,
     mainEntity: [
       {
         '@type': 'Question',
-        name: 'How do I download TikTok videos without watermark for free?',
+        name: dict['schema.faq1Q'],
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Type the creator username in the search box, click on the video you want, and click Download HD Video. The video will save directly to your device without any watermark.',
+          text: dict['schema.faq1A'],
         },
       },
       {
         '@type': 'Question',
-        name: 'Can I view TikTok profiles without an account?',
+        name: dict['schema.faq2Q'],
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Yes. Tik Profiles Viewer is completely free and anonymous. You do not need to sign in or have a TikTok account to view profiles and watch videos.',
+          text: dict['schema.faq2A'],
         },
       },
       {
         '@type': 'Question',
-        name: 'How do I download only the audio or music from a video?',
+        name: dict['schema.faq3Q'],
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Click on any video to open the player, then click the Download Audio (MP3) button. The audio track will save to your device as an MP3 file.',
+          text: dict['schema.faq3A'],
         },
       },
       {
         '@type': 'Question',
-        name: 'How many videos can I see on a profile?',
+        name: dict['schema.faq4Q'],
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'The first 30 videos load right away. You can click SHOW MORE VIDEOS at the bottom of the grid to load 15 more videos each time until you reach the very first video.',
+          text: dict['schema.faq4A'],
         },
       },
     ],
@@ -122,8 +120,8 @@ export default function HomePage() {
           heroVariant="workbench"
           titleKey="hero.homeTitle"
           subtitleKey="hero.homeSubtitle"
-          title="TikTok Profile Viewer, HD Video Downloader & MP3 Audio Saver"
-          subtitle="Inspect public TikTok profiles anonymously, watch videos smoothly without lag, and save watermark-free HD MP4 videos and MP3 audio for free."
+          title={dict['hero.homeTitle']}
+          subtitle={dict['hero.homeSubtitle']}
         >
           <HomeLowerSections />
         </TikTokProfileViewer>

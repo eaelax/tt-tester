@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import { headers } from 'next/headers';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import Breadcrumbs from '@/components/Breadcrumbs';
@@ -9,13 +8,12 @@ import ProfileFaqBand from '@/components/ProfileFaqBand';
 import { getCreatorByUsername, getRelatedCreators } from '@/lib/creators-data';
 import { UI_DICTIONARIES } from '@/lib/i18n/dictionaries-ui';
 import { PAGE_DICTIONARIES } from '@/lib/i18n/dictionaries-pages';
+import { SUPPORTED_LANGUAGES, localizeHref } from '@/lib/i18n/types';
 import {
-  DEFAULT_LANGUAGE,
-  LanguageCode,
-  SUPPORTED_LANGUAGES,
-  isSupportedLanguage,
-  localizeHref,
-} from '@/lib/i18n/types';
+  buildAlternates,
+  getRequestLanguage,
+  interpolateTemplate,
+} from '@/lib/seo/metadata';
 import { getBaseUrl } from '@/lib/seo/sitemap';
 
 interface Props {
@@ -29,35 +27,44 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const decodedUsername = decodeURIComponent(username).replace(/^@/, '');
   const creator = getCreatorByUsername(decodedUsername);
 
-  const reqHeaders = await headers();
-  const headerLang = reqHeaders.get('x-tpv-lang') || DEFAULT_LANGUAGE;
-  const lang: LanguageCode = isSupportedLanguage(headerLang)
-    ? headerLang
-    : DEFAULT_LANGUAGE;
-
+  const lang = await getRequestLanguage();
   const uiDict = UI_DICTIONARIES[lang] || UI_DICTIONARIES.en;
   const pageDict = PAGE_DICTIONARIES[lang] || PAGE_DICTIONARIES.en;
-  const baseUrl = getBaseUrl();
 
-  const title = creator
-    ? `${creator.displayName} (@${creator.username}) TikTok Profile - ${uiDict['brand.name']}`
-    : `@${decodedUsername} TikTok Profile & Videos - ${uiDict['brand.name']}`;
+  const rawTitle = creator
+    ? interpolateTemplate(
+        pageDict['page.profile.metaTitleKnown'] ||
+          '{displayName} (@{username}) TikTok Profile & HD Videos Without Watermark',
+        {
+          displayName: creator.displayName,
+          username: creator.username,
+        }
+      )
+    : interpolateTemplate(
+        pageDict['page.profile.metaTitleFallback'] ||
+          '@{username} TikTok Profile & Free HD Videos Without Watermark',
+        { username: decodedUsername }
+      );
+
+  const title = `${rawTitle} - ${uiDict['brand.name']}`;
 
   const description = creator
-    ? `Watch and download @${creator.username} TikTok videos in HD MP4 without watermarks. View ${creator.followers} followers and MP3 audio tracks on TikProfilesViewer.com.`
-    : pageDict['page.profile.heroSubtitleFallback']?.replace(
-        /\{username\}/g,
-        decodedUsername
-      ) || `Watch and download @${decodedUsername} public TikTok videos.`;
+    ? interpolateTemplate(
+        pageDict['page.profile.metaDescKnown'] ||
+          'Watch and download @{username} TikTok videos in free HD MP4 without watermark. View {followers} followers and extract MP3 audio on TikProfilesViewer.com.',
+        {
+          username: creator.username,
+          followers: creator.followers,
+        }
+      )
+    : interpolateTemplate(
+        pageDict['page.profile.heroSubtitleFallback'] ||
+          'Watch and download @{username} public TikTok videos anonymously in free HD MP4 without watermark and MP3 audio.',
+        { username: decodedUsername }
+      );
 
   const routePath = `/profile/${encodeURIComponent(decodedUsername)}`;
-  const canonicalUrl = `${baseUrl}${localizeHref(routePath, lang)}`;
-
-  const languages: Record<string, string> = {};
-  for (const item of SUPPORTED_LANGUAGES) {
-    languages[item.code] = `${baseUrl}${localizeHref(routePath, item.code)}`;
-  }
-  languages['x-default'] = `${baseUrl}${localizeHref(routePath, DEFAULT_LANGUAGE)}`;
+  const alternates = buildAlternates(routePath, lang);
 
   return {
     title,
@@ -66,19 +73,22 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title,
       description,
       type: 'profile',
-      url: canonicalUrl,
+      url: alternates.canonical,
       siteName: uiDict['brand.name'],
-      images: creator?.avatar ? [{ url: creator.avatar, alt: creator.displayName }] : undefined,
+      locale: lang,
+      alternateLocale: SUPPORTED_LANGUAGES.filter((item) => item.code !== lang).map(
+        (item) => item.code
+      ),
+      images: creator?.avatar
+        ? [{ url: creator.avatar, alt: creator.displayName }]
+        : undefined,
     },
     twitter: {
       card: 'summary_large_image',
       title,
       description,
     },
-    alternates: {
-      canonical: canonicalUrl,
-      languages,
-    },
+    alternates,
   };
 }
 
@@ -88,15 +98,55 @@ export default async function CreatorProfilePage({ params }: Props) {
   const creator = getCreatorByUsername(decodedUsername);
   const relatedCreators = getRelatedCreators(decodedUsername, creator?.categorySlug, 6);
 
+  const lang = await getRequestLanguage();
+  const pageDict = PAGE_DICTIONARIES[lang] || PAGE_DICTIONARIES.en;
+  const baseUrl = getBaseUrl();
+  const routePath = `/profile/${encodeURIComponent(decodedUsername)}`;
+  const canonicalUrl = `${baseUrl}${localizeHref(routePath, lang)}`;
+
+  const localizedDescription = creator
+    ? interpolateTemplate(
+        pageDict['page.profile.metaDescKnown'] ||
+          'Watch and download @{username} TikTok videos in free HD MP4 without watermark.',
+        {
+          username: creator.username,
+          followers: creator.followers,
+        }
+      )
+    : interpolateTemplate(
+        pageDict['page.profile.heroSubtitleFallback'] ||
+          'Watch and download @{username} public TikTok videos anonymously.',
+        { username: decodedUsername }
+      );
+
+  const localizedPageName = creator
+    ? interpolateTemplate(
+        pageDict['page.profile.metaTitleKnown'] ||
+          '{displayName} (@{username}) TikTok Profile',
+        {
+          displayName: creator.displayName,
+          username: creator.username,
+        }
+      )
+    : interpolateTemplate(
+        pageDict['page.profile.heroTitleFallback'] || '@{username} TikTok Profile',
+        { username: decodedUsername }
+      );
+
   const personSchema = {
     '@context': 'https://schema.org',
     '@type': 'ProfilePage',
+    name: localizedPageName,
+    url: canonicalUrl,
+    inLanguage: lang,
+    description: localizedDescription,
     mainEntity: {
       '@type': 'Person',
       name: creator ? creator.displayName : decodedUsername,
       alternateName: `@${decodedUsername}`,
       identifier: decodedUsername,
-      description: creator?.bio || `TikTok creator @${decodedUsername}`,
+      url: canonicalUrl,
+      description: creator?.bio || localizedDescription,
       interactionStatistic: [
         {
           '@type': 'InteractionCounter',
@@ -105,6 +155,24 @@ export default async function CreatorProfilePage({ params }: Props) {
         },
       ],
     },
+  };
+
+  const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    inLanguage: lang,
+    mainEntity: [1, 2, 3].map((num) => ({
+      '@type': 'Question',
+      name: interpolateTemplate(pageDict[`page.profile.q${num}`] || '', {
+        username: decodedUsername,
+      }),
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: interpolateTemplate(pageDict[`page.profile.a${num}`] || '', {
+          username: decodedUsername,
+        }),
+      },
+    })),
   };
 
   const heroTitle = creator
@@ -132,6 +200,10 @@ export default async function CreatorProfilePage({ params }: Props) {
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
         />
 
         <TikTokProfileViewer

@@ -1,14 +1,17 @@
 import type { Metadata } from 'next';
 import LegalLayout from '@/components/LegalLayout';
+import { buildLocalizedMetadata } from '@/lib/seo/metadata';
 
-export const metadata: Metadata = {
-  title: 'Acceptable Use Policy - Tik Profiles Viewer',
-  description:
-    'Acceptable Use Policy for Tik Profiles Viewer on TikProfilesViewer.com. Outlines prohibited conduct, network etiquette, anti-abuse rules, and scraping restrictions.',
-  alternates: {
-    canonical: 'https://tikprofilesviewer.com/acceptable-use-policy',
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  return buildLocalizedMetadata({
+    path: '/acceptable-use-policy',
+    titleKey: 'legal.nav.acceptableUse',
+    fallbackTitle: 'Acceptable Use Policy',
+    rawDescription:
+      'Acceptable Use Policy for Tik Profiles Viewer on TikProfilesViewer.com. Outlines prohibited conduct, network etiquette, anti-abuse rules, and scraping restrictions.',
+    type: 'article',
+  });
+}
 
 export default function AcceptableUsePolicyPage() {
   return (

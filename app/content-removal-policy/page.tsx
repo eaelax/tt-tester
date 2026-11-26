@@ -1,14 +1,17 @@
 import type { Metadata } from 'next';
 import LegalLayout from '@/components/LegalLayout';
+import { buildLocalizedMetadata } from '@/lib/seo/metadata';
 
-export const metadata: Metadata = {
-  title: 'Content Review & Removal Policy - Tik Profiles Viewer',
-  description:
-    'Content removal policy and submission guidelines for Tik Profiles Viewer on TikProfilesViewer.com. Learn how creators and rights holders can request profile exclusion or content removal.',
-  alternates: {
-    canonical: 'https://tikprofilesviewer.com/content-removal-policy',
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  return buildLocalizedMetadata({
+    path: '/content-removal-policy',
+    titleKey: 'legal.nav.removal',
+    fallbackTitle: 'Content Review & Removal Policy',
+    rawDescription:
+      'Content removal policy and submission guidelines for Tik Profiles Viewer on TikProfilesViewer.com. Learn how creators and rights holders can request profile exclusion or content removal.',
+    type: 'article',
+  });
+}
 
 export default function ContentRemovalPolicyPage() {
   return (

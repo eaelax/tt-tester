@@ -1,58 +1,18 @@
 import type { Metadata } from 'next';
-import { headers } from 'next/headers';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import LocalizedToolView from '@/components/LocalizedToolView';
-import { UI_DICTIONARIES } from '@/lib/i18n/dictionaries-ui';
-import { PAGE_DICTIONARIES } from '@/lib/i18n/dictionaries-pages';
-import {
-  DEFAULT_LANGUAGE,
-  LanguageCode,
-  SUPPORTED_LANGUAGES,
-  isSupportedLanguage,
-  localizeHref,
-} from '@/lib/i18n/types';
+import { buildLocalizedMetadata } from '@/lib/seo/metadata';
 
 export async function generateMetadata(): Promise<Metadata> {
-  const reqHeaders = await headers();
-  const headerLang = reqHeaders.get('x-tpv-lang') || DEFAULT_LANGUAGE;
-  const lang: LanguageCode = isSupportedLanguage(headerLang)
-    ? headerLang
-    : DEFAULT_LANGUAGE;
-
-  const uiDict = UI_DICTIONARIES[lang] || UI_DICTIONARIES.en;
-  const pageDict = PAGE_DICTIONARIES[lang] || PAGE_DICTIONARIES.en;
-
-  const pageTitle = `${pageDict['page.storyDl.title']} - ${uiDict['brand.name']}`;
-  const pageDesc = pageDict['page.storyDl.subtitle'];
-  const canonicalUrl = `https://tikprofilesviewer.com${localizeHref(
-    '/tiktok-story-downloader',
-    lang
-  )}`;
-
-  const languages: Record<string, string> = {};
-  for (const item of SUPPORTED_LANGUAGES) {
-    languages[item.code] = `https://tikprofilesviewer.com${localizeHref(
-      '/tiktok-story-downloader',
-      item.code
-    )}`;
-  }
-
-  return {
-    title: pageTitle,
-    description: pageDesc,
-    openGraph: {
-      title: pageTitle,
-      description: pageDesc,
-      url: canonicalUrl,
-      siteName: uiDict['brand.name'],
-      type: 'website',
-    },
-    alternates: {
-      canonical: canonicalUrl,
-      languages,
-    },
-  };
+  return buildLocalizedMetadata({
+    path: '/tiktok-story-downloader',
+    titleKey: 'page.storyDl.title',
+    descriptionKey: 'page.storyDl.subtitle',
+    fallbackTitle: 'Free TikTok Story Downloader Without Watermark - Anonymous & HD',
+    fallbackDescription:
+      'Download public TikTok stories anonymously in free HD MP4 quality without watermark before they expire, with no login required.',
+  });
 }
 
 export default function StoryDownloaderPage() {

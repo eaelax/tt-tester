@@ -1,14 +1,17 @@
 import type { Metadata } from 'next';
 import LegalLayout from '@/components/LegalLayout';
+import { buildLocalizedMetadata } from '@/lib/seo/metadata';
 
-export const metadata: Metadata = {
-  title: 'Copyright & DMCA Policy - Tik Profiles Viewer',
-  description:
-    'Copyright and Digital Millennium Copyright Act (DMCA) policy for Tik Profiles Viewer on TikProfilesViewer.com. Learn our intellectual property policies and how to submit copyright notices.',
-  alternates: {
-    canonical: 'https://tikprofilesviewer.com/copyright-policy',
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  return buildLocalizedMetadata({
+    path: '/copyright-policy',
+    titleKey: 'legal.nav.copyright',
+    fallbackTitle: 'Copyright & DMCA Policy',
+    rawDescription:
+      'Copyright and Digital Millennium Copyright Act (DMCA) policy for Tik Profiles Viewer on TikProfilesViewer.com. Learn our intellectual property policies and how to submit copyright notices.',
+    type: 'article',
+  });
+}
 
 export default function CopyrightPolicyPage() {
   return (

@@ -11,13 +11,31 @@ import {
 } from '@/lib/i18n/types';
 import { getBaseUrl } from '@/lib/seo/sitemap';
 
+export type TemplateVars = Record<string, string | number>;
+
 interface BuildLocalizedMetadataOptions {
   path: string;
-  titleKey: string;
-  descriptionKey: string;
+  titleKey?: string;
+  descriptionKey?: string;
   fallbackTitle?: string;
   fallbackDescription?: string;
-  type?: 'website' | 'article';
+  rawTitle?: string;
+  rawDescription?: string;
+  vars?: TemplateVars;
+  type?: 'website' | 'article' | 'profile';
+  images?: { url: string; alt?: string }[];
+  appendBrand?: boolean;
+}
+
+export function interpolateTemplate(
+  template: string,
+  vars?: TemplateVars
+): string {
+  if (!vars) return template;
+  return template.replace(/\{(\w+)\}/g, (_, token: string) => {
+    const val = vars[token];
+    return val !== undefined && val !== null ? String(val) : `{${token}}`;
+  });
 }
 
 export async function getRequestLanguage(): Promise<LanguageCode> {
@@ -26,25 +44,15 @@ export async function getRequestLanguage(): Promise<LanguageCode> {
   return isSupportedLanguage(headerLang) ? headerLang : DEFAULT_LANGUAGE;
 }
 
-export async function buildLocalizedMetadata({
-  path,
-  titleKey,
-  descriptionKey,
-  fallbackTitle,
-  fallbackDescription,
-  type = 'website',
-}: BuildLocalizedMetadataOptions): Promise<Metadata> {
-  const lang = await getRequestLanguage();
-  const uiDict = UI_DICTIONARIES[lang] || UI_DICTIONARIES.en;
-  const pageDict = PAGE_DICTIONARIES[lang] || PAGE_DICTIONARIES.en;
+export function buildAlternates(
+  path: string,
+  lang: LanguageCode
+): {
+  canonical: string;
+  languages: Record<string, string>;
+} {
   const baseUrl = getBaseUrl();
-
-  const rawTitle = pageDict[titleKey] || fallbackTitle || uiDict['brand.name'];
-  const pageTitle = `${rawTitle} - ${uiDict['brand.name']}`;
-  const pageDesc =
-    pageDict[descriptionKey] || fallbackDescription || uiDict['hero.homeSubtitle'];
-
-  const canonicalUrl = `${baseUrl}${localizeHref(path, lang)}`;
+  const canonical = `${baseUrl}${localizeHref(path, lang)}`;
 
   const languages: Record<string, string> = {};
   for (const item of SUPPORTED_LANGUAGES) {
@@ -53,23 +61,68 @@ export async function buildLocalizedMetadata({
   languages['x-default'] = `${baseUrl}${localizeHref(path, DEFAULT_LANGUAGE)}`;
 
   return {
+    canonical,
+    languages,
+  };
+}
+
+export async function buildLocalizedMetadata({
+  path,
+  titleKey,
+  descriptionKey,
+  fallbackTitle,
+  fallbackDescription,
+  rawTitle,
+  rawDescription,
+  vars,
+  type = 'website',
+  images,
+  appendBrand = true,
+}: BuildLocalizedMetadataOptions): Promise<Metadata> {
+  const lang = await getRequestLanguage();
+  const uiDict = UI_DICTIONARIES[lang] || UI_DICTIONARIES.en;
+  const pageDict = PAGE_DICTIONARIES[lang] || PAGE_DICTIONARIES.en;
+
+  const titleTemplate =
+    rawTitle ??
+    (titleKey ? pageDict[titleKey] || uiDict[titleKey] : undefined) ??
+    fallbackTitle ??
+    uiDict['brand.name'];
+
+  const resolvedTitle = interpolateTemplate(titleTemplate, vars);
+  const pageTitle = appendBrand
+    ? `${resolvedTitle} - ${uiDict['brand.name']}`
+    : resolvedTitle;
+
+  const descTemplate =
+    rawDescription ??
+    (descriptionKey ? pageDict[descriptionKey] || uiDict[descriptionKey] : undefined) ??
+    fallbackDescription ??
+    uiDict['hero.homeSubtitle'];
+
+  const pageDesc = interpolateTemplate(descTemplate, vars);
+  const alternates = buildAlternates(path, lang);
+
+  return {
     title: pageTitle,
     description: pageDesc,
     openGraph: {
       title: pageTitle,
       description: pageDesc,
-      url: canonicalUrl,
+      url: alternates.canonical,
       siteName: uiDict['brand.name'],
+      locale: lang,
+      alternateLocale: SUPPORTED_LANGUAGES.filter((item) => item.code !== lang).map(
+        (item) => item.code
+      ),
       type,
+      ...(images && images.length > 0 ? { images } : {}),
     },
     twitter: {
       card: 'summary_large_image',
       title: pageTitle,
       description: pageDesc,
     },
-    alternates: {
-      canonical: canonicalUrl,
-      languages,
-    },
+    alternates,
   };
 }

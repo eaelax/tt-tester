@@ -1,14 +1,17 @@
 import type { Metadata } from 'next';
 import LegalLayout from '@/components/LegalLayout';
+import { buildLocalizedMetadata } from '@/lib/seo/metadata';
 
-export const metadata: Metadata = {
-  title: 'Service Availability Policy - Tik Profiles Viewer',
-  description:
-    'Service Availability and Uptime policy for Tik Profiles Viewer on TikProfilesViewer.com. Explains technical maintenance windows, third-party network limitations, and service continuity.',
-  alternates: {
-    canonical: 'https://tikprofilesviewer.com/service-availability-policy',
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  return buildLocalizedMetadata({
+    path: '/service-availability-policy',
+    titleKey: 'legal.nav.availability',
+    fallbackTitle: 'Service Availability Policy',
+    rawDescription:
+      'Service Availability and Uptime policy for Tik Profiles Viewer on TikProfilesViewer.com. Explains technical maintenance windows, third-party network limitations, and service continuity.',
+    type: 'article',
+  });
+}
 
 export default function ServiceAvailabilityPolicyPage() {
   return (
