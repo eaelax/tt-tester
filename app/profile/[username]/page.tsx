@@ -185,17 +185,6 @@ export default async function CreatorProfilePage({ params }: Props) {
     <div className="min-h-screen flex flex-col bg-[var(--surface-canvas)] text-[var(--ink-primary)]">
       <Navbar />
 
-      <div className="w-full bg-[var(--surface-canvas)] border-b border-[var(--border-subtle)]">
-        <div className="max-w-[1120px] mx-auto px-4 sm:px-6 pt-3 pb-0.5">
-          <Breadcrumbs
-            items={[
-              { label: 'Creators', href: '/creators', translationKey: 'breadcrumb.creators' },
-              { label: `@${decodedUsername}` },
-            ]}
-          />
-        </div>
-      </div>
-
       <main className="flex-1 w-full flex flex-col">
         <script
           type="application/ld+json"
@@ -216,6 +205,14 @@ export default async function CreatorProfilePage({ params }: Props) {
           subtitleKey={heroSubtitle ? undefined : 'page.profile.heroSubtitleFallback'}
           titleVars={{ username: decodedUsername }}
           subtitleVars={{ username: decodedUsername }}
+          breadcrumbs={
+            <Breadcrumbs
+              items={[
+                { label: 'Creators', href: '/creators', translationKey: 'breadcrumb.creators' },
+                { label: `@${decodedUsername}` },
+              ]}
+            />
+          }
         />
 
         <ProfileSeoSection
