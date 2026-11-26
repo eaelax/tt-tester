@@ -119,112 +119,107 @@ export default function LocalizedToolView({
   };
 
   return (
-    <>
-      <div className="w-full bg-[var(--surface-canvas)] border-b border-[var(--border-subtle)]">
-        <div className="max-w-[1120px] mx-auto px-4 sm:px-6 pt-3 pb-0.5">
+    <main className="flex-1 w-full flex flex-col">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+
+      <TikTokProfileViewer
+        initialUsername=""
+        autoSearch={false}
+        heroVariant="workbench"
+        titleKey={`page.${toolKey}.title`}
+        subtitleKey={`page.${toolKey}.subtitle`}
+        title={t(`page.${toolKey}.title`)}
+        subtitle={t(`page.${toolKey}.subtitle`)}
+        breadcrumbs={
           <Breadcrumbs items={[{ label: t(`page.${toolKey}.crumb`) }]} />
-        </div>
-      </div>
+        }
+      >
+        <div className="w-full flex flex-col">
+          {/* Band 1: Key Features */}
+          <section className="w-full bg-[var(--surface-sunken)] border-b border-[var(--border-subtle)] py-10 sm:py-12">
+            <div className="max-w-[1120px] mx-auto px-4 sm:px-6">
+              <div className="text-center max-w-2xl mx-auto mb-7">
+                <h2 className="text-2xl sm:text-3xl font-bold text-[var(--ink-primary)] tracking-tight">
+                  {t(`page.${toolKey}.bandTitle`)}
+                </h2>
+                <p className="text-sm text-[var(--ink-secondary)] mt-1.5 leading-relaxed">
+                  {t(`page.${toolKey}.bandSubtitle`)}
+                </p>
+              </div>
 
-      <main className="flex-1 w-full flex flex-col">
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-        />
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {features.map((feature) => (
+                  <div
+                    key={feature.titleKey}
+                    className="p-5 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)] shadow-[var(--shadow-card)] flex flex-col gap-2.5"
+                  >
+                    <div
+                      className={`w-9 h-9 rounded-lg border flex items-center justify-center ${
+                        feature.iconBgClass
+                      } ${feature.iconTextClass} ${
+                        feature.iconBorderClass || 'border-transparent'
+                      }`}
+                    >
+                      {renderFeatureIcon(feature.iconName)}
+                    </div>
+                    <h3 className="text-sm sm:text-base font-bold text-[var(--ink-primary)]">
+                      {t(feature.titleKey)}
+                    </h3>
+                    <p className="text-xs sm:text-[13px] text-[var(--ink-secondary)] leading-relaxed">
+                      {t(feature.descKey)}
+                    </p>
+                  </div>
+                ))}
+              </div>
 
-        <TikTokProfileViewer
-          initialUsername=""
-          autoSearch={false}
-          heroVariant="workbench"
-          titleKey={`page.${toolKey}.title`}
-          subtitleKey={`page.${toolKey}.subtitle`}
-          title={t(`page.${toolKey}.title`)}
-          subtitle={t(`page.${toolKey}.subtitle`)}
-        >
-          <div className="w-full flex flex-col">
-            {/* Band 1: Key Features */}
-            <section className="w-full bg-[var(--surface-sunken)] border-b border-[var(--border-subtle)] py-10 sm:py-12">
+              {showAdSlot && (
+                <div className="mt-6">
+                  <AdSlot placement="footer" />
+                </div>
+              )}
+            </div>
+          </section>
+
+          {/* Band 2: Localized FAQs */}
+          {faqs.length > 0 && (
+            <section className="w-full bg-[var(--surface-elevated)] border-b border-[var(--border-subtle)] py-10 sm:py-12">
               <div className="max-w-[1120px] mx-auto px-4 sm:px-6">
-                <div className="text-center max-w-2xl mx-auto mb-7">
+                <div className="text-center max-w-xl mx-auto mb-6">
                   <h2 className="text-2xl sm:text-3xl font-bold text-[var(--ink-primary)] tracking-tight">
-                    {t(`page.${toolKey}.bandTitle`)}
+                    {t(`page.${toolKey}.faqHeading`)}
                   </h2>
-                  <p className="text-sm text-[var(--ink-secondary)] mt-1.5 leading-relaxed">
-                    {t(`page.${toolKey}.bandSubtitle`)}
-                  </p>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  {features.map((feature) => (
+                  {faqs.map((faq) => (
                     <div
-                      key={feature.titleKey}
-                      className="p-5 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)] shadow-[var(--shadow-card)] flex flex-col gap-2.5"
+                      key={faq.qKey}
+                      className="p-5 rounded-xl bg-[var(--surface-sunken)] border border-[var(--border-subtle)] shadow-[var(--shadow-card)] flex flex-col gap-1.5"
                     >
-                      <div
-                        className={`w-9 h-9 rounded-lg border flex items-center justify-center ${
-                          feature.iconBgClass
-                        } ${feature.iconTextClass} ${
-                          feature.iconBorderClass || 'border-transparent'
-                        }`}
-                      >
-                        {renderFeatureIcon(feature.iconName)}
-                      </div>
-                      <h3 className="text-sm sm:text-base font-bold text-[var(--ink-primary)]">
-                        {t(feature.titleKey)}
+                      <h3 className="text-sm font-bold text-[var(--ink-primary)]">
+                        {t(faq.qKey)}
                       </h3>
                       <p className="text-xs sm:text-[13px] text-[var(--ink-secondary)] leading-relaxed">
-                        {t(feature.descKey)}
+                        {t(faq.aKey)}
                       </p>
                     </div>
                   ))}
                 </div>
-
-                {showAdSlot && (
-                  <div className="mt-6">
-                    <AdSlot placement="footer" />
-                  </div>
-                )}
               </div>
             </section>
+          )}
 
-            {/* Band 2: Localized FAQs */}
-            {faqs.length > 0 && (
-              <section className="w-full bg-[var(--surface-elevated)] border-b border-[var(--border-subtle)] py-10 sm:py-12">
-                <div className="max-w-[1120px] mx-auto px-4 sm:px-6">
-                  <div className="text-center max-w-xl mx-auto mb-6">
-                    <h2 className="text-2xl sm:text-3xl font-bold text-[var(--ink-primary)] tracking-tight">
-                      {t(`page.${toolKey}.faqHeading`)}
-                    </h2>
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    {faqs.map((faq) => (
-                      <div
-                        key={faq.qKey}
-                        className="p-5 rounded-xl bg-[var(--surface-sunken)] border border-[var(--border-subtle)] shadow-[var(--shadow-card)] flex flex-col gap-1.5"
-                      >
-                        <h3 className="text-sm font-bold text-[var(--ink-primary)]">
-                          {t(faq.qKey)}
-                        </h3>
-                        <p className="text-xs sm:text-[13px] text-[var(--ink-secondary)] leading-relaxed">
-                          {t(faq.aKey)}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </section>
-            )}
-
-            {/* Band 3: Internal Linking to All Creator Tools */}
-            <section className="w-full bg-[var(--surface-canvas)] py-10 sm:py-12">
-              <div className="max-w-[1120px] mx-auto px-4 sm:px-6">
-                <CreatorToolsSection />
-              </div>
-            </section>
-          </div>
-        </TikTokProfileViewer>
-      </main>
-    </>
+          {/* Band 3: Internal Linking to All Creator Tools */}
+          <section className="w-full bg-[var(--surface-canvas)] py-10 sm:py-12">
+            <div className="max-w-[1120px] mx-auto px-4 sm:px-6">
+              <CreatorToolsSection />
+            </div>
+          </section>
+        </div>
+      </TikTokProfileViewer>
+    </main>
   );
 }
