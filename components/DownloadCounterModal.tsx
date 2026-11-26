@@ -114,7 +114,7 @@ function ModalContent({
     <MotionModalPanel
       ariaLabel={headerTitle}
       onClick={(e) => e.stopPropagation()}
-      className="relative w-full max-w-[420px] min-h-[460px] max-h-[90vh] bg-[var(--surface-elevated)] rounded-2xl border border-[var(--border-subtle)] shadow-[var(--shadow-workbench)] flex flex-col justify-between overflow-hidden select-none"
+      className="relative w-full max-w-[440px] h-[580px] sm:h-[620px] max-h-[90vh] bg-[var(--surface-elevated)] rounded-2xl border border-[var(--border-subtle)] shadow-[var(--shadow-workbench)] flex flex-col justify-between overflow-hidden select-none"
     >
       {/* Modal Header */}
       <div className="w-full bg-[var(--surface-elevated)] px-5 py-3.5 border-b border-[var(--border-subtle)] flex items-center justify-between gap-3 shrink-0">
