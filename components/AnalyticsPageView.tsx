@@ -166,284 +166,291 @@ export default function AnalyticsPageView() {
   const estEarningsHigh = followerCountSafe > 0 ? Math.round((followerCountSafe / 1000) * 3.5) : 0;
 
   return (
-    <main className="flex-1 max-w-[980px] w-full mx-auto px-4 sm:px-6 py-5 sm:py-7">
-      <Breadcrumbs items={[{ label: t('page.analytics.crumb') }]} />
-      <AdSlot placement="header" />
+    <main className="flex-1 w-full flex flex-col">
+      {/* Unified Gradient Header Band */}
+      <section className="w-full hero-studio-backdrop border-b border-[var(--border-subtle)] -mt-16 pt-22 pb-8 sm:pt-26 sm:pb-10">
+        <div className="max-w-[980px] mx-auto px-4 sm:px-6">
+          <Breadcrumbs items={[{ label: t('page.analytics.crumb') }]} />
 
-      {/* Compact Header */}
-      <div className="text-center max-w-xl mx-auto mb-5">
-        <h1 className="text-[length:var(--h1-size)] font-bold text-[var(--ink-primary)] tracking-tight leading-tight">
-          {t('page.analytics.title')}
-        </h1>
-        <p className="text-xs sm:text-sm text-[var(--ink-secondary)] mt-1.5 leading-relaxed">
-          {t('page.analytics.subtitle')}
-        </p>
-      </div>
-
-      {/* Search Input */}
-      <form onSubmit={(e) => void handleAnalyze(e)} className="max-w-lg mx-auto mb-7">
-        <div className="relative flex items-center">
-          <Search className="w-4 h-4 text-[var(--ink-muted)] absolute start-3.5 pointer-events-none" />
-          <input
-            type="text"
-            aria-label={t('search.label')}
-            placeholder={t('search.placeholder')}
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            disabled={loading}
-            className="w-full h-11 ps-10 pe-28 rounded-xl border border-[var(--border-strong)] bg-[var(--surface-elevated)] text-[var(--ink-primary)] text-xs sm:text-sm font-medium focus:outline-none focus:border-[var(--accent-cyan)] focus:ring-2 focus:ring-[var(--accent-cyan)]/20 transition-colors disabled:opacity-60"
-          />
-          <button
-            type="submit"
-            disabled={loading || !username.trim()}
-            className="absolute end-1.5 h-8 px-4 rounded-lg bg-[var(--accent-cyan)] hover:bg-[var(--accent-cyan-hover)] disabled:bg-[var(--state-disabled-bg)] disabled:text-[var(--state-disabled-ink)] disabled:cursor-not-allowed text-[var(--accent-contrast)] font-bold text-xs transition-colors cursor-pointer shadow-xs"
-          >
-            {loading ? t('search.searching') : t('search.btn')}
-          </button>
-        </div>
-        {error && (
-          <div
-            role="alert"
-            className="mt-2.5 p-2.5 rounded-lg bg-[var(--status-danger-bg)] border border-[var(--status-danger-border)] text-[var(--ink-primary)] text-xs font-semibold flex items-center gap-2"
-          >
-            <AlertCircle className="w-4 h-4 text-[var(--status-danger)] shrink-0" />
-            <span>{error}</span>
+          <div className="text-center max-w-xl mx-auto mt-3 mb-5">
+            <h1 className="text-[length:var(--h1-size)] font-bold text-[var(--ink-primary)] tracking-tight leading-tight">
+              {t('page.analytics.title')}
+            </h1>
+            <p className="text-xs sm:text-sm text-[var(--ink-secondary)] mt-2 leading-relaxed">
+              {t('page.analytics.subtitle')}
+            </p>
           </div>
-        )}
-      </form>
 
-      {/* Results Dashboard */}
-      {profile && (
-        <div className="space-y-5 animate-in fade-in duration-300">
-          {/* Creator Summary Card */}
-          <div className="p-4 sm:p-5 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)] shadow-[var(--shadow-card)] flex flex-col sm:flex-row items-center gap-4">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={profile.avatar}
-              alt={profile.nickname}
-              referrerPolicy="no-referrer"
-              onError={(e) => {
-                const target = e.currentTarget as HTMLImageElement;
-                if (!target.src.includes('/api/avatar')) {
-                  target.src = `/api/avatar?username=${encodeURIComponent(profile.username)}`;
-                }
-              }}
-              className="w-16 h-16 rounded-full object-cover border-2 border-[var(--accent-cyan)] bg-[var(--surface-sunken)] shrink-0"
-            />
-            <div className="flex-1 text-center sm:text-start min-w-0">
-              <div className="flex items-center justify-center sm:justify-start gap-2 flex-wrap">
-                <h2
-                  data-no-translate="true"
-                  className="text-base sm:text-lg font-bold text-[var(--ink-primary)] truncate"
-                >
-                  {profile.nickname}
-                </h2>
-                {profile.verified && (
-                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[var(--accent-cyan-soft)] text-[var(--accent-cyan-text)] border border-[var(--accent-cyan)]">
-                    {t('profile.verified')}
-                  </span>
-                )}
-              </div>
-              <p
-                dir="ltr"
-                data-no-translate="true"
-                className="text-xs text-[var(--ink-muted)] font-mono w-fit"
+          {/* Search Input */}
+          <form onSubmit={(e) => void handleAnalyze(e)} className="max-w-lg mx-auto">
+            <div className="relative flex items-center">
+              <Search className="w-4 h-4 text-[var(--ink-muted)] absolute start-3.5 pointer-events-none" />
+              <input
+                type="text"
+                aria-label={t('search.label')}
+                placeholder={t('search.placeholder')}
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                disabled={loading}
+                className="w-full h-11 ps-10 pe-28 rounded-xl border border-[var(--border-strong)] bg-[var(--surface-elevated)] text-[var(--ink-primary)] text-xs sm:text-sm font-medium focus:outline-none focus:border-[var(--accent-cyan)] focus:ring-2 focus:ring-[var(--accent-cyan)]/20 transition-colors disabled:opacity-60 shadow-xs"
+              />
+              <button
+                type="submit"
+                disabled={loading || !username.trim()}
+                className="absolute end-1.5 h-8 px-4 rounded-lg bg-[var(--accent-cyan)] hover:bg-[var(--accent-cyan-hover)] disabled:bg-[var(--state-disabled-bg)] disabled:text-[var(--state-disabled-ink)] disabled:cursor-not-allowed text-[var(--accent-contrast)] font-bold text-xs transition-colors cursor-pointer shadow-xs"
               >
-                @{profile.username}
-              </p>
-              {profile.bio && (
-                <p className="text-xs text-[var(--ink-secondary)] mt-1 line-clamp-2 max-w-xl">
-                  {profile.bio}
-                </p>
-              )}
+                {loading ? t('search.searching') : t('search.btn')}
+              </button>
             </div>
-            <div className="flex items-center gap-5 border-t sm:border-t-0 sm:border-s border-[var(--border-subtle)] pt-3 sm:pt-0 sm:ps-5 tabular-nums">
-              <div className="text-center">
-                <div className="text-base font-bold text-[var(--ink-primary)]">
-                  {formatNum(profile.followers)}
-                </div>
-                <div className="text-[11px] font-semibold text-[var(--ink-muted)]">
-                  {t('profile.followers')}
-                </div>
+            {error && (
+              <div
+                role="alert"
+                className="mt-2.5 p-2.5 rounded-lg bg-[var(--status-danger-bg)] border border-[var(--status-danger-border)] text-[var(--ink-primary)] text-xs font-semibold flex items-center gap-2"
+              >
+                <AlertCircle className="w-4 h-4 text-[var(--status-danger)] shrink-0" />
+                <span>{error}</span>
               </div>
-              <div className="text-center">
-                <div className="text-base font-bold text-[var(--ink-primary)]">
-                  {formatNum(profile.likes)}
-                </div>
-                <div className="text-[11px] font-semibold text-[var(--ink-muted)]">
-                  {t('profile.totalLikes')}
-                </div>
-              </div>
-              <div className="text-center">
-                <div className="text-base font-bold text-[var(--ink-primary)]">
-                  {formatNum(profile.videosCount)}
-                </div>
-                <div className="text-[11px] font-semibold text-[var(--ink-muted)]">
-                  {t('profile.videos')}
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Core Analytics KPIs */}
-          {videos.length > 0 && (
-            <>
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-3.5 tabular-nums">
-                <div className="p-4 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)] shadow-[var(--shadow-card)]">
-                  <div className="flex items-center gap-2 text-xs font-bold text-[var(--ink-secondary)] mb-1.5">
-                    <TrendingUp className="w-4 h-4 text-[var(--accent-primary-text)]" />
-                    <span>{t('page.analytics.engagementRate')}</span>
-                  </div>
-                  <div className="text-xl sm:text-2xl font-bold text-[var(--ink-primary)]">
-                    {engagementRate}%
-                  </div>
-                  <p className="text-[11px] text-[var(--ink-muted)] mt-1">
-                    {Number(engagementRate) > 8
-                      ? t('page.analytics.rateViral')
-                      : Number(engagementRate) > 4
-                      ? t('page.analytics.rateHealthy')
-                      : t('page.analytics.rateAverage')}
-                  </p>
-                </div>
-
-                <div className="p-4 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)] shadow-[var(--shadow-card)]">
-                  <div className="flex items-center gap-2 text-xs font-bold text-[var(--ink-secondary)] mb-1.5">
-                    <Eye className="w-4 h-4 text-[var(--accent-cyan-text)]" />
-                    <span>{t('page.analytics.avgViews')}</span>
-                  </div>
-                  <div className="text-xl sm:text-2xl font-bold text-[var(--ink-primary)]">
-                    {formatNum(avgViews)}
-                  </div>
-                  <p className="text-[11px] text-[var(--ink-muted)] mt-1">
-                    {t('page.analytics.basedOnVideos', { count: videos.length })}
-                  </p>
-                </div>
-
-                <div className="p-4 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)] shadow-[var(--shadow-card)]">
-                  <div className="flex items-center gap-2 text-xs font-bold text-[var(--ink-secondary)] mb-1.5">
-                    <Heart className="w-4 h-4 text-[var(--accent-primary-text)]" />
-                    <span>{t('page.analytics.avgLikes')}</span>
-                  </div>
-                  <div className="text-xl sm:text-2xl font-bold text-[var(--ink-primary)]">
-                    {formatNum(avgLikes)}
-                  </div>
-                  <p className="text-[11px] text-[var(--ink-muted)] mt-1">
-                    {t('page.analytics.commentsPerVideo', { count: formatNum(avgComments) })}
-                  </p>
-                </div>
-
-                <div className="p-4 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)] shadow-[var(--shadow-card)]">
-                  <div className="flex items-center gap-2 text-xs font-bold text-[var(--ink-secondary)] mb-1.5">
-                    <Sparkles className="w-4 h-4 text-[var(--accent-cyan-text)]" />
-                    <span>{t('page.analytics.estSponsorship')}</span>
-                  </div>
-                  <div className="text-xl sm:text-2xl font-bold text-[var(--ink-primary)]">
-                    {followerCountSafe > 0
-                      ? `$${estEarningsLow.toLocaleString()} - $${estEarningsHigh.toLocaleString()}`
-                      : t('page.analytics.notAvailable')}
-                  </div>
-                  <p className="text-[11px] text-[var(--ink-muted)] mt-1">
-                    {t('page.analytics.perSponsoredPost')}
-                  </p>
-                </div>
-              </div>
-
-              {/* Video Performance Breakdown */}
-              <div className="p-4 sm:p-5 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)] shadow-[var(--shadow-card)]">
-                <div className="flex items-center justify-between mb-3.5">
-                  <h3 className="text-sm font-bold text-[var(--ink-primary)] flex items-center gap-2">
-                    <BarChart3 className="w-4 h-4 text-[var(--accent-primary-text)]" />
-                    <span>{t('page.analytics.recentBreakdown')}</span>
-                  </h3>
-                  <span className="text-[11px] font-semibold text-[var(--ink-muted)]">
-                    {t('page.analytics.liveFeedMetrics')}
-                  </span>
-                </div>
-
-                <div className="space-y-2.5">
-                  {videos.slice(0, 6).map((v) => (
-                    <div
-                      key={v.id}
-                      className="flex flex-col sm:flex-row sm:items-center gap-3 p-3 rounded-lg bg-[var(--surface-canvas)] hover:bg-[var(--pastel-blue)] border border-[var(--border-subtle)] hover:border-[var(--accent-cyan)] transition-colors duration-150"
-                    >
-                      <div className="relative w-12 h-14 rounded-md overflow-hidden shrink-0 bg-[var(--surface-sunken)]">
-                        {v.cover ? (
-                          /* eslint-disable-next-line @next/next/no-img-element */
-                          <img
-                            src={v.cover}
-                            alt={v.title}
-                            referrerPolicy="no-referrer"
-                            onError={(e) => {
-                              const target = e.currentTarget as HTMLImageElement;
-                              if (v.originCover && target.src !== v.originCover) {
-                                target.src = v.originCover;
-                                return;
-                              }
-                              target.style.display = 'none';
-                            }}
-                            className="w-full h-full object-cover"
-                          />
-                        ) : null}
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="text-xs font-bold text-[var(--ink-primary)] truncate">
-                          {v.title}
-                        </p>
-                        <div
-                          dir="ltr"
-                          className="flex flex-wrap items-center gap-3.5 mt-1.5 text-[11px] text-[var(--ink-secondary)] font-medium tabular-nums"
-                        >
-                          <span className="flex items-center gap-1">
-                            <Play className="w-3 h-3 text-[var(--accent-cyan-text)]" />
-                            {formatNum(v.plays)}
-                          </span>
-                          <span className="flex items-center gap-1">
-                            <Heart className="w-3 h-3 text-[var(--accent-primary-text)]" />
-                            {formatNum(v.likes)}
-                          </span>
-                          <span className="flex items-center gap-1">
-                            <MessageCircle className="w-3 h-3 text-[var(--ink-muted)]" />
-                            {formatNum(v.comments)}
-                          </span>
-                          <span className="flex items-center gap-1">
-                            <Share2 className="w-3 h-3 text-[var(--ink-muted)]" />
-                            {formatNum(v.shares)}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </>
-          )}
-        </div>
-      )}
-
-      {/* Educational Content */}
-      <section className="mt-10 pt-7 border-t border-[var(--border-subtle)] grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-        <div className="p-4 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)] shadow-[var(--shadow-card)]">
-          <Users className="w-4 h-4 text-[var(--accent-cyan-text)] mb-1.5" />
-          <h2 className="text-sm font-bold text-[var(--ink-primary)] mb-1">{t('page.analytics.card1Title')}</h2>
-          <p className="text-xs text-[var(--ink-secondary)] leading-relaxed">
-            {t('page.analytics.card1Desc')}
-          </p>
-        </div>
-        <div className="p-4 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)] shadow-[var(--shadow-card)]">
-          <TrendingUp className="w-4 h-4 text-[var(--accent-primary-text)] mb-1.5" />
-          <h2 className="text-sm font-bold text-[var(--ink-primary)] mb-1">{t('page.analytics.card2Title')}</h2>
-          <p className="text-xs text-[var(--ink-secondary)] leading-relaxed">
-            {t('page.analytics.card2Desc')}
-          </p>
-        </div>
-        <div className="p-4 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)] shadow-[var(--shadow-card)]">
-          <Sparkles className="w-4 h-4 text-[var(--accent-cyan-text)] mb-1.5" />
-          <h2 className="text-sm font-bold text-[var(--ink-primary)] mb-1">{t('page.analytics.card3Title')}</h2>
-          <p className="text-xs text-[var(--ink-secondary)] leading-relaxed">
-            {t('page.analytics.card3Desc')}
-          </p>
+            )}
+          </form>
         </div>
       </section>
+
+      <div className="max-w-[980px] w-full mx-auto px-4 sm:px-6 py-6 sm:py-8">
+        <AdSlot placement="header" />
+
+        {/* Results Dashboard */}
+        {profile && (
+          <div className="space-y-5 animate-in fade-in duration-300">
+            {/* Creator Summary Card */}
+            <div className="p-4 sm:p-5 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)] shadow-[var(--shadow-card)] flex flex-col sm:flex-row items-center gap-4">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={profile.avatar}
+                alt={profile.nickname}
+                referrerPolicy="no-referrer"
+                onError={(e) => {
+                  const target = e.currentTarget as HTMLImageElement;
+                  if (!target.src.includes('/api/avatar')) {
+                    target.src = `/api/avatar?username=${encodeURIComponent(profile.username)}`;
+                  }
+                }}
+                className="w-16 h-16 rounded-full object-cover border-2 border-[var(--accent-cyan)] bg-[var(--surface-sunken)] shrink-0"
+              />
+              <div className="flex-1 text-center sm:text-start min-w-0">
+                <div className="flex items-center justify-center sm:justify-start gap-2 flex-wrap">
+                  <h2
+                    data-no-translate="true"
+                    className="text-base sm:text-lg font-bold text-[var(--ink-primary)] truncate"
+                  >
+                    {profile.nickname}
+                  </h2>
+                  {profile.verified && (
+                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[var(--accent-cyan-soft)] text-[var(--accent-cyan-text)] border border-[var(--accent-cyan)]">
+                      {t('profile.verified')}
+                    </span>
+                  )}
+                </div>
+                <p
+                  dir="ltr"
+                  data-no-translate="true"
+                  className="text-xs text-[var(--ink-muted)] font-mono w-fit"
+                >
+                  @{profile.username}
+                </p>
+                {profile.bio && (
+                  <p className="text-xs text-[var(--ink-secondary)] mt-1 line-clamp-2 max-w-xl">
+                    {profile.bio}
+                  </p>
+                )}
+              </div>
+              <div className="flex items-center gap-5 border-t sm:border-t-0 sm:border-s border-[var(--border-subtle)] pt-3 sm:pt-0 sm:ps-5 tabular-nums">
+                <div className="text-center">
+                  <div className="text-base font-bold text-[var(--ink-primary)]">
+                    {formatNum(profile.followers)}
+                  </div>
+                  <div className="text-[11px] font-semibold text-[var(--ink-muted)]">
+                    {t('profile.followers')}
+                  </div>
+                </div>
+                <div className="text-center">
+                  <div className="text-base font-bold text-[var(--ink-primary)]">
+                    {formatNum(profile.likes)}
+                  </div>
+                  <div className="text-[11px] font-semibold text-[var(--ink-muted)]">
+                    {t('profile.totalLikes')}
+                  </div>
+                </div>
+                <div className="text-center">
+                  <div className="text-base font-bold text-[var(--ink-primary)]">
+                    {formatNum(profile.videosCount)}
+                  </div>
+                  <div className="text-[11px] font-semibold text-[var(--ink-muted)]">
+                    {t('profile.videos')}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Core Analytics KPIs */}
+            {videos.length > 0 && (
+              <>
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-3.5 tabular-nums">
+                  <div className="p-4 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)] shadow-[var(--shadow-card)]">
+                    <div className="flex items-center gap-2 text-xs font-bold text-[var(--ink-secondary)] mb-1.5">
+                      <TrendingUp className="w-4 h-4 text-[var(--accent-primary-text)]" />
+                      <span>{t('page.analytics.engagementRate')}</span>
+                    </div>
+                    <div className="text-xl sm:text-2xl font-bold text-[var(--ink-primary)]">
+                      {engagementRate}%
+                    </div>
+                    <p className="text-[11px] text-[var(--ink-muted)] mt-1">
+                      {Number(engagementRate) > 8
+                        ? t('page.analytics.rateViral')
+                        : Number(engagementRate) > 4
+                        ? t('page.analytics.rateHealthy')
+                        : t('page.analytics.rateAverage')}
+                    </p>
+                  </div>
+
+                  <div className="p-4 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)] shadow-[var(--shadow-card)]">
+                    <div className="flex items-center gap-2 text-xs font-bold text-[var(--ink-secondary)] mb-1.5">
+                      <Eye className="w-4 h-4 text-[var(--accent-cyan-text)]" />
+                      <span>{t('page.analytics.avgViews')}</span>
+                    </div>
+                    <div className="text-xl sm:text-2xl font-bold text-[var(--ink-primary)]">
+                      {formatNum(avgViews)}
+                    </div>
+                    <p className="text-[11px] text-[var(--ink-muted)] mt-1">
+                      {t('page.analytics.basedOnVideos', { count: videos.length })}
+                    </p>
+                  </div>
+
+                  <div className="p-4 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)] shadow-[var(--shadow-card)]">
+                    <div className="flex items-center gap-2 text-xs font-bold text-[var(--ink-secondary)] mb-1.5">
+                      <Heart className="w-4 h-4 text-[var(--accent-primary-text)]" />
+                      <span>{t('page.analytics.avgLikes')}</span>
+                    </div>
+                    <div className="text-xl sm:text-2xl font-bold text-[var(--ink-primary)]">
+                      {formatNum(avgLikes)}
+                    </div>
+                    <p className="text-[11px] text-[var(--ink-muted)] mt-1">
+                      {t('page.analytics.commentsPerVideo', { count: formatNum(avgComments) })}
+                    </p>
+                  </div>
+
+                  <div className="p-4 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)] shadow-[var(--shadow-card)]">
+                    <div className="flex items-center gap-2 text-xs font-bold text-[var(--ink-secondary)] mb-1.5">
+                      <Sparkles className="w-4 h-4 text-[var(--accent-cyan-text)]" />
+                      <span>{t('page.analytics.estSponsorship')}</span>
+                    </div>
+                    <div className="text-xl sm:text-2xl font-bold text-[var(--ink-primary)]">
+                      {followerCountSafe > 0
+                        ? `$${estEarningsLow.toLocaleString()} - $${estEarningsHigh.toLocaleString()}`
+                        : t('page.analytics.notAvailable')}
+                    </div>
+                    <p className="text-[11px] text-[var(--ink-muted)] mt-1">
+                      {t('page.analytics.perSponsoredPost')}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Video Performance Breakdown */}
+                <div className="p-4 sm:p-5 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)] shadow-[var(--shadow-card)]">
+                  <div className="flex items-center justify-between mb-3.5">
+                    <h3 className="text-sm font-bold text-[var(--ink-primary)] flex items-center gap-2">
+                      <BarChart3 className="w-4 h-4 text-[var(--accent-primary-text)]" />
+                      <span>{t('page.analytics.recentBreakdown')}</span>
+                    </h3>
+                    <span className="text-[11px] font-semibold text-[var(--ink-muted)]">
+                      {t('page.analytics.liveFeedMetrics')}
+                    </span>
+                  </div>
+
+                  <div className="space-y-2.5">
+                    {videos.slice(0, 6).map((v) => (
+                      <div
+                        key={v.id}
+                        className="flex flex-col sm:flex-row sm:items-center gap-3 p-3 rounded-lg bg-[var(--surface-canvas)] hover:bg-[var(--pastel-blue)] border border-[var(--border-subtle)] hover:border-[var(--accent-cyan)] transition-colors duration-150"
+                      >
+                        <div className="relative w-12 h-14 rounded-md overflow-hidden shrink-0 bg-[var(--surface-sunken)]">
+                          {v.cover ? (
+                            /* eslint-disable-next-line @next/next/no-img-element */
+                            <img
+                              src={v.cover}
+                              alt={v.title}
+                              referrerPolicy="no-referrer"
+                              onError={(e) => {
+                                const target = e.currentTarget as HTMLImageElement;
+                                if (v.originCover && target.src !== v.originCover) {
+                                  target.src = v.originCover;
+                                  return;
+                                }
+                                target.style.display = 'none';
+                              }}
+                              className="w-full h-full object-cover"
+                            />
+                          ) : null}
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="text-xs font-bold text-[var(--ink-primary)] truncate">
+                            {v.title}
+                          </p>
+                          <div
+                            dir="ltr"
+                            className="flex flex-wrap items-center gap-3.5 mt-1.5 text-[11px] text-[var(--ink-secondary)] font-medium tabular-nums"
+                          >
+                            <span className="flex items-center gap-1">
+                              <Play className="w-3 h-3 text-[var(--accent-cyan-text)]" />
+                              {formatNum(v.plays)}
+                            </span>
+                            <span className="flex items-center gap-1">
+                              <Heart className="w-3 h-3 text-[var(--accent-primary-text)]" />
+                              {formatNum(v.likes)}
+                            </span>
+                            <span className="flex items-center gap-1">
+                              <MessageCircle className="w-3 h-3 text-[var(--ink-muted)]" />
+                              {formatNum(v.comments)}
+                            </span>
+                            <span className="flex items-center gap-1">
+                              <Share2 className="w-3 h-3 text-[var(--ink-muted)]" />
+                              {formatNum(v.shares)}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </>
+            )}
+          </div>
+        )}
+
+        {/* Educational Content */}
+        <section className="mt-4 pt-4 grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+          <div className="p-4 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)] shadow-[var(--shadow-card)]">
+            <Users className="w-4 h-4 text-[var(--accent-cyan-text)] mb-1.5" />
+            <h2 className="text-sm font-bold text-[var(--ink-primary)] mb-1">{t('page.analytics.card1Title')}</h2>
+            <p className="text-xs text-[var(--ink-secondary)] leading-relaxed">
+              {t('page.analytics.card1Desc')}
+            </p>
+          </div>
+          <div className="p-4 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)] shadow-[var(--shadow-card)]">
+            <TrendingUp className="w-4 h-4 text-[var(--accent-primary-text)] mb-1.5" />
+            <h2 className="text-sm font-bold text-[var(--ink-primary)] mb-1">{t('page.analytics.card2Title')}</h2>
+            <p className="text-xs text-[var(--ink-secondary)] leading-relaxed">
+              {t('page.analytics.card2Desc')}
+            </p>
+          </div>
+          <div className="p-4 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)] shadow-[var(--shadow-card)]">
+            <Sparkles className="w-4 h-4 text-[var(--accent-cyan-text)] mb-1.5" />
+            <h2 className="text-sm font-bold text-[var(--ink-primary)] mb-1">{t('page.analytics.card3Title')}</h2>
+            <p className="text-xs text-[var(--ink-secondary)] leading-relaxed">
+              {t('page.analytics.card3Desc')}
+            </p>
+          </div>
+        </section>
+      </div>
     </main>
   );
 }
