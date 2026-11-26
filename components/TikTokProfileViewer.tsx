@@ -999,7 +999,7 @@ export default function TikTokProfileViewer({
                     <span className="text-[11px] font-semibold text-emerald-900/75 uppercase tracking-wider leading-none truncate w-full">
                       {t('profile.status')}
                     </span>
-                    <span className="text-sm sm:text-base font-bold text-[var(--ink-primary)] tracking-tight leading-none truncate w-full">
+                    <span className="text-sm sm:text-base font-medium text-[var(--ink-primary)] tracking-tight leading-none truncate w-full">
                       {authorProfile.status === 'private'
                         ? t('profile.private')
                         : t('profile.active')}
@@ -1046,7 +1046,7 @@ export default function TikTokProfileViewer({
                     <span className="text-[11px] font-semibold text-indigo-900/75 uppercase tracking-wider leading-none truncate w-full">
                       {t('profile.accountType')}
                     </span>
-                    <span className="text-sm sm:text-base font-bold text-[var(--ink-primary)] tracking-tight leading-none truncate w-full">
+                    <span className="text-sm sm:text-base font-medium text-[var(--ink-primary)] tracking-tight leading-none truncate w-full">
                       {authorProfile.verified
                         ? t('profile.verified')
                         : t('profile.notVerified')}
