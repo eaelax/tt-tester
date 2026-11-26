@@ -1,7 +1,18 @@
 import type { CategoryData } from '@/lib/creators-data';
 import { UI_DICTIONARIES } from '@/lib/i18n/dictionaries-ui';
 import { PAGE_DICTIONARIES } from '@/lib/i18n/dictionaries-pages';
-import { interpolateTemplate, type LanguageCode } from '@/lib/i18n/types';
+import type { LanguageCode } from '@/lib/i18n/types';
+
+function interpolateTemplate(
+  template: string,
+  vars?: Record<string, string | number>
+): string {
+  if (!vars) return template;
+  return template.replace(/\{(\w+)\}/g, (_, token: string) => {
+    const val = vars[token];
+    return val !== undefined && val !== null ? String(val) : `{${token}}`;
+  });
+}
 
 export interface CategoryFaqItem {
   question: string;
