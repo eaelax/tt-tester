@@ -57,7 +57,7 @@ export default function CookiePolicyPage() {
                   Strictly Necessary
                 </td>
                 <td className="p-3">
-                  Keeps page routing, basic security checks, and admin login sessions working properly.
+                  Keeps page routing, basic security checks, and authenticated admin sessions working properly.
                 </td>
                 <td className="p-3 whitespace-nowrap">Session</td>
               </tr>
@@ -66,7 +66,7 @@ export default function CookiePolicyPage() {
                   Preferences (LocalStorage)
                 </td>
                 <td className="p-3">
-                  Remembers your chosen display settings and countdown preferences on your own device.
+                  Remembers your chosen language and display settings on your own device.
                 </td>
                 <td className="p-3 whitespace-nowrap">Until cleared</td>
               </tr>
@@ -153,7 +153,7 @@ export default function CookiePolicyPage() {
           5. Updates to This Policy
         </h2>
         <p>
-          We may update this Cookie Policy when browser rules or site tools change. Please check this page for the latest version, and confirm operator details ([Owner / Company Legal Name], [Country / Jurisdiction]) before launch.
+          We may update this Cookie Policy when browser rules or site tools change. For any inquiries or notices regarding cookies on TikProfilesViewer.com, contact our operations team at <strong>legal@tikprofilesviewer.com</strong>.
         </p>
       </section>
     </LegalLayout>

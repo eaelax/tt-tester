@@ -22,7 +22,9 @@ export default function AcceptableUsePolicyPage() {
       currentPath="/acceptable-use-policy"
     >
       <section className="space-y-3">
-        <h2 className="text-xl font-bold text-slate-900">1. Purpose and Scope</h2>
+        <h2 className="text-lg sm:text-xl font-bold text-[var(--ink-primary)]">
+          1. Purpose and Scope
+        </h2>
         <p>
           This Acceptable Use Policy (&quot;AUP&quot;) governs all interactions with <strong>Tik Profiles Viewer</strong> (accessible at <strong>TikProfilesViewer.com</strong>). It applies to all users, automated systems, and network connections interacting with our web application, APIs, or infrastructure.
         </p>
@@ -32,9 +34,11 @@ export default function AcceptableUsePolicyPage() {
       </section>
 
       <section className="space-y-3">
-        <h2 className="text-xl font-bold text-slate-900">2. Prohibited Personal Conduct</h2>
+        <h2 className="text-lg sm:text-xl font-bold text-[var(--ink-primary)]">
+          2. Prohibited Personal Conduct
+        </h2>
         <p>When utilizing our Service, you agree that you will NOT engage in any of the following activities:</p>
-        <ul className="list-disc pl-5 space-y-2 text-slate-600">
+        <ul className="list-disc ps-5 space-y-2 text-[var(--ink-secondary)]">
           <li>
             <strong>Harassment &amp; Cyberbullying:</strong> Using our viewer to stalk, intimidate, bully, threaten, dox, or harass any individual creator or private person.
           </li>
@@ -51,9 +55,11 @@ export default function AcceptableUsePolicyPage() {
       </section>
 
       <section className="space-y-3">
-        <h2 className="text-xl font-bold text-slate-900">3. Prohibited Technical and Infrastructure Activities</h2>
+        <h2 className="text-lg sm:text-xl font-bold text-[var(--ink-primary)]">
+          3. Prohibited Technical and Infrastructure Activities
+        </h2>
         <p>To safeguard the stability, speed, and availability of our web service for everyone, you agree that you will NOT:</p>
-        <ul className="list-disc pl-5 space-y-2 text-slate-600">
+        <ul className="list-disc ps-5 space-y-2 text-[var(--ink-secondary)]">
           <li>
             <strong>Aggressive Scraping:</strong> Deploy headless browsers, automated bots, scrapers, spider scripts, or high-frequency automated tools to harvest media, usernames, or metrics without our explicit written permission.
           </li>
@@ -64,7 +70,7 @@ export default function AcceptableUsePolicyPage() {
             <strong>Vulnerability Exploitation:</strong> Probe, scan, or test the vulnerability of our application, servers, proxies, or networks, or breach security or authentication controls.
           </li>
           <li>
-            <strong>Reverse Engineering:</strong> Decompile, reverse engineer, or attempt to extract the source code of our backend proxy routing mechanisms.
+            <strong>Reverse Engineering:</strong> Decompile, reverse engineer, or attempt to extract the source code of our backend routing mechanisms.
           </li>
           <li>
             <strong>Ad-Fraud and Bot Traffic:</strong> Generate simulated impressions, fraudulent clicks, or artificial traffic across any advertising placements hosted on the Website.
@@ -73,7 +79,9 @@ export default function AcceptableUsePolicyPage() {
       </section>
 
       <section className="space-y-3">
-        <h2 className="text-xl font-bold text-slate-900">4. Monitoring and Enforcement</h2>
+        <h2 className="text-lg sm:text-xl font-bold text-[var(--ink-primary)]">
+          4. Monitoring and Enforcement
+        </h2>
         <p>
           We employ automated edge firewall filters, Web Application Firewalls (WAF), and heuristic anomaly detection to monitor traffic patterns for malicious behavior.
         </p>
@@ -83,7 +91,9 @@ export default function AcceptableUsePolicyPage() {
       </section>
 
       <section className="space-y-3">
-        <h2 className="text-xl font-bold text-slate-900">5. Reporting Abuse</h2>
+        <h2 className="text-lg sm:text-xl font-bold text-[var(--ink-primary)]">
+          5. Reporting Abuse
+        </h2>
         <p>
           If you observe any user or technical activity that violates this Acceptable Use Policy, please report it immediately to our security operations team at <strong>legal@tikprofilesviewer.com</strong>.
         </p>

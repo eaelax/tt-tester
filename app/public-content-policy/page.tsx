@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import LegalLayout from '@/components/LegalLayout';
 import { buildLocalizedMetadata } from '@/lib/seo/metadata';
 
@@ -22,7 +23,9 @@ export default function PublicContentPolicyPage() {
       currentPath="/public-content-policy"
     >
       <section className="space-y-3">
-        <h2 className="text-xl font-bold text-slate-900">1. Principle of Public Domain Availability</h2>
+        <h2 className="text-lg sm:text-xl font-bold text-[var(--ink-primary)]">
+          1. Principle of Public Domain Availability
+        </h2>
         <p>
           The architecture of <strong>Tik Profiles Viewer</strong> is grounded in the foundational internet principle of open accessibility. When social media creators configure their user accounts as &quot;Public&quot; and publish videos, captions, and profile photos to the web, that content is indexed and made accessible to web browsers globally without requiring account creation.
         </p>
@@ -32,9 +35,11 @@ export default function PublicContentPolicyPage() {
       </section>
 
       <section className="space-y-3">
-        <h2 className="text-xl font-bold text-slate-900">2. Strict Limitations on Content Access</h2>
+        <h2 className="text-lg sm:text-xl font-bold text-[var(--ink-primary)]">
+          2. Strict Limitations on Content Access
+        </h2>
         <p>We enforce strict technical boundaries regarding what our tools can and cannot access:</p>
-        <ul className="list-disc pl-5 space-y-2 text-slate-600">
+        <ul className="list-disc ps-5 space-y-2 text-[var(--ink-secondary)]">
           <li>
             <strong>Private Accounts:</strong> If a creator has designated their TikTok account as &quot;Private&quot;, our system cannot, does not, and will never attempt to access, decrypt, or display their media or statistics.
           </li>
@@ -51,18 +56,22 @@ export default function PublicContentPolicyPage() {
       </section>
 
       <section className="space-y-3">
-        <h2 className="text-xl font-bold text-slate-900">3. Respect for Creator Privacy Choices</h2>
+        <h2 className="text-lg sm:text-xl font-bold text-[var(--ink-primary)]">
+          3. Respect for Creator Privacy Choices
+        </h2>
         <p>
           We firmly believe that creators retain ultimate control over their digital footprint. If you are a content creator and wish to prevent your public content from appearing in our web index, you have two simple options:
         </p>
-        <ol className="list-decimal pl-5 space-y-1.5 text-slate-600">
+        <ol className="list-decimal ps-5 space-y-1.5 text-[var(--ink-secondary)]">
           <li>Switch your TikTok account settings to &quot;Private&quot; within the official TikTok application. This immediately blocks our service from retrieving your media.</li>
-          <li>Submit an exclusion request to our compliance team under our <a href="/content-removal-policy" className="text-blue-600 hover:underline font-semibold">Content Removal Policy</a> to have your profile handle added to our internal blocklist.</li>
+          <li>Submit an exclusion request to our compliance team under our <Link href="/content-removal-policy" className="text-[var(--accent-primary-text)] hover:underline font-semibold">Content Removal Policy</Link> to have your profile handle added to our internal blocklist.</li>
         </ol>
       </section>
 
       <section className="space-y-3">
-        <h2 className="text-xl font-bold text-slate-900">4. Policy Contact</h2>
+        <h2 className="text-lg sm:text-xl font-bold text-[var(--ink-primary)]">
+          4. Policy Contact
+        </h2>
         <p>
           For questions regarding our public data handling or our technical indexing methodology, please reach out to <strong>legal@tikprofilesviewer.com</strong>.
         </p>

@@ -51,7 +51,7 @@ export default function PrivacyPolicyPage() {
           3. Temporary Server Logs and Contact Emails
         </h2>
         <p>
-          Like most websites, our servers automatically create short-term technical logs to keep the site fast and safe from abuse or heavy bot traffic. These logs may include:
+          Like most websites, our edge infrastructure automatically creates short-term technical logs to keep the site fast and safe from abuse or heavy bot traffic. These logs may include:
         </p>
         <ul className="list-disc ps-5 space-y-1.5 text-[var(--ink-secondary)]">
           <li>Your IP address (used for security rate limits and removed on a rolling schedule).</li>
@@ -68,7 +68,7 @@ export default function PrivacyPolicyPage() {
           4. Cookies and Browser Storage
         </h2>
         <p>
-          We use browser LocalStorage on your device to remember your simple site settings, such as your selected language or admin tool settings. This data stays in your browser.
+          We use browser LocalStorage on your device to remember your simple site settings, such as your selected language or theme preferences. This data stays entirely in your browser.
         </p>
         <p>
           You can read the full breakdown in our{' '}
@@ -124,7 +124,7 @@ export default function PrivacyPolicyPage() {
           6. Third-Party Media Networks
         </h2>
         <p>
-          When you watch a video or save a file, your browser loads public media from third-party content delivery networks. Those external hosts operate under their own privacy policies.
+          When you watch a video or save a file, your browser loads public media directly from third-party content delivery networks without routing video bytes through our servers. Those external delivery networks operate under their respective privacy policies.
         </p>
       </section>
 
@@ -157,13 +157,13 @@ export default function PrivacyPolicyPage() {
           9. Operator Details and Policy Updates
         </h2>
         <p>
-          We may update this Privacy Policy when our tools or legal rules change. Please confirm the owner fields below before public launch and consult a qualified lawyer if you need certified legal advice.
+          We may update this Privacy Policy when our tools or legal rules change. The latest published version will always be posted here on TikProfilesViewer.com.
         </p>
         <div className="p-4 rounded-xl bg-[var(--surface-canvas)] border border-[var(--border-subtle)] text-xs space-y-1.5 text-[var(--ink-secondary)]">
-          <p><strong className="text-[var(--ink-primary)]">Site Operator:</strong> [Owner / Company Legal Name]</p>
-          <p><strong className="text-[var(--ink-primary)]">Official Contact Email:</strong> legal@tikprofilesviewer.com ([Official Contact Email])</p>
-          <p><strong className="text-[var(--ink-primary)]">Jurisdiction:</strong> [Country / Jurisdiction]</p>
-          <p><strong className="text-[var(--ink-primary)]">Effective Date:</strong> [Effective Date: November 2026]</p>
+          <p><strong className="text-[var(--ink-primary)]">Site Operator:</strong> Tik Profiles Viewer Operations Team</p>
+          <p><strong className="text-[var(--ink-primary)]">Official Contact Email:</strong> legal@tikprofilesviewer.com</p>
+          <p><strong className="text-[var(--ink-primary)]">Jurisdiction:</strong> International E-Commerce &amp; Internet Public Access Standards</p>
+          <p><strong className="text-[var(--ink-primary)]">Effective Date:</strong> November 2026</p>
         </div>
       </section>
     </LegalLayout>

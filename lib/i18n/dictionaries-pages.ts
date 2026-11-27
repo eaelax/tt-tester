@@ -3,6 +3,7 @@ import { EN_PAGES } from './pages-en';
 import { AR_PAGES, FR_PAGES, ES_PAGES } from './pages-ar-fr-es';
 import { DE_PAGES, RU_PAGES, ZH_PAGES } from './pages-de-ru-zh';
 import { PT_PAGES, HE_PAGES, HI_PAGES } from './pages-pt-he-hi';
+import { LEGAL_PHRASE_TRANSLATIONS } from './legal-phrases';
 
 export const PAGE_DICTIONARIES: LanguageDictionaries = {
   en: EN_PAGES,
@@ -17,15 +18,4 @@ export const PAGE_DICTIONARIES: LanguageDictionaries = {
   hi: HI_PAGES,
 };
 
-export const PHRASE_TRANSLATIONS: LanguageDictionaries = {
-  en: {},
-  ar: {},
-  fr: {},
-  es: {},
-  de: {},
-  ru: {},
-  zh: {},
-  pt: {},
-  he: {},
-  hi: {},
-};
+export const PHRASE_TRANSLATIONS: LanguageDictionaries = LEGAL_PHRASE_TRANSLATIONS;

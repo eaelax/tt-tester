@@ -22,7 +22,9 @@ export default function ServiceAvailabilityPolicyPage() {
       currentPath="/service-availability-policy"
     >
       <section className="space-y-3">
-        <h2 className="text-xl font-bold text-slate-900">1. Service Availability Objectives</h2>
+        <h2 className="text-lg sm:text-xl font-bold text-[var(--ink-primary)]">
+          1. Service Availability Objectives
+        </h2>
         <p>
           At <strong>Tik Profiles Viewer</strong> (accessible at <strong>TikProfilesViewer.com</strong>), our engineering team strives to deliver consistent, uninterrupted access to our viewer tools and profile analytics 24 hours a day, 7 days a week, 365 days a year.
         </p>
@@ -32,11 +34,13 @@ export default function ServiceAvailabilityPolicyPage() {
       </section>
 
       <section className="space-y-3">
-        <h2 className="text-xl font-bold text-slate-900">2. External Dependencies and Third-Party Limitations</h2>
+        <h2 className="text-lg sm:text-xl font-bold text-[var(--ink-primary)]">
+          2. External Dependencies and Third-Party Limitations
+        </h2>
         <p>
           Unlike closed platforms that generate all data internally, Tik Profiles Viewer depends on live public network connections to external social media platforms and third-party media delivery infrastructure. Consequently, service availability may be impacted by factors outside our direct operational control:
         </p>
-        <ul className="list-disc pl-5 space-y-2 text-slate-600">
+        <ul className="list-disc ps-5 space-y-2 text-[var(--ink-secondary)]">
           <li>
             <strong>Third-Party API &amp; Web Changes:</strong> Changes to TikTok&apos;s public web layout, response headers, video compression formats, or CDN endpoints may temporarily prevent our parser from resolving media streams until our engineers deploy compatible updates.
           </li>
@@ -50,7 +54,9 @@ export default function ServiceAvailabilityPolicyPage() {
       </section>
 
       <section className="space-y-3">
-        <h2 className="text-xl font-bold text-slate-900">3. Scheduled Maintenance and System Upgrades</h2>
+        <h2 className="text-lg sm:text-xl font-bold text-[var(--ink-primary)]">
+          3. Scheduled Maintenance and System Upgrades
+        </h2>
         <p>
           To ensure platform performance, security hardening, and database optimization, we periodically perform scheduled system maintenance.
         </p>
@@ -60,18 +66,22 @@ export default function ServiceAvailabilityPolicyPage() {
       </section>
 
       <section className="space-y-3">
-        <h2 className="text-xl font-bold text-slate-900">4. Force Majeure and Network Outages</h2>
+        <h2 className="text-lg sm:text-xl font-bold text-[var(--ink-primary)]">
+          4. Force Majeure and Network Outages
+        </h2>
         <p>
           We shall not be liable or responsible for any failure or delay in the performance of our service arising from events beyond our reasonable control, including but not limited to acts of God, war, terrorism, civil unrest, labor disputes, telecommunications carrier failures, undersea cable breaks, power grid disruptions, widespread internet routing outages, or catastrophic cloud host failures.
         </p>
       </section>
 
       <section className="space-y-3">
-        <h2 className="text-xl font-bold text-slate-900">5. Troubleshooting and Support</h2>
+        <h2 className="text-lg sm:text-xl font-bold text-[var(--ink-primary)]">
+          5. Troubleshooting and Support
+        </h2>
         <p>
           If you encounter an issue accessing a profile or downloading media:
         </p>
-        <ul className="list-disc pl-5 space-y-1.5 text-slate-600">
+        <ul className="list-disc ps-5 space-y-1.5 text-[var(--ink-secondary)]">
           <li>Double-check that the creator username is spelled correctly and that the TikTok account is set to &quot;Public&quot;.</li>
           <li>Wait a few moments and try your request again, as temporary platform rate limits frequently clear within minutes.</li>
           <li>If an issue persists across multiple accounts, report the technical glitch to our engineering team at <strong>support@tikprofilesviewer.com</strong>.</li>

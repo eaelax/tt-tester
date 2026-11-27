@@ -22,7 +22,9 @@ export default function DisclaimerPage() {
       currentPath="/disclaimer"
     >
       <section className="space-y-3">
-        <h2 className="text-xl font-bold text-slate-900">1. Informational Purpose Only</h2>
+        <h2 className="text-lg sm:text-xl font-bold text-[var(--ink-primary)]">
+          1. Informational Purpose Only
+        </h2>
         <p>
           The information and utility services provided by <strong>Tik Profiles Viewer</strong> (accessible at <strong>TikProfilesViewer.com</strong>) are intended exclusively for general informational, educational, and personal archival purposes.
         </p>
@@ -32,12 +34,14 @@ export default function DisclaimerPage() {
       </section>
 
       <section className="space-y-3">
-        <h2 className="text-xl font-bold text-slate-900">2. Accuracy and Timeliness of Public Data</h2>
+        <h2 className="text-lg sm:text-xl font-bold text-[var(--ink-primary)]">
+          2. Accuracy and Timeliness of Public Data
+        </h2>
         <p>
           The metrics displayed on our Website including follower tallies, following numbers, aggregate like counts, video titles, view counts, and engagement percentages are retrieved from publicly accessible third-party network endpoints.
         </p>
         <p>Because social media metrics fluctuate continuously and can be affected by API caching cycles, algorithm adjustments, or third-party rate limits:</p>
-        <ul className="list-disc pl-5 space-y-1.5 text-slate-600">
+        <ul className="list-disc ps-5 space-y-1.5 text-[var(--ink-secondary)]">
           <li>Statistics may occasionally be delayed, estimated, rounded, or temporarily inaccurate compared to real-time mobile app telemetry.</li>
           <li>Accounts that have recently switched privacy settings, changed usernames, or been suspended by the platform may return cached or blank results.</li>
           <li>Calculated engagement rates and creator earnings figures represent mathematical estimates based on industry benchmarks, not audited financial records.</li>
@@ -45,7 +49,9 @@ export default function DisclaimerPage() {
       </section>
 
       <section className="space-y-3">
-        <h2 className="text-xl font-bold text-slate-900">3. Non-Affiliation and Independence</h2>
+        <h2 className="text-lg sm:text-xl font-bold text-[var(--ink-primary)]">
+          3. Non-Affiliation and Independence
+        </h2>
         <p>
           Tik Profiles Viewer is an independent online web utility. We are not affiliated, associated, authorized, endorsed by, or in any way officially connected with TikTok, ByteDance Ltd., Musical.ly, or any of their subsidiaries or corporate affiliates.
         </p>
@@ -55,7 +61,9 @@ export default function DisclaimerPage() {
       </section>
 
       <section className="space-y-3">
-        <h2 className="text-xl font-bold text-slate-900">4. Third-Party Content and Copyright Responsibility</h2>
+        <h2 className="text-lg sm:text-xl font-bold text-[var(--ink-primary)]">
+          4. Third-Party Content and Copyright Responsibility
+        </h2>
         <p>
           Tik Profiles Viewer does not own, produce, monitor, or claim copyright over third-party videos, photographs, audio tracks, or captions displayed via our service.
         </p>
@@ -65,7 +73,9 @@ export default function DisclaimerPage() {
       </section>
 
       <section className="space-y-3">
-        <h2 className="text-xl font-bold text-slate-900">5. &quot;Use at Your Own Risk&quot; Clause</h2>
+        <h2 className="text-lg sm:text-xl font-bold text-[var(--ink-primary)]">
+          5. &quot;Use at Your Own Risk&quot; Clause
+        </h2>
         <p>
           YOU EXPRESSLY UNDERSTAND AND AGREE THAT YOUR USE OF TIK PROFILES VIEWER IS AT YOUR SOLE RISK. THE SERVICE IS PROVIDED ON AN &quot;AS IS&quot; AND &quot;AS AVAILABLE&quot; BASIS. WE EXPRESSLY DISCLAIM ALL WARRANTIES OF ANY KIND, WHETHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.
         </p>

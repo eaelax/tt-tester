@@ -22,7 +22,9 @@ export default function TikTokIndependenceDisclaimerPage() {
       currentPath="/tiktok-independence-disclaimer"
     >
       <section className="space-y-3">
-        <h2 className="text-xl font-bold text-slate-900">1. Formal Statement of Independence</h2>
+        <h2 className="text-lg sm:text-xl font-bold text-[var(--ink-primary)]">
+          1. Formal Statement of Independence
+        </h2>
         <p>
           <strong>Tik Profiles Viewer</strong> (accessible at <strong>TikProfilesViewer.com</strong>) is an autonomous web service engineered and maintained by an independent group of web developers and enthusiasts.
         </p>
@@ -32,7 +34,9 @@ export default function TikTokIndependenceDisclaimerPage() {
       </section>
 
       <section className="space-y-3">
-        <h2 className="text-xl font-bold text-slate-900">2. Trademark and Brand Ownership</h2>
+        <h2 className="text-lg sm:text-xl font-bold text-[var(--ink-primary)]">
+          2. Trademark and Brand Ownership
+        </h2>
         <p>
           The word mark &quot;TikTok&quot;, the stylized music note logo, and all related brand assets, trade dress, product names, and company emblems are registered trademarks owned exclusively by ByteDance Ltd. and its affiliates.
         </p>
@@ -42,11 +46,13 @@ export default function TikTokIndependenceDisclaimerPage() {
       </section>
 
       <section className="space-y-3">
-        <h2 className="text-xl font-bold text-slate-900">3. Official Channels and Inquiries</h2>
+        <h2 className="text-lg sm:text-xl font-bold text-[var(--ink-primary)]">
+          3. Official Channels and Inquiries
+        </h2>
         <p>
           For official TikTok customer support, safety inquiries, creator program enrollment, advertising accounts, or to download the official mobile apps, please consult the official TikTok platforms:
         </p>
-        <ul className="list-disc pl-5 space-y-1.5 text-slate-600">
+        <ul className="list-disc ps-5 space-y-1.5 text-[var(--ink-secondary)]">
           <li><strong>Official Website:</strong> <code>https://www.tiktok.com</code></li>
           <li><strong>Official Newsroom:</strong> <code>https://newsroom.tiktok.com</code></li>
           <li><strong>Help &amp; Support Portal:</strong> <code>https://support.tiktok.com</code></li>
@@ -54,7 +60,9 @@ export default function TikTokIndependenceDisclaimerPage() {
       </section>
 
       <section className="space-y-3">
-        <h2 className="text-xl font-bold text-slate-900">4. Consumer Clarity</h2>
+        <h2 className="text-lg sm:text-xl font-bold text-[var(--ink-primary)]">
+          4. Consumer Clarity
+        </h2>
         <p>
           By using Tik Profiles Viewer, you confirm your understanding that you are using an independent third-party web tool. If you have questions regarding our operational independence or this disclosure, please contact our legal team at <strong>legal@tikprofilesviewer.com</strong>.
         </p>
