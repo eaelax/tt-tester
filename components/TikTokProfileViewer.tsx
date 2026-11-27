@@ -1470,7 +1470,13 @@ export default function TikTokProfileViewer({
                     )}
 
                     <video
-                      ref={modalVideoRef}
+                      ref={(el) => {
+                        modalVideoRef.current = el;
+                        if (el) {
+                          el.setAttribute('referrerpolicy', 'no-referrer');
+                          el.removeAttribute('crossorigin');
+                        }
+                      }}
                       src={activePlayUrl || undefined}
                       poster={
                         selectedVideo.cover || selectedVideo.origin_cover || undefined
@@ -1479,7 +1485,6 @@ export default function TikTokProfileViewer({
                       playsInline
                       autoPlay
                       preload="metadata"
-                      referrerPolicy="no-referrer"
                       onPlay={() => setIsVideoPlaying(true)}
                       onPause={() => setIsVideoPlaying(false)}
                       onEnded={() => setIsVideoPlaying(false)}
