@@ -159,17 +159,19 @@ export function I18nProvider({
   children: React.ReactNode;
   initialLang?: LanguageCode;
 }) {
-  const pathname = usePathname();
+  const pathname = usePathname() || '/';
   const router = useRouter();
-  const urlLang = extractLangFromPathname(pathname || '/');
-  const [lang, setLang] = useState<LanguageCode>(urlLang ?? initialLang);
+  const [initialPathname] = useState(pathname);
+  const [manualOverride, setManualOverride] = useState<{
+    lang: LanguageCode;
+    pathname: string;
+  } | null>(null);
 
-  // Sync active language with URL path whenever route changes
-  useEffect(() => {
-    const pathLang = extractLangFromPathname(pathname || '/');
-    const resolved = pathLang ?? DEFAULT_LANGUAGE;
-    setLang((prev) => (prev === resolved ? prev : resolved));
-  }, [pathname]);
+  const urlLang = extractLangFromPathname(pathname);
+  const lang: LanguageCode =
+    manualOverride && manualOverride.pathname === pathname
+      ? manualOverride.lang
+      : urlLang ?? (pathname === initialPathname ? initialLang : DEFAULT_LANGUAGE);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -177,7 +179,10 @@ export function I18nProvider({
     const handleCustom = (e: Event) => {
       const custom = e as CustomEvent<{ lang?: string }>;
       if (custom.detail?.lang && isSupportedLanguage(custom.detail.lang)) {
-        setLang(custom.detail.lang);
+        setManualOverride({
+          lang: custom.detail.lang,
+          pathname: window.location.pathname || '/',
+        });
       }
     };
 
@@ -211,7 +216,7 @@ export function I18nProvider({
 
   const setLanguage = useCallback(
     (code: LanguageCode) => {
-      setLang(code);
+      setManualOverride({ lang: code, pathname });
       if (typeof window !== 'undefined') {
         try {
           localStorage.setItem(STORAGE_KEY, code);
@@ -223,13 +228,12 @@ export function I18nProvider({
         }
       }
 
-      const currentPath = pathname || '/';
-      const stripped = stripLangPrefix(currentPath);
+      const stripped = stripLangPrefix(pathname);
       const targetPath = buildLocalizedHref(stripped, code);
       const search = typeof window !== 'undefined' ? window.location.search : '';
       const nextUrl = `${targetPath}${search}`;
 
-      if (nextUrl !== `${currentPath}${search}`) {
+      if (nextUrl !== `${pathname}${search}`) {
         router.push(nextUrl);
       }
     },
