@@ -6,6 +6,10 @@
 }
 
 :root {
+  --font-rubik: 'Rubik';
+  --font-cairo: 'Cairo';
+  --font-jetbrains-mono: 'JetBrains Mono';
+
   /* High-Contrast Accessible Surfaces */
   --surface-canvas: #F1F5F9;
   --surface-elevated: #FFFFFF;
