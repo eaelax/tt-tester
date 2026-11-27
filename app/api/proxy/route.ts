@@ -1,2 +1,15 @@
-rm -f app/globals.cssACTION_ app/layout.tsxACTION_ components/*ACTION_ file-1.txt public/index.html app/sitemap.ts app/api/proxy/route.ts lib/tiktok-session.ts
-find public/assets/aistudio -type f ! -name 'tik-profiles-viewer-logo_c4487561.png' -delete
+import { NextResponse } from 'next/server';
+
+export async function GET() {
+  return NextResponse.json(
+    {
+      error: 'Media proxying is disabled. Media loads directly in the browser.',
+    },
+    {
+      status: 410,
+      headers: {
+        'Cache-Control': 'no-store',
+      },
+    }
+  );
+}
