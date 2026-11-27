@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useSyncExternalStore } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ChevronDown, Menu, X, Check, Globe } from 'lucide-react';
@@ -34,15 +34,41 @@ const SHORT_CODE_FALLBACK: Record<string, string> = {
   hi: 'HI',
 };
 
+function subscribeScroll(callback: () => void) {
+  window.addEventListener('scroll', callback, { passive: true });
+  return () => window.removeEventListener('scroll', callback);
+}
+
+function getScrollSnapshot(): boolean {
+  return window.scrollY > 12;
+}
+
+function getServerScrollSnapshot(): boolean {
+  return false;
+}
+
 export default function Navbar() {
   const { lang, languageInfo, languages, setLanguage, localizeHref, t } = useI18n();
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [toolsDropdownOpen, setToolsDropdownOpen] = useState(false);
-  const [langDropdownOpen, setLangDropdownOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
-
   const rawPathname = usePathname();
-  const cleanPathname = stripLangPrefix(rawPathname || '/');
+  const activePathname = rawPathname || '/';
+  const cleanPathname = stripLangPrefix(activePathname);
+
+  const [drawerState, setDrawerState] = useState<{
+    open: 'mobile' | 'tools' | 'lang' | null;
+    pathname: string;
+  }>({ open: null, pathname: activePathname });
+
+  const activeDrawer =
+    drawerState.pathname === activePathname ? drawerState.open : null;
+  const mobileMenuOpen = activeDrawer === 'mobile';
+  const toolsDropdownOpen = activeDrawer === 'tools';
+  const langDropdownOpen = activeDrawer === 'lang';
+
+  const isScrolled = useSyncExternalStore(
+    subscribeScroll,
+    getScrollSnapshot,
+    getServerScrollSnapshot
+  );
 
   const headerRef = useRef<HTMLElement>(null);
   const toolsRef = useRef<HTMLDivElement>(null);
@@ -55,9 +81,7 @@ export default function Navbar() {
     languageInfo.code.toUpperCase();
 
   const closeAllDrawers = () => {
-    setMobileMenuOpen(false);
-    setToolsDropdownOpen(false);
-    setLangDropdownOpen(false);
+    setDrawerState({ open: null, pathname: activePathname });
   };
 
   const handleGoHome = () => {
@@ -68,38 +92,26 @@ export default function Navbar() {
   };
 
   useEffect(() => {
-    setMobileMenuOpen(false);
-    setToolsDropdownOpen(false);
-    setLangDropdownOpen(false);
-  }, [rawPathname]);
-
-  useEffect(() => {
-    const onScroll = () => {
-      setIsScrolled(window.scrollY > 12);
-    };
-    onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
-
-  useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       const target = event.target as Node;
-      if (toolsRef.current && !toolsRef.current.contains(target)) {
-        setToolsDropdownOpen(false);
-      }
-      if (langRef.current && !langRef.current.contains(target)) {
-        setLangDropdownOpen(false);
-      }
-      if (headerRef.current && !headerRef.current.contains(target)) {
-        setMobileMenuOpen(false);
-      }
+      setDrawerState((prev) => {
+        if (prev.open === 'tools' && toolsRef.current && !toolsRef.current.contains(target)) {
+          return { open: null, pathname: prev.pathname };
+        }
+        if (prev.open === 'lang' && langRef.current && !langRef.current.contains(target)) {
+          return { open: null, pathname: prev.pathname };
+        }
+        if (prev.open === 'mobile' && headerRef.current && !headerRef.current.contains(target)) {
+          return { open: null, pathname: prev.pathname };
+        }
+        return prev;
+      });
     }
     function handleEscape(event: KeyboardEvent) {
       if (event.key === 'Escape') {
-        setToolsDropdownOpen(false);
-        setLangDropdownOpen(false);
-        setMobileMenuOpen(false);
+        setDrawerState((prev) =>
+          prev.open !== null ? { open: null, pathname: prev.pathname } : prev
+        );
       }
     }
     document.addEventListener('mousedown', handleClickOutside);
@@ -189,10 +201,12 @@ export default function Navbar() {
             <button
               type="button"
               aria-expanded={toolsDropdownOpen}
-              onClick={() => {
-                setToolsDropdownOpen(!toolsDropdownOpen);
-                setLangDropdownOpen(false);
-              }}
+              onClick={() =>
+                setDrawerState({
+                  open: toolsDropdownOpen ? null : 'tools',
+                  pathname: activePathname,
+                })
+              }
               className={`h-9 px-3.5 rounded-xl inline-flex items-center justify-center gap-1.5 text-[13px] font-semibold transition-colors duration-150 cursor-pointer outline-none focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-900/15 ${
                 toolsDropdownOpen
                   ? 'bg-[var(--accent-primary)]/12 text-[var(--accent-primary-text)]'
@@ -217,7 +231,7 @@ export default function Navbar() {
                 <Link
                   key={tool.href}
                   href={localizeHref(tool.href)}
-                  onClick={() => setToolsDropdownOpen(false)}
+                  onClick={closeAllDrawers}
                   className="px-3 py-2 rounded-lg hover:bg-[var(--pastel-blue)]/40 text-[var(--ink-primary)] transition-colors group"
                 >
                   <div className="font-semibold text-xs group-hover:text-[var(--accent-primary-text)] transition-colors">
@@ -239,10 +253,12 @@ export default function Navbar() {
               type="button"
               aria-expanded={langDropdownOpen}
               aria-label={t('nav.selectLanguage')}
-              onClick={() => {
-                setLangDropdownOpen(!langDropdownOpen);
-                setToolsDropdownOpen(false);
-              }}
+              onClick={() =>
+                setDrawerState({
+                  open: langDropdownOpen ? null : 'lang',
+                  pathname: activePathname,
+                })
+              }
               className={`h-9 px-3.5 rounded-xl text-[13px] font-semibold border transition-colors duration-150 cursor-pointer inline-flex items-center justify-center gap-1.5 shadow-xs outline-none focus:outline-none focus-visible:outline-none ${
                 langDropdownOpen
                   ? 'bg-slate-50 border-[var(--border-strong)] text-[var(--ink-primary)]'
@@ -272,7 +288,7 @@ export default function Navbar() {
                     type="button"
                     onClick={() => {
                       setLanguage(item.code);
-                      setLangDropdownOpen(false);
+                      closeAllDrawers();
                     }}
                     className={`w-full px-3 py-2 rounded-lg text-xs flex items-center justify-between text-start transition-colors cursor-pointer ${
                       isSelected
@@ -300,10 +316,12 @@ export default function Navbar() {
             type="button"
             aria-label={t('nav.selectLanguage')}
             aria-expanded={langDropdownOpen}
-            onClick={() => {
-              setLangDropdownOpen(!langDropdownOpen);
-              setMobileMenuOpen(false);
-            }}
+            onClick={() =>
+              setDrawerState({
+                open: langDropdownOpen ? null : 'lang',
+                pathname: activePathname,
+              })
+            }
             className={`h-9 px-3 rounded-xl border text-[13px] font-semibold inline-flex items-center justify-center gap-1.5 cursor-pointer transition-colors shadow-xs outline-none focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] ${
               langDropdownOpen
                 ? 'bg-[var(--pastel-blue)] border-[var(--pastel-blue-border)] text-[var(--accent-cyan-text)]'
@@ -321,10 +339,12 @@ export default function Navbar() {
 
           <button
             type="button"
-            onClick={() => {
-              setMobileMenuOpen(!mobileMenuOpen);
-              setLangDropdownOpen(false);
-            }}
+            onClick={() =>
+              setDrawerState({
+                open: mobileMenuOpen ? null : 'mobile',
+                pathname: activePathname,
+              })
+            }
             className={`w-10 h-10 rounded-xl border transition-colors cursor-pointer flex items-center justify-center outline-none focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] ${
               mobileMenuOpen
                 ? 'bg-[var(--accent-soft)] border-[var(--pastel-pink-border)] text-[var(--accent-primary-text)]'
@@ -365,7 +385,7 @@ export default function Navbar() {
                   type="button"
                   onClick={() => {
                     setLanguage(item.code);
-                    setLangDropdownOpen(false);
+                    closeAllDrawers();
                   }}
                   className={`min-h-[40px] px-3 py-2 rounded-xl text-xs text-start flex items-center justify-between gap-2 border cursor-pointer transition-colors ${
                     isSelected
@@ -409,7 +429,7 @@ export default function Navbar() {
 
           <Link
             href={localizeHref('/about-us')}
-            onClick={() => setMobileMenuOpen(false)}
+            onClick={closeAllDrawers}
             className={`min-h-[42px] px-3.5 py-2.5 rounded-xl text-sm font-semibold flex items-center justify-between transition-colors ${
               isAboutActive
                 ? 'bg-[var(--accent-soft)] text-[var(--accent-primary-text)]'
@@ -421,7 +441,7 @@ export default function Navbar() {
 
           <Link
             href={localizeHref('/how-to-use-tiktok-profile-viewer')}
-            onClick={() => setMobileMenuOpen(false)}
+            onClick={closeAllDrawers}
             className={`min-h-[42px] px-3.5 py-2.5 rounded-xl text-sm font-semibold flex items-center justify-between transition-colors ${
               cleanPathname === '/how-to-use-tiktok-profile-viewer'
                 ? 'bg-[var(--accent-soft)] text-[var(--accent-primary-text)]'
@@ -442,7 +462,7 @@ export default function Navbar() {
                   <Link
                     key={tool.href}
                     href={localizeHref(tool.href)}
-                    onClick={() => setMobileMenuOpen(false)}
+                    onClick={closeAllDrawers}
                     className={`px-3.5 py-2.5 rounded-xl transition-colors flex flex-col gap-0.5 ${
                       isToolActive
                         ? 'bg-[var(--pastel-blue)] text-[var(--accent-cyan-text)]'
