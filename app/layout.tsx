@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import { headers } from 'next/headers';
-import { Rubik, Cairo, JetBrains_Mono } from 'next/font/google';
 import { I18nProvider } from '@/lib/i18n/context';
 import {
   DEFAULT_LANGUAGE,
@@ -12,26 +11,6 @@ import { getBaseUrl } from '@/lib/seo/sitemap';
 import { getServerSettings } from '@/lib/server-settings';
 import CustomHeadScripts from '@/components/CustomHeadScripts';
 import './globals.css';
-
-const rubik = Rubik({
-  subsets: ['latin', 'cyrillic', 'hebrew'],
-  style: ['normal', 'italic'],
-  variable: '--font-rubik',
-  display: 'swap',
-});
-
-const cairo = Cairo({
-  subsets: ['arabic', 'latin'],
-  variable: '--font-cairo',
-  display: 'swap',
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
-  variable: '--font-jetbrains-mono',
-  display: 'swap',
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL(getBaseUrl()),
@@ -85,10 +64,20 @@ export default async function RootLayout({
       lang={langInfo.code}
       dir={langInfo.dir}
       suppressHydrationWarning
-      className={`${rubik.variable} ${cairo.variable} ${jetbrainsMono.variable}`}
     >
       <head>
         <meta name="referrer" content="no-referrer" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
+        {/* eslint-disable-next-line @next/next/no-page-custom-font */}
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Cairo:wght@400..800&family=JetBrains+Mono:wght@400;500;600;700&family=Rubik:ital,wght@0,400..800;1,400..800&display=swap"
+        />
         <link
           rel="icon"
           type="image/png"
