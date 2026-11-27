@@ -1,20 +1,15 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
-</div>
+# Tik Profiles Viewer (`TikProfilesViewer.com`)
 
-# Run and deploy your AI Studio app
+Anonymous TikTok profile viewer, HD MP4 video player, slideshow photo downloader, and MP3 audio extractor built with Next.js 15 App Router, React 19, and Tailwind CSS v4.
 
-This contains everything you need to run your app locally.
+## Architecture Highlights
 
-View your app in AI Studio: https://ai.studio/apps/61c8909e-de2e-43a3-b4f6-c0eceb3a08b6
+- **Zero Server Media Bandwidth:** All video playback, cover images, and MP4/MP3/JPG downloads load directly in the visitor's browser from cookie-free CDN URLs.
+- **10-Language i18n Routing & SEO:** Multilingual URL routing via `middleware.ts` (`en`, `ar`, `fr`, `es`, `de`, `ru`, `zh`, `pt`, `he`, `hi`), `hreflang` alternates, Schema.org JSON-LD, and split XML sitemaps (`/sitemap.xml` and `/sitemaps/[name]`).
+- **Admin Console (`/admintiktok`):** Protected by server-side `HttpOnly` session cookies and backed by configurable global settings persistence.
 
-## Run Locally
+## Local Development
 
-**Prerequisites:**  Node.js
-
-
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+```bash
+npm install
+npm run dev

@@ -9,6 +9,8 @@ import {
   isSupportedLanguage,
 } from '@/lib/i18n/types';
 import { getBaseUrl } from '@/lib/seo/sitemap';
+import { getServerSettings } from '@/lib/server-settings';
+import CustomHeadScripts from '@/components/CustomHeadScripts';
 import './globals.css';
 
 const rubik = Rubik({
@@ -70,6 +72,14 @@ export default async function RootLayout({
     : DEFAULT_LANGUAGE;
   const langInfo = getLanguageInfo(lang);
 
+  let customHeadCode = '';
+  try {
+    const { settings } = await getServerSettings();
+    customHeadCode = settings.customHeadCode || '';
+  } catch {
+    customHeadCode = '';
+  }
+
   return (
     <html
       lang={langInfo.code}
@@ -90,7 +100,10 @@ export default async function RootLayout({
         />
       </head>
       <body className="min-h-screen bg-[var(--surface-canvas)] text-[var(--ink-primary)] font-sans antialiased overflow-x-hidden selection:bg-[var(--accent-soft)] selection:text-[var(--accent-primary-text)]">
-        <I18nProvider initialLang={lang}>{children}</I18nProvider>
+        <I18nProvider initialLang={lang}>
+          <CustomHeadScripts initialCode={customHeadCode} />
+          {children}
+        </I18nProvider>
       </body>
     </html>
   );

@@ -13,7 +13,11 @@ import {
   AlertCircle,
   Music,
   ChevronDown,
+  ChevronLeft,
+  ChevronRight,
   Check,
+  RotateCcw,
+  Image as ImageIcon,
 } from 'lucide-react';
 import DownloadCounterModal from './DownloadCounterModal';
 import AdSlot from './AdSlot';
@@ -26,6 +30,8 @@ import {
   fetchProfileDirect,
   fetchMoreVideosDirect,
   resolveVideoStreamDirect,
+  resolvePostByUrlDirect,
+  parseTikTokTarget,
   sanitizeUsername,
 } from '@/lib/tiktok-client';
 import { useI18n } from '@/lib/i18n/context';
@@ -49,6 +55,7 @@ export interface TikTokVideo {
   play?: string;
   wmplay?: string;
   music?: string;
+  images?: string[];
   music_info?: {
     id?: string;
     title?: string;
@@ -103,17 +110,6 @@ function formatDuration(seconds?: number): string {
   return `${mins}:${secs.toString().padStart(2, '0')}`;
 }
 
-function isTikTokCookieCdn(url: string): boolean {
-  return /tiktok\.com|tiktokv\.com|tiktokcdn/i.test(url);
-}
-
-function buildProxyUrl(targetUrl: string, username: string): string {
-  const cleanUser = sanitizeUsername(username);
-  return `/api/proxy?url=${encodeURIComponent(targetUrl)}${
-    cleanUser ? `&user=${encodeURIComponent(cleanUser)}` : ''
-  }`;
-}
-
 interface TikTokProfileViewerProps {
   initialUsername?: string;
   autoSearch?: boolean;
@@ -147,6 +143,7 @@ export default function TikTokProfileViewer({
   const [loading, setLoading] = useState(false);
   const [loadingMore, setLoadingMore] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const [canRetry, setCanRetry] = useState(false);
 
   const [authorProfile, setAuthorProfile] = useState<Author | null>(null);
   const [profileStats, setProfileStats] = useState<ProfileStats | null>(null);
@@ -156,7 +153,7 @@ export default function TikTokProfileViewer({
 
   const [selectedVideo, setSelectedVideo] = useState<TikTokVideo | null>(null);
   const [activePlayUrl, setActivePlayUrl] = useState<string>('');
-  const [activeNeedsProxy, setActiveNeedsProxy] = useState<boolean>(false);
+  const [activeSlideIndex, setActiveSlideIndex] = useState<number>(0);
   const [videoResolving, setVideoResolving] = useState(false);
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const [downloadingVideo, setDownloadingVideo] = useState(false);
@@ -168,17 +165,13 @@ export default function TikTokProfileViewer({
   const [counterModalData, setCounterModalData] = useState<{
     url: string;
     filename: string;
-    mediaType: 'video' | 'audio' | 'avatar';
+    mediaType: 'video' | 'audio' | 'avatar' | 'photo';
     title?: string;
-    username?: string;
-    needsProxy?: boolean;
   }>({
     url: '',
     filename: '',
     mediaType: 'video',
     title: '',
-    username: '',
-    needsProxy: false,
   });
 
   const modalVideoRef = useRef<HTMLVideoElement | null>(null);
@@ -237,8 +230,6 @@ export default function TikTokProfileViewer({
       filename,
       mediaType: 'avatar',
       title: `@${authorProfile.unique_id}`,
-      username: authorProfile.unique_id,
-      needsProxy: false,
     });
     setCounterModalOpen(true);
   };
@@ -247,7 +238,7 @@ export default function TikTokProfileViewer({
     activeModalIdRef.current = '';
     setSelectedVideo(null);
     setActivePlayUrl('');
-    setActiveNeedsProxy(false);
+    setActiveSlideIndex(0);
     setVideoResolving(false);
     setIsVideoPlaying(false);
     setDownloadingVideo(false);
@@ -262,6 +253,7 @@ export default function TikTokProfileViewer({
     setLoading(false);
     setLoadingMore(false);
     setErrorMsg(null);
+    setCanRetry(false);
     setAuthorProfile(null);
     setProfileStats(null);
     setVideos([]);
@@ -318,6 +310,7 @@ export default function TikTokProfileViewer({
       document.documentElement.style.overflow = 'hidden';
       if (modalVideoRef.current) {
         modalVideoRef.current.setAttribute('referrerpolicy', 'no-referrer');
+        modalVideoRef.current.removeAttribute('crossorigin');
       }
     } else {
       document.body.style.overflow = '';
@@ -343,28 +336,166 @@ export default function TikTokProfileViewer({
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [selectedVideo, counterModalOpen, closeModal, handleCloseCounterModal]);
 
+  const openModal = useCallback(
+    async (video: TikTokVideo, cardKey: string) => {
+      const videoId = String(video.video_id || video.id || '');
+      const authorUser =
+        video.author?.unique_id || authorProfile?.unique_id || 'tiktok';
+      activeModalIdRef.current = videoId;
+      activeCardKeyRef.current = cardKey;
+      playbackFallbackStepRef.current = 0;
+
+      setIsVideoPlaying(false);
+      setActiveSlideIndex(0);
+      setSelectedVideo(video);
+
+      if (video.images && video.images.length > 0) {
+        setActivePlayUrl('');
+        setVideoResolving(false);
+        return;
+      }
+
+      const existingUrl = video.play || video.wmplay || '';
+
+      if (!existingUrl) {
+        setActivePlayUrl('');
+        setVideoResolving(true);
+
+        const resolved = await resolveVideoStreamDirect(videoId, authorUser);
+        if (activeModalIdRef.current !== videoId) return;
+
+        if (resolved?.play) {
+          setActivePlayUrl(resolved.play);
+          setSelectedVideo((prev) =>
+            prev
+              ? {
+                  ...prev,
+                  play: resolved.play,
+                  wmplay: resolved.wmplay || prev.wmplay,
+                  music: resolved.music || prev.music,
+                  images:
+                    resolved.images && resolved.images.length > 0
+                      ? resolved.images
+                      : prev.images,
+                  music_info: {
+                    ...prev.music_info,
+                    play: resolved.music || prev.music_info?.play,
+                  },
+                }
+              : prev
+          );
+        }
+        setVideoResolving(false);
+      } else {
+        setActivePlayUrl(existingUrl);
+        setVideoResolving(false);
+      }
+
+      setTimeout(() => {
+        if (modalVideoRef.current) {
+          modalVideoRef.current.setAttribute('referrerpolicy', 'no-referrer');
+          modalVideoRef.current.removeAttribute('crossorigin');
+          modalVideoRef.current.load();
+          modalVideoRef.current.play().catch(() => {
+            setIsVideoPlaying(false);
+          });
+        }
+      }, 40);
+    },
+    [authorProfile?.unique_id]
+  );
+
   const handleSearch = useCallback(
-    async (usernameToSearch?: string, shouldScroll = true) => {
-      const targetUser = sanitizeUsername(
-        usernameToSearch !== undefined ? usernameToSearch : usernameInput
-      );
-      if (!targetUser) {
+    async (inputOverride?: string, shouldScroll = true) => {
+      const rawQuery = inputOverride !== undefined ? inputOverride : usernameInput;
+      const parsedTarget = parseTikTokTarget(rawQuery);
+
+      if (parsedTarget.kind === 'empty') {
         setErrorMsg(t('search.errorEmpty'));
+        setCanRetry(false);
         return;
       }
 
       setLoading(true);
       setErrorMsg(null);
+      setCanRetry(false);
       setNextCursor(null);
       setHasMore(false);
 
       try {
+        // Direct single video, photo slideshow, or short URL lookup
+        if (parsedTarget.kind === 'post') {
+          const resolved = await resolvePostByUrlDirect(parsedTarget.url);
+          if (!resolved || resolved.rateLimited || (!resolved.play && !resolved.images?.length && !resolved.music)) {
+            setErrorMsg(
+              resolved?.rateLimited
+                ? 'Upstream service is temporarily busy. Please wait a moment and try again.'
+                : t('modal.videoUnavailable')
+            );
+            setCanRetry(true);
+            setAuthorProfile(null);
+            setProfileStats(null);
+            setVideos([]);
+            return;
+          }
+
+          const postUser =
+            resolved.author?.unique_id || parsedTarget.username || 'tiktok';
+          const postId =
+            resolved.id || parsedTarget.videoId || String(Date.now());
+          const singlePost: TikTokVideo = {
+            id: postId,
+            video_id: postId,
+            title: resolved.title || t('modal.defaultVideoTitle'),
+            cover: resolved.cover || resolved.origin_cover || resolved.images?.[0] || '',
+            origin_cover: resolved.origin_cover || resolved.cover || '',
+            play: resolved.play,
+            wmplay: resolved.wmplay,
+            music: resolved.music,
+            images: resolved.images,
+            music_info: {
+              play: resolved.music,
+              author: resolved.author?.nickname || postUser,
+            },
+            play_count: resolved.play_count,
+            digg_count: resolved.digg_count,
+            comment_count: resolved.comment_count,
+            share_count: resolved.share_count,
+            duration: resolved.duration,
+            author: {
+              unique_id: postUser,
+              nickname: resolved.author?.nickname || postUser,
+              avatar: resolved.author?.avatar || '',
+              status: 'active',
+            },
+          };
+
+          setAuthorProfile(
+            singlePost.author
+              ? {
+                  ...singlePost.author,
+                  status: 'active',
+                }
+              : null
+          );
+          setProfileStats(null);
+          setVideos([singlePost]);
+          if (shouldScroll) {
+            scrollToResults();
+          }
+          void openModal(singlePost, postId);
+          return;
+        }
+
+        // Profile lookup
+        const targetUser = parsedTarget.username;
         const result = await fetchProfileDirect(targetUser);
 
         if (!result || result.code !== 0 || !result.data) {
           const errorText =
             result?.msg || t('search.errorNotFound', { username: targetUser });
           setErrorMsg(errorText);
+          setCanRetry(Boolean(result?.rateLimited));
           setAuthorProfile(null);
           setProfileStats(null);
           setVideos([]);
@@ -407,8 +538,10 @@ export default function TikTokProfileViewer({
 
         if (authorInfo.status === 'private') {
           setErrorMsg(t('search.errorPrivate', { username: targetUser }));
+          setCanRetry(false);
         } else if (postVideos.length === 0) {
           setErrorMsg(t('search.errorNoVideos', { username: targetUser }));
+          setCanRetry(true);
         }
 
         if (shouldScroll) {
@@ -418,6 +551,7 @@ export default function TikTokProfileViewer({
         const msg =
           err instanceof Error ? err.message : t('search.errorFailed');
         setErrorMsg(msg);
+        setCanRetry(true);
         setAuthorProfile(null);
         setProfileStats(null);
         setVideos([]);
@@ -425,7 +559,7 @@ export default function TikTokProfileViewer({
         setLoading(false);
       }
     },
-    [usernameInput, scrollToResults, t]
+    [usernameInput, scrollToResults, openModal, t]
   );
 
   useEffect(() => {
@@ -484,77 +618,20 @@ export default function TikTokProfileViewer({
         setNextCursor(batch.cursor);
         setHasMore(batch.hasMore);
       } else {
-        setHasMore(false);
+        if (batch.rateLimited) {
+          setErrorMsg(
+            'Upstream service is temporarily busy. Please try loading more videos again.'
+          );
+          setCanRetry(true);
+        } else {
+          setHasMore(false);
+        }
       }
     } catch {
       setHasMore(false);
     } finally {
       setLoadingMore(false);
     }
-  };
-
-  const openModal = async (video: TikTokVideo, cardKey: string) => {
-    const videoId = String(video.video_id || video.id || '');
-    const authorUser =
-      video.author?.unique_id || authorProfile?.unique_id || 'tiktok';
-    activeModalIdRef.current = videoId;
-    activeCardKeyRef.current = cardKey;
-    playbackFallbackStepRef.current = 0;
-
-    setIsVideoPlaying(false);
-    setSelectedVideo(video);
-    const existingUrl = video.play || video.wmplay || '';
-
-    if (!existingUrl || isTikTokCookieCdn(existingUrl)) {
-      setActivePlayUrl('');
-      setActiveNeedsProxy(false);
-      setVideoResolving(true);
-
-      const resolved = await resolveVideoStreamDirect(videoId, authorUser);
-      if (activeModalIdRef.current !== videoId) return;
-
-      if (resolved?.play) {
-        const useProxy = Boolean(resolved.needsProxy);
-        const finalStream = useProxy
-          ? buildProxyUrl(resolved.play, authorUser)
-          : resolved.play;
-
-        setActiveNeedsProxy(useProxy);
-        setActivePlayUrl(finalStream);
-        setSelectedVideo((prev) =>
-          prev
-            ? {
-                ...prev,
-                play: resolved.play,
-                wmplay: resolved.wmplay || prev.wmplay,
-                music: resolved.music || prev.music,
-                music_info: {
-                  ...prev.music_info,
-                  play: resolved.music || prev.music_info?.play,
-                },
-              }
-            : prev
-        );
-      } else if (existingUrl) {
-        setActiveNeedsProxy(true);
-        setActivePlayUrl(buildProxyUrl(existingUrl, authorUser));
-      }
-      setVideoResolving(false);
-    } else {
-      setActiveNeedsProxy(false);
-      setActivePlayUrl(existingUrl);
-      setVideoResolving(false);
-    }
-
-    setTimeout(() => {
-      if (modalVideoRef.current) {
-        modalVideoRef.current.setAttribute('referrerpolicy', 'no-referrer');
-        modalVideoRef.current.load();
-        modalVideoRef.current.play().catch(() => {
-          setIsVideoPlaying(false);
-        });
-      }
-    }, 40);
   };
 
   const handleCustomPlayClick = () => {
@@ -580,26 +657,14 @@ export default function TikTokProfileViewer({
       const candidate =
         resolved?.play || resolved?.wmplay || selectedVideo.wmplay || '';
       if (candidate && candidate !== activePlayUrl) {
-        const useProxy = Boolean(resolved?.needsProxy);
-        setActiveNeedsProxy(useProxy);
-        setActivePlayUrl(
-          useProxy ? buildProxyUrl(candidate, authorUser) : candidate
-        );
+        setActivePlayUrl(candidate);
         return;
       }
     }
 
-    if (
-      step <= 1 &&
-      activePlayUrl &&
-      !activePlayUrl.startsWith('/api/proxy')
-    ) {
+    if (step === 1 && selectedVideo.wmplay && selectedVideo.wmplay !== activePlayUrl) {
       playbackFallbackStepRef.current = 2;
-      const rawUrl = selectedVideo.play || selectedVideo.wmplay || activePlayUrl;
-      if (rawUrl) {
-        setActiveNeedsProxy(true);
-        setActivePlayUrl(buildProxyUrl(rawUrl, authorUser));
-      }
+      setActivePlayUrl(selectedVideo.wmplay);
     }
   };
 
@@ -610,21 +675,20 @@ export default function TikTokProfileViewer({
     }
     setDownloadingVideo(true);
 
-    const authorUser =
-      selectedVideo.author?.unique_id || authorProfile?.unique_id || 'tiktok';
+    const authorUser = sanitizeUsername(
+      selectedVideo.author?.unique_id || authorProfile?.unique_id || 'tiktok'
+    );
     const videoId = String(
       selectedVideo.video_id || selectedVideo.id || Date.now()
     );
-    const filename = `${authorUser}-${videoId}.mp4`;
+    const filename = `${authorUser || 'tiktok'}-${videoId}.mp4`;
 
     let directVideoUrl = selectedVideo.play || selectedVideo.wmplay || '';
-    let needsProxy = activeNeedsProxy || isTikTokCookieCdn(directVideoUrl);
 
-    if (!directVideoUrl || isTikTokCookieCdn(directVideoUrl)) {
+    if (!directVideoUrl) {
       const resolved = await resolveVideoStreamDirect(videoId, authorUser);
       if (resolved?.play) {
         directVideoUrl = resolved.play;
-        needsProxy = Boolean(resolved.needsProxy);
       }
     }
 
@@ -637,8 +701,6 @@ export default function TikTokProfileViewer({
         filename,
         mediaType: 'video',
         title: selectedVideo.title,
-        username: authorUser,
-        needsProxy,
       });
       setCounterModalOpen(true);
     } else {
@@ -648,6 +710,27 @@ export default function TikTokProfileViewer({
     setDownloadingVideo(false);
   };
 
+  const handleDownloadSlide = (slideUrl: string, slideIdx: number) => {
+    if (!selectedVideo || !slideUrl) return;
+    const authorUser = sanitizeUsername(
+      selectedVideo.author?.unique_id || authorProfile?.unique_id || 'tiktok'
+    );
+    const videoId = String(
+      selectedVideo.video_id || selectedVideo.id || Date.now()
+    );
+    const filename = `${authorUser || 'tiktok'}-${videoId}-slide-${slideIdx + 1}.jpg`;
+    lastDownloadedKeyRef.current =
+      activeCardKeyRef.current ||
+      String(selectedVideo.video_id || selectedVideo.id || '');
+    setCounterModalData({
+      url: slideUrl,
+      filename,
+      mediaType: 'photo',
+      title: selectedVideo.title,
+    });
+    setCounterModalOpen(true);
+  };
+
   const handleDownloadAudio = async () => {
     if (!selectedVideo || downloadingAudio) return;
     if (modalVideoRef.current) {
@@ -655,21 +738,20 @@ export default function TikTokProfileViewer({
     }
     setDownloadingAudio(true);
 
-    const authorUser =
-      selectedVideo.author?.unique_id || authorProfile?.unique_id || 'tiktok';
+    const authorUser = sanitizeUsername(
+      selectedVideo.author?.unique_id || authorProfile?.unique_id || 'tiktok'
+    );
     const videoId = String(
       selectedVideo.video_id || selectedVideo.id || Date.now()
     );
-    const filename = `${authorUser}-${videoId}.mp3`;
+    const filename = `${authorUser || 'tiktok'}-${videoId}.mp3`;
 
     let directAudioUrl =
       selectedVideo.music_info?.play || selectedVideo.music || '';
-    let needsProxy = false;
 
     if (!directAudioUrl) {
       const resolved = await resolveVideoStreamDirect(videoId, authorUser);
       directAudioUrl = resolved?.music || '';
-      needsProxy = Boolean(resolved?.needsProxy) && isTikTokCookieCdn(directAudioUrl);
     }
 
     if (directAudioUrl) {
@@ -681,8 +763,6 @@ export default function TikTokProfileViewer({
         filename,
         mediaType: 'audio',
         title: selectedVideo.title,
-        username: authorUser,
-        needsProxy,
       });
       setCounterModalOpen(true);
     } else {
@@ -698,6 +778,9 @@ export default function TikTokProfileViewer({
     selectedVideo?.author?.avatar ||
     authorProfile?.avatar ||
     `/api/avatar?username=${encodeURIComponent(modalAuthorUser)}`;
+
+  const modalImages = selectedVideo?.images || [];
+  const isPhotoPost = modalImages.length > 0;
 
   const renderSearchForm = () => (
     <form
@@ -790,15 +873,27 @@ export default function TikTokProfileViewer({
     errorMsg ? (
       <div
         role="alert"
-        className="mt-4 p-3.5 rounded-xl bg-[var(--status-danger-bg)] border border-[var(--status-danger-border)] text-[var(--ink-primary)] text-xs flex items-start gap-2.5 text-start"
+        className="mt-4 p-3.5 rounded-xl bg-[var(--status-danger-bg)] border border-[var(--status-danger-border)] text-[var(--ink-primary)] text-xs flex items-start justify-between gap-3 text-start"
       >
-        <AlertCircle className="w-4 h-4 text-[var(--status-danger)] shrink-0 mt-0.5" />
-        <div className="flex-1">
-          <p className="font-semibold text-[var(--ink-primary)]">
-            {t('search.noticeTitle')}
-          </p>
-          <p className="text-[var(--ink-secondary)] text-xs mt-0.5">{errorMsg}</p>
+        <div className="flex items-start gap-2.5 flex-1">
+          <AlertCircle className="w-4 h-4 text-[var(--status-danger)] shrink-0 mt-0.5" />
+          <div className="flex-1">
+            <p className="font-semibold text-[var(--ink-primary)]">
+              {t('search.noticeTitle')}
+            </p>
+            <p className="text-[var(--ink-secondary)] text-xs mt-0.5">{errorMsg}</p>
+          </div>
         </div>
+        {canRetry && !loading && (
+          <button
+            type="button"
+            onClick={() => void handleSearch(undefined, false)}
+            className="h-8 px-3 rounded-lg bg-[var(--surface-elevated)] hover:bg-[var(--surface-canvas)] border border-[var(--border-strong)] text-xs font-semibold text-[var(--ink-primary)] inline-flex items-center gap-1.5 shrink-0 cursor-pointer transition-colors"
+          >
+            <RotateCcw className="w-3.5 h-3.5" />
+            <span>Retry</span>
+          </button>
+        )}
       </div>
     ) : null;
 
@@ -894,7 +989,7 @@ export default function TikTokProfileViewer({
           ref={resultsRef}
           className="w-full max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-10 scroll-mt-20"
         >
-          {authorProfile && (
+          {authorProfile && profileStats && (
             <MotionFadeIn>
               <section className="w-full mb-8 bg-[var(--surface-elevated)] border border-[var(--border-subtle)] shadow-[var(--shadow-card)] rounded-2xl p-5 sm:p-6">
                 <div className="flex flex-col sm:flex-row items-center sm:items-start gap-5 text-center sm:text-start">
@@ -1011,7 +1106,7 @@ export default function TikTokProfileViewer({
                       {t('profile.followers')}
                     </span>
                     <span className="text-sm sm:text-base font-bold text-[var(--ink-primary)] font-mono tabular-nums tracking-tight leading-none truncate w-full">
-                      {formatNumber(profileStats?.followerCount)}
+                      {formatNumber(profileStats.followerCount)}
                     </span>
                   </div>
 
@@ -1020,7 +1115,7 @@ export default function TikTokProfileViewer({
                       {t('profile.totalLikes')}
                     </span>
                     <span className="text-sm sm:text-base font-bold text-[var(--accent-primary-text)] font-mono tabular-nums tracking-tight leading-none truncate w-full">
-                      {formatNumber(profileStats?.heartCount)}
+                      {formatNumber(profileStats.heartCount)}
                     </span>
                   </div>
 
@@ -1029,7 +1124,7 @@ export default function TikTokProfileViewer({
                       {t('profile.following')}
                     </span>
                     <span className="text-sm sm:text-base font-bold text-[var(--ink-primary)] font-mono tabular-nums tracking-tight leading-none truncate w-full">
-                      {formatNumber(profileStats?.followingCount)}
+                      {formatNumber(profileStats.followingCount)}
                     </span>
                   </div>
 
@@ -1038,7 +1133,7 @@ export default function TikTokProfileViewer({
                       {t('profile.videos')}
                     </span>
                     <span className="text-sm sm:text-base font-bold text-[var(--ink-primary)] font-mono tabular-nums tracking-tight leading-none truncate w-full">
-                      {formatNumber(profileStats?.videoCount ?? videos.length)}
+                      {formatNumber(profileStats.videoCount ?? videos.length)}
                     </span>
                   </div>
 
@@ -1057,7 +1152,7 @@ export default function TikTokProfileViewer({
             </MotionFadeIn>
           )}
 
-          {/* Video Grid Section */}
+          {/* Video / Slideshow Grid Section */}
           {videos.length > 0 && !loading && (
             <MotionFadeIn delay={0.04}>
               <section className="w-full flex flex-col gap-5">
@@ -1079,11 +1174,14 @@ export default function TikTokProfileViewer({
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3.5 sm:gap-4">
                   {videos.map((video, index) => {
                     const videoKey = String(video.video_id || video.id || index);
-                    const coverImg = video.cover || video.origin_cover || '';
+                    const coverImg =
+                      video.cover ||
+                      video.origin_cover ||
+                      video.images?.[0] ||
+                      '';
                     const duration = formatDuration(video.duration);
                     const isHighlighted = highlightedVideoKey === videoKey;
-                    const cardUser =
-                      video.author?.unique_id || authorProfile?.unique_id || '';
+                    const slideCount = video.images?.length || 0;
 
                     return (
                       <div
@@ -1133,19 +1231,6 @@ export default function TikTokProfileViewer({
                                 return;
                               }
 
-                              if (step === '0' || step === '1') {
-                                target.setAttribute('data-step', '2');
-                                const rawCover =
-                                  video.cover || video.origin_cover || '';
-                                if (
-                                  rawCover &&
-                                  !rawCover.startsWith('/api/proxy')
-                                ) {
-                                  target.src = buildProxyUrl(rawCover, cardUser);
-                                  return;
-                                }
-                              }
-
                               target.style.display = 'none';
                             }}
                           />
@@ -1153,7 +1238,11 @@ export default function TikTokProfileViewer({
 
                         <div className="absolute inset-0 flex items-center justify-center bg-zinc-950/15 group-hover:bg-zinc-950/35 transition-colors duration-200 pointer-events-none">
                           <div className="w-12 h-12 rounded-2xl bg-zinc-950/60 backdrop-blur-sm border border-white/35 text-white flex items-center justify-center shadow-lg transition-all duration-200 group-hover:bg-[var(--accent-primary)] group-hover:border-[var(--accent-primary)] group-hover:text-white group-hover:scale-110 group-hover:shadow-[0_6px_20px_rgba(225,29,72,0.45)]">
-                            <Play className="w-5 h-5 fill-current translate-x-0.5" />
+                            {slideCount > 0 ? (
+                              <ImageIcon className="w-5 h-5" />
+                            ) : (
+                              <Play className="w-5 h-5 fill-current translate-x-0.5" />
+                            )}
                           </div>
                         </div>
 
@@ -1164,14 +1253,22 @@ export default function TikTokProfileViewer({
                           >
                             #{index + 1}
                           </span>
-                          {duration && (
+                          {slideCount > 0 ? (
+                            <span
+                              dir="ltr"
+                              className="text-[11px] font-mono tabular-nums font-semibold px-2 py-0.5 rounded-md bg-zinc-950/75 text-white inline-flex items-center gap-1"
+                            >
+                              <ImageIcon className="w-3 h-3" />
+                              <span>{slideCount}</span>
+                            </span>
+                          ) : duration ? (
                             <span
                               dir="ltr"
                               className="text-[11px] font-mono tabular-nums font-semibold px-2 py-0.5 rounded-md bg-zinc-950/75 text-white"
                             >
                               {duration}
                             </span>
-                          )}
+                          ) : null}
                         </div>
 
                         <div className="absolute inset-x-0 bottom-0 px-3 py-3 bg-gradient-to-t from-zinc-950/95 via-zinc-950/80 to-transparent flex flex-col gap-2 pointer-events-none text-start">
@@ -1253,7 +1350,7 @@ export default function TikTokProfileViewer({
         </div>
       )}
 
-      {/* Video Player Modal */}
+      {/* Video / Photo Slideshow Player Modal */}
       <AnimatePresence>
         {selectedVideo && (
           <MotionModalBackdrop
@@ -1292,7 +1389,9 @@ export default function TikTokProfileViewer({
                       @{modalAuthorUser}
                     </span>
                     <span className="inline-flex items-center px-2 py-0.5 rounded-md bg-[var(--pastel-blue)] border border-[var(--pastel-blue-border)] text-[var(--ink-primary)] text-[10px] font-bold uppercase tracking-wider shrink-0">
-                      {t('modal.hdBadge')}
+                      {isPhotoPost
+                        ? `${activeSlideIndex + 1}/${modalImages.length}`
+                        : t('modal.hdBadge')}
                     </span>
                   </div>
                 </div>
@@ -1308,45 +1407,88 @@ export default function TikTokProfileViewer({
                 </button>
               </div>
 
-              {/* Video Viewport */}
+              {/* Media Viewport: Photo Slideshow OR Video Player */}
               <div className="relative flex-1 min-h-0 bg-zinc-950 flex items-center justify-center w-full overflow-hidden">
-                {videoResolving && (
-                  <div className="absolute inset-0 z-20 flex flex-col items-center justify-center gap-2 bg-zinc-950/90 text-white">
-                    <Loader2 className="w-7 h-7 animate-spin text-white" />
-                    <span className="text-xs font-medium text-white/90">
-                      {t('modal.loadingStream')}
-                    </span>
-                  </div>
-                )}
+                {isPhotoPost ? (
+                  <>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={modalImages[activeSlideIndex]}
+                      alt={`${selectedVideo.title || 'TikTok Photo'} (${activeSlideIndex + 1})`}
+                      referrerPolicy="no-referrer"
+                      className="w-full h-full object-contain"
+                    />
+                    {modalImages.length > 1 && (
+                      <>
+                        <button
+                          type="button"
+                          onClick={() =>
+                            setActiveSlideIndex((idx) =>
+                              idx === 0 ? modalImages.length - 1 : idx - 1
+                            )
+                          }
+                          aria-label="Previous slide"
+                          className="absolute start-2.5 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-zinc-950/70 hover:bg-zinc-950 text-white border border-white/25 flex items-center justify-center cursor-pointer transition-colors"
+                        >
+                          <ChevronLeft className="w-4 h-4 rtl:rotate-180" />
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() =>
+                            setActiveSlideIndex((idx) =>
+                              idx === modalImages.length - 1 ? 0 : idx + 1
+                            )
+                          }
+                          aria-label="Next slide"
+                          className="absolute end-2.5 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-zinc-950/70 hover:bg-zinc-950 text-white border border-white/25 flex items-center justify-center cursor-pointer transition-colors"
+                        >
+                          <ChevronRight className="w-4 h-4 rtl:rotate-180" />
+                        </button>
+                      </>
+                    )}
+                  </>
+                ) : (
+                  <>
+                    {videoResolving && (
+                      <div className="absolute inset-0 z-20 flex flex-col items-center justify-center gap-2 bg-zinc-950/90 text-white">
+                        <Loader2 className="w-7 h-7 animate-spin text-white" />
+                        <span className="text-xs font-medium text-white/90">
+                          {t('modal.loadingStream')}
+                        </span>
+                      </div>
+                    )}
 
-                {!isVideoPlaying && !videoResolving && (
-                  <button
-                    type="button"
-                    onClick={handleCustomPlayClick}
-                    aria-label={t('modal.playVideo')}
-                    className="absolute inset-0 m-auto z-20 w-14 h-14 rounded-full bg-[var(--accent-primary)] hover:bg-[var(--accent-primary-hover)] text-white border-2 border-white/90 shadow-[var(--shadow-workbench)] flex items-center justify-center transition-transform duration-150 hover:scale-105 active:scale-95 cursor-pointer"
-                  >
-                    <Play className="w-6 h-6 fill-white text-white translate-x-0.5" />
-                  </button>
-                )}
+                    {!isVideoPlaying && !videoResolving && (
+                      <button
+                        type="button"
+                        onClick={handleCustomPlayClick}
+                        aria-label={t('modal.playVideo')}
+                        className="absolute inset-0 m-auto z-20 w-14 h-14 rounded-full bg-[var(--accent-primary)] hover:bg-[var(--accent-primary-hover)] text-white border-2 border-white/90 shadow-[var(--shadow-workbench)] flex items-center justify-center transition-transform duration-150 hover:scale-105 active:scale-95 cursor-pointer"
+                      >
+                        <Play className="w-6 h-6 fill-white text-white translate-x-0.5" />
+                      </button>
+                    )}
 
-                <video
-                  ref={modalVideoRef}
-                  src={activePlayUrl || undefined}
-                  poster={
-                    selectedVideo.cover || selectedVideo.origin_cover || undefined
-                  }
-                  controls
-                  playsInline
-                  autoPlay
-                  preload="metadata"
-                  onPlay={() => setIsVideoPlaying(true)}
-                  onPause={() => setIsVideoPlaying(false)}
-                  onEnded={() => setIsVideoPlaying(false)}
-                  onCanPlay={() => setVideoResolving(false)}
-                  onError={() => void handleVideoPlayError()}
-                  className="w-full h-full object-contain"
-                />
+                    <video
+                      ref={modalVideoRef}
+                      src={activePlayUrl || undefined}
+                      poster={
+                        selectedVideo.cover || selectedVideo.origin_cover || undefined
+                      }
+                      controls
+                      playsInline
+                      autoPlay
+                      preload="metadata"
+                      referrerPolicy="no-referrer"
+                      onPlay={() => setIsVideoPlaying(true)}
+                      onPause={() => setIsVideoPlaying(false)}
+                      onEnded={() => setIsVideoPlaying(false)}
+                      onCanPlay={() => setVideoResolving(false)}
+                      onError={() => void handleVideoPlayError()}
+                      className="w-full h-full object-contain"
+                    />
+                  </>
+                )}
               </div>
 
               {/* Bottom Info & Action Panel */}
@@ -1379,24 +1521,40 @@ export default function TikTokProfileViewer({
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                  <button
-                    type="button"
-                    disabled={downloadingVideo || downloadingAudio}
-                    onClick={() => void handleDownloadVideo()}
-                    className="w-full h-10 px-4 rounded-xl bg-[var(--accent-primary)] hover:bg-[var(--accent-primary-hover)] text-[var(--accent-contrast)] font-bold text-xs flex items-center justify-center gap-1.5 transition-colors disabled:bg-[var(--state-disabled-bg)] disabled:text-[var(--state-disabled-ink)] cursor-pointer shadow-xs"
-                  >
-                    {downloadingVideo ? (
-                      <>
-                        <Loader2 className="w-3.5 h-3.5 animate-spin text-current" />
-                        <span>{t('modal.preparing')}</span>
-                      </>
-                    ) : (
-                      <>
-                        <Download className="w-3.5 h-3.5" />
-                        <span>{t('modal.downloadVideo')}</span>
-                      </>
-                    )}
-                  </button>
+                  {isPhotoPost ? (
+                    <button
+                      type="button"
+                      onClick={() =>
+                        handleDownloadSlide(
+                          modalImages[activeSlideIndex],
+                          activeSlideIndex
+                        )
+                      }
+                      className="w-full h-10 px-4 rounded-xl bg-[var(--accent-primary)] hover:bg-[var(--accent-primary-hover)] text-[var(--accent-contrast)] font-bold text-xs flex items-center justify-center gap-1.5 transition-colors cursor-pointer shadow-xs"
+                    >
+                      <Download className="w-3.5 h-3.5" />
+                      <span>Save Slide #{activeSlideIndex + 1} (HD)</span>
+                    </button>
+                  ) : (
+                    <button
+                      type="button"
+                      disabled={downloadingVideo || downloadingAudio}
+                      onClick={() => void handleDownloadVideo()}
+                      className="w-full h-10 px-4 rounded-xl bg-[var(--accent-primary)] hover:bg-[var(--accent-primary-hover)] text-[var(--accent-contrast)] font-bold text-xs flex items-center justify-center gap-1.5 transition-colors disabled:bg-[var(--state-disabled-bg)] disabled:text-[var(--state-disabled-ink)] cursor-pointer shadow-xs"
+                    >
+                      {downloadingVideo ? (
+                        <>
+                          <Loader2 className="w-3.5 h-3.5 animate-spin text-current" />
+                          <span>{t('modal.preparing')}</span>
+                        </>
+                      ) : (
+                        <>
+                          <Download className="w-3.5 h-3.5" />
+                          <span>{t('modal.downloadVideo')}</span>
+                        </>
+                      )}
+                    </button>
+                  )}
 
                   <button
                     type="button"
@@ -1432,8 +1590,6 @@ export default function TikTokProfileViewer({
         fileName={counterModalData.filename}
         mediaType={counterModalData.mediaType}
         title={counterModalData.title}
-        username={counterModalData.username}
-        needsProxy={counterModalData.needsProxy}
       />
     </div>
   );

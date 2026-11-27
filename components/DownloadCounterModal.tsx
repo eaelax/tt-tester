@@ -14,10 +14,8 @@ interface DownloadCounterModalProps {
   onClose: () => void;
   downloadUrl: string;
   fileName: string;
-  mediaType: 'video' | 'audio' | 'avatar';
+  mediaType: 'video' | 'audio' | 'avatar' | 'photo';
   title?: string;
-  username?: string;
-  needsProxy?: boolean;
 }
 
 function ModalContent({
@@ -26,18 +24,14 @@ function ModalContent({
   fileName,
   mediaType,
   title,
-  username,
-  needsProxy,
   onClose,
   settings,
 }: {
   initialSeconds: number;
   downloadUrl: string;
   fileName: string;
-  mediaType: 'video' | 'audio' | 'avatar';
+  mediaType: 'video' | 'audio' | 'avatar' | 'photo';
   title?: string;
-  username?: string;
-  needsProxy?: boolean;
   onClose: () => void;
   settings: SiteSettings;
 }) {
@@ -53,7 +47,7 @@ function ModalContent({
     setIsDownloading(true);
     setDownloadError(null);
     try {
-      await executeDirectCdnDownload(downloadUrl, fileName, username, Boolean(needsProxy));
+      await executeDirectCdnDownload(downloadUrl, fileName);
       setHasTriggeredDownload(true);
     } catch (err: unknown) {
       setDownloadError(
@@ -62,7 +56,7 @@ function ModalContent({
     } finally {
       setIsDownloading(false);
     }
-  }, [downloadUrl, fileName, username, needsProxy, t]);
+  }, [downloadUrl, fileName, t]);
 
   const handleManualDownloadClick = async () => {
     await runDownload();
@@ -224,6 +218,8 @@ function ModalContent({
                         ? t('dl.btnAudio')
                         : mediaType === 'avatar'
                         ? t('dl.btnAvatar')
+                        : mediaType === 'photo'
+                        ? 'Download HD Photo'
                         : t('dl.btnVideo')}
                     </span>
                   </>
@@ -267,8 +263,6 @@ export default function DownloadCounterModal({
   fileName,
   mediaType,
   title,
-  username,
-  needsProxy,
 }: DownloadCounterModalProps) {
   const [settings] = useSiteSettings();
   const initialSeconds = Math.max(1, settings.downloadCounterSeconds || 5);
@@ -286,8 +280,6 @@ export default function DownloadCounterModal({
             fileName={fileName}
             mediaType={mediaType}
             title={title}
-            username={username}
-            needsProxy={needsProxy}
             onClose={onClose}
             settings={settings}
           />

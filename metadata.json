@@ -1,6 +1,5 @@
 {
-  "name": "TikTok Profile Viewer & Downloader",
-  "description": "Free TikTok profile viewer, video player, and watermark-free HD video and MP3 audio downloader powered by TikWM.",
-  "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+  "name": "Tik Profiles Viewer",
+  "description": "Anonymous TikTok profile viewer, HD MP4 video downloader without watermark, photo slideshow downloader, and MP3 audio extractor.",
+  "requestFramePermissions": []
 }

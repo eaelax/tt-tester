@@ -25,6 +25,7 @@ import {
   Pencil,
   AlertTriangle,
   X,
+  Loader2,
 } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -36,9 +37,6 @@ import {
 } from '@/lib/settings-store';
 import DownloadCounterModal from '@/components/DownloadCounterModal';
 import { MotionModalBackdrop, MotionModalPanel } from '@/components/MotionPrimitives';
-
-const ADMIN_PASSWORD_DEFAULT = 'tiktok2026';
-const ADMIN_STORAGE_KEY = 'tpv_admin_session_auth';
 
 const PLACEMENT_OPTIONS = [
   { value: 'modal', label: 'Download Modal (Inside)' },
@@ -107,8 +105,9 @@ export default function AdminTikTokPage() {
 
   const [activeSection, setActiveSection] = useState<AdminSection>('overview');
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
-  const [savedToast, setSavedToast] = useState<string | null>(null);
+  const [toast, setToast] = useState<{ type: 'success' | 'warning' | 'error'; message: string } | null>(null);
   const [testModalOpen, setTestModalOpen] = useState(false);
+  const [saving, setSaving] = useState(false);
 
   // Ads filtering & editing state
   const [adSearchQuery, setAdSearchQuery] = useState('');
@@ -123,61 +122,147 @@ export default function AdminTikTokPage() {
     adName?: string;
   } | null>(null);
 
-  // Authentication state
+  // Server-side authentication state
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+  const [adminConfigured, setAdminConfigured] = useState<boolean>(true);
+  const [storageBackend, setStorageBackend] = useState<string>('none');
   const [passwordInput, setPasswordInput] = useState<string>('');
   const [authError, setAuthError] = useState<string | null>(null);
+  const [authSubmitting, setAuthSubmitting] = useState<boolean>(false);
   const [checkingAuth, setCheckingAuth] = useState<boolean>(true);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      if (typeof window !== 'undefined') {
-        const isAuth = sessionStorage.getItem(ADMIN_STORAGE_KEY) === 'true';
-        setIsAuthenticated(isAuth);
+    let active = true;
+    const checkSession = async () => {
+      try {
+        const res = await fetch('/api/admin/session', {
+          method: 'GET',
+          cache: 'no-store',
+        });
+        if (res.ok) {
+          const data = (await res.json()) as {
+            configured?: boolean;
+            authenticated?: boolean;
+            backend?: string;
+          };
+          if (active) {
+            setAdminConfigured(Boolean(data.configured));
+            setIsAuthenticated(Boolean(data.authenticated));
+            setStorageBackend(data.backend || 'none');
+          }
+        }
+      } catch {
+        // Keep unauthenticated on failure
+      } finally {
+        if (active) setCheckingAuth(false);
       }
-      setCheckingAuth(false);
-    }, 0);
-    return () => clearTimeout(timer);
+    };
+    void checkSession();
+    return () => {
+      active = false;
+    };
   }, []);
 
   const updateLocal = (updater: (prev: SiteSettings) => SiteSettings) => {
     setDraftSettings((prev) => updater(prev ?? settings));
   };
 
-  const handleLogin = (e: React.FormEvent) => {
+  const showToast = (
+    message: string,
+    type: 'success' | 'warning' | 'error' = 'success'
+  ) => {
+    setToast({ type, message });
+    setTimeout(() => setToast(null), 4000);
+  };
+
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (passwordInput === ADMIN_PASSWORD_DEFAULT) {
-      sessionStorage.setItem(ADMIN_STORAGE_KEY, 'true');
-      setIsAuthenticated(true);
-      setAuthError(null);
-      setPasswordInput('');
-    } else {
-      setAuthError('Wrong admin password. Please check and try again.');
+    if (!passwordInput.trim() || authSubmitting) return;
+
+    setAuthSubmitting(true);
+    setAuthError(null);
+
+    try {
+      const res = await fetch('/api/admin/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password: passwordInput }),
+      });
+
+      const data = (await res.json()) as {
+        authenticated?: boolean;
+        error?: string;
+      };
+
+      if (res.ok && data.authenticated) {
+        setIsAuthenticated(true);
+        setPasswordInput('');
+      } else {
+        setAuthError(data.error || 'Authentication failed.');
+      }
+    } catch {
+      setAuthError('Network error connecting to authentication endpoint.');
+    } finally {
+      setAuthSubmitting(false);
     }
   };
 
-  const handleLogout = () => {
-    sessionStorage.removeItem(ADMIN_STORAGE_KEY);
+  const handleLogout = async () => {
+    try {
+      await fetch('/api/admin/logout', { method: 'POST' });
+    } catch {
+      // Clear local session view regardless
+    }
     setIsAuthenticated(false);
-  };
-
-  const showToast = (message: string) => {
-    setSavedToast(message);
-    setTimeout(() => setSavedToast(null), 2600);
-  };
-
-  const handleSave = () => {
-    saveSettings(localSettings);
     setDraftSettings(null);
-    showToast('Settings saved and published to the live website.');
   };
 
-  const handleConfirmReset = () => {
+  const handleSave = async () => {
+    if (saving) return;
+    setSaving(true);
+    const result = await saveSettings(localSettings);
+    setSaving(false);
+
+    if (!result.ok) {
+      if (result.error?.toLowerCase().includes('unauthorized')) {
+        setIsAuthenticated(false);
+      }
+      showToast(result.error || 'Failed to save settings.', 'error');
+      return;
+    }
+
     setDraftSettings(null);
-    saveSettings(DEFAULT_SETTINGS);
-    setEditingAdId(null);
+    if (result.persisted) {
+      showToast('Settings saved and published globally.', 'success');
+    } else {
+      showToast(
+        result.notice ||
+          'Settings updated in active session, but no persistent storage env vars are configured.',
+        'warning'
+      );
+    }
+  };
+
+  const handleConfirmReset = async () => {
+    if (saving) return;
+    setSaving(true);
+    const result = await saveSettings(DEFAULT_SETTINGS);
+    setSaving(false);
     setConfirmDialog(null);
-    showToast('All settings have been reset to defaults.');
+
+    if (!result.ok) {
+      showToast(result.error || 'Failed to reset settings.', 'error');
+      return;
+    }
+
+    setDraftSettings(null);
+    setEditingAdId(null);
+    showToast(
+      result.persisted
+        ? 'All settings have been reset to defaults.'
+        : result.notice || 'Settings reset in session (no external DB configured).',
+      result.persisted ? 'success' : 'warning'
+    );
   };
 
   const handleAddAd = () => {
@@ -283,10 +368,21 @@ export default function AdminTikTokPage() {
             </h1>
 
             <p className="text-xs text-center text-[var(--ink-secondary)] mt-1.5 leading-relaxed">
-              Enter your administrator password to manage site settings, download timer, and ad slots.
+              Enter your administrator password configured via server environment variables to manage global site settings.
             </p>
 
-            <form onSubmit={handleLogin} className="mt-6 flex flex-col gap-3.5">
+            {!adminConfigured && (
+              <div
+                role="alert"
+                className="mt-4 p-3 rounded-lg bg-amber-50 border border-amber-200 text-amber-900 text-xs leading-relaxed"
+              >
+                <strong>Setup required:</strong> Set the{' '}
+                <code className="font-mono font-semibold">ADMIN_PASSWORD</code>{' '}
+                environment variable on your server before signing in.
+              </div>
+            )}
+
+            <form onSubmit={(e) => void handleLogin(e)} className="mt-6 flex flex-col gap-3.5">
               <div>
                 <label
                   htmlFor="admin-password-input"
@@ -299,10 +395,11 @@ export default function AdminTikTokPage() {
                   type="password"
                   value={passwordInput}
                   onChange={(e) => setPasswordInput(e.target.value)}
-                  placeholder="Enter admin password..."
+                  placeholder="Enter server admin password..."
                   required
+                  disabled={!adminConfigured || authSubmitting}
                   autoFocus
-                  className="w-full h-10 px-3 rounded-lg border border-[var(--border-subtle)] bg-[var(--surface-canvas)] text-[var(--ink-primary)] text-xs focus:bg-[var(--surface-elevated)] focus:outline-none focus:border-[var(--accent-primary)] focus:ring-2 focus:ring-[var(--accent-primary)]/15 transition-colors"
+                  className="w-full h-10 px-3 rounded-lg border border-[var(--border-subtle)] bg-[var(--surface-canvas)] text-[var(--ink-primary)] text-xs focus:bg-[var(--surface-elevated)] focus:outline-none focus:border-[var(--accent-primary)] focus:ring-2 focus:ring-[var(--accent-primary)]/15 transition-colors disabled:opacity-60"
                 />
               </div>
 
@@ -318,20 +415,21 @@ export default function AdminTikTokPage() {
 
               <button
                 type="submit"
-                className="w-full h-10 px-4 rounded-lg bg-[var(--accent-primary)] hover:bg-[var(--accent-primary-hover)] text-[var(--accent-contrast)] font-semibold text-xs flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+                disabled={!adminConfigured || authSubmitting}
+                className="w-full h-10 px-4 rounded-lg bg-[var(--accent-primary)] hover:bg-[var(--accent-primary-hover)] disabled:bg-[var(--state-disabled-bg)] disabled:text-[var(--state-disabled-ink)] text-[var(--accent-contrast)] font-semibold text-xs flex items-center justify-center gap-1.5 transition-colors cursor-pointer disabled:cursor-not-allowed"
               >
-                <Unlock className="w-3.5 h-3.5" />
-                <span>Unlock Admin Dashboard</span>
+                {authSubmitting ? (
+                  <>
+                    <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                    <span>Verifying...</span>
+                  </>
+                ) : (
+                  <>
+                    <Unlock className="w-3.5 h-3.5" />
+                    <span>Unlock Admin Dashboard</span>
+                  </>
+                )}
               </button>
-
-              <div className="text-center pt-1">
-                <span className="text-[11px] text-[var(--ink-muted)]">
-                  Default password:{' '}
-                  <code className="bg-[var(--surface-sunken)] border border-[var(--border-subtle)] px-1.5 py-0.5 rounded font-mono text-[var(--ink-primary)] font-semibold">
-                    {ADMIN_PASSWORD_DEFAULT}
-                  </code>
-                </span>
-              </div>
             </form>
           </div>
         </main>
@@ -349,7 +447,6 @@ export default function AdminTikTokPage() {
           sidebarCollapsed ? 'w-[72px]' : 'w-60'
         }`}
       >
-        {/* Sidebar Brand Header */}
         <div className="h-16 px-4 border-b border-[var(--border-subtle)] flex items-center justify-between gap-2">
           {!sidebarCollapsed && (
             <Link href="/" className="flex items-center gap-2.5 min-w-0">
@@ -386,7 +483,6 @@ export default function AdminTikTokPage() {
           </button>
         </div>
 
-        {/* Sidebar Navigation Groups */}
         <nav aria-label="Admin Navigation" className="flex-1 p-3 space-y-5 overflow-y-auto">
           {NAV_GROUPS.map((group) => (
             <div key={group.group}>
@@ -428,7 +524,6 @@ export default function AdminTikTokPage() {
           ))}
         </nav>
 
-        {/* Sidebar Footer */}
         <div className="p-3 border-t border-[var(--border-subtle)] space-y-1">
           <Link
             href="/"
@@ -443,7 +538,7 @@ export default function AdminTikTokPage() {
 
           <button
             type="button"
-            onClick={handleLogout}
+            onClick={() => void handleLogout()}
             className={`w-full h-9 px-2.5 rounded-lg text-xs font-medium text-[var(--accent-primary-text)] hover:bg-[var(--accent-soft)] flex items-center gap-2.5 transition-colors cursor-pointer ${
               sidebarCollapsed ? 'justify-center' : ''
             }`}
@@ -457,7 +552,6 @@ export default function AdminTikTokPage() {
 
       {/* Main Dashboard Shell */}
       <div className="flex-1 min-w-0 flex flex-col">
-        {/* Top Dashboard Bar */}
         <header className="sticky top-0 z-30 h-16 bg-[var(--surface-elevated)] border-b border-[var(--border-subtle)] px-4 sm:px-6 flex items-center justify-between gap-3">
           <div className="flex items-center gap-3 min-w-0">
             <div className="md:hidden w-8 h-8 rounded-lg bg-[var(--surface-sunken)] border border-[var(--border-subtle)] flex items-center justify-center shrink-0">
@@ -497,8 +591,9 @@ export default function AdminTikTokPage() {
 
             <button
               type="button"
+              disabled={saving}
               onClick={() => setConfirmDialog({ type: 'reset' })}
-              className="h-9 px-3 rounded-lg border border-[var(--border-subtle)] bg-[var(--surface-elevated)] hover:bg-[var(--surface-sunken)] text-[var(--ink-secondary)] hover:text-[var(--ink-primary)] text-xs font-medium inline-flex items-center gap-1.5 cursor-pointer transition-colors"
+              className="h-9 px-3 rounded-lg border border-[var(--border-subtle)] bg-[var(--surface-elevated)] hover:bg-[var(--surface-sunken)] text-[var(--ink-secondary)] hover:text-[var(--ink-primary)] text-xs font-medium inline-flex items-center gap-1.5 cursor-pointer transition-colors disabled:opacity-60"
             >
               <RotateCcw className="w-3.5 h-3.5" />
               <span className="hidden sm:inline">Reset</span>
@@ -506,16 +601,21 @@ export default function AdminTikTokPage() {
 
             <button
               type="button"
-              onClick={handleSave}
-              className="h-9 px-3.5 rounded-lg bg-[var(--accent-primary)] hover:bg-[var(--accent-primary-hover)] text-[var(--accent-contrast)] text-xs font-semibold inline-flex items-center gap-1.5 cursor-pointer transition-colors"
+              disabled={saving}
+              onClick={() => void handleSave()}
+              className="h-9 px-3.5 rounded-lg bg-[var(--accent-primary)] hover:bg-[var(--accent-primary-hover)] disabled:opacity-60 text-[var(--accent-contrast)] text-xs font-semibold inline-flex items-center gap-1.5 cursor-pointer transition-colors"
             >
-              <Save className="w-3.5 h-3.5" />
-              <span>Save Changes</span>
+              {saving ? (
+                <Loader2 className="w-3.5 h-3.5 animate-spin" />
+              ) : (
+                <Save className="w-3.5 h-3.5" />
+              )}
+              <span>{saving ? 'Saving...' : 'Save Changes'}</span>
             </button>
 
             <button
               type="button"
-              onClick={handleLogout}
+              onClick={() => void handleLogout()}
               className="md:hidden h-9 w-9 rounded-lg border border-[var(--border-subtle)] bg-[var(--surface-elevated)] text-[var(--accent-primary-text)] flex items-center justify-center cursor-pointer"
               aria-label="Log out"
             >
@@ -524,7 +624,6 @@ export default function AdminTikTokPage() {
           </div>
         </header>
 
-        {/* Mobile Section Switcher */}
         <div className="md:hidden bg-[var(--surface-elevated)] border-b border-[var(--border-subtle)] px-4 py-2 flex items-center gap-1.5 overflow-x-auto">
           {NAV_GROUPS.flatMap((g) => g.items).map((item) => {
             const isActive = activeSection === item.id;
@@ -545,23 +644,44 @@ export default function AdminTikTokPage() {
           })}
         </div>
 
-        {/* Workspace Content */}
         <main className="flex-1 p-4 sm:p-6 lg:p-8 max-w-6xl w-full mx-auto space-y-6">
-          {/* Save Toast */}
-          {savedToast && (
-            <div
-              role="status"
-              className="p-3.5 rounded-xl bg-[var(--accent-cyan-soft)] border border-[var(--accent-cyan)] text-[var(--ink-primary)] text-xs font-semibold flex items-center gap-2"
-            >
-              <Check className="w-4 h-4 text-[var(--accent-cyan-text)] shrink-0" />
-              <span>{savedToast}</span>
+          {storageBackend === 'none' && (
+            <div className="p-3.5 rounded-xl bg-amber-50 border border-amber-200 text-amber-950 text-xs flex items-start gap-2.5">
+              <AlertTriangle className="w-4 h-4 text-amber-700 shrink-0 mt-0.5" />
+              <div>
+                <span className="font-semibold">Global storage fallback active:</span>{' '}
+                Configure <code className="font-mono">UPSTASH_REDIS_REST_URL</code> +{' '}
+                <code className="font-mono">UPSTASH_REDIS_REST_TOKEN</code> (or{' '}
+                <code className="font-mono">EDGE_CONFIG</code> +{' '}
+                <code className="font-mono">VERCEL_API_TOKEN</code>) to persist settings across serverless deployments.
+              </div>
             </div>
           )}
 
-          {/* OVERVIEW SECTION */}
+          {toast && (
+            <div
+              role="status"
+              className={`p-3.5 rounded-xl border text-xs font-semibold flex items-center gap-2 ${
+                toast.type === 'error'
+                  ? 'bg-[var(--status-danger-bg)] border-[var(--status-danger-border)] text-[var(--ink-primary)]'
+                  : toast.type === 'warning'
+                  ? 'bg-amber-50 border-amber-200 text-amber-950'
+                  : 'bg-[var(--accent-cyan-soft)] border-[var(--accent-cyan)] text-[var(--ink-primary)]'
+              }`}
+            >
+              {toast.type === 'error' ? (
+                <ShieldAlert className="w-4 h-4 text-[var(--status-danger)] shrink-0" />
+              ) : toast.type === 'warning' ? (
+                <AlertTriangle className="w-4 h-4 text-amber-700 shrink-0" />
+              ) : (
+                <Check className="w-4 h-4 text-[var(--accent-cyan-text)] shrink-0" />
+              )}
+              <span>{toast.message}</span>
+            </div>
+          )}
+
           {activeSection === 'overview' && (
             <div className="space-y-6">
-              {/* 4 Clean KPI Cards (Real Settings State Only) */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 tabular-nums">
                 <div className="p-5 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)] shadow-[var(--shadow-card)]">
                   <div className="flex items-center justify-between text-xs font-medium text-[var(--ink-muted)] mb-2">
@@ -619,7 +739,6 @@ export default function AdminTikTokPage() {
                 </div>
               </div>
 
-              {/* Overview Ad Slots Table */}
               <div className="rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)] shadow-[var(--shadow-card)] overflow-hidden">
                 <div className="px-5 py-4 border-b border-[var(--border-subtle)] flex items-center justify-between gap-3">
                   <div>
@@ -699,7 +818,6 @@ export default function AdminTikTokPage() {
             </div>
           )}
 
-          {/* COUNTER & MODAL SECTION */}
           {activeSection === 'counter' && (
             <div className="space-y-5 max-w-3xl">
               <div className="p-6 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)] shadow-[var(--shadow-card)] space-y-5">
@@ -820,10 +938,8 @@ export default function AdminTikTokPage() {
             </div>
           )}
 
-          {/* AD PLACEMENTS SECTION */}
           {activeSection === 'ads' && (
             <div className="space-y-5">
-              {/* Filter & Action Toolbar */}
               <div className="p-4 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)] shadow-[var(--shadow-card)] flex flex-col lg:flex-row lg:items-center justify-between gap-3">
                 <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 flex-1">
                   <div className="relative flex-1 max-w-xs">
@@ -876,7 +992,6 @@ export default function AdminTikTokPage() {
                 </button>
               </div>
 
-              {/* Structured Ad Placements Data Table */}
               <div className="rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)] shadow-[var(--shadow-card)] overflow-hidden">
                 <div className="overflow-x-auto">
                   <table className="w-full text-start border-collapse text-xs">
@@ -980,7 +1095,6 @@ export default function AdminTikTokPage() {
                 </div>
               </div>
 
-              {/* Active Ad Slot Editor Panel */}
               {activeEditingAd && (
                 <div className="p-5 sm:p-6 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-strong)] shadow-[var(--shadow-card)] space-y-4">
                   <div className="flex items-center justify-between gap-2 pb-3 border-b border-[var(--border-subtle)]">
@@ -1122,7 +1236,6 @@ export default function AdminTikTokPage() {
             </div>
           )}
 
-          {/* BRAND & SCRIPTS SECTION */}
           {activeSection === 'general' && (
             <div className="space-y-5 max-w-3xl">
               <div className="p-6 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-subtle)] shadow-[var(--shadow-card)] space-y-4">
@@ -1181,7 +1294,7 @@ export default function AdminTikTokPage() {
                     Custom Head Scripts &amp; Analytics
                   </h2>
                   <p className="text-xs text-[var(--ink-secondary)] mt-1 leading-relaxed">
-                    Add Google Tag Manager, Google Analytics, or site verification meta tags.
+                    Add Google Tag Manager, Google Analytics, or site verification meta tags (`&lt;meta&gt;`, `&lt;link&gt;`, `&lt;script&gt;`).
                   </p>
                 </div>
                 <textarea
@@ -1203,7 +1316,6 @@ export default function AdminTikTokPage() {
         </main>
       </div>
 
-      {/* Confirmation Dialog Modal (Reset / Delete Ad) */}
       <AnimatePresence>
         {confirmDialog && (
           <MotionModalBackdrop
@@ -1243,12 +1355,13 @@ export default function AdminTikTokPage() {
                 </button>
                 <button
                   type="button"
+                  disabled={saving}
                   onClick={() =>
                     confirmDialog.type === 'reset'
-                      ? handleConfirmReset()
+                      ? void handleConfirmReset()
                       : confirmDialog.adId && handleConfirmDeleteAd(confirmDialog.adId)
                   }
-                  className="h-9 px-3.5 rounded-lg bg-[var(--accent-primary)] hover:bg-[var(--accent-primary-hover)] text-[var(--accent-contrast)] text-xs font-semibold cursor-pointer transition-colors"
+                  className="h-9 px-3.5 rounded-lg bg-[var(--accent-primary)] hover:bg-[var(--accent-primary-hover)] text-[var(--accent-contrast)] text-xs font-semibold cursor-pointer transition-colors disabled:opacity-60"
                 >
                   {confirmDialog.type === 'reset' ? 'Reset Defaults' : 'Delete Slot'}
                 </button>

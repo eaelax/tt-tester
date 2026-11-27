@@ -1,151 +1,141 @@
 'use client';
 
-import { useSyncExternalStore } from 'react';
+import { useEffect, useSyncExternalStore } from 'react';
+import {
+  DEFAULT_SETTINGS,
+  SiteSettings,
+  AdPlacement,
+  sanitizeSiteSettings,
+} from './settings-defaults';
 
-export interface AdPlacement {
-  id: string;
-  name: string;
-  placement: 'modal' | 'header' | 'above_grid' | 'in_grid' | 'footer' | 'sidebar';
-  dimension: 'responsive' | '728x90' | '300x250' | '336x280' | '320x100' | '300x600';
-  code: string;
-  enabled: boolean;
-  notes?: string;
+export { DEFAULT_SETTINGS, type SiteSettings, type AdPlacement };
+
+export interface SaveSettingsResponse {
+  ok: boolean;
+  persisted?: boolean;
+  backend?: string;
+  notice?: string;
+  error?: string;
 }
 
-export interface SiteSettings {
-  siteName: string;
-  domainName: string;
-  downloadCounterSeconds: number;
-  downloadPreparingText: string;
-  downloadSuccessText: string;
-  announcementEnabled: boolean;
-  announcementText: string;
-  announcementLink?: string;
-  customHeadCode?: string;
-  ads: AdPlacement[];
-}
-
-export const DEFAULT_SETTINGS: SiteSettings = {
-  siteName: 'Tik Profiles Viewer',
-  domainName: 'TikProfilesViewer.com',
-  downloadCounterSeconds: 5,
-  downloadPreparingText: 'Preparing clean HD video stream in background...',
-  downloadSuccessText: 'Your download is ready! Starting download...',
-  announcementEnabled: false,
-  announcementText: 'New: High-speed HD Video and MP3 Audio Downloader without watermarks.',
-  announcementLink: '/tiktok-video-downloader',
-  customHeadCode: '',
-  ads: [
-    {
-      id: 'ad-modal-1',
-      name: 'Download Modal Sponsored Banner',
-      placement: 'modal',
-      dimension: '300x250',
-      code: '',
-      enabled: false,
-      notes: 'Shown inside the countdown download modal while preparing the video.',
-    },
-    {
-      id: 'ad-header-1',
-      name: 'Header Top Leaderboard',
-      placement: 'header',
-      dimension: '728x90',
-      code: '',
-      enabled: false,
-      notes: 'Displayed on top of pages under navigation.',
-    },
-    {
-      id: 'ad-above-grid-1',
-      name: 'Above Videos Grid Banner',
-      placement: 'above_grid',
-      dimension: 'responsive',
-      code: '',
-      enabled: false,
-      notes: 'Placed above the TikTok videos grid for high engagement.',
-    },
-    {
-      id: 'ad-footer-1',
-      name: 'Footer Leaderboard Banner',
-      placement: 'footer',
-      dimension: '728x90',
-      code: '',
-      enabled: false,
-      notes: 'Placed directly above the main footer columns.',
-    },
-  ],
-};
-
-const SETTINGS_KEY = 'tpv_site_settings_v1';
 const SETTINGS_CHANGE_EVENT = 'tpv_settings_updated';
 
-export function getStoredSettings(): SiteSettings {
-  if (typeof window === 'undefined') return DEFAULT_SETTINGS;
+let memorySettings: SiteSettings = DEFAULT_SETTINGS;
+let hasHydratedFromServer = false;
+let hydrationPromise: Promise<void> | null = null;
+
+function notifySubscribers() {
+  if (typeof window !== 'undefined') {
+    window.dispatchEvent(new CustomEvent(SETTINGS_CHANGE_EVENT));
+  }
+}
+
+async function hydrateFromServer(): Promise<void> {
+  if (typeof window === 'undefined' || hasHydratedFromServer) return;
+  if (hydrationPromise) return hydrationPromise;
+
+  hydrationPromise = (async () => {
+    try {
+      const res = await fetch('/api/settings', {
+        method: 'GET',
+        headers: { Accept: 'application/json' },
+        cache: 'no-store',
+      });
+      if (res.ok) {
+        const json = (await res.json()) as { settings?: unknown };
+        if (json?.settings) {
+          memorySettings = sanitizeSiteSettings(json.settings);
+          hasHydratedFromServer = true;
+          notifySubscribers();
+        }
+      }
+    } catch {
+      // Graceful fallback to DEFAULT_SETTINGS
+    } finally {
+      hydrationPromise = null;
+    }
+  })();
+
+  return hydrationPromise;
+}
+
+export async function saveGlobalSettings(
+  newSettings: SiteSettings
+): Promise<SaveSettingsResponse> {
   try {
-    const raw = localStorage.getItem(SETTINGS_KEY);
-    if (!raw) return DEFAULT_SETTINGS;
-    const parsed = JSON.parse(raw);
-    const cleanedAds = Array.isArray(parsed.ads)
-      ? parsed.ads.map((ad: AdPlacement) => {
-          if (ad.code && ad.code.includes('ad-placeholder')) {
-            return { ...ad, code: '', enabled: false };
-          }
-          return ad;
-        })
-      : DEFAULT_SETTINGS.ads;
+    const res = await fetch('/api/settings', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify(newSettings),
+    });
+
+    const json = (await res.json()) as {
+      settings?: unknown;
+      persisted?: boolean;
+      backend?: string;
+      notice?: string;
+      error?: string;
+    };
+
+    if (!res.ok) {
+      return {
+        ok: false,
+        error: json.error || `Failed to save settings (HTTP ${res.status}).`,
+      };
+    }
+
+    if (json.settings) {
+      memorySettings = sanitizeSiteSettings(json.settings);
+      hasHydratedFromServer = true;
+      notifySubscribers();
+    }
 
     return {
-      ...DEFAULT_SETTINGS,
-      ...parsed,
-      ads: cleanedAds,
+      ok: true,
+      persisted: Boolean(json.persisted),
+      backend: json.backend,
+      notice: json.notice,
     };
-  } catch (err) {
-    console.warn('Failed to parse stored settings:', err);
-    return DEFAULT_SETTINGS;
+  } catch (err: unknown) {
+    return {
+      ok: false,
+      error: err instanceof Error ? err.message : 'Network error saving settings.',
+    };
   }
 }
-
-export function saveStoredSettings(settings: SiteSettings) {
-  if (typeof window === 'undefined') return;
-  try {
-    localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings));
-    window.dispatchEvent(new CustomEvent(SETTINGS_CHANGE_EVENT, { detail: settings }));
-  } catch (err) {
-    console.error('Failed to save settings:', err);
-  }
-}
-
-let memoryCache: SiteSettings | null = null;
-let lastRaw: string | null = null;
 
 function subscribe(callback: () => void) {
   if (typeof window === 'undefined') return () => {};
   window.addEventListener(SETTINGS_CHANGE_EVENT, callback);
-  window.addEventListener('storage', callback);
   return () => {
     window.removeEventListener(SETTINGS_CHANGE_EVENT, callback);
-    window.removeEventListener('storage', callback);
   };
 }
 
 function getSnapshot(): SiteSettings {
-  if (typeof window === 'undefined') return DEFAULT_SETTINGS;
-  const raw = localStorage.getItem(SETTINGS_KEY);
-  if (raw === lastRaw && memoryCache) return memoryCache;
-  lastRaw = raw;
-  memoryCache = getStoredSettings();
-  return memoryCache;
+  return memorySettings;
 }
 
 function getServerSnapshot(): SiteSettings {
   return DEFAULT_SETTINGS;
 }
 
-export function useSiteSettings(): [SiteSettings, (newSettings: SiteSettings) => void] {
-  const settings = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+export function useSiteSettings(): [
+  SiteSettings,
+  (newSettings: SiteSettings) => Promise<SaveSettingsResponse>,
+] {
+  const settings = useSyncExternalStore(
+    subscribe,
+    getSnapshot,
+    getServerSnapshot
+  );
 
-  const update = (newSettings: SiteSettings) => {
-    saveStoredSettings(newSettings);
-  };
+  useEffect(() => {
+    void hydrateFromServer();
+  }, []);
 
-  return [settings, update];
+  return [settings, saveGlobalSettings];
 }
