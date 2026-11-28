@@ -1,23 +1,66 @@
 import { NextRequest, NextResponse } from 'next/server';
 import {
   ADMIN_COOKIE_NAME,
-  ADMIN_SESSION_TTL_SECONDS,
   createAdminSessionCookieValue,
+  getAdminCookieOptions,
   isAdminConfigured,
   verifyAdminPassword,
 } from '@/lib/admin-auth';
+import {
+  API_SECURITY_HEADERS,
+  checkRateLimit,
+  getClientIp,
+  isValidSameOrigin,
+} from '@/lib/security';
+
+const MAX_LOGIN_ATTEMPTS = 6;
+const LOGIN_WINDOW_MS = 15 * 60 * 1000;
 
 export async function POST(req: NextRequest) {
+  const baseHeaders = {
+    ...API_SECURITY_HEADERS,
+    'Cache-Control': 'no-store',
+  };
+
+  if (!isValidSameOrigin(req)) {
+    return NextResponse.json(
+      { authenticated: false, error: 'Cross-origin request rejected.' },
+      { status: 403, headers: baseHeaders }
+    );
+  }
+
+  const clientIp = getClientIp(req.headers);
+  const limit = checkRateLimit(
+    `admin_login:${clientIp}`,
+    MAX_LOGIN_ATTEMPTS,
+    LOGIN_WINDOW_MS
+  );
+
+  if (!limit.allowed) {
+    return NextResponse.json(
+      {
+        authenticated: false,
+        error: 'Too many login attempts. Please wait and try again later.',
+      },
+      {
+        status: 429,
+        headers: {
+          ...baseHeaders,
+          'Retry-After': String(limit.retryAfterSeconds),
+        },
+      }
+    );
+  }
+
   if (!isAdminConfigured()) {
     return NextResponse.json(
       {
         authenticated: false,
-        error:
-          'ADMIN_PASSWORD environment variable is not configured on the server.',
+        error: 'Server admin authentication is not configured.',
       },
       {
         status: 503,
-        headers: { 'Cache-Control': 'no-store' },
+        headers: baseHeaders,
       }
     );
   }
@@ -31,17 +74,20 @@ export async function POST(req: NextRequest) {
       { authenticated: false, error: 'Invalid JSON payload.' },
       {
         status: 400,
-        headers: { 'Cache-Control': 'no-store' },
+        headers: baseHeaders,
       }
     );
   }
 
-  if (!verifyAdminPassword(password)) {
+  if (!password || !verifyAdminPassword(password)) {
     return NextResponse.json(
-      { authenticated: false, error: 'Wrong admin password. Please check and try again.' },
+      {
+        authenticated: false,
+        error: 'Wrong admin password. Please check and try again.',
+      },
       {
         status: 401,
-        headers: { 'Cache-Control': 'no-store' },
+        headers: baseHeaders,
       }
     );
   }
@@ -51,17 +97,11 @@ export async function POST(req: NextRequest) {
     { authenticated: true },
     {
       status: 200,
-      headers: { 'Cache-Control': 'no-store' },
+      headers: baseHeaders,
     }
   );
 
-  res.cookies.set(ADMIN_COOKIE_NAME, token, {
-    httpOnly: true,
-    sameSite: 'lax',
-    secure: process.env.NODE_ENV === 'production',
-    path: '/',
-    maxAge: ADMIN_SESSION_TTL_SECONDS,
-  });
+  res.cookies.set(ADMIN_COOKIE_NAME, token, getAdminCookieOptions());
 
   return res;
 }

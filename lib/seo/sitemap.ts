@@ -19,6 +19,7 @@ export interface SitemapRouteConfig {
   path: string;
   changefreq: SitemapChangeFreq;
   priority: number;
+  lastmod?: string;
 }
 
 export interface SitemapAlternate {
@@ -41,14 +42,25 @@ export interface SitemapIndexEntry {
 
 export const CREATORS_PER_SITEMAP = 1000;
 
-const CORE_AND_TOOL_ROUTES: SitemapRouteConfig[] = [
+const DEFAULT_CONTENT_LASTMOD = '2026-11-28T00:00:00.000Z';
+const LEGAL_CONTENT_LASTMOD = '2026-11-06T00:00:00.000Z';
+
+function getStableContentLastmod(): string {
+  const envDate = (process.env.SITE_CONTENT_LASTMOD || '').trim();
+  if (envDate && !Number.isNaN(Date.parse(envDate))) {
+    return new Date(envDate).toISOString();
+  }
+  return DEFAULT_CONTENT_LASTMOD;
+}
+
+export const CORE_AND_TOOL_ROUTES: SitemapRouteConfig[] = [
   { path: '/', changefreq: 'daily', priority: 1.0 },
-  { path: '/tiktok-video-downloader', changefreq: 'daily', priority: 0.95 },
-  { path: '/tiktok-mp3-downloader', changefreq: 'daily', priority: 0.9 },
-  { path: '/tiktok-profile-viewer', changefreq: 'daily', priority: 0.9 },
-  { path: '/tiktok-story-downloader', changefreq: 'daily', priority: 0.9 },
-  { path: '/tiktok-photo-downloader', changefreq: 'daily', priority: 0.9 },
-  { path: '/tiktok-watermark-remover', changefreq: 'daily', priority: 0.9 },
+  { path: '/tiktok-video-downloader', changefreq: 'weekly', priority: 0.95 },
+  { path: '/tiktok-mp3-downloader', changefreq: 'weekly', priority: 0.9 },
+  { path: '/tiktok-profile-viewer', changefreq: 'weekly', priority: 0.9 },
+  { path: '/tiktok-story-downloader', changefreq: 'weekly', priority: 0.9 },
+  { path: '/tiktok-photo-downloader', changefreq: 'weekly', priority: 0.9 },
+  { path: '/tiktok-watermark-remover', changefreq: 'weekly', priority: 0.9 },
   { path: '/tiktok-analytics', changefreq: 'weekly', priority: 0.85 },
   { path: '/tiktok-money-calculator', changefreq: 'weekly', priority: 0.85 },
   { path: '/tiktok-engagement-calculator', changefreq: 'weekly', priority: 0.85 },
@@ -59,19 +71,19 @@ const CORE_AND_TOOL_ROUTES: SitemapRouteConfig[] = [
   { path: '/how-to-use-tiktok-profile-viewer', changefreq: 'monthly', priority: 0.8 },
 ];
 
-const LEGAL_ROUTES: SitemapRouteConfig[] = [
-  { path: '/terms-of-service', changefreq: 'monthly', priority: 0.6 },
-  { path: '/privacy-policy', changefreq: 'monthly', priority: 0.6 },
-  { path: '/cookie-policy', changefreq: 'monthly', priority: 0.6 },
-  { path: '/disclaimer', changefreq: 'monthly', priority: 0.6 },
-  { path: '/legal-notice', changefreq: 'monthly', priority: 0.6 },
-  { path: '/copyright-policy', changefreq: 'monthly', priority: 0.6 },
-  { path: '/tiktok-independence-disclaimer', changefreq: 'monthly', priority: 0.6 },
-  { path: '/public-content-policy', changefreq: 'monthly', priority: 0.6 },
-  { path: '/content-removal-policy', changefreq: 'monthly', priority: 0.6 },
-  { path: '/acceptable-use-policy', changefreq: 'monthly', priority: 0.6 },
-  { path: '/security-policy', changefreq: 'monthly', priority: 0.6 },
-  { path: '/service-availability-policy', changefreq: 'monthly', priority: 0.6 },
+export const LEGAL_ROUTES: SitemapRouteConfig[] = [
+  { path: '/terms-of-service', changefreq: 'monthly', priority: 0.6, lastmod: LEGAL_CONTENT_LASTMOD },
+  { path: '/privacy-policy', changefreq: 'monthly', priority: 0.6, lastmod: LEGAL_CONTENT_LASTMOD },
+  { path: '/cookie-policy', changefreq: 'monthly', priority: 0.6, lastmod: LEGAL_CONTENT_LASTMOD },
+  { path: '/disclaimer', changefreq: 'monthly', priority: 0.6, lastmod: LEGAL_CONTENT_LASTMOD },
+  { path: '/legal-notice', changefreq: 'monthly', priority: 0.6, lastmod: LEGAL_CONTENT_LASTMOD },
+  { path: '/copyright-policy', changefreq: 'monthly', priority: 0.6, lastmod: LEGAL_CONTENT_LASTMOD },
+  { path: '/tiktok-independence-disclaimer', changefreq: 'monthly', priority: 0.6, lastmod: LEGAL_CONTENT_LASTMOD },
+  { path: '/public-content-policy', changefreq: 'monthly', priority: 0.6, lastmod: LEGAL_CONTENT_LASTMOD },
+  { path: '/content-removal-policy', changefreq: 'monthly', priority: 0.6, lastmod: LEGAL_CONTENT_LASTMOD },
+  { path: '/acceptable-use-policy', changefreq: 'monthly', priority: 0.6, lastmod: LEGAL_CONTENT_LASTMOD },
+  { path: '/security-policy', changefreq: 'monthly', priority: 0.6, lastmod: LEGAL_CONTENT_LASTMOD },
+  { path: '/service-availability-policy', changefreq: 'monthly', priority: 0.6, lastmod: LEGAL_CONTENT_LASTMOD },
 ];
 
 export function getBaseUrl(): string {
@@ -107,17 +119,18 @@ function buildLocalizedAlternates(
 function expandLocalizedRoutes(
   routes: SitemapRouteConfig[],
   baseUrl: string,
-  lastmod: string
+  fallbackLastmod: string
 ): SitemapUrlEntry[] {
   const entries: SitemapUrlEntry[] = [];
 
   for (const route of routes) {
     const alternates = buildLocalizedAlternates(baseUrl, route.path);
+    const routeLastmod = route.lastmod || fallbackLastmod;
     for (const lang of SUPPORTED_LANGUAGES) {
       const localizedPath = localizeHref(route.path, lang.code as LanguageCode);
       entries.push({
         loc: `${baseUrl}${localizedPath}`,
-        lastmod,
+        lastmod: routeLastmod,
         changefreq: route.changefreq,
         priority: route.priority,
         alternates,
@@ -134,7 +147,7 @@ export function getCreatorChunkCount(): number {
 
 export function getSitemapIndexEntries(): SitemapIndexEntry[] {
   const baseUrl = getBaseUrl();
-  const lastmod = new Date().toISOString();
+  const lastmod = getStableContentLastmod();
   const entries: SitemapIndexEntry[] = [
     { loc: `${baseUrl}/sitemaps/pages.xml`, lastmod },
     { loc: `${baseUrl}/sitemaps/categories.xml`, lastmod },
@@ -192,13 +205,13 @@ export function buildUrlSetXml(entries: SitemapUrlEntry[]): string {
 
 export function getSubSitemapXml(name: string): string | null {
   const baseUrl = getBaseUrl();
-  const lastmod = new Date().toISOString();
+  const contentLastmod = getStableContentLastmod();
 
   if (name === 'pages.xml') {
     const entries = expandLocalizedRoutes(
       [...CORE_AND_TOOL_ROUTES, ...LEGAL_ROUTES],
       baseUrl,
-      lastmod
+      contentLastmod
     );
     return buildUrlSetXml(entries);
   }
@@ -206,10 +219,11 @@ export function getSubSitemapXml(name: string): string | null {
   if (name === 'categories.xml') {
     const categoryRoutes: SitemapRouteConfig[] = CATEGORIES.map((cat) => ({
       path: `/category/${encodeURIComponent(cat.slug)}`,
-      changefreq: 'daily',
+      changefreq: 'weekly',
       priority: 0.8,
+      lastmod: contentLastmod,
     }));
-    const entries = expandLocalizedRoutes(categoryRoutes, baseUrl, lastmod);
+    const entries = expandLocalizedRoutes(categoryRoutes, baseUrl, contentLastmod);
     return buildUrlSetXml(entries);
   }
 
@@ -228,9 +242,10 @@ export function getSubSitemapXml(name: string): string | null {
       path: `/profile/${encodeURIComponent(creator.username)}`,
       changefreq: 'daily',
       priority: 0.85,
+      lastmod: contentLastmod,
     }));
 
-    const entries = expandLocalizedRoutes(creatorRoutes, baseUrl, lastmod);
+    const entries = expandLocalizedRoutes(creatorRoutes, baseUrl, contentLastmod);
     return buildUrlSetXml(entries);
   }
 

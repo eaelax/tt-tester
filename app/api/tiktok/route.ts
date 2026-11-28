@@ -1,4 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
+import {
+  API_SECURITY_HEADERS,
+  checkRateLimit,
+  getClientIp,
+  safeFetchTikTokWithRedirects,
+} from '@/lib/security';
 
 interface TikTokUser {
   id: string;
@@ -56,6 +62,8 @@ type JsonRecord = Record<string, unknown>;
 
 const UPSTREAM_TIMEOUT_MS = 3800;
 const EDGE_CACHE_HEADER = 'public, s-maxage=300, stale-while-revalidate=900';
+const MAX_REQUESTS_PER_MINUTE = 35;
+const RATE_LIMIT_WINDOW_MS = 60 * 1000;
 
 const DESKTOP_BROWSER_HEADERS: Record<string, string> = {
   'User-Agent':
@@ -305,13 +313,13 @@ async function scrapeProfileHtml(username: string): Promise<{
   const profileUrl = `https://www.tiktok.com/@${encodeURIComponent(username)}`;
 
   try {
-    const res = await fetch(profileUrl, {
-      headers: DESKTOP_BROWSER_HEADERS,
-      cache: 'no-store',
-      signal: AbortSignal.timeout(UPSTREAM_TIMEOUT_MS),
-    });
+    const res = await safeFetchTikTokWithRedirects(
+      profileUrl,
+      DESKTOP_BROWSER_HEADERS,
+      UPSTREAM_TIMEOUT_MS
+    );
 
-    if (!res.ok) return null;
+    if (!res || !res.ok) return null;
     const html = await res.text();
 
     const rehydrationMatch = html.match(
@@ -542,21 +550,18 @@ async function fetchCreatorItemList(
       webcast_language: 'en',
     });
 
-    const res = await fetch(
+    const res = await safeFetchTikTokWithRedirects(
       `https://www.tiktok.com/api/creator/item_list/?${params.toString()}`,
       {
-        headers: {
-          'User-Agent': DESKTOP_BROWSER_HEADERS['User-Agent'],
-          Accept: 'application/json, text/plain, */*',
-          'Accept-Language': 'en-US,en;q=0.9',
-          Referer: `https://www.tiktok.com/@${encodeURIComponent(username)}`,
-        },
-        cache: 'no-store',
-        signal: AbortSignal.timeout(UPSTREAM_TIMEOUT_MS),
-      }
+        'User-Agent': DESKTOP_BROWSER_HEADERS['User-Agent'],
+        Accept: 'application/json, text/plain, */*',
+        'Accept-Language': 'en-US,en;q=0.9',
+        Referer: `https://www.tiktok.com/@${encodeURIComponent(username)}`,
+      },
+      UPSTREAM_TIMEOUT_MS
     );
 
-    if (!res.ok) {
+    if (!res || !res.ok) {
       return { videos: [], cursor: null, hasMore: false };
     }
 
@@ -596,16 +601,13 @@ async function fetchEmbedVideos(username: string): Promise<{
   userInfo: Partial<TikTokUser> | null;
 }> {
   try {
-    const res = await fetch(
+    const res = await safeFetchTikTokWithRedirects(
       `https://www.tiktok.com/embed/@${encodeURIComponent(username)}`,
-      {
-        headers: DESKTOP_BROWSER_HEADERS,
-        cache: 'no-store',
-        signal: AbortSignal.timeout(UPSTREAM_TIMEOUT_MS),
-      }
+      DESKTOP_BROWSER_HEADERS,
+      UPSTREAM_TIMEOUT_MS
     );
 
-    if (!res.ok) return { videos: [], userInfo: null };
+    if (!res || !res.ok) return { videos: [], userInfo: null };
 
     const html = await res.text();
     const match = html.match(
@@ -717,10 +719,35 @@ async function fetchTikwmPosts(
 }
 
 export async function GET(req: NextRequest) {
+  const clientIp = getClientIp(req.headers);
+  const limit = checkRateLimit(
+    `api_tiktok:${clientIp}`,
+    MAX_REQUESTS_PER_MINUTE,
+    RATE_LIMIT_WINDOW_MS
+  );
+
+  if (!limit.allowed) {
+    return NextResponse.json(
+      {
+        code: -1,
+        rateLimited: true,
+        msg: 'Too many requests. Please wait a moment and try again.',
+      },
+      {
+        status: 429,
+        headers: {
+          ...API_SECURITY_HEADERS,
+          'Cache-Control': 'no-store',
+          'Retry-After': String(limit.retryAfterSeconds),
+        },
+      }
+    );
+  }
+
   const { searchParams } = new URL(req.url);
   const usernameParam = searchParams.get('username');
-  const cursorParam = searchParams.get('cursor') || '0';
-  const secUidParam = searchParams.get('secUid') || '';
+  const rawCursor = searchParams.get('cursor') || '0';
+  const rawSecUid = searchParams.get('secUid') || '';
   const infoOnly = searchParams.get('infoOnly') === '1';
   const countParam = Math.min(
     30,
@@ -730,20 +757,22 @@ export async function GET(req: NextRequest) {
   if (!usernameParam) {
     return NextResponse.json(
       { code: -1, msg: 'Missing username parameter.' },
-      { status: 400 }
+      { status: 400, headers: { ...API_SECURITY_HEADERS, 'Cache-Control': 'no-store' } }
     );
   }
 
   const cleanUser = usernameParam.replace(/^@+/, '').trim().toLowerCase();
-  if (!cleanUser) {
+  if (!/^[a-z0-9._]{1,32}$/.test(cleanUser)) {
     return NextResponse.json(
-      { code: -1, msg: 'Missing username parameter.' },
-      { status: 400 }
+      { code: -1, msg: 'Invalid TikTok username parameter.' },
+      { status: 400, headers: { ...API_SECURITY_HEADERS, 'Cache-Control': 'no-store' } }
     );
   }
 
+  const cursorParam = /^[a-zA-Z0-9_-]{1,32}$/.test(rawCursor) ? rawCursor : '0';
+  const secUidParam = /^[a-zA-Z0-9_-]{0,128}$/.test(rawSecUid) ? rawSecUid : '';
+
   try {
-    // Metadata-only lookup
     if (infoOnly) {
       const scraped =
         (await scrapeProfileHtml(cleanUser)) ||
@@ -774,6 +803,7 @@ export async function GET(req: NextRequest) {
           {
             status: 200,
             headers: {
+              ...API_SECURITY_HEADERS,
               'Cache-Control': EDGE_CACHE_HEADER,
             },
           }
@@ -782,11 +812,13 @@ export async function GET(req: NextRequest) {
 
       return NextResponse.json(
         { code: -1, msg: 'Profile metadata unavailable.' },
-        { status: 404, headers: { 'Cache-Control': 'no-store' } }
+        {
+          status: 404,
+          headers: { ...API_SECURITY_HEADERS, 'Cache-Control': 'no-store' },
+        }
       );
     }
 
-    // Pagination (Show More Videos)
     if (cursorParam && cursorParam !== '0') {
       const dummyUser: TikTokUser = {
         id: cleanUser,
@@ -828,7 +860,10 @@ export async function GET(req: NextRequest) {
             rateLimited: true,
             msg: 'Upstream service is temporarily busy. Please retry in a moment.',
           },
-          { status: 429, headers: { 'Cache-Control': 'no-store' } }
+          {
+            status: 429,
+            headers: { ...API_SECURITY_HEADERS, 'Cache-Control': 'no-store' },
+          }
         );
       }
 
@@ -849,13 +884,13 @@ export async function GET(req: NextRequest) {
         {
           status: 200,
           headers: {
+            ...API_SECURITY_HEADERS,
             'Cache-Control': EDGE_CACHE_HEADER,
           },
         }
       );
     }
 
-    // First page load: fetch profile metadata + TikWM posts in parallel for speed & cookie-free HD URLs
     const [scraped, tikwmRes] = await Promise.all([
       scrapeProfileHtml(cleanUser),
       fetchTikwmPosts(cleanUser, '0', 30),
@@ -892,6 +927,7 @@ export async function GET(req: NextRequest) {
         {
           status: 200,
           headers: {
+            ...API_SECURITY_HEADERS,
             'Cache-Control': EDGE_CACHE_HEADER,
           },
         }
@@ -978,7 +1014,10 @@ export async function GET(req: NextRequest) {
             rateLimited: true,
             msg: 'Upstream service is temporarily busy. Please retry in a moment.',
           },
-          { status: 429, headers: { 'Cache-Control': 'no-store' } }
+          {
+            status: 429,
+            headers: { ...API_SECURITY_HEADERS, 'Cache-Control': 'no-store' },
+          }
         );
       }
 
@@ -987,7 +1026,10 @@ export async function GET(req: NextRequest) {
           code: -1,
           msg: `TikTok profile @${cleanUser} could not be resolved or does not exist.`,
         },
-        { status: 404, headers: { 'Cache-Control': 'no-store' } }
+        {
+          status: 404,
+          headers: { ...API_SECURITY_HEADERS, 'Cache-Control': 'no-store' },
+        }
       );
     }
 
@@ -1026,16 +1068,18 @@ export async function GET(req: NextRequest) {
       {
         status: 200,
         headers: {
+          ...API_SECURITY_HEADERS,
           'Cache-Control': EDGE_CACHE_HEADER,
         },
       }
     );
-  } catch (err: unknown) {
-    const message =
-      err instanceof Error ? err.message : 'Serverless execution error.';
+  } catch {
     return NextResponse.json(
-      { code: -1, msg: message },
-      { status: 500, headers: { 'Cache-Control': 'no-store' } }
+      { code: -1, msg: 'Temporary upstream lookup error.' },
+      {
+        status: 500,
+        headers: { ...API_SECURITY_HEADERS, 'Cache-Control': 'no-store' },
+      }
     );
   }
 }

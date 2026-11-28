@@ -15,11 +15,17 @@ export default function robots(): MetadataRoute.Robots {
         allow: '/',
       },
       {
+        userAgent: ['Googlebot', 'Bingbot', 'Applebot', 'DuckDuckBot'],
+        allow: ['/', '/_next/static/', '/_next/image/', '/assets/', '/sitemaps/', '/api/og'],
+        disallow: ['/api/', '/admintiktok', '/*/admintiktok', '/*?*'],
+      },
+      {
         userAgent: '*',
-        allow: ['/', '/sitemaps/'],
-        disallow: ['/api/', '/admintiktok/'],
+        allow: ['/', '/_next/static/', '/_next/image/', '/assets/', '/sitemaps/', '/api/og'],
+        disallow: ['/api/', '/admintiktok', '/*/admintiktok', '/*?*'],
       },
     ],
     sitemap: `${baseUrl}/sitemap.xml`,
+    host: baseUrl,
   };
 }

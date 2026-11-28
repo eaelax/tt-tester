@@ -1,4 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
+import {
+  API_SECURITY_HEADERS,
+  checkRateLimit,
+  getClientIp,
+  isAllowedTikTokUrl,
+  safeFetchTikTokWithRedirects,
+} from '@/lib/security';
 
 type JsonRecord = Record<string, unknown>;
 
@@ -28,6 +35,8 @@ const BROWSER_UA =
 
 const UPSTREAM_TIMEOUT_MS = 3800;
 const EDGE_CACHE_HEADER = 'public, s-maxage=300, stale-while-revalidate=900';
+const MAX_REQUESTS_PER_MINUTE = 40;
+const RATE_LIMIT_WINDOW_MS = 60 * 1000;
 
 function asObj(val: unknown): JsonRecord {
   return val && typeof val === 'object' ? (val as JsonRecord) : {};
@@ -99,17 +108,6 @@ function extractImagesArray(raw: unknown): string[] {
     }
   }
   return urls;
-}
-
-function isAllowedTikTokUrl(rawUrl: string): boolean {
-  try {
-    const parsed = new URL(rawUrl);
-    if (parsed.protocol !== 'https:') return false;
-    const host = parsed.hostname.toLowerCase();
-    return host === 'tiktok.com' || host.endsWith('.tiktok.com');
-  } catch {
-    return false;
-  }
 }
 
 function sleep(ms: number): Promise<void> {
@@ -194,7 +192,6 @@ async function resolveFromTikwm(
 ): Promise<{ data: ResolvedPostPayload | null; rateLimited: boolean }> {
   let sawRateLimit = false;
 
-  // Attempt 1 & single backoff retry if rate-limited via POST (supports HD + short URLs)
   for (let attempt = 0; attempt < 2; attempt++) {
     try {
       const res = await fetch('https://www.tikwm.com/api/', {
@@ -231,7 +228,6 @@ async function resolveFromTikwm(
     }
   }
 
-  // Fallback GET without hd=1 (often succeeds when POST is throttled)
   try {
     const res = await fetch(
       `https://www.tikwm.com/api/?url=${encodeURIComponent(tiktokUrl)}`,
@@ -266,20 +262,18 @@ async function resolveFromTikwm(
 async function resolveFromPublicJsonFallback(
   tiktokUrl: string
 ): Promise<ResolvedPostPayload | null> {
-  // Cookie-free public TikTok SSR metadata fallback (no WAF CPU loops)
   try {
-    const res = await fetch(tiktokUrl, {
-      headers: {
+    const res = await safeFetchTikTokWithRedirects(
+      tiktokUrl,
+      {
         'User-Agent': BROWSER_UA,
         Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
         'Accept-Language': 'en-US,en;q=0.9',
       },
-      redirect: 'follow',
-      cache: 'no-store',
-      signal: AbortSignal.timeout(UPSTREAM_TIMEOUT_MS),
-    });
+      UPSTREAM_TIMEOUT_MS
+    );
 
-    if (res.ok) {
+    if (res && res.ok) {
       const html = await res.text();
       const match = html.match(
         /<script id="__UNIVERSAL_DATA_FOR_REHYDRATION__"[^>]*>([\s\S]*?)<\/script>/
@@ -346,6 +340,31 @@ async function resolveFromPublicJsonFallback(
 }
 
 export async function GET(req: NextRequest) {
+  const clientIp = getClientIp(req.headers);
+  const limit = checkRateLimit(
+    `api_resolve:${clientIp}`,
+    MAX_REQUESTS_PER_MINUTE,
+    RATE_LIMIT_WINDOW_MS
+  );
+
+  if (!limit.allowed) {
+    return NextResponse.json(
+      {
+        success: false,
+        rateLimited: true,
+        error: 'Too many requests. Please wait a moment and try again.',
+      },
+      {
+        status: 429,
+        headers: {
+          ...API_SECURITY_HEADERS,
+          'Cache-Control': 'no-store',
+          'Retry-After': String(limit.retryAfterSeconds),
+        },
+      }
+    );
+  }
+
   const { searchParams } = new URL(req.url);
   const rawUrlParam = searchParams.get('url');
   const videoId = searchParams.get('id');
@@ -354,27 +373,40 @@ export async function GET(req: NextRequest) {
   let targetUrl = '';
   if (rawUrlParam) {
     const trimmed = rawUrlParam.trim();
-    if (!isAllowedTikTokUrl(trimmed)) {
+    if (trimmed.length > 512 || !isAllowedTikTokUrl(trimmed)) {
       return NextResponse.json(
         { success: false, error: 'Invalid TikTok URL.' },
-        { status: 400 }
+        {
+          status: 400,
+          headers: { ...API_SECURITY_HEADERS, 'Cache-Control': 'no-store' },
+        }
       );
     }
     targetUrl = trimmed;
   } else if (videoId) {
-    const cleanId = videoId.replace(/[^0-9a-zA-Z_-]/g, '');
-    const cleanUser = username.replace(/^@+/, '').replace(/[^a-zA-Z0-9._]/g, '') || 'tiktok';
+    const cleanId = videoId.replace(/[^0-9a-zA-Z_-]/g, '').slice(0, 64);
+    const cleanUser =
+      username
+        .replace(/^@+/, '')
+        .replace(/[^a-zA-Z0-9._]/g, '')
+        .slice(0, 32) || 'tiktok';
     if (!cleanId) {
       return NextResponse.json(
         { success: false, error: 'Missing video id' },
-        { status: 400 }
+        {
+          status: 400,
+          headers: { ...API_SECURITY_HEADERS, 'Cache-Control': 'no-store' },
+        }
       );
     }
     targetUrl = `https://www.tiktok.com/@${encodeURIComponent(cleanUser)}/video/${encodeURIComponent(cleanId)}`;
   } else {
     return NextResponse.json(
       { success: false, error: 'Missing url or video id' },
-      { status: 400 }
+      {
+        status: 400,
+        headers: { ...API_SECURITY_HEADERS, 'Cache-Control': 'no-store' },
+      }
     );
   }
 
@@ -391,6 +423,7 @@ export async function GET(req: NextRequest) {
       {
         status: 200,
         headers: {
+          ...API_SECURITY_HEADERS,
           'Cache-Control': EDGE_CACHE_HEADER,
         },
       }
@@ -407,6 +440,7 @@ export async function GET(req: NextRequest) {
       {
         status: 429,
         headers: {
+          ...API_SECURITY_HEADERS,
           'Cache-Control': 'no-store',
         },
       }
@@ -418,6 +452,7 @@ export async function GET(req: NextRequest) {
     {
       status: 404,
       headers: {
+        ...API_SECURITY_HEADERS,
         'Cache-Control': 'no-store',
       },
     }
