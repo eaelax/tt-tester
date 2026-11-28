@@ -1,3 +1,4 @@
+// File: app/profile/[username]/page.tsx
 import type { Metadata } from 'next';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -10,7 +11,11 @@ import { UI_DICTIONARIES } from '@/lib/i18n/dictionaries-ui';
 import { PAGE_DICTIONARIES } from '@/lib/i18n/dictionaries-pages';
 import { SUPPORTED_LANGUAGES, localizeHref } from '@/lib/i18n/types';
 import {
+  SITE_LAST_UPDATED_ISO,
   buildAlternates,
+  buildOgImageUrl,
+  formatSeoDescription,
+  formatSeoTitle,
   getRequestLanguage,
   interpolateTemplate,
 } from '@/lib/seo/metadata';
@@ -24,17 +29,18 @@ interface Props {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { username } = await params;
-  const decodedUsername = decodeURIComponent(username).replace(/^@/, '');
+  const decodedUsername = decodeURIComponent(username).replace(/^@/, '').trim();
   const creator = getCreatorByUsername(decodedUsername);
 
   const lang = await getRequestLanguage();
   const uiDict = UI_DICTIONARIES[lang] || UI_DICTIONARIES.en;
   const pageDict = PAGE_DICTIONARIES[lang] || PAGE_DICTIONARIES.en;
+  const brandName = uiDict['brand.name'] || 'Tik Profiles Viewer';
 
   const rawTitle = creator
     ? interpolateTemplate(
         pageDict['page.profile.metaTitleKnown'] ||
-          '{displayName} (@{username}) TikTok Profile & HD Videos Without Watermark',
+          '{displayName} (@{username}) TikTok Profile & HD Videos',
         {
           displayName: creator.displayName,
           username: creator.username,
@@ -42,13 +48,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       )
     : interpolateTemplate(
         pageDict['page.profile.metaTitleFallback'] ||
-          '@{username} TikTok Profile & Free HD Videos Without Watermark',
+          '@{username} TikTok Profile & Free HD Videos',
         { username: decodedUsername }
       );
 
-  const title = `${rawTitle} - ${uiDict['brand.name']}`;
+  const title = formatSeoTitle(rawTitle, brandName, true, 65);
 
-  const description = creator
+  const rawDescription = creator
     ? interpolateTemplate(
         pageDict['page.profile.metaDescKnown'] ||
           'Watch and download @{username} TikTok videos in free HD MP4 without watermark. View {followers} followers and extract MP3 audio on TikProfilesViewer.com.',
@@ -63,38 +69,60 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         { username: decodedUsername }
       );
 
+  const description = formatSeoDescription(rawDescription, 160);
   const routePath = `/profile/${encodeURIComponent(decodedUsername)}`;
   const alternates = buildAlternates(routePath, lang);
+
+  const ogImageUrl = buildOgImageUrl({
+    title: creator
+      ? `${creator.displayName} (@${creator.username})`
+      : `@${decodedUsername} TikTok Profile`,
+    subtitle: description,
+    badge: creator ? creator.category : brandName,
+    lang,
+  });
 
   return {
     title,
     description,
+    robots: creator
+      ? { index: true, follow: true }
+      : { index: false, follow: true },
     openGraph: {
       title,
       description,
       type: 'profile',
       url: alternates.canonical,
-      siteName: uiDict['brand.name'],
+      siteName: brandName,
       locale: lang,
       alternateLocale: SUPPORTED_LANGUAGES.filter((item) => item.code !== lang).map(
         (item) => item.code
       ),
-      images: creator?.avatar
-        ? [{ url: creator.avatar, alt: creator.displayName }]
-        : undefined,
+      images: [
+        {
+          url: ogImageUrl,
+          width: 1200,
+          height: 630,
+          alt: title,
+        },
+      ],
     },
     twitter: {
       card: 'summary_large_image',
       title,
       description,
+      images: [ogImageUrl],
     },
     alternates,
+    other: {
+      'og:updated_time': SITE_LAST_UPDATED_ISO,
+    },
   };
 }
 
 export default async function CreatorProfilePage({ params }: Props) {
   const { username } = await params;
-  const decodedUsername = decodeURIComponent(username).replace(/^@/, '');
+  const decodedUsername = decodeURIComponent(username).replace(/^@/, '').trim();
   const creator = getCreatorByUsername(decodedUsername);
   const relatedCreators = getRelatedCreators(decodedUsername, creator?.categorySlug, 6);
 
@@ -133,34 +161,46 @@ export default async function CreatorProfilePage({ params }: Props) {
         { username: decodedUsername }
       );
 
-  const personSchema = {
+  const personEntity: Record<string, unknown> = {
+    '@type': 'Person',
+    name: creator ? creator.displayName : decodedUsername,
+    alternateName: `@${decodedUsername}`,
+    identifier: decodedUsername,
+    url: canonicalUrl,
+    description: creator?.bio || localizedDescription,
+  };
+
+  if (creator) {
+    personEntity.interactionStatistic = [
+      {
+        '@type': 'InteractionCounter',
+        interactionType: 'https://schema.org/FollowAction',
+        userInteractionCount: creator.followerCount,
+      },
+      {
+        '@type': 'InteractionCounter',
+        interactionType: 'https://schema.org/LikeAction',
+        userInteractionCount: creator.heartCount,
+      },
+    ];
+  }
+
+  const profilePageSchema = {
     '@context': 'https://schema.org',
     '@type': 'ProfilePage',
     name: localizedPageName,
     url: canonicalUrl,
     inLanguage: lang,
+    dateModified: SITE_LAST_UPDATED_ISO,
     description: localizedDescription,
-    mainEntity: {
-      '@type': 'Person',
-      name: creator ? creator.displayName : decodedUsername,
-      alternateName: `@${decodedUsername}`,
-      identifier: decodedUsername,
-      url: canonicalUrl,
-      description: creator?.bio || localizedDescription,
-      interactionStatistic: [
-        {
-          '@type': 'InteractionCounter',
-          interactionType: 'https://schema.org/FollowAction',
-          userInteractionCount: creator?.followerCount || 0,
-        },
-      ],
-    },
+    mainEntity: personEntity,
   };
 
   const faqSchema = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
     inLanguage: lang,
+    dateModified: SITE_LAST_UPDATED_ISO,
     mainEntity: [1, 2, 3].map((num) => ({
       '@type': 'Question',
       name: interpolateTemplate(pageDict[`page.profile.q${num}`] || '', {
@@ -185,10 +225,10 @@ export default async function CreatorProfilePage({ params }: Props) {
     <div className="min-h-screen flex flex-col bg-[var(--surface-canvas)] text-[var(--ink-primary)]">
       <Navbar />
 
-      <main className="flex-1 w-full flex flex-col">
+      <main id="main-content" className="flex-1 w-full flex flex-col">
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(profilePageSchema) }}
         />
         <script
           type="application/ld+json"

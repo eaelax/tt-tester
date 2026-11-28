@@ -1,3 +1,4 @@
+// File: components/Breadcrumbs.tsx
 'use client';
 
 import Link from 'next/link';
@@ -14,6 +15,10 @@ interface BreadcrumbsProps {
   items: BreadcrumbItem[];
 }
 
+const CANONICAL_BASE_URL = (
+  process.env.NEXT_PUBLIC_APP_URL || 'https://tikprofilesviewer.com'
+).replace(/\/+$/, '');
+
 export default function Breadcrumbs({ items }: BreadcrumbsProps) {
   const { t, translateText, localizeHref } = useI18n();
 
@@ -29,14 +34,14 @@ export default function Breadcrumbs({ items }: BreadcrumbsProps) {
       '@type': 'ListItem',
       position: 1,
       name: t('breadcrumb.home'),
-      item: `https://tikprofilesviewer.com${localizeHref('/')}`,
+      item: `${CANONICAL_BASE_URL}${localizeHref('/')}`,
     },
     ...items.map((item, idx) => ({
       '@type': 'ListItem',
       position: idx + 2,
       name: resolveLabel(item),
       ...(item.href
-        ? { item: `https://tikprofilesviewer.com${localizeHref(item.href)}` }
+        ? { item: `${CANONICAL_BASE_URL}${localizeHref(item.href)}` }
         : {}),
     })),
   ];

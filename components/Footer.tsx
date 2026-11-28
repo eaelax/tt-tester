@@ -1,10 +1,26 @@
+// File: components/Footer.tsx
 'use client';
 
 import Link from 'next/link';
 import { useI18n } from '@/lib/i18n/context';
+import type { LanguageCode } from '@/lib/i18n/types';
+
+const SITEMAP_LABELS: Record<LanguageCode, string> = {
+  en: 'HTML Sitemap',
+  ar: 'خريطة الموقع',
+  fr: 'Plan du site',
+  es: 'Mapa del sitio',
+  de: 'HTML-Sitemap',
+  ru: 'Карта сайта',
+  zh: '网站地图',
+  pt: 'Mapa do site',
+  he: 'מפת אתר',
+  hi: 'साइटमैप',
+};
 
 export default function Footer() {
-  const { t, localizeHref } = useI18n();
+  const { lang, t, localizeHref } = useI18n();
+  const sitemapLabel = SITEMAP_LABELS[lang] || SITEMAP_LABELS.en;
 
   const handleGoHome = () => {
     if (typeof window !== 'undefined') {
@@ -26,6 +42,8 @@ export default function Footer() {
             <img
               src="/assets/aistudio/tik-profiles-viewer-logo_c4487561.png"
               alt={t('brand.name')}
+              width={32}
+              height={32}
               className="w-8 h-8 object-contain shrink-0"
             />
             <span>{t('brand.name')}</span>
@@ -53,6 +71,12 @@ export default function Footer() {
               className="px-3 py-1 rounded-lg bg-[var(--surface-canvas)] hover:bg-[var(--pastel-blue)] border border-[var(--border-subtle)] hover:border-[var(--accent-cyan)] hover:text-[var(--accent-cyan-text)] font-semibold transition-colors duration-150"
             >
               {t('footer.topCreators')}
+            </Link>
+            <Link
+              href={localizeHref('/sitemap')}
+              className="px-3 py-1 rounded-lg bg-[var(--surface-canvas)] hover:bg-[var(--pastel-blue)] border border-[var(--border-subtle)] hover:border-[var(--accent-cyan)] hover:text-[var(--accent-cyan-text)] font-semibold transition-colors duration-150"
+            >
+              {sitemapLabel}
             </Link>
           </div>
         </div>
@@ -166,6 +190,14 @@ export default function Footer() {
                 className="hover:text-[var(--accent-cyan-text)] transition-colors duration-150"
               >
                 {t('nav.categories')}
+              </Link>
+            </li>
+            <li>
+              <Link
+                href={localizeHref('/sitemap')}
+                className="hover:text-[var(--accent-cyan-text)] transition-colors duration-150"
+              >
+                {sitemapLabel}
               </Link>
             </li>
           </ul>
